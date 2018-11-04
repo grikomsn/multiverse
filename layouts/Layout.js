@@ -54,6 +54,19 @@ export default class Layout extends Component {
             content="/static/browserconfig.xml"
           />
           <meta name="theme-color" content={this.props.colorHex} />
+
+          <meta property="og:image:width" content="1280" />
+          <meta property="og:image:height" content="670" />
+          <meta property="og:title" content="Griko Nibras" />
+          <meta
+            property="og:description"
+            content="Software developer from Surabaya, ID"
+          />
+          <meta property="og:url" content="https://griko.id" />
+          <meta property="og:image" content="/static/g-opengraph.png" />
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@griko_nibras" />
+          <meta name="twitter:creator" content="@griko_nibras" />
         </Head>
         {this.props.children}
       </div>
