@@ -1,0 +1,29 @@
+$yellow: #fef380;
+
+@import '~bulma';
+@import './emojione';
+
+* {
+  transition: all 200ms ease;
+}
+
+:root {
+  --color-primary: #{$primary};
+  --color-link: #{$link};
+  --color-info: #{$info};
+  --color-success: #{$success};
+  --color-warning: #{$warning};
+  --color-danger: #{$danger};
+  --color-dark: #{$dark};
+}
+
+html,
+body {
+  background-color: var(--color-dark);
+  min-height: 100vh;
+}
+
+.g-max-width {
+  max-width: 1024px;
+  margin: 0 auto;
+}
