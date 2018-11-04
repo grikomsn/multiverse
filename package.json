@@ -2,7 +2,6 @@
   "name": "landing",
   "version": "2.0.0",
   "description": "Personal landing page, powered with Next.js",
-  "main": "index.js",
   "repository": "https://github.com/grikomsn/landing-page.git",
   "author": "Griko Nibras <grikomsn@gmail.com>",
   "license": "MIT",
