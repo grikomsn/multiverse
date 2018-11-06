@@ -167,7 +167,7 @@ class SectionThird extends Component {
 }
 
 export default () => (
-  <Layout>
+  <Layout colorHex="#fef380">
     <div className="hero is-fullheight is-warning">
       <div className="hero-head">
         <Navbar />
