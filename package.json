@@ -21,6 +21,7 @@
     "bulma": "^0.7.2",
     "emojione": "^4.0.0",
     "next": "^7.0.2",
+    "next-ga": "^2.3.3",
     "next-page-transitions": "^1.0.0-alpha.4",
     "node-sass": "^4.9.4",
     "react": "^16.6.0",

@@ -69,6 +69,12 @@ export default class Layout extends Component {
           <meta name="twitter:creator" content="@griko_nibras" />
         </Head>
         {this.props.children}
+        <style jsx>{`
+          html,
+          body {
+            background-color: ${this.props.colorHex};
+          }
+        `}</style>
       </div>
     )
   }

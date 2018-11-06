@@ -58,12 +58,5 @@ export default () => (
     </div>
 
     <Footer />
-
-    <style global jsx>{`
-      html,
-      body {
-        background-color: #353535;
-      }
-    `}</style>
   </Layout>
 )
