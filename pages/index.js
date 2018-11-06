@@ -151,7 +151,7 @@ class SectionThird extends Component {
         </section>
         <style jsx>{`
           .card-content {
-            padding: 4rem 0;
+            padding: 4rem 1rem;
           }
           .container {
             padding: 0 0.4rem;
@@ -375,10 +375,6 @@ export default () => (
     <Footer />
 
     <style global jsx>{`
-      html,
-      body {
-        background-color: var(--color-warning);
-      }
       hr {
         margin: 3rem 0;
       }

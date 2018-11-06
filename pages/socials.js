@@ -59,7 +59,7 @@ export default () => (
 
     <Footer />
 
-    <style jsx>{`
+    <style global jsx>{`
       html,
       body {
         background-color: #353535;
