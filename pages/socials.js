@@ -1,3 +1,4 @@
+import Fade from 'react-reveal/Fade'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Footer from '../components/Footer'
 import Layout from '../layouts/Layout'

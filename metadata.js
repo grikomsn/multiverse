@@ -8,8 +8,10 @@ import {
   faHackerNewsSquare,
   faInstagram,
   faKeybase,
+  faLine,
   faMediumM,
   faProductHunt,
+  faSoundcloud,
   faSpotify,
   faSteam,
   faTelegram,
@@ -92,6 +94,15 @@ export default {
       color: '#3ba2fc',
       isPrimary: false,
     },
+
+    {
+      id: 'LINE',
+      href: 'https://line.me/ti/p/~grikomsn',
+      classFontAwesome: faLine,
+      color: '#00b900',
+      isPrimary: false,
+    },
+
     {
       id: 'Medium',
       href: 'https://medium.com/@griko',
@@ -104,6 +115,13 @@ export default {
       href: 'https://www.producthunt.com/@griko_nibras',
       classFontAwesome: faProductHunt,
       color: '#da552f',
+      isPrimary: false,
+    },
+    {
+      id: 'SoundCloud',
+      href: 'https://soundcloud.com/grikomsn',
+      classFontAwesome: faSoundcloud,
+      color: '#ff7700',
       isPrimary: false,
     },
     {

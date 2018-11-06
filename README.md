@@ -44,6 +44,7 @@ this got featured on [Bulma Expo](https://bulma.io/expo/). 😄
 - [Font Awesome](https://fontawesome.com/)
 - [Next.js](https://github.com/zeit/next.js)
 - [`illinois/next-page-transitions`](https://github.com/illinois/next-page-transitions)
+- [`react-reveal`](https://github.com/rnosov/react-reveal)
 - [`sass/node-sass`](https://github.com/sass/node-sass)
 
 ### Dev Dependencies

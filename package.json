@@ -25,7 +25,8 @@
     "next-page-transitions": "^1.0.0-alpha.4",
     "node-sass": "^4.9.4",
     "react": "^16.6.0",
-    "react-dom": "^16.6.0"
+    "react-dom": "^16.6.0",
+    "react-reveal": "^1.2.2"
   },
   "devDependencies": {
     "@types/react": "^16.4.18",

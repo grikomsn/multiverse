@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 
+import Bounce from 'react-reveal/Bounce'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Footer from '../components/Footer'
+import IAmInterested from '../components/IAmInterested'
 import Layout from '../layouts/Layout'
 import Navbar from '../components/Navbar'
-import NextLink from '../components/NextLink'
 import Spring from '../components/Spring'
 import { faTerminal } from '@fortawesome/free-solid-svg-icons'
 import metadata from '../metadata'
@@ -27,7 +28,7 @@ class SectionFirst extends Component {
         <style jsx>{`
           #avatar {
             position: relative;
-            z-index: 100;
+            z-index: 2;
             margin: 0 auto -96px;
             width: 192px;
             height: 192px;
@@ -144,7 +145,7 @@ class SectionThird extends Component {
           <div className="container">
             <div className="card g-max-width">
               <div className="card-content has-text-centered">
-                {this.props.children}
+                <IAmInterested />
               </div>
             </div>
           </div>
@@ -173,7 +174,9 @@ export default () => (
       </div>
       <div className="hero-body">
         <div className="container has-text-centered">
-          <Spring />
+          <Bounce top>
+            <Spring />
+          </Bounce>
           <div className="subtitle">
             Hello there! I'm a software developer from Surabaya, ID.
           </div>
@@ -349,28 +352,7 @@ export default () => (
       <br />
     </SectionSecond>
 
-    <SectionThird>
-      <div className="content">
-        <h1>Interested in working together? Let's talk.</h1>
-        <p>
-          Contact me via email for business inquiries, or{' '}
-          <NextLink href="/socials">say hello via social medias</NextLink>.
-        </p>
-        <br />
-        <div className="buttons" style={{ justifyContent: 'center' }}>
-          <a
-            href={`mailto:${metadata.email}`}
-            className="button is-info is-outlined">
-            <i className="e1a-wave_tone1" /> &nbsp; {metadata.email}
-          </a>
-          <a
-            href={`mailto:${metadata.emailSecondary}`}
-            className="button is-warning is-outlined">
-            <i className="e1a-eyes" /> &nbsp; {metadata.emailSecondary}
-          </a>
-        </div>
-      </div>
-    </SectionThird>
+    <SectionThird />
 
     <Footer />
 

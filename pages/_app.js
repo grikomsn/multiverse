@@ -3,10 +3,9 @@ import App, { Container } from 'next/app'
 import { PageTransition } from 'next-page-transitions'
 import React from 'react'
 import Router from 'next/router'
-import withGA from 'next-ga'
 
-class CustomApp extends App {
-  static async getInitialProps({ Component, router, ctx }) {
+export default class extends App {
+  static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
     if (Component.getInitialProps) {
@@ -44,5 +43,3 @@ class CustomApp extends App {
     )
   }
 }
-
-export default withGA('UA-128742601-1', Router)(CustomApp)
