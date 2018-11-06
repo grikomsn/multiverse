@@ -7,19 +7,9 @@ $yellow: #fef380;
   transition: all 200ms ease;
 }
 
-:root {
-  --color-primary: #{$primary};
-  --color-link: #{$link};
-  --color-info: #{$info};
-  --color-success: #{$success};
-  --color-warning: #{$warning};
-  --color-danger: #{$danger};
-  --color-dark: #{$dark};
-}
-
 html,
 body {
-  background-color: var(--color-dark);
+  background-color: #{$yellow};
   min-height: 100vh;
 }
 

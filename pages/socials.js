@@ -38,7 +38,7 @@ const Socials = () =>
   ))
 
 export default () => (
-  <Layout>
+  <Layout colorHex="#353535">
     <div className="hero is-dark">
       <div className="hero-head">
         <Navbar />
@@ -58,5 +58,12 @@ export default () => (
     </div>
 
     <Footer />
+
+    <style jsx>{`
+      html,
+      body {
+        background-color: #353535;
+      }
+    `}</style>
   </Layout>
 )
