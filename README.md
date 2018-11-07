@@ -46,16 +46,18 @@ optimize my landing page and host statically it on ~~GitHub Pages~~
 - [EmojiOne](https://www.emojione.com/emoji/v4)
 - [Font Awesome](https://fontawesome.com)
 - [Next.js][nextjs]
-- [`illinois/next-page-transitions`](https://github.com/illinois/next-page-transitions)
+- [`next-offline`](https://github.com/hanford/next-offline)
+- [`next-optimized-images`](https://github.com/cyrilwanner/next-optimized-images)
+- [`next-page-transitions`](https://github.com/illinois/next-page-transitions)
+- [`next-purgecss`](https://github.com/lucleray/next-purgecss)
+- [`node-sass`](https://github.com/sass/node-sass)
 - [`react-reveal`](https://github.com/rnosov/react-reveal)
-- [`sass/node-sass`](https://github.com/sass/node-sass)
 
 ### Dev Dependencies
 
 - [`@types/react`](https://www.yarnpkg.com/en/package/@types/react)
 - [`@types/react-dom`](https://www.yarnpkg.com/en/package/@types/react-dom)
-- [Prettier](https://prettier.io)
-- [`PropTypes`](https://www.yarnpkg.com/en/package/prop-types)
+- [`prop-types`](https://www.yarnpkg.com/en/package/prop-types)
 
 View more details on the [`package.json`](./package.json) file.
 

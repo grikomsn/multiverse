@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
+    "dev:custom": "node server.js",
     "build": "next build",
-    "export": "next build && next export && node post-export.js",
-    "lint": "prettier --config ./.prettierrc --write {components,layouts,pages}/**/*.js"
+    "export": "next build && next export && node post-export.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -21,8 +21,12 @@
     "bulma": "^0.7.2",
     "emojione": "^4.0.0",
     "next": "^7.0.2",
+    "next-compose-plugins": "^2.1.1",
     "next-ga": "^2.3.3",
+    "next-offline": "^3.0.4",
+    "next-optimized-images": "^1.4.1",
     "next-page-transitions": "^1.0.0-alpha.4",
+    "next-purgecss": "^2.0.0",
     "node-sass": "^4.9.4",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
@@ -31,7 +35,6 @@
   "devDependencies": {
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
-    "prettier": "^1.14.3",
     "prop-types": "^15.6.2"
   }
 }

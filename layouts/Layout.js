@@ -14,7 +14,7 @@ export default class Layout extends Component {
           <meta charSet="UTF-8" />
           <meta
             name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
           />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
           <title>{this.props.pageTitle}</title>
@@ -55,18 +55,19 @@ export default class Layout extends Component {
           />
           <meta name="theme-color" content={this.props.colorHex} />
 
-          <meta property="og:image:width" content="1280" />
-          <meta property="og:image:height" content="670" />
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@griko_nibras" />
+          <meta name="twitter:creator" content="@griko_nibras" />
+
+          <meta property="og:url" content="https://griko.id" />
           <meta property="og:title" content="Griko Nibras" />
           <meta
             property="og:description"
             content="Software developer from Surabaya, ID"
           />
-          <meta property="og:url" content="https://griko.id" />
           <meta property="og:image" content="/static/g-opengraph.png" />
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:site" content="@griko_nibras" />
-          <meta name="twitter:creator" content="@griko_nibras" />
+          <meta property="og:image:width" content="1280" />
+          <meta property="og:image:height" content="670" />
         </Head>
         {this.props.children}
         <style global jsx>{`

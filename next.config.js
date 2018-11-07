@@ -1,4 +1,9 @@
-const withCss = require('@zeit/next-css')
-const withSass = require('@zeit/next-sass')
+const withPlugins = require('next-compose-plugins')
 
-module.exports = withCss(withSass())
+module.exports = withPlugins([
+  [require('next-offline'), {}],
+  [require('next-optimized-images'), {}],
+  [require('@zeit/next-css'), {}],
+  [require('@zeit/next-sass'), {}],
+  [require('next-purgecss'), {}],
+])

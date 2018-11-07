@@ -15,7 +15,6 @@
   ],
   "theme_color": "#ffdd57",
   "background_color": "#ffdd57",
-  "start_url": "https://griko.id",
   "display": "standalone",
   "orientation": "portrait"
 }
