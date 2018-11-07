@@ -2,7 +2,7 @@
 
 # landing-page
 
-Personal landing page, powered with [Next.js](https://github.com/zeit/next.js) ✨
+Personal landing page, powered with [Next.js][nextjs] ✨
 
 [![Screenshot](preview.png)](https://griko.id)
 
@@ -11,15 +11,16 @@ Personal landing page, powered with [Next.js](https://github.com/zeit/next.js) �
 ## Description
 
 After many iterations and deployments throughout many providers, I decided to
-optimize my landing page and host statically it on GitHub Pages. Oh and also
-this got featured on [Bulma Expo](https://bulma.io/expo/). 😄
+optimize my landing page and host statically it on ~~GitHub Pages~~
+[Netlify](https://griko.netlify.com). Oh and also this got featured on
+[Bulma Expo](https://bulma.io/expo). 😄
 
 ## Development
 
 ### Requirements
 
-- [Node.js](https://nodejs.org/en/)
-- [Yarn](https://yarnpkg.com/en/) (recommended)
+- [Node.js](https://nodejs.org/en)
+- [Yarn](https://yarnpkg.com/en) (recommended)
 
 ### Steps
 
@@ -31,18 +32,20 @@ this got featured on [Bulma Expo](https://bulma.io/expo/). 😄
 
 ### Publishing
 
-- Add a `.nojekyll` file in `out` directory if publishing on GitHub Pages
 - Publish the `out` directory contents anywhere
-  (GitHub Pages, [Netlify](https://www.netlify.com/), Surge.sh, [Zeit Now](https://zeit.co/now), etc.)
+  ([GitHub Pages](https://pages.github.com),
+  [Netlify](https://www.netlify.com),
+  [Surge.sh](https://surge.sh),
+  [Zeit Now](https://zeit.co/now), etc.)
 
 ## Libraries and Packages
 
 ### Dependencies
 
-- [Bulma](https://bulma.io/)
+- [Bulma](https://bulma.io)
 - [EmojiOne](https://www.emojione.com/emoji/v4)
-- [Font Awesome](https://fontawesome.com/)
-- [Next.js](https://github.com/zeit/next.js)
+- [Font Awesome](https://fontawesome.com)
+- [Next.js][nextjs]
 - [`illinois/next-page-transitions`](https://github.com/illinois/next-page-transitions)
 - [`react-reveal`](https://github.com/rnosov/react-reveal)
 - [`sass/node-sass`](https://github.com/sass/node-sass)
@@ -51,7 +54,7 @@ this got featured on [Bulma Expo](https://bulma.io/expo/). 😄
 
 - [`@types/react`](https://www.yarnpkg.com/en/package/@types/react)
 - [`@types/react-dom`](https://www.yarnpkg.com/en/package/@types/react-dom)
-- [Prettier](https://prettier.io/)
+- [Prettier](https://prettier.io)
 - [`PropTypes`](https://www.yarnpkg.com/en/package/prop-types)
 
 View more details on the [`package.json`](./package.json) file.
@@ -66,5 +69,8 @@ View more details on the [`package.json`](./package.json) file.
 
 ## Credits
 
-Big thanks for all the listed packages above, especially [Jeremy Thomas](https://github.com/jgthms)
-for creating Bulma and all of the [Zeit](https://zeit.co/home) team for Next.js! 🎉
+Big thanks for all the listed packages above, especially
+[Jeremy Thomas](https://github.com/jgthms) for creating Bulma and all of the
+[Zeit](https://zeit.co/home) team for Next.js! 🎉
+
+[nextjs]: https://github.com/zeit/next.js
