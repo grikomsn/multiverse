@@ -90,6 +90,10 @@ export default class extends Component {
         </Fade>
 
         <style global jsx>{`
+          html,
+          body {
+            overflow: ${this.state.modalState ? 'hidden' : 'initial'};
+          }
           .modal-card {
             border-radius: 4px;
             max-width: 800px;
