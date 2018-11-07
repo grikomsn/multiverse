@@ -7,11 +7,19 @@ import NextLink from './NextLink'
 import metadata from '../metadata'
 
 const NavbarSocials = () =>
-  metadata.links.filter(link => link.isPrimary).map(c => (
-    <NextLink href={c.href} target="_blank" className="navbar-item" key={c.id}>
-      <FontAwesomeIcon icon={c.classFontAwesome} fixedWidth />
-    </NextLink>
-  ))
+  metadata.links
+    .filter(link => link.isPrimary)
+    .map(c => (
+      <NextLink
+        href={c.href}
+        target="_blank"
+        className="navbar-item"
+        rel="noreferrer"
+        aria-label={c.id}
+        key={c.id}>
+        <FontAwesomeIcon icon={c.classFontAwesome} fixedWidth />
+      </NextLink>
+    ))
 
 export default class extends Component {
   constructor(props) {

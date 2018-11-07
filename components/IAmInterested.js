@@ -15,12 +15,10 @@ export default () => (
     <div className="buttons" style={{ justifyContent: 'center' }}>
       <a
         href={`mailto:${metadata.email}`}
-        className="button is-info is-outlined">
+        className="button is-info is-primary">
         <i className="e1a-wave_tone1" /> &nbsp; {metadata.email}
       </a>
-      <a
-        href={`mailto:${metadata.emailSecondary}`}
-        className="button is-warning is-outlined">
+      <a href={`mailto:${metadata.emailSecondary}`} className="button is-light">
         <i className="e1a-eyes" /> &nbsp; {metadata.emailSecondary}
       </a>
     </div>

@@ -4,15 +4,19 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import metadata from '../metadata'
 
 const FooterSocials = () =>
-  metadata.links.filter(link => link.isPrimary).map(c => (
-    <NextLink
-      href={c.href}
-      target="_blank"
-      className="button is-dark is-rounded"
-      key={c.id}>
-      <FontAwesomeIcon icon={c.classFontAwesome} fixedWidth />
-    </NextLink>
-  ))
+  metadata.links
+    .filter(link => link.isPrimary)
+    .map(c => (
+      <NextLink
+        href={c.href}
+        target="_blank"
+        className="button is-dark is-rounded"
+        rel="noreferrer"
+        aria-label={c.id}
+        key={c.id}>
+        <FontAwesomeIcon icon={c.classFontAwesome} fixedWidth />
+      </NextLink>
+    ))
 
 export default () => (
   <footer className="footer has-background-dark has-text-light">
@@ -24,13 +28,18 @@ export default () => (
         Handcrafted with <FontAwesomeIcon icon={faHeart} fixedWidth /> by
         myself. Copyright &copy; {new Date().getFullYear()}.<br />
         Made with{' '}
-        <a href="https://bulma.io/" target="_blank" className="has-text-light">
+        <a
+          href="https://bulma.io/"
+          target="_blank"
+          rel="noreferrer"
+          className="has-text-light">
           <b>Bulma</b>
         </a>
         {' and '}
         <a
           href="https://nextjs.org/"
           target="_blank"
+          rel="noreferrer"
           className="has-text-light">
           <b>Next.js</b>
         </a>
@@ -40,6 +49,7 @@ export default () => (
         <a
           href="https://github.com/grikomsn/landing-page"
           target="_blank"
+          rel="noreferrer"
           className="has-text-light">
           <b>GitHub</b>
         </a>

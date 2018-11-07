@@ -1,4 +1,3 @@
-import Fade from 'react-reveal/Fade'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Footer from '../components/Footer'
 import Layout from '../layouts/Layout'
@@ -11,6 +10,8 @@ const Socials = () =>
       href={c.href}
       target="_blank"
       key={c.id}
+      rel="noreferrer"
+      aria-label={c.id}
       className="column is-one-third socials">
       <div className="box">
         <FontAwesomeIcon

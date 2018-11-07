@@ -2,7 +2,6 @@ import App, { Container } from 'next/app'
 
 import { PageTransition } from 'next-page-transitions'
 import React from 'react'
-import Router from 'next/router'
 
 export default class extends App {
   static async getInitialProps({ Component, ctx }) {

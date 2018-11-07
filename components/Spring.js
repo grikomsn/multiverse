@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import metadata from '../metadata'
+
 export default class Spring extends Component {
   scrollAfterClick() {
     window.scroll({
@@ -14,6 +16,7 @@ export default class Spring extends Component {
         <img
           src="/static/g-spring.svg"
           id="g-spring"
+          alt={metadata.pageTitle}
           onClick={this.scrollAfterClick}
         />
         <style jsx>{`

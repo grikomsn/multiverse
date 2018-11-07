@@ -216,7 +216,10 @@ export default () => (
           <div className="card">
             <div className="card-image">
               <figure className="image">
-                <img src="/static/g-works-inforlabs.png" alt="Inforlabs" />
+                <img
+                  src={require('../static/g-works-inforlabs.png')}
+                  alt="Inforlabs"
+                />
               </figure>
             </div>
             <div className="card-content">
@@ -234,6 +237,7 @@ export default () => (
               <a
                 href="https://inforlabs.net"
                 className="card-footer-item"
+                rel="noreferrer"
                 target="_blank">
                 inforlabs.net
               </a>
@@ -245,7 +249,7 @@ export default () => (
             <div className="card-image">
               <figure className="image">
                 <img
-                  src="/static/g-works-rotten-reviews.png"
+                  src={require('../static/g-works-rotten-reviews.png')}
                   alt="Rotten Reviews"
                 />
               </figure>
@@ -256,14 +260,27 @@ export default () => (
               <p>
                 Rotten Reviews is a Node.js package that scrapes movie and TV
                 show audience reviews from Rotten Tomatoes. Also maintained by{' '}
-                <a href="https://github.com/vimark1">Filype Pereira</a> and{' '}
-                <a href="https://github.com/jbbn">Joao Bueno</a>.
+                <a
+                  href="https://github.com/vimark1"
+                  target="_blank"
+                  rel="noreferrer">
+                  Filype Pereira
+                </a>
+                {' and '}
+                <a
+                  href="https://github.com/jbbn"
+                  target="_blank"
+                  rel="noreferrer">
+                  Joao Bueno
+                </a>
+                .
               </p>
             </div>
             <div className="card-footer">
               <a
                 href="https://github.com/grikomsn/rotten-reviews"
                 className="card-footer-item"
+                rel="noreferrer"
                 target="_blank">
                 grikomsn/rotten-reviews
               </a>
@@ -287,7 +304,7 @@ export default () => (
             <div className="card-image">
               <figure className="image">
                 <img
-                  src="/static/g-plugs-articles.jpg"
+                  src={require('../static/g-plugs-articles.jpg')}
                   alt="Development Articles"
                 />
               </figure>
@@ -307,12 +324,14 @@ export default () => (
               <a
                 href="https://dev.to/grikomsn"
                 className="card-footer-item"
+                rel="noreferrer"
                 target="_blank">
                 dev.to
               </a>
               <a
                 href="https://medium.com/@griko"
                 className="card-footer-item"
+                rel="noreferrer"
                 target="_blank">
                 Medium
               </a>
@@ -324,7 +343,7 @@ export default () => (
             <div className="card-image">
               <figure className="image">
                 <img
-                  src="/static/g-plugs-wallpaper.png"
+                  src={require('../static/g-plugs-wallpaper.png')}
                   alt="Gadget Wallpapers"
                 />
               </figure>
@@ -342,6 +361,7 @@ export default () => (
               <a
                 href="https://grikomsn.deviantart.com/gallery/66550103/Wallpapers"
                 className="card-footer-item"
+                rel="noreferrer"
                 target="_blank">
                 DeviantArt Gallery
               </a>
