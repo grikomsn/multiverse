@@ -95,11 +95,12 @@ export default class extends Component {
             overflow: ${this.state.modalState ? 'hidden' : 'initial'};
           }
           .modal-card {
-            border-radius: 4px;
             max-width: 800px;
             width: 100%;
           }
           .modal-card-body {
+            border-radius: 4px;
+            margin: 0.5rem;
             padding: 4rem 1rem;
           }
           .navbar-burger {
