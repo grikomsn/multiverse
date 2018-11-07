@@ -51,6 +51,7 @@ optimize my landing page and host statically it on ~~GitHub Pages~~
 - [`next-page-transitions`](https://github.com/illinois/next-page-transitions)
 - [`next-purgecss`](https://github.com/lucleray/next-purgecss)
 - [`node-sass`](https://github.com/sass/node-sass)
+- [`react-lazyload`](https://github.com/jasonslyvia/react-lazyload)
 - [`react-reveal`](https://github.com/rnosov/react-reveal)
 
 ### Dev Dependencies

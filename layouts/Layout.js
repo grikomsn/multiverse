@@ -68,7 +68,7 @@ export default class Layout extends Component {
           />
           <meta
             property="og:image"
-            content={require('../static/g-opengraph.png')}
+            content={require('../static/g-opengraph.jpg')}
           />
           <meta property="og:image:width" content="1280" />
           <meta property="og:image:height" content="670" />

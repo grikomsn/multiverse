@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Footer from '../components/Footer'
 import IAmInterested from '../components/IAmInterested'
 import Layout from '../layouts/Layout'
+import LazyLoad from 'react-lazyload'
 import Navbar from '../components/Navbar'
 import Spring from '../components/Spring'
 import { faTerminal } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +17,9 @@ class SectionFirst extends Component {
       <div className="has-background-warning">
         <section className="section">
           <div className="container">
-            <div id="avatar" />
+            <LazyLoad>
+              <div id="avatar" />
+            </LazyLoad>
             <div className="card g-max-width">
               <div className="card-content has-text-centered">
                 {this.props.children}
@@ -216,10 +219,12 @@ export default () => (
           <div className="card">
             <div className="card-image">
               <figure className="image">
-                <img
-                  src={require('../static/g-works-inforlabs.png')}
-                  alt="Inforlabs"
-                />
+                <LazyLoad>
+                  <img
+                    src={require('../static/g-works-inforlabs.jpg')}
+                    alt="Inforlabs"
+                  />
+                </LazyLoad>
               </figure>
             </div>
             <div className="card-content">
@@ -248,10 +253,12 @@ export default () => (
           <div className="card">
             <div className="card-image">
               <figure className="image">
-                <img
-                  src={require('../static/g-works-rotten-reviews.png')}
-                  alt="Rotten Reviews"
-                />
+                <LazyLoad>
+                  <img
+                    src={require('../static/g-works-rotten-reviews.jpg')}
+                    alt="Rotten Reviews"
+                  />
+                </LazyLoad>
               </figure>
             </div>
             <div className="card-content">
@@ -303,10 +310,12 @@ export default () => (
           <div className="card">
             <div className="card-image">
               <figure className="image">
-                <img
-                  src={require('../static/g-plugs-articles.jpg')}
-                  alt="Development Articles"
-                />
+                <LazyLoad>
+                  <img
+                    src={require('../static/g-plugs-articles.jpg')}
+                    alt="Development Articles"
+                  />
+                </LazyLoad>
               </figure>
             </div>
             <div className="card-content">
@@ -342,10 +351,12 @@ export default () => (
           <div className="card">
             <div className="card-image">
               <figure className="image">
-                <img
-                  src={require('../static/g-plugs-wallpaper.png')}
-                  alt="Gadget Wallpapers"
-                />
+                <LazyLoad>
+                  <img
+                    src={require('../static/g-plugs-wallpaper.jpg')}
+                    alt="Gadget Wallpapers"
+                  />
+                </LazyLoad>
               </figure>
             </div>
             <div className="card-content">
