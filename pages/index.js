@@ -1,6 +1,6 @@
+import { Bounce, Fade } from 'react-reveal'
 import React, { Component } from 'react'
 
-import Bounce from 'react-reveal/Bounce'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Footer from '../components/Footer'
 import IAmInterested from '../components/IAmInterested'
@@ -18,7 +18,9 @@ class SectionFirst extends Component {
         <section className="section">
           <div className="container">
             <LazyLoad>
-              <div id="avatar" />
+              <Fade>
+                <div id="avatar" />
+              </Fade>
             </LazyLoad>
             <div className="card g-max-width">
               <div className="card-content has-text-centered">
@@ -220,10 +222,12 @@ export default () => (
             <div className="card-image">
               <figure className="image">
                 <LazyLoad>
-                  <img
-                    src={require('../static/g-works-inforlabs.jpg')}
-                    alt="Inforlabs"
-                  />
+                  <Fade>
+                    <img
+                      src={require('../static/g-works-inforlabs.jpg')}
+                      alt="Inforlabs"
+                    />
+                  </Fade>
                 </LazyLoad>
               </figure>
             </div>
@@ -254,10 +258,12 @@ export default () => (
             <div className="card-image">
               <figure className="image">
                 <LazyLoad>
-                  <img
-                    src={require('../static/g-works-rotten-reviews.jpg')}
-                    alt="Rotten Reviews"
-                  />
+                  <Fade>
+                    <img
+                      src={require('../static/g-works-rotten-reviews.jpg')}
+                      alt="Rotten Reviews"
+                    />
+                  </Fade>
                 </LazyLoad>
               </figure>
             </div>
@@ -311,10 +317,12 @@ export default () => (
             <div className="card-image">
               <figure className="image">
                 <LazyLoad>
-                  <img
-                    src={require('../static/g-plugs-articles.jpg')}
-                    alt="Development Articles"
-                  />
+                  <Fade>
+                    <img
+                      src={require('../static/g-plugs-articles.jpg')}
+                      alt="Development Articles"
+                    />
+                  </Fade>
                 </LazyLoad>
               </figure>
             </div>
@@ -352,10 +360,12 @@ export default () => (
             <div className="card-image">
               <figure className="image">
                 <LazyLoad>
-                  <img
-                    src={require('../static/g-plugs-wallpaper.jpg')}
-                    alt="Gadget Wallpapers"
-                  />
+                  <Fade>
+                    <img
+                      src={require('../static/g-plugs-wallpaper.jpg')}
+                      alt="Gadget Wallpapers"
+                    />
+                  </Fade>
                 </LazyLoad>
               </figure>
             </div>

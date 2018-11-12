@@ -64,9 +64,13 @@ export default class extends Component {
             className={`navbar-menu ${
               this.state.navbarState ? 'is-active' : ''
             }`}>
-            <div className="navbar-end has-text-centered">
+            <div className="navbar-end">
               <NextLink href="/" className="navbar-item">
                 About
+              </NextLink>
+
+              <NextLink href="/open-source" className="navbar-item">
+                Open Source
               </NextLink>
 
               <NextLink href="/socials" className="navbar-item">

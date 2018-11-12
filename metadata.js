@@ -21,7 +21,7 @@ import {
 
 export default {
   colorHex: '#FEF380',
-  email: 'grikomsn@gmail.com',
+  email: 'hello@griko.id',
   emailSecondary: 'griko@protonmail.com',
   links: [
     {

@@ -16,10 +16,12 @@
     "@fortawesome/free-brands-svg-icons": "^5.5.0",
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
     "@fortawesome/react-fontawesome": "^0.1.3",
+    "@octokit/rest": "^15.17.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "bulma": "^0.7.2",
     "emojione": "^4.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "next": "^7.0.2",
     "next-compose-plugins": "^2.1.1",
     "next-ga": "^2.3.3",
@@ -31,7 +33,8 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-lazyload": "^2.3.0",
-    "react-reveal": "^1.2.2"
+    "react-reveal": "^1.2.2",
+    "webpack": "^4.25.1"
   },
   "devDependencies": {
     "@types/react": "^16.4.18",

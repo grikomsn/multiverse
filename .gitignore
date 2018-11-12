@@ -1,4 +1,5 @@
 .DS_Store
+.env
 .next
-out
 node_modules
+out

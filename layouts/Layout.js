@@ -76,7 +76,8 @@ export default class Layout extends Component {
         {this.props.children}
         <style global jsx>{`
           html,
-          body {
+          body,
+          ::selection {
             background-color: ${this.props.colorHex};
           }
         `}</style>
