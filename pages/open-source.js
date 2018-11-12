@@ -81,7 +81,7 @@ export default class extends Component {
             </div>
             <a
               href="https://github.com/grikomsn?tab=repositories&type=source"
-              className="button is-light is-outlined"
+              className="button is-light has-shadow"
               target="_blank"
               rel="noreferrer">
               View more on my GitHub profile
