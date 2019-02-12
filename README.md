@@ -4,7 +4,7 @@
 
 Personal landing page, powered with [Next.js][nextjs] ✨
 
-[![Screenshot](preview.png)](https://griko.id)
+[![Screenshot](preview.png)](https://griko.id) [![Greenkeeper badge](https://badges.greenkeeper.io/grikomsn/landing-page.svg)](https://greenkeeper.io/)
 
 </div>
 
