@@ -1,0 +1,27 @@
+[
+  {
+    "links": [
+      "https://dev.to/grikomsn",
+      "https://medium.com/@griko"
+    ],
+    "name": "Blogs"
+  },
+  {
+    "links": [
+      "https://hub.docker.com/u/griko",
+      "https://github.com/grikomsn",
+      "https://gitlab.com/grikomsn",
+      "https://npmjs.com/~griko"
+    ],
+    "name": "Development"
+  },
+  {
+    "links": [
+      "https://line.me/ti/p/~grikomsn",
+      "https://steamcommunity.com/id/grikomsn",
+      "https://t.me/griko_nibras",
+      "https://twitter.com/griko_nibras"
+    ],
+    "name": "Social"
+  }
+]

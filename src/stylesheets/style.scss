@@ -1,0 +1,46 @@
+// Main overrides
+$body-line-height: 2rem;
+$body-size: 1.1rem;
+$family-sans-serif: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+  "Helvetica Neue", sans-serif;
+$yellow: #f8f88f;
+// $yellow: #e5e655;
+
+// Breakpoint overrides
+$gap: 64px;
+$tablet: 640px;
+$desktop: 800px + (2 * $gap);
+// $widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Navbar overrides
+$navbar-height: 4.25rem;
+
+// Imports
+@import url("https://rsms.me/inter/inter.css");
+@import "~bulma/bulma";
+@import "./emojione";
+
+// Custom rules
+::selection {
+  background-color: $yellow;
+}
+
+html,
+body {
+  // background-color: $yellow;
+  letter-spacing: -0.4pt;
+}
+
+.title {
+  letter-spacing: -0.8pt;
+}
+
+.navbar {
+  padding: 0 1rem;
+}
+
+.max-width-tablet {
+  max-width: $tablet;
+  margin: auto;
+}
