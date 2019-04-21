@@ -24,8 +24,8 @@ const Index = ({ data }) => (
       <p>
         I am a software engineer from Surabaya, Indonesia. Love working on web
         technologies like Laravel, Node.js, React stuff like Gatsby.js and
-        Next.js, and Vue.js. Currently working on my bachelor thesis and Nine
-        Twenty One.
+        Next.js, and also Vue.js. Currently working on my bachelor thesis and
+        Nine Twenty One.
       </p>
       <br />
       <p>

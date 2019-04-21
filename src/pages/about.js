@@ -25,9 +25,9 @@ const About = () => (
       <br />
       <p>
         Mostly working on Laravel, Node.js, React stuff like Gatsby.js and
-        Next.js, and Vue.js. Also a little bit of Docker. Worked on several
-        freelance and collaborative projects, mostly internal dashboards and
-        private information systems.
+        Next.js, and also Vue.js. Also a little bit of Docker and server stuff.
+        Worked on several freelance and collaborative projects, mostly internal
+        dashboards and private information systems.
       </p>
       <br />
       <p>

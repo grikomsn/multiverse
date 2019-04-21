@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Link = styled.a`
   color: inherit;
-  font-weight: bold;
+  font-weight: ${props => (props.normal ? 'normal' : 'bold')};
 
   &:hover {
     color: inherit;

@@ -1,0 +1,42 @@
+[
+  {
+    "type": "Authored",
+    "repos": [
+      {
+        "url": "https://github.com/grikomsn/murf",
+        "name": "murf",
+        "description": "Metacritic Movie user review fetcher"
+      },
+      {
+        "url": "https://github.com/ninetwenty-one/rotten-reviews",
+        "name": "rotten-reviews",
+        "description": "Scrape audience reviews from Rotten Tomatoes"
+      },
+      {
+        "url": "https://github.com/ninetwenty-one/rotten-reviews-cli",
+        "name": "rotten-reviews-cli",
+        "description": "CLI wrapper for rotten-reviews"
+      }
+    ]
+  },
+  {
+    "type": "Contributed",
+    "repos": [
+      {
+        "url": "https://github.com/reactjs/id.reactjs.org",
+        "name": "id.reactjs.org",
+        "description": "React documentation website in Indonesian"
+      },
+      {
+        "url": "https://github.com/ryanflorence/gatsby-source-firebase",
+        "name": "gatsby-source-firebase",
+        "description": "Gatsby plugin to turn Firebase into a Gatsby data source"
+      },
+      {
+        "url": "https://github.com/taessina/gatsby-source-firestore",
+        "name": "gatsby-source-firestore",
+        "description": "Gatsby source plugin for building websites using the Firestore as a data source"
+      }
+    ]
+  }
+]

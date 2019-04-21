@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import cns from '@sindresorhus/class-names'
 import { graphql, Link, StaticQuery } from 'gatsby'
 import React, { useState } from 'react'
@@ -8,14 +9,9 @@ const Icon = styled.img`
 `
 
 const routes = [
-  {
-    name: 'Links',
-    route: '/links',
-  },
-  {
-    name: 'About',
-    route: '/about',
-  },
+  { name: 'Open Source', route: '/open-source' },
+  { name: 'Links', route: '/links' },
+  { name: 'About', route: '/about' },
 ]
 
 const HeaderNav = () => {
@@ -41,12 +37,13 @@ const HeaderNav = () => {
       render={data => (
         <nav className="navbar is-warning">
           <div className="navbar-brand">
+            <div className="navbar-padding" />
+
             <Link to="/" className="navbar-item">
               <Icon alt="Ainami" {...data.icon.fluid} />
               &nbsp;
               <b>Griko Nibras</b>
             </Link>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a
               role="button"
               className={burgerClass}
@@ -74,6 +71,7 @@ const HeaderNav = () => {
               ))}
             </div>
           </div>
+          <div className="navbar-padding" />
         </nav>
       )}
     />
