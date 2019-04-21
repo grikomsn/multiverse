@@ -13,8 +13,7 @@ const Links = ({ data }) => (
     <Head pageTitle="Links" />
     <Hero className="content">
       <h1>
-        List of Links &nbsp;
-        <i className="e1a-link" />
+        List of Links <i className="e1a-link" />
       </h1>
       <p>
         Here is a list of various links, some are available as shortcuts (e.g.

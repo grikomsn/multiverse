@@ -26,10 +26,12 @@ const HeaderNav = () => {
     <StaticQuery
       query={graphql`
         {
-          icon: imageSharp(fluid: { originalName: { eq: "Ainami.png" } }) {
-            fluid {
-              src
-              srcSet
+          img: file(relativePath: { eq: "Ainami.png" }) {
+            childImageSharp {
+              fluid(maxWidth: 192) {
+                src
+                srcSet
+              }
             }
           }
         }
@@ -40,7 +42,7 @@ const HeaderNav = () => {
             <div className="navbar-padding" />
 
             <Link to="/" className="navbar-item">
-              <Icon alt="Ainami" {...data.icon.fluid} />
+              <Icon alt="Ainami" {...data.img.childImageSharp.fluid} />
               &nbsp;
               <b>Griko Nibras</b>
             </Link>

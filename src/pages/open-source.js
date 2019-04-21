@@ -12,8 +12,7 @@ const OpenSource = ({ data }) => (
     <Head pageTitle="Open Source" />
     <Hero className="content">
       <h1>
-        Open Source &nbsp;
-        <i className="e1a-sparkles" />
+        Open Source <i className="e1a-sparkles" />
       </h1>
       <p>
         Here are GitHub repositories that I authored, contribute, and maintain

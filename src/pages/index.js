@@ -1,22 +1,20 @@
 import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
 import Email from '../components/Email'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 
-const Ainami = styled.img`
-  max-width: 300px;
-  margin: auto;
-`
-
 const Index = ({ data }) => (
   <Layout className="has-background-warning" hideFooter>
     <Hero className="has-text-centered max-width-tablet">
       <figure className="image">
-        <Ainami alt="Ainami" {...data.img.fluid} />
+        <Img
+          fluid={data.img.childImageSharp.fluid}
+          style={{ maxWidth: '300px', margin: 'auto' }}
+        />
       </figure>
       <br />
       <h1 className="title is-marginless">Hey there, I am Griko Nibras.</h1>
@@ -44,10 +42,11 @@ export default Index
 
 export const query = graphql`
   {
-    img: imageSharp(fluid: { originalName: { eq: "Ainami.png" } }) {
-      fluid(maxWidth: 300) {
-        src
-        srcSet
+    img: file(relativePath: { eq: "Ainami.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 384) {
+          ...GatsbyImageSharpFluid
+        }
       }
     }
   }

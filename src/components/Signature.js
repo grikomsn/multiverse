@@ -1,25 +1,27 @@
 import { graphql, StaticQuery } from 'gatsby'
+import Img from 'gatsby-image'
 import React from 'react'
-import styled from 'styled-components'
-
-const Sig = styled.img`
-  max-width: 128px;
-  margin: auto;
-`
 
 const Signature = () => (
   <StaticQuery
     query={graphql`
       {
-        sig: imageSharp(fluid: { originalName: { eq: "Signature.png" } }) {
-          fluid {
-            src
-            srcSet
+        sig: file(relativePath: { eq: "Signature.png" }) {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
           }
         }
       }
     `}
-    render={data => <Sig alt="Signature" {...data.sig.fluid} />}
+    render={data => (
+      <Img
+        alt="Signature"
+        fluid={data.sig.childImageSharp.fluid}
+        style={{ maxWidth: '128px', margin: 'auto' }}
+      />
+    )}
   />
 )
 
