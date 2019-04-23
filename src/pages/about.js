@@ -18,9 +18,8 @@ const About = () => (
       </h1>
       <br />
       <p>
-        Born, raised and currently living in Surabaya, Indonesia. Currently
-        working on my bachelor’s degree in Informatics on Artificial
-        Intelligence at{' '}
+        Born, raised, and living in Surabaya, Indonesia. Currently working on my
+        bachelor’s degree in Informatics on Artificial Intelligence at{' '}
         <Link href="https://itats.ac.id">
           Institut Teknologi Adhi Tama Surabaya
         </Link>
@@ -29,17 +28,20 @@ const About = () => (
       </p>
       <br />
       <p>
-        Mostly working on Laravel, Node.js, React stuff like Gatsby.js and
-        Next.js, and also Vue.js. Also a little bit of Docker and server stuff.
-        Worked on several freelance and collaborative projects, mostly internal
-        dashboards and private information systems.
+        I love working on web technologies like Laravel, Node.js, React, and
+        Vue. Also a little bit of Java (Hibernate), Docker, and server related
+        things. I have worked on several collaborative projects, mostly internal
+        dashboards, private information systems, and campus lab projects such as{' '}
+        <Link href="https://inforlabs.net">Inforlabs</Link>.
       </p>
       <br />
       <p>
-        Outside the programming-verse, I hang around various social medias,
-        mostly Twitter. I also hang around at co-working spaces and coffee
-        shops. I don’t play games that much anymore, but still hunt some sales
-        on Steam or Origin.
+        I also attend and participate in local tech communities such as{' '}
+        <Link href="https://surabaya.js.org">Surabaya.js</Link> and{' '}
+        <Link href="http://surabayadev.org">SurabayaDev</Link>. Outside the
+        programming-verse, I hang around on Twitter, or coffee shops and
+        co-working spaces in real life. I don’t play games that much anymore,
+        but still hunt some sales on Steam and Origin.
       </p>
       <br />
       <p>

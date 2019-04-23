@@ -29,7 +29,7 @@ const Links = ({ data }) => (
               {node.links.sort().map(({ link, description }) => (
                 <li key={link}>
                   <Link href={link} normal>
-                    {description} (<b>{trimProtocol(link)}</b>)
+                    <b>{trimProtocol(link)}</b> &mdash; {description}
                   </Link>
                 </li>
               ))}

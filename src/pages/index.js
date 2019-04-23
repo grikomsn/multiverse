@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -17,13 +17,18 @@ const Index = ({ data }) => (
         />
       </figure>
       <br />
-      <h1 className="title is-marginless">Hey there, I am Griko Nibras.</h1>
+      <h1 className="title is-marginless">
+        Hey there, I am{' '}
+        <Link to="/about" style={{ color: 'inherit' }}>
+          Griko Nibras
+        </Link>
+        .
+      </h1>
       <br />
       <p>
         I am a software engineer from Surabaya, Indonesia. Love working on web
-        technologies like Laravel, Node.js, React stuff like Gatsby.js and
-        Next.js, and also Vue.js. Currently working on my bachelor thesis and
-        Nine Twenty One.
+        technologies like Laravel, Node.js, React, and Vue. Currently working on
+        my bachelor thesis and Nine Twenty One.
       </p>
       <br />
       <p>

@@ -70,5 +70,6 @@
     "node-gyp": "^3.8.0",
     "prettier": "^1.17.0"
   },
+  "private": true,
   "license": "MIT"
 }
