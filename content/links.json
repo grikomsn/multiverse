@@ -1,27 +1,78 @@
 [
   {
     "links": [
-      "https://dev.to/grikomsn",
-      "https://medium.com/@griko"
+      {
+        "description": "Dev.to",
+        "link": "https://dev.to/grikomsn"
+      },
+      {
+        "description": "Medium",
+        "link": "https://medium.com/@griko"
+      }
     ],
     "name": "Blogs"
   },
   {
     "links": [
-      "https://hub.docker.com/u/griko",
-      "https://github.com/grikomsn",
-      "https://gitlab.com/grikomsn",
-      "https://npmjs.com/~griko"
+      {
+        "description": "Docker Hub",
+        "link": "https://hub.docker.com/u/griko"
+      },
+      {
+        "description": "GitHub",
+        "link": "https://github.com/grikomsn"
+      },
+      {
+        "description": "GitLab",
+        "link": "https://gitlab.com/grikomsn"
+      },
+      {
+        "description": "npm",
+        "link": "https://npmjs.com/~griko"
+      }
     ],
     "name": "Development"
   },
   {
     "links": [
-      "https://line.me/ti/p/~grikomsn",
-      "https://steamcommunity.com/id/grikomsn",
-      "https://t.me/griko_nibras",
-      "https://twitter.com/griko_nibras"
+      {
+        "description": "LINE",
+        "link": "https://line.me/ti/p/~grikomsn"
+      },
+      {
+        "description": "Steam",
+        "link": "https://steamcommunity.com/id/grikomsn"
+      },
+      {
+        "description": "Telegram",
+        "link": "https://t.me/griko_nibras"
+      },
+      {
+        "description": "Twitter",
+        "link": "https://twitter.com/griko_nibras"
+      }
     ],
     "name": "Social"
+  },
+  {
+    "links": [
+      {
+        "description": "GitHub",
+        "link": "https://griko.dev/github"
+      },
+      {
+        "description": "GitLab",
+        "link": "https://griko.dev/gitlab"
+      },
+      {
+        "description": "Steam",
+        "link": "https://griko.dev/steam"
+      },
+      {
+        "description": "Twitter",
+        "link": "https://griko.dev/twitter"
+      }
+    ],
+    "name": "Alternates"
   }
 ]

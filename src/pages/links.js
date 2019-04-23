@@ -11,8 +11,8 @@ import trimProtocol from '../helpers/trimProtocol'
 const Links = ({ data }) => (
   <Layout>
     <Head pageTitle="Links" />
-    <Hero className="content">
-      <h1>
+    <Hero>
+      <h1 className="title">
         List of Links <i className="e1a-link" />
       </h1>
       <p>
@@ -21,18 +21,22 @@ const Links = ({ data }) => (
         <Link href="https://griko.dev/github">griko.dev/github</Link>)
       </p>
       <br />
-      {data.links.edges.map(({ node }) => (
-        <React.Fragment key={node.name}>
-          <h6>{node.name}</h6>
-          <ul>
-            {node.links.sort().map(link => (
-              <li key={link}>
-                <Link href={link}>{trimProtocol(link)}</Link>
-              </li>
-            ))}
-          </ul>
-        </React.Fragment>
-      ))}
+      <div className="content">
+        {data.links.edges.map(({ node }) => (
+          <React.Fragment key={node.name}>
+            <h6>{node.name}</h6>
+            <ul>
+              {node.links.sort().map(({ link, description }) => (
+                <li key={link}>
+                  <Link href={link} normal>
+                    {description} (<b>{trimProtocol(link)}</b>)
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </React.Fragment>
+        ))}
+      </div>
     </Hero>
   </Layout>
 )
@@ -49,7 +53,10 @@ export const query = graphql`
       edges {
         node {
           name
-          links
+          links {
+            link
+            description
+          }
         }
       }
     }
