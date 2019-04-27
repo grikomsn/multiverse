@@ -40,22 +40,27 @@ a {
     background-position: 0% 100%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
-    transition: background-size .3s;
+    transition: background-size .3s, background-color .3s, color .3s !important;
 }
 
 a:hover:not(.remove-animation), a:focus:not(.remove-animation) {
     background-size: 100% 2px;
 }
 
-.title {
-    letter-spacing: -0.8pt;
+.max-width-tablet {
+    max-width: $tablet;
+    margin: auto;
+}
+
+.navbar-item {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .navbar-padding {
     width: 1rem;
 }
 
-.max-width-tablet {
-    max-width: $tablet;
-    margin: auto;
+.title {
+    letter-spacing: -0.8pt;
 }
