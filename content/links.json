@@ -2,10 +2,12 @@
   {
     "links": [
       {
-        "link": "https://dev.to/grikomsn"
+        "link": "https://dev.to/grikomsn",
+        "description": ""
       },
       {
-        "link": "https://medium.com/@griko"
+        "link": "https://medium.com/@griko",
+        "description": ""
       }
     ],
     "name": "Blogs"
@@ -13,16 +15,20 @@
   {
     "links": [
       {
-        "link": "https://hub.docker.com/u/griko"
+        "link": "https://hub.docker.com/u/griko",
+        "description": ""
       },
       {
-        "link": "https://github.com/grikomsn"
+        "link": "https://github.com/grikomsn",
+        "description": ""
       },
       {
-        "link": "https://gitlab.com/grikomsn"
+        "link": "https://gitlab.com/grikomsn",
+        "description": ""
       },
       {
-        "link": "https://npmjs.com/~griko"
+        "link": "https://npmjs.com/~griko",
+        "description": ""
       }
     ],
     "name": "Development"
@@ -30,16 +36,20 @@
   {
     "links": [
       {
-        "link": "https://line.me/ti/p/~grikomsn"
+        "link": "https://line.me/ti/p/~grikomsn",
+        "description": ""
       },
       {
-        "link": "https://steamcommunity.com/id/grikomsn"
+        "link": "https://steamcommunity.com/id/grikomsn",
+        "description": ""
       },
       {
-        "link": "https://t.me/griko_nibras"
+        "link": "https://t.me/griko_nibras",
+        "description": ""
       },
       {
-        "link": "https://twitter.com/griko_nibras"
+        "link": "https://twitter.com/griko_nibras",
+        "description": ""
       }
     ],
     "name": "Social"
@@ -47,16 +57,20 @@
   {
     "links": [
       {
-        "link": "https://griko.dev/github"
+        "link": "https://griko.dev/github",
+        "description": ""
       },
       {
-        "link": "https://griko.dev/gitlab"
+        "link": "https://griko.dev/gitlab",
+        "description": ""
       },
       {
-        "link": "https://griko.dev/steam"
+        "link": "https://griko.dev/steam",
+        "description": ""
       },
       {
-        "link": "https://griko.dev/twitter"
+        "link": "https://griko.dev/twitter",
+        "description": ""
       }
     ],
     "name": "Alternates"
