@@ -1,7 +1,8 @@
+import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Link = styled.a`
+const PageLink = styled(Link)`
   color: inherit;
   font-weight: ${props => (props.normal ? 'normal' : 'bold')};
 
@@ -10,13 +11,8 @@ const Link = styled.a`
   }
 `
 
-Link.propTypes = {
+PageLink.propTypes = {
   normal: PropTypes.bool,
 }
 
-Link.defaultProps = {
-  rel: 'noopener noreferrer',
-  target: 'blank',
-}
-
-export default Link
+export default PageLink

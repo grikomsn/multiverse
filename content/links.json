@@ -3,7 +3,7 @@
     "links": [
       {
         "link": "https://dev.to/grikomsn",
-        "description": ""
+        "description": "DEV Community"
       },
       {
         "link": "https://medium.com/@griko",
@@ -45,7 +45,7 @@
       },
       {
         "link": "https://t.me/griko_nibras",
-        "description": ""
+        "description": "Telegram"
       },
       {
         "link": "https://twitter.com/griko_nibras",
@@ -62,6 +62,10 @@
       },
       {
         "link": "https://griko.dev/gitlab",
+        "description": ""
+      },
+      {
+        "link": "https://griko.dev/secret",
         "description": ""
       },
       {

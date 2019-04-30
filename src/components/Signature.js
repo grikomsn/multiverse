@@ -1,6 +1,12 @@
 import { graphql, StaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
+import styled from 'styled-components'
+
+const Sig = styled(Img)`
+  margin: auto;
+  max-width: 128px;
+`
 
 const Signature = () => (
   <StaticQuery
@@ -16,11 +22,7 @@ const Signature = () => (
       }
     `}
     render={data => (
-      <Img
-        alt="Signature"
-        fluid={data.sig.childImageSharp.fluid}
-        style={{ maxWidth: '128px', margin: 'auto' }}
-      />
+      <Sig alt="Signature" fluid={data.sig.childImageSharp.fluid} />
     )}
   />
 )

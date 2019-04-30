@@ -12,7 +12,7 @@ const Footer = () => {
           Handcrafted with <i className="e1a-heart" /> by myself. Copyright
           &copy; {currentYear}. <br />
           Made with <Link href="https://bulma.io">Bulma</Link> and{' '}
-          <Link href="https://gatsbyjs.org">Gatsby.js</Link>.
+          <Link href="https://gatsbyjs.org">GatsbyJS</Link>.
         </p>
         <br />
         <p>

@@ -1,4 +1,3 @@
-import { Link as GatsbyLink } from 'gatsby'
 import React from 'react'
 
 import Email from '../components/Email'
@@ -6,12 +5,13 @@ import Head from '../components/Head'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import Link from '../components/Link'
+import PageLink from '../components/PageLink'
 import Signature from '../components/Signature'
 
 const About = () => (
   <Layout>
     <Head pageTitle="About" />
-    <Hero className="max-width-tablet">
+    <Hero className="max-width-tablet content">
       <h1 className="title">
         My name is Griko Muhammad Sultan Nibras. That’s too long, so I mostly
         use Griko Nibras.
@@ -37,7 +37,7 @@ const About = () => (
       <br />
       <p>
         I also attend and participate in local tech communities such as{' '}
-        <Link href="https://surabaya.js.org">Surabaya.js</Link> and{' '}
+        <Link href="https://surabayajs.org">SurabayaJS</Link> and{' '}
         <Link href="http://surabayadev.org">SurabayaDev</Link>. Outside the
         programming-verse, I hang around on Twitter, or coffee shops and
         co-working spaces in real life. I don’t play games that much anymore,
@@ -48,17 +48,7 @@ const About = () => (
         Have something to work on? Or just saying hello? Do send an email to{' '}
         <Email to="hello@griko.id" /> or to <Email to="griko@pm.me" /> for
         private matters, or reach out at any social medias{' '}
-        <GatsbyLink to="/links" style={{ color: 'inherit' }}>
-          <b>listed here</b>
-        </GatsbyLink>
-        .
-      </p>
-      <br />
-      <p>
-        <small>
-          P.S. I am still working on this landing page, more pages coming soon{' '}
-          <i className="e1a-sparkles" />
-        </small>
+        <PageLink to="/links">listed here</PageLink>.
       </p>
       <br />
       <div className="has-text-centered">
