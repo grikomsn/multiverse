@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Link from './Link'
-
 const Email = ({ to, ...props }) => (
-  <Link href={`mailto:${to}`} {...props}>
+  <a href={'mailto:' + to} {...props}>
     {to}
-  </Link>
+  </a>
 )
-Email.propTypes = { to: PropTypes.string.isRequired }
+
+Email.propTypes = {
+  to: PropTypes.string.isRequired,
+}
 
 export default Email

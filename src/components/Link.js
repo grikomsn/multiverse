@@ -1,22 +1,14 @@
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react'
 
-const Link = styled.a`
-  color: inherit;
-  font-weight: ${props => (props.normal ? 'normal' : 'bold')};
-
-  &:hover {
-    color: inherit;
-  }
-`
+const Link = ({ children, ...props }) => (
+  <a rel="noopener noreferrer" target="_blank" {...props}>
+    {children}
+  </a>
+)
 
 Link.propTypes = {
-  normal: PropTypes.bool,
-}
-
-Link.defaultProps = {
-  rel: 'noopener noreferrer',
-  target: 'blank',
+  children: PropTypes.node.isRequired,
 }
 
 export default Link

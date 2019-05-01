@@ -9,21 +9,21 @@ $yellow-dark: hsl(60, 80%, 40%);
 // Breakpoint overrides
 $gap: 64px;
 $tablet: 640px;
-$desktop: 800px + 2 * $gap;
+$desktop: $tablet + 2 * $gap;
 
-// $widescreen-enabled: false;
+$widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Navbar overrides
 $navbar-height: 4.25rem;
 
 // Imports
-@import url("https://rsms.me/inter/inter.css");
-
+@import "./inter";
 @import "~bulma/bulma";
 @import "./emojione";
 
-// Custom rules
+// Custom Rules
+
 ::selection {
     background-color: $yellow;
 }
@@ -47,9 +47,21 @@ a:hover:not(.remove-animation), a:focus:not(.remove-animation) {
     background-size: 100% 2px;
 }
 
-.max-width-tablet {
-    max-width: $tablet;
-    margin: auto;
+// Bulma Class Overrides
+
+.content, p {
+    a {
+        color: inherit;
+        font-weight: bold;
+
+        &:hover {
+            color: inherit;
+        }
+
+        &.use-normal {
+            font-weight: normal !important;
+        }
+    }
 }
 
 .navbar-item {
@@ -63,4 +75,20 @@ a:hover:not(.remove-animation), a:focus:not(.remove-animation) {
 
 .title {
     letter-spacing: -0.8pt;
+}
+
+// PrismJS Overrides
+// https://github.com/jgthms/bulma/issues/1708#issuecomment-382560341
+.content .tag, .content .number {
+    display: inline;
+    padding: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    vertical-align: inherit;
+    border-radius: inherit;
+    font-weight: inherit;
+    white-space: inherit;
+    background: inherit;
+    margin: inherit;
 }

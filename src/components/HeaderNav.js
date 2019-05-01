@@ -9,8 +9,9 @@ const Icon = styled.img`
 `
 
 const routes = [
+  { name: 'Blog', route: '/blog' },
   { name: 'Open Source', route: '/open-source' },
-  { name: 'Links', route: '/links' },
+  { name: 'Socials', route: '/socials' },
   { name: 'About', route: '/about' },
 ]
 

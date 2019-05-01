@@ -1,14 +1,19 @@
 import cns from '@sindresorhus/class-names'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
+
+const HeroBody = styled.div`
+  align-items: unset !important;
+`
 
 const Hero = ({ children, className, ...props }) => (
   <section className="hero is-fullheight-with-navbar">
-    <div className="hero-body">
+    <HeroBody className="hero-body">
       <div className={cns('container', className)} {...props}>
         {children}
       </div>
-    </div>
+    </HeroBody>
   </section>
 )
 

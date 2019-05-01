@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -29,7 +29,7 @@ const Ainami = styled(Img)`
 
 const Index = ({ data }) => (
   <Layout className="has-background-warning" hideFooter>
-    <Hero className="has-text-centered max-width-tablet">
+    <Hero className="has-text-centered">
       <figure className="image">
         <Ainami fluid={data.img.childImageSharp.fluid} />
       </figure>
@@ -49,10 +49,6 @@ const Index = ({ data }) => (
     </Hero>
   </Layout>
 )
-
-Index.propTypes = {
-  data: PropTypes.object.isRequired,
-}
 
 export default Index
 

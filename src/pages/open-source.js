@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { graphql } from 'gatsby'
-import PropTypes from 'prop-types'
 import React from 'react'
 
 import Head from '../components/Head'
@@ -24,7 +24,7 @@ const OpenSource = ({ data }) => (
           <ul>
             {node.repos.map(({ name, description, url }) => (
               <li key={name}>
-                <Link href={url} normal>
+                <Link href={url} className="use-normal">
                   <b>{name}</b> - {description}
                 </Link>
               </li>
@@ -35,10 +35,6 @@ const OpenSource = ({ data }) => (
     </Hero>
   </Layout>
 )
-
-OpenSource.propTypes = {
-  data: PropTypes.object.isRequired,
-}
 
 export default OpenSource
 

@@ -7,7 +7,7 @@
       },
       {
         "link": "https://medium.com/@griko",
-        "description": ""
+        "description": "Medium"
       }
     ],
     "name": "Blogs"
@@ -16,19 +16,19 @@
     "links": [
       {
         "link": "https://hub.docker.com/u/griko",
-        "description": ""
+        "description": "Docker Hub"
       },
       {
         "link": "https://github.com/grikomsn",
-        "description": ""
+        "description": "GitHub"
       },
       {
         "link": "https://gitlab.com/grikomsn",
-        "description": ""
+        "description": "GitLab"
       },
       {
         "link": "https://npmjs.com/~griko",
-        "description": ""
+        "description": "npm"
       }
     ],
     "name": "Development"
@@ -37,11 +37,11 @@
     "links": [
       {
         "link": "https://line.me/ti/p/~grikomsn",
-        "description": ""
+        "description": "LINE"
       },
       {
         "link": "https://steamcommunity.com/id/grikomsn",
-        "description": ""
+        "description": "Steam"
       },
       {
         "link": "https://t.me/griko_nibras",
@@ -49,7 +49,7 @@
       },
       {
         "link": "https://twitter.com/griko_nibras",
-        "description": ""
+        "description": "Twitter"
       }
     ],
     "name": "Social"
@@ -65,10 +65,6 @@
         "description": ""
       },
       {
-        "link": "https://griko.dev/secret",
-        "description": ""
-      },
-      {
         "link": "https://griko.dev/steam",
         "description": ""
       },
@@ -78,5 +74,14 @@
       }
     ],
     "name": "Alternates"
+  },
+  {
+    "links": [
+      {
+        "link": "https://griko.dev/secret",
+        "description": ""
+      }
+    ],
+    "name": "Useful Links"
   }
 ]

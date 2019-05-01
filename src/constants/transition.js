@@ -1,1 +1,1 @@
-export const timeout = 250
+export const timeout = 300
