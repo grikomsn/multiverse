@@ -17,7 +17,10 @@ const routes = [
 
 const HeaderNav = () => {
   const [navState, setNavState] = useState(false)
-  const toggleNavState = () => setNavState(!navState)
+  const toggleNavState = event => {
+    event.preventDefault()
+    setNavState(!navState)
+  }
 
   const activeClass = { 'is-active': navState }
   const burgerClass = cns('navbar-burger', 'burger', activeClass)
