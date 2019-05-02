@@ -68,7 +68,7 @@ export const query = graphql`
     sig: file(relativePath: { eq: "Signature.png" }) {
       childImageSharp {
         fluid {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_tracedSVG
         }
       }
     }

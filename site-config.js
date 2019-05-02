@@ -10,6 +10,7 @@ module.exports = {
   pathPrefix: null,
   logo: path.resolve(__dirname, 'src/images/icon.png'),
   social: {
+    disqus: 'griko',
     twitter: 'griko_nibras',
   },
 }

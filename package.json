@@ -25,6 +25,7 @@
     "@sindresorhus/class-names": "^1.1.0",
     "babel-plugin-styled-components": "^1.10.0",
     "bulma": "^0.7.4",
+    "disqus-react": "^1.0.5",
     "emojione": "^4.5.0",
     "gatsby": "^2.3.34",
     "gatsby-image": "^2.0.41",
