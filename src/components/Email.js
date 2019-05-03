@@ -3,7 +3,7 @@ import React from 'react'
 
 const Email = ({ to, ...props }) => (
   <a href={'mailto:' + to} {...props}>
-    {to}
+    <b>{to}</b>
   </a>
 )
 

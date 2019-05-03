@@ -5,7 +5,7 @@ $family-sans-serif: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
 // Color overrides
 $yellow: hsl(60, 80%, 70%);
 $link: hsl(60, 80%, 30%);
-$link-focus-border: hsl(60, 80%, 20%);
+$link-focus-border: $link;
 
 // Breakpoint overrides
 $gap: 64px;
@@ -49,18 +49,12 @@ a:hover:not(.remove-animation), a:focus:not(.remove-animation) {
 }
 
 // Bulma Class Overrides
-
 .content, p {
-    a {
+    a.reset-color {
         color: inherit;
-        font-weight: bold;
 
         &:hover {
             color: inherit;
-        }
-
-        &.use-normal {
-            font-weight: normal !important;
         }
     }
 }
@@ -81,15 +75,15 @@ a:hover:not(.remove-animation), a:focus:not(.remove-animation) {
 // PrismJS Overrides
 // https://github.com/jgthms/bulma/issues/1708#issuecomment-382560341
 .content .tag, .content .number {
-    display: inline;
-    padding: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    text-align: inherit;
-    vertical-align: inherit;
-    border-radius: inherit;
-    font-weight: inherit;
-    white-space: inherit;
-    background: inherit;
-    margin: inherit;
+    display: initial;
+    padding: initial;
+    font-size: initial;
+    line-height: initial;
+    text-align: initial;
+    vertical-align: initial;
+    border-radius: initial;
+    font-weight: initial;
+    white-space: initial;
+    background: initial;
+    margin: initial;
 }

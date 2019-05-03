@@ -5,7 +5,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Email from '../components/Email'
-import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 
 const Ainami = styled(Img)`
@@ -27,9 +26,17 @@ const Ainami = styled(Img)`
   }
 `
 
+const Container = ({ children }) => (
+  <section className="hero is-fullheight-with-navbar">
+    <div className="hero-body">
+      <div className="container has-text-centered">{children}</div>
+    </div>
+  </section>
+)
+
 const Index = ({ data }) => (
   <Layout className="has-background-warning" hideFooter>
-    <Hero className="has-text-centered" centered>
+    <Container>
       <figure className="image">
         <Ainami fluid={data.img.childImageSharp.fluid} />
       </figure>
@@ -46,7 +53,7 @@ const Index = ({ data }) => (
         Say hello via email at <Email to="hello@griko.id" />,<br />
         or to <Email to="griko@pm.me" /> for private matters.
       </p>
-    </Hero>
+    </Container>
   </Layout>
 )
 

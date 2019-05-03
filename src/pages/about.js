@@ -5,9 +5,9 @@ import styled from 'styled-components'
 
 import Email from '../components/Email'
 import Head from '../components/Head'
-import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import Link from '../components/Link'
+import Section from '../components/Section'
 
 const Sig = styled(Img)`
   margin: auto;
@@ -19,7 +19,7 @@ const Sig = styled(Img)`
 const About = ({ data }) => (
   <Layout>
     <Head pageTitle="About" />
-    <Hero className="content">
+    <Section className="content">
       <h1 className="title">
         My name is Griko Muhammad Sultan Nibras. That’s too long, so I mostly
         use Griko Nibras.
@@ -49,15 +49,15 @@ const About = ({ data }) => (
         but still hunt some sales on Steam and Origin.
       </p>
       <p>
-        Have something to work on? Or just saying hello? Do send an email to{' '}
-        <Email to="hello@griko.id" /> or to <Email to="griko@pm.me" /> for
-        private matters, or reach out at any social medias{' '}
-        <GatsbyLink to="/socials">listed here</GatsbyLink>.
+        Have something to work on? Or a collaboration offer? Maybe just saying
+        hello? Do reach out via email at <Email to="hello@griko.id" /> or to{' '}
+        <Email to="griko@pm.me" /> for private matters, or at any social medias
+        listed at the <GatsbyLink to="/socials">Socials page</GatsbyLink>.
       </p>
       <div className="has-text-centered">
         <Sig alt="Signature" fluid={data.sig.childImageSharp.fluid} />
       </div>
-    </Hero>
+    </Section>
   </Layout>
 )
 

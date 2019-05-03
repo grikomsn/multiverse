@@ -3,14 +3,14 @@ import { graphql } from 'gatsby'
 import React from 'react'
 
 import Head from '../components/Head'
-import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import Link from '../components/Link'
+import Section from '../components/Section'
 
 const OpenSource = ({ data }) => (
   <Layout>
     <Head pageTitle="Open Source" />
-    <Hero className="content">
+    <Section className="content">
       <h1 className="title">
         Open Source <i className="e1a-sparkles" />
       </h1>
@@ -24,15 +24,13 @@ const OpenSource = ({ data }) => (
           <ul>
             {node.repos.map(({ name, description, url }) => (
               <li key={name}>
-                <Link href={url} className="use-normal">
-                  <b>{name}</b> - {description}
-                </Link>
+                <Link href={url}>{name}</Link> - {description}
               </li>
             ))}
           </ul>
         </React.Fragment>
       ))}
-    </Hero>
+    </Section>
   </Layout>
 )
 

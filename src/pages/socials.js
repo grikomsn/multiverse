@@ -2,16 +2,16 @@ import { graphql } from 'gatsby'
 import React from 'react'
 
 import Head from '../components/Head'
-import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import Link from '../components/Link'
+import Section from '../components/Section'
 import trimProtocol from '../helpers/trimProtocol'
 
 // eslint-disable-next-line react/prop-types
 const Links = ({ data }) => (
   <Layout>
     <Head pageTitle="Links" />
-    <Hero className="content">
+    <Section className="content">
       <h1 className="title">
         Social Links <i className="e1a-link" />
       </h1>
@@ -26,16 +26,14 @@ const Links = ({ data }) => (
           <ul>
             {node.links.sort().map(({ link, description }) => (
               <li key={link}>
-                <Link href={link} className="use-normal">
-                  <b>{trimProtocol(link)}</b> {description && <span>- </span>}
-                  {description}
-                </Link>
+                {description && <span>{description} - </span>}
+                <Link href={link}>{trimProtocol(link)}</Link>
               </li>
             ))}
           </ul>
         </React.Fragment>
       ))}
-    </Hero>
+    </Section>
   </Layout>
 )
 

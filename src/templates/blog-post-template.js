@@ -1,14 +1,57 @@
 import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css'
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 
 import { DiscussionEmbed } from 'disqus-react'
 import { graphql, Link } from 'gatsby'
 import React from 'react'
+import styled from 'styled-components'
 
 import { siteUrl, social } from '../../site-config'
 import Head from '../components/Head'
-import Hero from '../components/Hero'
 import Layout from '../components/Layout'
+import Section from '../components/Section'
 import parsePostDate from '../helpers/parsePostDate'
+
+// https://css-tricks.com/flexbox-truncated-text/
+const Buttons = styled.div`
+  justify-content: space-between;
+
+  .button {
+    flex: 1 1 0;
+    min-width: 0;
+
+    small {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+`
+
+const Content = styled.div`
+  .gatsby-highlight-code-line {
+    background-color: #feb;
+    display: block;
+    margin-right: -2em;
+    margin-left: -1em;
+    /* padding-left: 0.65em; */
+    padding-left: 0.75em;
+    /* padding-right: 1em; */
+    border-left: 0.25em solid #f99;
+  }
+
+  .gatsby-highlight pre[class*='language-'].line-numbers {
+    padding-left: 4em;
+  }
+
+  .gatsby-highlight {
+    margin: 2rem auto;
+  }
+
+  .line-numbers-rows {
+    margin: 1.25em;
+  }
+`
 
 // eslint-disable-next-line react/prop-types
 const BlogPostTemplate = ({ data, pageContext, location }) => {
@@ -24,35 +67,37 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     },
   }
 
+  const btnClass = 'button remove-animation'
+
   return (
     <Layout>
       <Head pageTitle={post.title} siteDescription={post.spoiler} />
-      <Hero className="content">
-        <h1 className="title">{post.title}</h1>
+      <Section className="content">
+        <h1 className="title is-spaced">{post.title}</h1>
         <p className="subtitle">{post.spoiler}</p>
-        <small className="has-text-muted">
-          Published at {parsePostDate(post.date)}
-        </small>
+        <small>Published on {parsePostDate(post.date)}</small>
         <hr />
-        <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
-        <hr />
+        <Content
+          dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
+        />
+        <br />
         {(previous || next) && (
-          <div className="buttons is-centered">
+          <Buttons className="buttons">
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
+              <Link to={previous.fields.slug} className={btnClass} rel="prev">
+                ← <small>&nbsp;{previous.frontmatter.title}</small>
               </Link>
             )}
             {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
+              <Link to={next.fields.slug} className={btnClass} rel="next">
+                <small>{next.frontmatter.title}&nbsp;</small> →
               </Link>
             )}
-          </div>
+          </Buttons>
         )}
-        <hr />
+        <br />
         <DiscussionEmbed {...disqusProps} />
-      </Hero>
+      </Section>
     </Layout>
   )
 }
