@@ -19,7 +19,7 @@ Pretty straightforward, right? Except for one minor problem.
 On another part of the readme which explains on how to use a custom `App` component on `_app.js`, it also uses `getInitialProps` but with different destructured context parameters. Here's the [code snippet from the readme](https://github.com/zeit/next.js#custom-app):
 
 ```js
-static async getInitialProps({ Component, router, ctx }) {
+static async getInitialProps({ Component, router, ctx }) { // highlight-line
   let pageProps = {}
 
   if (Component.getInitialProps) {
@@ -47,12 +47,12 @@ import { inspect } from 'util'
 export default class extends Component {
   static getInitialProps(something) {
     return {
-      pageLog: inspect(something, true, 0),
+      pageLog: inspect(something, true, 0), // highlight-line
     }
   }
 
   componentDidMount() {
-    console.log(this.props.pageLog)
+    console.log(this.props.pageLog) // highlight-line
   }
 
   render() {
@@ -90,12 +90,12 @@ export default class MyApp extends App {
 
     return {
       pageProps,
-      appLog: inspect(something, true, 0),
+      appLog: inspect(something, true, 0), // highlight-line
     }
   }
 
   componentDidMount() {
-    console.log(this.props.appLog)
+    console.log(this.props.appLog) // highlight-line
   }
 
   render() {
@@ -200,4 +200,6 @@ interface NextContext<Q extends DefaultQuery = DefaultQuery> {
 }
 ```
 
-That’s much better than inspecting objects one by one. Hopefully this adventure log isn’t that confusing, since `getInitialProps` is already confusing at the start. Thanks for reading, and happy coding! 👋🏻
+That’s much better than inspecting objects one by one. 😅
+
+Hopefully this adventure log isn’t that confusing, since `getInitialProps` is already confusing at the start. Thanks for reading, and happy coding! 👋🏻
