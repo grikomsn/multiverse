@@ -29,7 +29,7 @@ const Ainami = styled(Img)`
 
 const Index = ({ data }) => (
   <Layout className="has-background-warning" hideFooter>
-    <Hero className="has-text-centered">
+    <Hero className="has-text-centered" centered>
       <figure className="image">
         <Ainami fluid={data.img.childImageSharp.fluid} />
       </figure>

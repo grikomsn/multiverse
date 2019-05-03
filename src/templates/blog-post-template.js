@@ -1,6 +1,6 @@
-import 'prism-themes/themes/prism-a11y-dark.css'
+import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css'
 
-import { CommentCount, DiscussionEmbed } from 'disqus-react'
+import { DiscussionEmbed } from 'disqus-react'
 import { graphql, Link } from 'gatsby'
 import React from 'react'
 
@@ -26,19 +26,16 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   return (
     <Layout>
-      <Head pageTitle={post.title} />
+      <Head pageTitle={post.title} siteDescription={post.spoiler} />
       <Hero className="content">
-        <h1>{post.title}</h1>
+        <h1 className="title">{post.title}</h1>
         <p className="subtitle">{post.spoiler}</p>
         <small className="has-text-muted">
-          Published at {parsePostDate(post.date)} &ndash;{' '}
-          <CommentCount {...disqusProps} />
+          Published at {parsePostDate(post.date)}
         </small>
         <hr />
         <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
-        <br />
-        <DiscussionEmbed {...disqusProps} />
-        <br />
+        <hr />
         {(previous || next) && (
           <div className="buttons is-centered">
             {previous && (
@@ -53,6 +50,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             )}
           </div>
         )}
+        <hr />
+        <DiscussionEmbed {...disqusProps} />
       </Hero>
     </Layout>
   )

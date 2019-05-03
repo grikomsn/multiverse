@@ -10,7 +10,6 @@ module.exports = {
         plugins: [
           'gatsby-remark-autolink-headers',
           'gatsby-remark-copy-linked-files',
-          'gatsby-remark-images',
           'gatsby-remark-prismjs',
           'gatsby-remark-responsive-iframe',
           'gatsby-remark-smartypants',
@@ -23,6 +22,10 @@ module.exports = {
           {
             resolve: 'gatsby-remark-external-links',
             options: { target: '_blank', rel: 'noopener noreferrer' },
+          },
+          {
+            resolve: 'gatsby-remark-images',
+            options: { showCaptions: true, tracedSVG: true },
           },
         ],
       },
