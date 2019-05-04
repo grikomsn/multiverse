@@ -56,7 +56,7 @@ module.exports = {
       resolve: 'gatsby-plugin-purgecss',
       options: {
         develop: true,
-        ignore: ['/src/stylesheets/prism.css', 'prismjs'],
+        ignore: ['prism-theme-ainami-dark', 'prismjs'],
         printAll: true,
         printRejected: true,
         whitelistPatternsChildren: [/^content$/],

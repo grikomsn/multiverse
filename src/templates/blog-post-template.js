@@ -1,4 +1,4 @@
-import '../stylesheets/prism.css'
+import 'prism-theme-ainami-dark'
 
 import { DiscussionEmbed } from 'disqus-react'
 import { graphql, Link } from 'gatsby'
@@ -27,7 +27,24 @@ const Buttons = styled.div`
   }
 `
 
-const Content = styled.div``
+const Content = styled.div`
+  /* PrismJS Overrides */
+  /* https://github.com/jgthms/bulma/issues/1708#issuecomment-382560341 */
+  .content .tag,
+  .content .number {
+    display: initial;
+    padding: initial;
+    font-size: initial;
+    line-height: initial;
+    text-align: initial;
+    vertical-align: initial;
+    border-radius: initial;
+    font-weight: initial;
+    white-space: initial;
+    background: initial;
+    margin: initial;
+  }
+`
 
 // eslint-disable-next-line react/prop-types
 const BlogPostTemplate = ({ data, pageContext, location }) => {

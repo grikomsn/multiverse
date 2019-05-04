@@ -10592,6 +10592,11 @@ pretty-ms@^4.0.0:
   dependencies:
     parse-ms "^2.0.0"
 
+prism-theme-ainami-dark@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/prism-theme-ainami-dark/-/prism-theme-ainami-dark-1.0.0.tgz#13ed5d6592788cd65e42887a91f4732e64806200"
+  integrity sha512-BrRapHZz1veWPfNwQPBPbCup+chCO9yEc3zGd3zKcw0/l+GcXDeu8d6MLReNZp/5O0mvflRWWJEgl8gRtwaC1w==
+
 prismjs@^1.16.0:
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.16.0.tgz#406eb2c8aacb0f5f0f1167930cb83835d10a4308"
