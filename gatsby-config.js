@@ -9,7 +9,7 @@ module.exports = {
       options: {
         plugins: [
           'gatsby-remark-copy-linked-files',
-          'gatsby-remark-default-html-attrs',
+          'gatsby-remark-prismjs',
           'gatsby-remark-responsive-iframe',
           'gatsby-remark-smartypants',
           {
@@ -19,10 +19,6 @@ module.exports = {
           {
             resolve: 'gatsby-remark-images',
             options: { showCaptions: true, tracedSVG: true },
-          },
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: { showLineNumbers: true },
           },
         ],
       },
@@ -37,10 +33,6 @@ module.exports = {
     'gatsby-plugin-webpack-size',
     'gatsby-transformer-json',
     'gatsby-transformer-sharp',
-    {
-      resolve: 'gatsby-plugin-react-svg',
-      options: { rule: { include: /images/ } },
-    },
     {
       resolve: 'gatsby-plugin-sass',
       options: { includePaths: ['./src/stylesheets'] },
@@ -64,15 +56,10 @@ module.exports = {
       resolve: 'gatsby-plugin-purgecss',
       options: {
         develop: true,
-        ignore: ['prismjs', 'prism-themes'],
+        ignore: ['/src/stylesheets/prism.css', 'prismjs'],
         printAll: true,
         printRejected: true,
-        whitelistPatternsChildren: [
-          /^content$/,
-          /^hero/,
-          /reset-color/,
-          /use-normal/,
-        ],
+        whitelistPatternsChildren: [/^content$/],
       },
     },
   ],

@@ -1,5 +1,4 @@
-import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css'
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
+import '../stylesheets/prism.css'
 
 import { DiscussionEmbed } from 'disqus-react'
 import { graphql, Link } from 'gatsby'
@@ -12,7 +11,7 @@ import Layout from '../components/Layout'
 import Section from '../components/Section'
 import parsePostDate from '../helpers/parsePostDate'
 
-// https://css-tricks.com/flexbox-truncated-text/
+// https://css-tricks.com/flexbox-truncated-text
 const Buttons = styled.div`
   justify-content: space-between;
 
@@ -28,30 +27,7 @@ const Buttons = styled.div`
   }
 `
 
-const Content = styled.div`
-  .gatsby-highlight-code-line {
-    background-color: #feb;
-    display: block;
-    margin-right: -2em;
-    margin-left: -1em;
-    /* padding-left: 0.65em; */
-    padding-left: 0.75em;
-    /* padding-right: 1em; */
-    border-left: 0.25em solid #f99;
-  }
-
-  .gatsby-highlight pre[class*='language-'].line-numbers {
-    padding-left: 4em;
-  }
-
-  .gatsby-highlight {
-    margin: 2rem auto;
-  }
-
-  .line-numbers-rows {
-    margin: 1.25em;
-  }
-`
+const Content = styled.div``
 
 // eslint-disable-next-line react/prop-types
 const BlogPostTemplate = ({ data, pageContext, location }) => {
