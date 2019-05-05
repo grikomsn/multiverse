@@ -1,4 +1,4 @@
-import 'prism-theme-ainami-dark'
+import 'prism-theme-ainami-dark/prism-bulma.min.css'
 
 import { DiscussionEmbed } from 'disqus-react'
 import { graphql, Link } from 'gatsby'
