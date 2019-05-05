@@ -51,3 +51,20 @@ a:hover:not(.remove-animation), a:focus:not(.remove-animation) {
 .title {
     letter-spacing: -0.8pt;
 }
+
+/* PrismJS Overrides */
+/* https://github.com/jgthms/bulma/issues/1708#issuecomment-382560341 */
+.content .tag,
+.content .number {
+    display: initial;
+    padding: initial;
+    font-size: initial;
+    line-height: initial;
+    text-align: initial;
+    vertical-align: initial;
+    border-radius: initial;
+    font-weight: initial;
+    white-space: initial;
+    background: initial;
+    margin: initial;
+}

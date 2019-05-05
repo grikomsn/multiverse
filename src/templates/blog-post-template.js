@@ -27,25 +27,6 @@ const Buttons = styled.div`
   }
 `
 
-const Content = styled.div`
-  /* PrismJS Overrides */
-  /* https://github.com/jgthms/bulma/issues/1708#issuecomment-382560341 */
-  .content .tag,
-  .content .number {
-    display: initial;
-    padding: initial;
-    font-size: initial;
-    line-height: initial;
-    text-align: initial;
-    vertical-align: initial;
-    border-radius: initial;
-    font-weight: initial;
-    white-space: initial;
-    background: initial;
-    margin: initial;
-  }
-`
-
 // eslint-disable-next-line react/prop-types
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark.frontmatter
@@ -70,9 +51,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         <p className="subtitle">{post.spoiler}</p>
         <small>Published on {parsePostDate(post.date)}</small>
         <hr />
-        <Content
-          dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
-        />
+        <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
         <br />
         {(previous || next) && (
           <Buttons className="buttons">
