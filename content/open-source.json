@@ -8,6 +8,11 @@
         "description": "Metacritic Movie user review fetcher"
       },
       {
+        "url": "https://github.com/grikomsn/prism-theme-ainami-dark",
+        "name": "prism-theme-ainami-dark",
+        "description": "A personal take on PrismJS stylesheet theme based on many copy-pastas"
+      },
+      {
         "url": "https://github.com/ninetwenty-one/rotten-reviews",
         "name": "rotten-reviews",
         "description": "Scrape audience reviews from Rotten Tomatoes"

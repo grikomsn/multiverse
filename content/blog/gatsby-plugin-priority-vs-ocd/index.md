@@ -11,8 +11,7 @@ I have a confession to make: *I always try to order everything alphabetically.* 
 Even in programming, sorting things alphabetically is a must. Variable declaration, switch values, and especially on package imports. For example, imports on JavaScript are sorted alphabetically and 'package-wise'. Here's a snippet from this [blog post template component](https://github.com/grikomsn/landing-page/blob/v3/src/templates/blog-post-template.js#L1-L11):
 
 ```js
-import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css'
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
+import 'prism-theme-ainami-dark/prism-bulma.min.css'
 
 import { DiscussionEmbed } from 'disqus-react'
 import { graphql, Link } from 'gatsby'
