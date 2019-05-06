@@ -64,7 +64,7 @@
     "ava": "^1.4.1",
     "babel-eslint": "^10.0.1",
     "chrome-launcher": "^0.10.7",
-    "core-js": "^3.0.1",
+    "core-js": "^2.6.5",
     "directory-named-webpack-plugin": "^4.0.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
