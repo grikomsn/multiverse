@@ -1,5 +1,6 @@
 {
   "bracketSpacing": true,
+  "endOfLine": "crlf",
   "jsxBracketSameLine": false,
   "parser": "babel",
   "printWidth": 80,
