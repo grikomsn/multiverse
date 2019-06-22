@@ -1,87 +1,95 @@
 [
   {
+    "name": "Blogs",
     "links": [
       {
-        "link": "https://dev.to/grikomsn",
-        "description": "DEV Community"
+        "description": "DEV Community",
+        "link": "https://dev.to/grikomsn"
       },
       {
-        "link": "https://medium.com/@griko",
-        "description": "Medium"
+        "description": "Medium",
+        "link": "https://medium.com/@griko"
       }
-    ],
-    "name": "Blogs"
+    ]
   },
   {
+    "name": "Development",
     "links": [
       {
-        "link": "https://hub.docker.com/u/griko",
-        "description": "Docker Hub"
+        "description": "Docker Hub",
+        "link": "https://hub.docker.com/u/griko"
       },
       {
-        "link": "https://github.com/grikomsn",
-        "description": "GitHub"
+        "description": "GitHub",
+        "link": "https://github.com/grikomsn"
       },
       {
-        "link": "https://gitlab.com/grikomsn",
-        "description": "GitLab"
+        "description": "GitLab",
+        "link": "https://gitlab.com/grikomsn"
       },
       {
-        "link": "https://npmjs.com/~griko",
-        "description": "npm"
+        "description": "npm",
+        "link": "https://npmjs.com/~griko"
       }
-    ],
-    "name": "Development"
+    ]
   },
   {
+    "name": "Social",
     "links": [
       {
-        "link": "https://line.me/ti/p/~grikomsn",
-        "description": "LINE"
+        "description": "LINE",
+        "link": "https://line.me/ti/p/~grikomsn"
       },
       {
-        "link": "https://steamcommunity.com/id/grikomsn",
-        "description": "Steam"
+        "description": "Steam",
+        "link": "https://steamcommunity.com/id/grikomsn"
       },
       {
-        "link": "https://t.me/griko_nibras",
-        "description": "Telegram"
+        "description": "Telegram",
+        "link": "https://t.me/griko_nibras"
       },
       {
-        "link": "https://twitter.com/griko_nibras",
-        "description": "Twitter"
+        "description": "Twitter",
+        "link": "https://twitter.com/griko_nibras"
       }
-    ],
-    "name": "Social"
+    ]
   },
   {
+    "name": "Alternates",
     "links": [
       {
-        "link": "https://griko.dev/github",
-        "description": ""
+        "description": "",
+        "link": "https://griko.dev/github"
       },
       {
-        "link": "https://griko.dev/gitlab",
-        "description": ""
+        "description": "",
+        "link": "https://griko.dev/gitlab"
       },
       {
-        "link": "https://griko.dev/steam",
-        "description": ""
+        "description": "",
+        "link": "https://griko.dev/steam"
       },
       {
-        "link": "https://griko.dev/twitter",
-        "description": ""
+        "description": "",
+        "link": "https://griko.dev/twitter"
       }
-    ],
-    "name": "Alternates"
+    ]
   },
   {
+    "name": "Useful Links",
     "links": [
       {
-        "link": "https://griko.dev/secret",
-        "description": ""
+        "description": "Answer to life the universe and everything",
+        "link": "https://griko.dev/secret"
+      },
+      {
+        "description": "VS Code extension pack",
+        "link": "https://griko.dev/vscode"
+      },
+      {
+        "description": "Legacy landing page",
+        "link": "https://v2.griko.id"
       }
-    ],
-    "name": "Useful Links"
+    ]
   }
 ]
