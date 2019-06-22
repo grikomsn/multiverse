@@ -14,6 +14,10 @@
     "prettier"
   ],
   "rules": {
+    "linebreak-style": [
+      "warn",
+      "windows"
+    ],
     "no-console": "warn",
     "no-unused-vars": "warn",
     "prettier/prettier": "warn",
