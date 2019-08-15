@@ -72,7 +72,7 @@ module.exports = {
       resolve: 'gatsby-plugin-purgecss',
       options: {
         develop: true,
-        ignore: ['prismjs'],
+        ignore: ['prismjs', 'tachyons'],
         printAll: true,
         printRejected: true,
         whitelistPatternsChildren: [/^content$/],
