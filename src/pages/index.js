@@ -6,7 +6,7 @@ import Link from '../components/Link'
 
 const Index = () => (
   <Layout>
-    <h1 className="f1-l f2 lh-title mt0">
+    <h1 className="f1-l f2 lh-title mt0 tracked-tight">
       Hello there. I am a software engineer from Surabaya, Indonesia. Love
       working on web technologies like{' '}
       <A className="orange" href="https://laravel.com" children={'Laravel'} />,{' '}
