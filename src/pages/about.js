@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import Link from '../components/Link'
 
 const Listify = ({ title = '', list = [], full = false }) => (
-  <div className={`fl mv0 w-${full ? '100' : '50'}`}>
+  <div className={`fl w-${full ? '100' : '50'}`}>
     <b>{title}</b>
     <ul className="list pl0">
       {list.map(s => (

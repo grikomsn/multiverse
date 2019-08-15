@@ -21,7 +21,7 @@ const Layout = ({ children, className }) => (
     <BlueBorder className="fixed top-0 left-0 right-0" />
     <LayoutWrapper className="center dark-gray flex flex-column justify-between min-vh-100 mw8 pa4 sans-serif">
       <Header />
-      <main className={'f4-l f5 ' + className}>{children}</main>
+      <main className={className}>{children}</main>
       <Footer />
     </LayoutWrapper>
   </>

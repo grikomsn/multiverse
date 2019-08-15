@@ -9,7 +9,7 @@ import trimProtocol from '../helpers/trimProtocol'
 const Listify = ({ name = '', links = [] }) => (
   <>
     <b>{name}</b>
-    <ul>
+    <ul className="list pl0">
       {links.map(({ description, link }) => (
         <li key={description}>
           {description} - <A href={link}>{trimProtocol(link)}</A>

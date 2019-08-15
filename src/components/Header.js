@@ -12,9 +12,9 @@ const Nav = styled(Link).attrs(({ last = false }) => ({
 }))``
 
 const Header = () => (
-  <HeaderWrapper className="f6-m fl mb4 w-100">
+  <HeaderWrapper className="fl mb4 w-100">
     <div className="fl">
-      <Link to="/" className="b dark-gray dim link pv4">
+      <Link to="/" className="b dark-gray dim link pv4 tracked-tight">
         Griko Nibras
       </Link>
     </div>
