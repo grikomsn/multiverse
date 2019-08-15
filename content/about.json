@@ -1,0 +1,76 @@
+[
+  {
+    "title": "Frontend",
+    "list": [
+      "CSS3",
+      "HTML5",
+      "SASS",
+      "Bootstrap 3/4",
+      "Bulma",
+      "Styled Components",
+      "Tachyons"
+    ],
+    "full": false
+  },
+  {
+    "title": "JavaScript",
+    "list": [
+      "ES6",
+      "Gatsby.js",
+      "jQuery",
+      "Next.js",
+      "Node.js",
+      "React",
+      "Typescript"
+    ],
+    "full": false
+  },
+  {
+    "title": "Server-side",
+    "list": [
+      "Docker",
+      "Firebase",
+      "Java",
+      "Laravel/Lumen",
+      "Laravel Nova",
+      "MariaDB/MySQL",
+      "PostgreSQL 10/11"
+    ],
+    "full": false
+  },
+  {
+    "title": "Tools of the trade",
+    "list": [
+      "GitKraken",
+      "IntelliJ IDEA",
+      "iTerm 2",
+      "NetBeans/CoolBeans",
+      "PhpStorm",
+      "Postman",
+      "Visual Studio Code"
+    ],
+    "full": false
+  },
+  {
+    "title": "Infrastructure",
+    "list": [
+      "DigitalOcean",
+      "Google Cloud",
+      "Netlify",
+      "Vultr",
+      "ZEIT Now"
+    ],
+    "full": false
+  },
+  {
+    "title": "Currently learning",
+    "list": [
+      "Golang",
+      "Prisma",
+      "Python",
+      "Vue.js",
+      "...and so on"
+    ],
+    "full": false
+  }
+]
