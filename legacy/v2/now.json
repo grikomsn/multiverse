@@ -1,0 +1,24 @@
+{
+  "name": "landing-page-v2",
+  "version": 2,
+  "alias": [
+    "v2.griko.id"
+  ],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "out"
+      }
+    }
+  ],
+  "github": {
+    "autoAlias": true,
+    "enabled": true
+  },
+  "public": true,
+  "regions": [
+    "all"
+  ]
+}

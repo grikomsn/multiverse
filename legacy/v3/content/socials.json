@@ -1,0 +1,95 @@
+[
+  {
+    "name": "Blogs",
+    "links": [
+      {
+        "description": "DEV Community",
+        "link": "https://dev.to/grikomsn"
+      },
+      {
+        "description": "Medium",
+        "link": "https://medium.com/@griko"
+      }
+    ]
+  },
+  {
+    "name": "Development",
+    "links": [
+      {
+        "description": "Docker Hub",
+        "link": "https://hub.docker.com/u/griko"
+      },
+      {
+        "description": "GitHub",
+        "link": "https://github.com/grikomsn"
+      },
+      {
+        "description": "GitLab",
+        "link": "https://gitlab.com/grikomsn"
+      },
+      {
+        "description": "npm",
+        "link": "https://npmjs.com/~griko"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "links": [
+      {
+        "description": "LINE",
+        "link": "https://line.me/ti/p/~grikomsn"
+      },
+      {
+        "description": "Steam",
+        "link": "https://steamcommunity.com/id/grikomsn"
+      },
+      {
+        "description": "Telegram",
+        "link": "https://t.me/griko_nibras"
+      },
+      {
+        "description": "Twitter",
+        "link": "https://twitter.com/griko_nibras"
+      }
+    ]
+  },
+  {
+    "name": "Alternates",
+    "links": [
+      {
+        "description": "",
+        "link": "https://griko.dev/github"
+      },
+      {
+        "description": "",
+        "link": "https://griko.dev/gitlab"
+      },
+      {
+        "description": "",
+        "link": "https://griko.dev/steam"
+      },
+      {
+        "description": "",
+        "link": "https://griko.dev/twitter"
+      }
+    ]
+  },
+  {
+    "name": "Useful Links",
+    "links": [
+      {
+        "description": "Answer to life the universe and everything",
+        "link": "https://griko.dev/secret"
+      },
+      {
+        "description": "VS Code extension pack",
+        "link": "https://griko.dev/vscode"
+      },
+      {
+        "description": "Legacy landing page",
+        "link": "https://v2.griko.id"
+      }
+    ]
+  }
+]

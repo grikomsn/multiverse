@@ -1,0 +1,48 @@
+{
+  "name": "@griko/landing-page",
+  "description": "Personal landing page",
+  "version": "2.0.0",
+  "repository": "https://github.com/grikomsn/landing-page.git",
+  "author": "Griko Nibras <grikomsn@gmail.com>",
+  "scripts": {
+    "develop": "node server.js",
+    "develop:next": "next",
+    "build": "next build",
+    "export": "next build && next export",
+    "now-build": "yarn export"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-brands-svg-icons": "^5.9.0",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@sindresorhus/class-names": "^1.1.0",
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
+    "bulma": "^0.7.5",
+    "emojione": "^4.5.0",
+    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-optipng": "^7.0.0",
+    "imagemin-svgo": "^7.0.0",
+    "next": "^8.1.0",
+    "next-compose-plugins": "^2.2.0",
+    "next-ga": "^2.3.4",
+    "next-offline": "^4.0.2",
+    "next-optimized-images": "^2.5.1",
+    "next-page-transitions": "^1.0.0-beta.2",
+    "next-purgecss": "^3.0.1",
+    "node-sass": "^4.12.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-lazyload": "^2.6.1",
+    "react-reveal": "^1.2.2",
+    "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.22",
+    "@types/react-dom": "^16.8.4",
+    "prop-types": "^15.7.2"
+  },
+  "private": true,
+  "license": "MIT"
+}

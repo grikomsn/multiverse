@@ -1,0 +1,36 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "jsx-a11y",
+    "prettier"
+  ],
+  "rules": {
+    "linebreak-style": [
+      "warn",
+      "windows"
+    ],
+    "no-console": "warn",
+    "no-unused-vars": "warn",
+    "prettier/prettier": "warn",
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "react/prop-types": "warn",
+    "strict": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

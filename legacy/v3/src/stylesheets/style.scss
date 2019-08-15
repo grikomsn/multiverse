@@ -1,0 +1,53 @@
+// Imports
+@import "./overrides";
+@import "./inter";
+@import "~bulma/bulma";
+@import "./emojione";
+
+// Custom Rules
+::selection {
+    background-color: $yellow;
+}
+
+html,
+body {
+    font-display: auto;
+    letter-spacing: -0.4pt;
+}
+
+a {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s, background-color .3s, color .3s !important;
+}
+
+a:hover:not(.remove-animation), a:focus:not(.remove-animation) {
+    background-size: 100% 2px;
+}
+
+// Bulma Class Overrides
+.content, p {
+    a.reset-color {
+        color: inherit;
+
+        &:hover {
+            color: inherit;
+        }
+    }
+}
+
+.navbar-item {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.navbar-padding {
+    width: 1rem;
+}
+
+.title {
+    letter-spacing: -0.8pt;
+}
