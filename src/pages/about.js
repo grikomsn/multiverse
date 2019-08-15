@@ -27,7 +27,7 @@ const About = ({ data }) => {
     <Layout className="measure lh-copy">
       <Head pageTitle="About" />
 
-      <h1 className="f2-l f3 lh-title mt0">
+      <h1 className="f2-l f3 lh-title mt0 tracked-tight">
         My name is Griko Muhammad Sultan Nibras. That’s too long, so I mostly
         use Griko Nibras.
       </h1>

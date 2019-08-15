@@ -27,7 +27,7 @@ const About = ({ data }) => {
   return (
     <Layout className="lh-copy">
       <Head pageTitle="Contact" />
-      <h1 className="f2-l f3 lh-title mt0">Contact</h1>
+      <h1 className="f2-l f3 lh-title mt0 tracked-tight">Contact</h1>
 
       <p className="measure">
         Get in touch via email at{' '}
