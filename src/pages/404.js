@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 const NotFound = ({ location }) => (
   <Layout>
     <Head pageTitle="404" />
-    <h1 className="f-headline solid">404 Not Found</h1>
+    <h1 className="f-headline solid tracked-tight">404 Not Found</h1>
     <p>
       <code className="ba b--gray bg-gray br2 ph2 pv1 white">
         {location.href}
