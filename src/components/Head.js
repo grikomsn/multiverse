@@ -1,5 +1,5 @@
 import { Location } from '@reach/router'
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Helmet } from 'react-helmet'
@@ -180,33 +180,32 @@ Head.propTypes = {
   location: PropTypes.object.isRequired,
 }
 
-const HeadWithQuery = props => (
-  <StaticQuery
-    query={graphql`
-      query {
-        site {
-          siteMetadata {
-            siteTitle
-            siteTitleShort
-            siteDescription
-            siteUrl
-            themeColor
-            social {
-              twitter
-            }
+const HeadWithQuery = props => {
+  const data = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          siteTitle
+          siteTitleShort
+          siteDescription
+          siteUrl
+          themeColor
+          social {
+            twitter
           }
         }
       }
-    `}
-    render={data => (
-      <Location>
-        {({ location }) => (
-          <Head {...data.site.siteMetadata} {...props} location={location} />
-        )}
-      </Location>
-    )}
-  />
-)
+    }
+  `)
+
+  return (
+    <Location>
+      {({ location }) => (
+        <Head {...data.site.siteMetadata} {...props} location={location} />
+      )}
+    </Location>
+  )
+}
 
 HeadWithQuery.propTypes = Head.propTypes
 
