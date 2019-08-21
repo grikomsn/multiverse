@@ -67,16 +67,5 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: { name: 'images', path: `${__dirname}/src/images` },
     },
-    // Last-priority Plugins
-    {
-      resolve: 'gatsby-plugin-purgecss',
-      options: {
-        develop: true,
-        ignore: ['prismjs', 'tachyons'],
-        printAll: true,
-        printRejected: true,
-        whitelistPatternsChildren: [/^content$/],
-      },
-    },
   ],
 }
