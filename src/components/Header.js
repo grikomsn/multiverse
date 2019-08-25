@@ -27,7 +27,7 @@ const Header = () => (
       <Nav to="/about" children="About" />
       {/* <Nav to="/blog">Blog</Nav> */}
       <Nav to="/works" children="Works" />
-      <Nav to="/contact" children="Contact" />
+      <Nav to="/contact" children="Contact" last />
     </div>
   </HeaderWrapper>
 )

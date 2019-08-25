@@ -177,7 +177,7 @@ Head.propTypes = {
   canonical: PropTypes.string,
   pageTitle: PropTypes.string,
   pageTitleFull: PropTypes.string,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.object,
 }
 
 const HeadWithQuery = props => {

@@ -57,13 +57,13 @@ const About = ({ data }) => {
 
       <Ellipsis />
 
-      <h3 className="f3-l f4">Knowledge Base</h3>
+      <h3 className="f3-l f4 tracked-tight">Knowledge Base</h3>
 
       {lists}
 
       <Ellipsis />
 
-      <h3 className="f3-l f4">Contact</h3>
+      <h3 className="f3-l f4 tracked-tight">Contact</h3>
 
       <p>
         Visit the <Link to="/contact">contact page</Link> for more information.

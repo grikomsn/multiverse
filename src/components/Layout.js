@@ -15,13 +15,17 @@ const LayoutWrapper = styled.div`
     sans-serif;
 `
 
-const Layout = ({ children, className }) => (
+const Main = styled.main`
+  ${props => props.grow && 'flex-grow: 1;'}
+`
+
+const Layout = ({ grow = true, ...props }) => (
   <>
     <Head />
     <BlueBorder className="fixed top-0 left-0 right-0" />
     <LayoutWrapper className="center dark-gray flex flex-column justify-between min-vh-100 mw8 pa4 sans-serif">
       <Header />
-      <main className={className}>{children}</main>
+      <Main grow={grow} {...props} />
       <Footer />
     </LayoutWrapper>
   </>
