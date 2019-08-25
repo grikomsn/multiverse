@@ -8,26 +8,6 @@ module.exports = {
       resolve: 'gatsby-plugin-exclude',
       options: { paths: ['/legacy/**'] },
     },
-    // Remark Plugins
-    // {
-    //   resolve: 'gatsby-transformer-remark',
-    //   options: {
-    //     plugins: [
-    //       'gatsby-remark-copy-linked-files',
-    //       'gatsby-remark-prismjs',
-    //       'gatsby-remark-responsive-iframe',
-    //       'gatsby-remark-smartypants',
-    //       {
-    //         resolve: 'gatsby-remark-external-links',
-    //         options: { target: '_blank', rel: 'noopener noreferrer' },
-    //       },
-    //       {
-    //         resolve: 'gatsby-remark-images',
-    //         options: { showCaptions: true, tracedSVG: true },
-    //       },
-    //     ],
-    //   },
-    // },
     // Other Plugins
     'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
