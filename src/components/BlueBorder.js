@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const BlueBorder = styled.div`
+const BlueBorder = styled.div.attrs({ className: 'z-max' })`
   /* https://twitter.com/steveschoger/status/872114194816126977 */
   /* https://uigradients.com/#Hydrogen */
 
@@ -15,4 +15,5 @@ const BlueBorder = styled.div`
 
   height: 0.5rem;
 `
+
 export default BlueBorder
