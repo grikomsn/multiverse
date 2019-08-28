@@ -23,7 +23,7 @@ const Header = () => (
       </Link>
     </div>
 
-    <div className="fr tr f5-l f6">
+    <div className="fr tr">
       <Nav to="/about" children="About" />
       {/* <Nav to="/blog">Blog</Nav> */}
       <Nav to="/works" children="Works" />
