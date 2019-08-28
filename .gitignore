@@ -1,6 +1,7 @@
 .cache/
 .DS_Store
 .env
+.env.*
 *.log
 build
 logs
