@@ -1,10 +1,8 @@
 import { graphql } from 'gatsby'
 import React from 'react'
 
-import A from '../components/ExtLink'
-import Head from '../components/Head'
-import Layout from '../components/Layout'
-import trimProtocol from '../helpers/trimProtocol'
+import { ExtLink as A, Head, Layout } from '../components'
+import { trimProtocol } from '../helpers'
 
 const Listify = ({ name = '', links = [] }) => (
   <>

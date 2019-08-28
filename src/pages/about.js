@@ -1,11 +1,7 @@
 import { graphql } from 'gatsby'
 import React from 'react'
 
-import Ellipsis from '../components/Ellipsis'
-import A from '../components/ExtLink'
-import Head from '../components/Head'
-import Layout from '../components/Layout'
-import Link from '../components/Link'
+import { Ellipsis, ExtLink as A, Head, Layout, Link } from '../components'
 
 const Listify = ({ title = '', list = [], full = false }) => (
   <div className={`fl w-${full ? '100' : '50'}`}>

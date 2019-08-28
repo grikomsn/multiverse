@@ -1,8 +1,6 @@
 import React from 'react'
 
-import A from '../components/ExtLink'
-import Layout from '../components/Layout'
-import Link from '../components/Link'
+import { ExtLink as A, Layout, Link } from '../components'
 
 const Index = () => (
   <Layout grow={false}>

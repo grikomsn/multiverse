@@ -12,6 +12,7 @@
     "build:dir": "mkdirp ./public/icons/",
     "build:favicons": "node scripts/favicons",
     "build": "yarn build:dir && yarn build:favicons && gatsby build",
+    "create-index": "create-index ./src/components ./src/helpers && yarn format",
     "now-build": "yarn build"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@types/react": "^16.9.1",
     "@types/react-dom": "^16.8.5",
+    "create-index": "^2.4.0",
     "favicons": "^5.4.1",
     "mkdirp": "^0.5.1",
     "node-gyp": "^5.0.3",
