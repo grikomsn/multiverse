@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AppProvider from './src/store/provider'
+import PageProvider from './src/store/PageProvider'
 
 // https://www.gatsbyjs.org/docs/browser-apis/#onClientEntry
 export const onClientEntry = () => {
@@ -12,5 +12,5 @@ export const onClientEntry = () => {
 // https://www.gatsbyjs.org/docs/browser-apis/#wrapRootElement
 // eslint-disable-next-line react/prop-types
 export const wrapRootElement = ({ element }) => {
-  return <AppProvider>{element}</AppProvider>
+  return <PageProvider>{element}</PageProvider>
 }

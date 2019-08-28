@@ -2,14 +2,14 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 
-import AppProvider from './src/store/provider'
+import PageProvider from './src/store/PageProvider'
 
 export const replaceRenderer = ({
   bodyComponent,
   replaceBodyHTMLString,
   setHeadComponents,
 }) => {
-  const ConnectedBody = () => <AppProvider>{bodyComponent}</AppProvider>
+  const ConnectedBody = () => <PageProvider>{bodyComponent}</PageProvider>
   replaceBodyHTMLString(renderToString(<ConnectedBody />))
 
   const sheet = new ServerStyleSheet()
