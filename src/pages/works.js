@@ -31,7 +31,7 @@ const Works = ({ data }) => {
       </p>
 
       {works.map(({ name, url, ...w }) => (
-        <div className="fl w-50-l w-100 mb4" key={name}>
+        <div className="mb4" key={name}>
           <A href={url} children={<Img {...w} />} />
           <p className="lh-copy">
             {name} <br />
