@@ -1,0 +1,10 @@
+{
+  "name": "landing-page",
+  "version": 2,
+  "alias": ["griko.id"],
+  "github": {
+    "autoAlias": true,
+    "enabled": true
+  },
+  "public": true
+}

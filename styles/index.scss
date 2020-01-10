@@ -1,0 +1,95 @@
+/* https://github.com/lucleray/next-purgecss/issues/32#issuecomment-527667318 */
+/* purgecss start ignore */
+
+@import '~tailwindcss/base';
+
+@import url('https://rsms.me/inter/inter.css');
+
+html,
+body {
+  @apply antialiased font-sans transition-colors;
+}
+
+article {
+  a {
+    @apply underline;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold leading-tight tracking-tight;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    @apply my-4;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  h5 {
+    @apply text-lg;
+  }
+
+  h6 {
+    @apply text-base;
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  article {
+    h1 {
+      @apply text-3xl;
+    }
+
+    h2 {
+      @apply text-2xl;
+    }
+    h3 {
+      @apply text-xl;
+    }
+    h4 {
+      @apply text-lg;
+    }
+    h5 {
+      @apply text-base;
+    }
+  }
+}
+
+::selection {
+  @apply bg-dodger-blue-100;
+}
+
+.dark-mode {
+  @apply bg-gray-900 text-gray-300;
+}
+
+.light-mode {
+  @apply bg-dodger-blue-300 text-gray-100;
+}
+
+@import '~tailwindcss/components';
+@import '~tailwindcss/utilities';
+
+/* purgecss end ignore */
