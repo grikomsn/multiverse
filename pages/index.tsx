@@ -25,6 +25,10 @@ function Mark({
   )
 }
 
+function Br() {
+  return <br className="hidden md:block" />
+}
+
 function Home() {
   const [day, setDay] = React.useState('day')
 
@@ -43,20 +47,20 @@ function Home() {
           whileHover={{ rotate: 2, scale: 1.05 }}
           whileTap={{ rotate: 1, scale: 1.025 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="cursor-move px-8 pb-8 md:pb-0 w-48 lg:w-64"
+          className="cursor-move px-8 pb-8 md:pb-0 w-48 h-48 lg:w-64 lg:h-64"
           src={require('../images/me.png')}
           alt="me"
         />
 
         <div>
           <div className="font-bold leading-tight mb-8 text-2xl sm:text-3xl lg:text-4xl tracking-tighter">
-            Hey there. <br /> I make{' '}
+            Hey there. <Br /> I make{' '}
             <Mark href="https://laravel.com" color="red" children="Laravel" />,{' '}
             <Mark href="https://nodejs.org" color="green" children="Node" />,
             and{' '}
             <Mark href="https://reactjs.org" color="blue" children="React" />{' '}
-            things. <br />
-            Busy with college and open source stuff. <br />
+            things. <Br />
+            Busy with college and open source stuff. <Br />
             Have a great {day}.
           </div>
 
