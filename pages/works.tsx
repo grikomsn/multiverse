@@ -22,7 +22,7 @@ function Works() {
 
         <div className="flex flex-wrap">
           {works.map(({ title, description, image, url, tags }) => (
-            <div className="lg:w-1/2 mb-8">
+            <div className="lg:w-1/2 mb-8" key={title}>
               <motion.div whileHover={{ y: -6 }}>
                 <A href={url}>
                   <img srcSet={image.srcSet} src={image.src} alt={title} />
