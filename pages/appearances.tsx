@@ -27,7 +27,7 @@ function Appearances() {
             className="hover:bg-dodger-blue-500 flex items-center mb-2 no-underline px-4 py-2 rounded hover:shadow-lg transition-all"
             key={title}
           >
-            <div className="hidden md:block pl-2 pr-6 w-18">
+            <div className="pl-2 pr-6 w-18">
               <Icon size={36} />
             </div>
             <div>
