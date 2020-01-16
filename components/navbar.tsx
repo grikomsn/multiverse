@@ -20,9 +20,12 @@ function Navbar() {
         <Link href="/" passHref>
           <a className="font-bold p-4 pr-1 tracking-tighter">Griko Nibras</a>
         </Link>
-        <button className="px-1 py-4" onClick={darkMode.toggle}>
-          {darkMode.value ? <FiMoon /> : <FiSun />}
-        </button>
+        <button
+          className="px-1 py-4"
+          onClick={darkMode.toggle}
+          aria-label="Toggle dark mode"
+          children={darkMode.value ? <FiMoon /> : <FiSun />}
+        />
       </div>
 
       <div className="mt-4 text-sm md:text-base">

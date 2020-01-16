@@ -15,7 +15,7 @@ function Mark({
         {...props}
         className={cns(
           'no-underline p-1 transition-colors',
-          `bg-${color}-600 hover:bg-${color}-700`,
+          { [`bg-${color}-600 hover:bg-${color}-700`]: color !== null },
           className
         )}
         rel="noopener noreferrer"
@@ -64,8 +64,8 @@ function Home() {
             Drop a mail at
             <Mark
               href="mailto:hello@griko.id"
-              color="yellow"
-              className="font-bold mx-1 tracking-tighter"
+              color={null}
+              className="bg-yellow-800 hover:bg-yellow-900 font-bold mx-1 tracking-tighter"
               children="hello@griko.id"
             />
             and let's talk business.
