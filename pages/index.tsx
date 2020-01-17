@@ -47,7 +47,7 @@ function Home() {
           whileHover={{ rotate: 2, scale: 1.05 }}
           whileTap={{ rotate: 1, scale: 1.025 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="cursor-move px-8 pb-8 md:pb-0 w-48 h-48 lg:w-64 lg:h-64"
+          className="cursor-move object-contain px-8 pb-8 md:pb-0 w-48 lg:w-64"
           src={require('../images/me.png')}
           alt="me"
         />
