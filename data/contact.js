@@ -1,6 +1,6 @@
 export default [
   {
-    name: 'Blogs',
+    name: 'Blog',
     links: [
       {
         description: 'DEV Community',
