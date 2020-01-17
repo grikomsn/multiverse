@@ -7,9 +7,8 @@ import useDarkMode from 'use-dark-mode'
 function Navbar() {
   const routes = [
     { to: '/mdx-test', title: 'MDX Test' },
+    { to: '/mdx-test-2', title: 'MDX Test 2' },
     { to: '/about', title: 'About' },
-    { to: '/appearances', title: 'Appearances' },
-    { to: '/works', title: 'Works' },
     { to: '/contact', title: 'Contact' },
   ]
 
