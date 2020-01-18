@@ -2,7 +2,7 @@ import React from 'react'
 import Main from '../components/main'
 import Test from '../contents/test.mdx'
 
-function Contact() {
+function Page() {
   return (
     <Main>
       <Test />
@@ -10,4 +10,4 @@ function Contact() {
   )
 }
 
-export default Contact
+export default Page
