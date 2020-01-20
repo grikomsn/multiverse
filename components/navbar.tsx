@@ -8,7 +8,7 @@ function Navbar() {
   const routes = [
     { to: '/mdx/[page]', as: '/mdx/test-1', title: 'MDX Test' },
     { to: '/mdx/[page]', as: '/mdx/test-2', title: 'MDX Test 2' },
-    { to: '/about', title: 'About' },
+    { to: '/mdx-test-3', title: 'MDX Test 3' },
     { to: '/contact', title: 'Contact' },
   ]
 
