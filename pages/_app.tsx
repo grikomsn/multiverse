@@ -32,7 +32,7 @@ function App({ Component, pageProps, router }: AppProps) {
         />
 
         <AnimatePresence exitBeforeEnter>
-          <Component {...pageProps} key={router.route} />
+          <Component {...pageProps} key={router.asPath} />
         </AnimatePresence>
       </Layout>
     </AppProvider>

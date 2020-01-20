@@ -6,8 +6,8 @@ import useDarkMode from 'use-dark-mode'
 
 function Navbar() {
   const routes = [
-    { to: '/mdx-test', title: 'MDX Test' },
-    { to: '/mdx-test-2', title: 'MDX Test 2' },
+    { to: '/mdx/[page]', as: '/mdx/test-1', title: 'MDX Test' },
+    { to: '/mdx/[page]', as: '/mdx/test-2', title: 'MDX Test 2' },
     { to: '/about', title: 'About' },
     { to: '/contact', title: 'Contact' },
   ]
@@ -29,8 +29,8 @@ function Navbar() {
       </div>
 
       <div className="mt-4 text-sm md:text-base">
-        {routes.map(({ to, title }, index) => (
-          <Link href={to} key={title} passHref>
+        {routes.map(({ to, title, as = null }, index) => (
+          <Link href={to} as={as} key={title} passHref>
             <a
               className={cns({
                 'md:mr-2': index === routes.length - 1,
