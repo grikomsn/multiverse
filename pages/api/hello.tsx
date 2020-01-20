@@ -1,7 +1,5 @@
-import { IncomingMessage, ServerResponse } from 'http'
+import { NowRequest, NowResponse } from '@now/node'
 
-export default (_req: IncomingMessage, res: ServerResponse) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'application/json')
-  res.end(JSON.stringify({ hello: 'world' }))
+export default (_req: NowRequest, res: NowResponse) => {
+  res.json({ hello: 'world' })
 }
