@@ -6,5 +6,13 @@
     "autoAlias": true,
     "enabled": true
   },
+  "headers": [
+    {
+      "source": "/(_next|icons)/.*|/(browserconfig.xml|manifest.json|social.png)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, stale-while-revalidate=86400" }
+      ]
+    }
+  ],
   "public": true
 }
