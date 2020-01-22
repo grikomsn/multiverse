@@ -6,6 +6,12 @@
     "CONTENTFUL_SPACE": "@landing-page-contentful-space",
     "CONTENTFUL_ACCESS_TOKEN": "@landing-page-contentful-access-token"
   },
+  "build": {
+    "env": {
+      "CONTENTFUL_SPACE": "@landing-page-contentful-space",
+      "CONTENTFUL_ACCESS_TOKEN": "@landing-page-contentful-access-token"
+    }
+  },
   "github": {
     "autoAlias": true,
     "enabled": true
