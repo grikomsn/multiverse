@@ -4,7 +4,7 @@ import A from './a'
 
 function Footer() {
   return (
-    <footer className="leading-relaxed-mb-16 -mb-16 md:mb-0 p-4 pb-6 text-center text-gray-400 text-xs transition-all">
+    <footer className="leading-relaxed-mb-16 p-4 pb-6 text-center text-gray-400 text-xs transition-all">
       Contents licensed under the{' '}
       <A href="https://griko.dev/cc-by-nc-sa" bold children="CC BY-NC-SA 4.0" />
       . Source licensed under the{' '}
