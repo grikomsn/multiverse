@@ -1,12 +1,22 @@
+import { NextPageContext } from 'next'
 import { NextSeo } from 'next-seo'
 import React from 'react'
 
 import A from '../components/a'
 import Content from '../components/content'
 import Main from '../components/main'
-import contact from '../data/contact'
+import contentful from '../services/contentful'
 
-function Contact() {
+type ContactGroupLinks = {
+  title: string
+  links: { description: string; link: string }[]
+}
+
+interface ContactProps extends React.ComponentProps<'div'> {
+  linkEntries: ContactGroupLinks[]
+}
+
+function Contact({ linkEntries }: ContactProps) {
   return (
     <Main>
       <NextSeo title="Contact" />
@@ -19,9 +29,9 @@ function Contact() {
           You can also contact or view my public accounts via these links below.
         </p>
 
-        {contact.map(({ name, links }) => (
-          <React.Fragment key={name}>
-            <h3>{name}</h3>
+        {linkEntries.map(({ title, links }) => (
+          <React.Fragment key={title}>
+            <h3>{title}</h3>
             <ul>
               {links.map(({ description, link }) => (
                 <li key={description}>
@@ -36,6 +46,23 @@ function Contact() {
       </Content>
     </Main>
   )
+}
+
+Contact.getInitialProps = async (_ctx: NextPageContext) => {
+  const entries = await contentful.getEntries({
+    content_type: 'contactGroupLinks',
+    order: 'fields.title',
+  })
+
+  const linkEntries = entries.items.map(({ fields }: any) => ({
+    title: fields.title,
+    links: fields.links.map((l: string) => {
+      const [description, link] = l.split(' ## ')
+      return { description, link }
+    }),
+  }))
+
+  return { linkEntries }
 }
 
 export default Contact

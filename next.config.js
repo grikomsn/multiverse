@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+
 const withPlugins = require('next-compose-plugins')
 
 module.exports = withPlugins(
@@ -6,5 +10,11 @@ module.exports = withPlugins(
     [require('@zeit/next-sass')],
     [require('next-optimized-images')],
   ],
-  { target: 'serverless' }
+  {
+    env: {
+      CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
+      CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
+    },
+    target: 'serverless',
+  }
 )

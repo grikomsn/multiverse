@@ -1,13 +1,26 @@
 import { motion } from 'framer-motion'
+import { NextPageContext } from 'next'
 import { NextSeo } from 'next-seo'
 import React from 'react'
 
 import A from '../components/a'
 import Content from '../components/content'
 import Main from '../components/main'
-import works from '../data/works'
+import contentful from '../services/contentful'
 
-function Works() {
+type ShowcaseEntry = {
+  title: string
+  description: string
+  url: string
+  tags: string[]
+  image: string
+}
+
+interface WorksProps extends React.ComponentProps<'div'> {
+  showcaseEntries: ShowcaseEntry[]
+}
+
+function Works({ showcaseEntries }: WorksProps) {
   return (
     <Main>
       <NextSeo title="Works" />
@@ -21,11 +34,11 @@ function Works() {
         <br />
 
         <div className="flex flex-wrap justify-center">
-          {works.map(({ title, description, image, url, tags }) => (
+          {showcaseEntries.map(({ title, description, image, url, tags }) => (
             <div className="lg:w-1/2 mb-8" key={title}>
               <motion.div whileHover={{ y: -6 }}>
                 <A href={url}>
-                  <img srcSet={image.srcSet} src={image.src} alt={title} />
+                  <img src={image} alt={title} />
                 </A>
               </motion.div>
               <A href={url}>
@@ -47,6 +60,19 @@ function Works() {
       </Content>
     </Main>
   )
+}
+Works.getInitialProps = async (_ctx: NextPageContext) => {
+  const entries = await contentful.getEntries({
+    content_type: 'showcase',
+    order: '-sys.createdAt',
+  })
+
+  const showcaseEntries = entries.items.map(({ fields }: any) => ({
+    ...fields,
+    image: `https:${fields.image.fields.file.url}?w=1280&h=768`,
+  }))
+
+  return { showcaseEntries }
 }
 
 export default Works
