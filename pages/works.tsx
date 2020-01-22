@@ -20,7 +20,7 @@ function Works() {
 
         <br />
 
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap justify-center">
           {works.map(({ title, description, image, url, tags }) => (
             <div className="lg:w-1/2 mb-8" key={title}>
               <motion.div whileHover={{ y: -6 }}>
