@@ -1,5 +1,13 @@
 export default [
   {
+    title: 'znalrs',
+    description:
+      'Near zero-config link redirector or shortener using Zeit Now functions and Airtable for link management.',
+    image: require('../images/works-znalrs.png?resize&sizes[]=800&sizes[]=1280'),
+    url: 'https://znalrs.now.sh/',
+    tags: ['zeit-now', 'airtable', 'functions'],
+  },
+  {
     title: 'SurabayaJS',
     description:
       'Created and actively maintain SurabayaJS landing page. Made using GatsbyJS and TailwindCSS, hosted on Zeit Now.',
