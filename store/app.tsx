@@ -1,9 +1,15 @@
 import React from 'react'
 
-export const defaultValue = {}
+export interface AppContextDefaultValuesProps {}
 
-const context = React.createContext(defaultValue)
+export const defaultValue: AppContextDefaultValuesProps = {}
+
+const AppContext = React.createContext(defaultValue)
 
 export function AppProvider({ children }) {
-  return <context.Provider value={defaultValue} children={children} />
+  return (
+    <AppContext.Provider value={defaultValue}>{children}</AppContext.Provider>
+  )
 }
+
+export default AppContext
