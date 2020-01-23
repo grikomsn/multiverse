@@ -1,5 +1,6 @@
 .DS_Store
-.env
+.env*
+!.env.example
 .pnp.js
 /.next/
 /.pnp
