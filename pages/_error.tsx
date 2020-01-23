@@ -1,4 +1,5 @@
 import { STATUS_CODES } from 'http'
+import { NextPageContext } from 'next'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 import React from 'react'
@@ -24,7 +25,7 @@ function ErrorPage({ statusCode }) {
   )
 }
 
-ErrorPage.getInitialProps = ({ res, err }) => {
+ErrorPage.getInitialProps = ({ res, err }: NextPageContext) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404
   return { statusCode }
 }

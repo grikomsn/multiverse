@@ -7,12 +7,16 @@
 
 html,
 body {
-  @apply antialiased font-sans transition-colors;
+  @apply antialiased bg-gray-900 font-sans text-gray-300;
 }
 
 article {
   a {
-    @apply underline;
+    @apply text-dodger-blue-100 transition-color;
+  }
+
+  a:hover {
+    @apply text-blue-300;
   }
 
   h1,
@@ -54,6 +58,16 @@ article {
   h6 {
     @apply text-base;
   }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  &.blog-post {
+    p {
+      @apply mb-6;
+    }
+  }
 }
 
 @media (max-width: theme('screens.sm')) {
@@ -78,15 +92,7 @@ article {
 }
 
 ::selection {
-  @apply bg-dodger-blue-100;
-}
-
-.dark-mode {
-  @apply bg-gray-900 text-gray-300;
-}
-
-.light-mode {
-  @apply bg-dodger-blue-400 text-gray-100;
+  @apply bg-gray-700;
 }
 
 @import '~tailwindcss/components';

@@ -41,9 +41,11 @@ function Works({ showcaseEntries }: WorksProps) {
                   <img src={image} alt={title} />
                 </A>
               </motion.div>
-              <A href={url}>
-                <h3>{title}</h3>
-              </A>
+              <A
+                href={url}
+                className="text-gray-100 hover:text-gray-100 underline"
+                children={<h3>{title}</h3>}
+              />
               <p className="max-w-lg mx-auto">{description}</p>
               <div className="text-gray-500 text-xs">
                 {tags.map(tag => (
