@@ -18,13 +18,7 @@
   },
   "headers": [
     {
-      "source": "/((_next|icons)/.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, stale-while-revalidate=86400" }
-      ]
-    },
-    {
-      "source": "/(browserconfig\\.xml|manifest\\.json|social\\.png)",
+      "source": "/(_next|icons)/.*|/(browserconfig.xml|manifest.json|social.png)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, stale-while-revalidate=86400" }
       ]
