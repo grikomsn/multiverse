@@ -1,0 +1,14 @@
+.DS_Store
+.env*
+!.env.example
+.pnp.js
+/.next/
+/.pnp
+/build
+/node_modules
+/out/
+/public/**/*
+!/public/social.png
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

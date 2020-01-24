@@ -1,0 +1,59 @@
+{
+  "name": "landing-page",
+  "version": "4.0.0",
+  "scripts": {
+    "develop": "next dev",
+    "build:favicons": "node scripts/favicons",
+    "build": "yarn build:favicons && next build",
+    "start": "next start",
+    "format": "prettier --write {components,data,pages,scripts,services,store,styles}/**/*.{js,scss,tsx}"
+  },
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "^13.4.0",
+    "@contentful/rich-text-react-renderer": "^13.4.0",
+    "@contentful/rich-text-types": "^13.4.0",
+    "@fullhuman/postcss-purgecss": "^1.3.0",
+    "@sindresorhus/class-names": "^1.1.0",
+    "@zeit/next-sass": "^1.0.1",
+    "contentful": "^7.13.1",
+    "dotenv": "^8.2.0",
+    "favicons": "^5.5.0",
+    "framer-motion": "^1.7.0",
+    "imagemin-optipng": "^7.1.0",
+    "next": "^9.2.0",
+    "next-compose-plugins": "^2.2.0",
+    "next-optimized-images": "^2.5.4",
+    "next-purgecss": "^3.1.2",
+    "next-seo": "^3.3.0",
+    "node-sass": "^4.13.0",
+    "postcss-preset-env": "^6.7.0",
+    "react": "^16.12.0",
+    "react-disqus-comments": "^1.4.0",
+    "react-dom": "^16.12.0",
+    "react-icons": "^3.8.0",
+    "tailwindcss": "^1.1.4",
+    "tailwindcss-transitions": "^2.1.0"
+  },
+  "devDependencies": {
+    "@now/node": "^1.3.5",
+    "@types/node": "^13.1.7",
+    "@types/react": "^16.9.17",
+    "husky": "^4.0.10",
+    "prettier": "^1.19.1",
+    "stylelint-config-recommended": "^3.0.0",
+    "typescript": "^3.7.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format"
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "useTabs": false
+  },
+  "license": "MIT"
+}

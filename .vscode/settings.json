@@ -1,0 +1,6 @@
+{
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.enable": true,
+  "typescriptHero.imports.multiLineWrapThreshold": 80
+}
