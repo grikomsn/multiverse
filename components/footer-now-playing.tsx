@@ -1,4 +1,5 @@
 import { HTMLMotionProps, motion } from 'framer-motion'
+import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 
 import AppContext from '../store/app'
@@ -7,11 +8,13 @@ import A from './a'
 function FooterNowPlaying() {
   const { nowPlaying } = React.useContext(AppContext)
 
+  const router = useRouter()
+
   const motionProps: HTMLMotionProps<'div'> = {
-    animate: nowPlaying ? 'loaded' : 'loading',
+    animate: nowPlaying && router.asPath !== '/now-playing' ? 'show' : 'hide',
     variants: {
-      loading: { height: 0, opacity: 0 },
-      loaded: { height: 'auto', opacity: 1 },
+      hide: { height: 0, opacity: 0 },
+      show: { height: 'auto', opacity: 1 },
     },
   }
 
@@ -23,8 +26,8 @@ function FooterNowPlaying() {
             <div className="md:inline-block md:pr-1">Now playing:</div>
 
             <A href={nowPlaying.songUrl}>
+              {nowPlaying.isPlaying ? '▶ ' : '⏸ '}
               <b>{nowPlaying.title}</b> by <b>{nowPlaying.artist}</b>
-              {!nowPlaying.isPlaying && ' (paused)'}
             </A>
 
             <A href={nowPlaying.songUrl}>

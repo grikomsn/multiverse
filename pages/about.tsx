@@ -54,6 +54,16 @@ function About() {
 
         <br />
 
+        <h3>Resources</h3>
+        <ul>
+          <li>
+            <Link href="/now-playing" passHref children={<a>/now-playing</a>} />{' '}
+            - Get to know what I am currently listening on Spotify
+          </li>
+        </ul>
+
+        <br />
+
         <h3>Contact</h3>
         <p>
           Visit the <Link href="/contact" children={<a>contact page</a>} /> for
