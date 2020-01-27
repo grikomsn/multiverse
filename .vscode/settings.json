@@ -1,6 +1,10 @@
 {
   "css.validate": false,
+  "eslint.packageManager": "yarn",
+  "npm.packageManager": "yarn",
+  "prettier.packageManager": "yarn",
   "scss.validate": false,
   "stylelint.enable": true,
+  "stylelint.packageManager": "yarn",
   "typescriptHero.imports.multiLineWrapThreshold": 80
 }
