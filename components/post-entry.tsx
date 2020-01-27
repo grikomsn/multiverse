@@ -23,7 +23,7 @@ function PostEntry({
   const motionProps: HTMLMotionProps<'div'> = {
     whileHover: { y: -6 },
     whileTap: { y: -4 },
-    className: 'bg-gray-800 rounded shadow-lg',
+    className: 'bg-gray-800 mb-8 rounded shadow-lg',
   }
 
   return (
