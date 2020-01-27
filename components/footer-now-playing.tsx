@@ -1,5 +1,6 @@
 import { HTMLMotionProps, motion } from 'framer-motion'
 import { useRouter } from 'next/dist/client/router'
+import Link from 'next/link'
 import React from 'react'
 
 import AppContext from '../store/app'
@@ -26,14 +27,16 @@ function FooterNowPlaying() {
           <motion.span initial="initial" whileHover="hovering">
             <div className="md:inline-block md:pr-1">Now playing:</div>
 
-            <A href={nowPlaying.songUrl}>
-              {nowPlaying.isPlaying ? '▶ ' : '⏸ '}
-              <b>{nowPlaying.title}</b> by <b>{nowPlaying.artist}</b>
-            </A>
+            <Link href="/now-playing" passHref>
+              <a className="relative z-10">
+                {nowPlaying.isPlaying ? '▶ ' : '⏸ '}
+                <b>{nowPlaying.title}</b> by <b>{nowPlaying.artist}</b>
+              </a>
+            </Link>
 
             <A href={nowPlaying.songUrl}>
               <motion.div
-                className="absolute pb-8 w-32"
+                className="absolute pb-8 w-32 z-0"
                 style={{ left: 'calc(50% - 4rem)' }}
                 variants={{
                   initial: { opacity: 0, scale: 0, y: -120 },

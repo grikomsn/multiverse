@@ -53,7 +53,14 @@ function NowPlaying() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <p>Currently I am not playing anything...</p>
+            <h1>Now Playing</h1>
+            <p>
+              Currently I am not playing anything... why not{' '}
+              <A href="https://open.spotify.com/user/grikomsn?si=FDrQ-wFSQpK3YVW1B23CUA">
+                head over to my Spotify page
+              </A>
+              ?
+            </p>
           </React.Fragment>
         )}
       </Content>
