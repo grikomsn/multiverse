@@ -4,7 +4,10 @@
   "alias": ["griko.id"],
   "env": {
     "CONTENTFUL_SPACE": "@landing-page-contentful-space",
-    "CONTENTFUL_ACCESS_TOKEN": "@landing-page-contentful-access-token"
+    "CONTENTFUL_ACCESS_TOKEN": "@landing-page-contentful-access-token",
+    "SPOTIFY_CLIENT_ID": "@personal-api-spotify-client-id",
+    "SPOTIFY_CLIENT_SECRET": "@personal-api-spotify-client-secret",
+    "SPOTIFY_REFRESH_TOKEN": "@personal-api-spotify-refresh-token"
   },
   "build": {
     "env": {
@@ -24,5 +27,5 @@
       ]
     }
   ],
-  "public": true
+  "public": false
 }

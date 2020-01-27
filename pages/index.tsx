@@ -38,7 +38,7 @@ function Home() {
   }, [])
 
   return (
-    <Main>
+    <Main className="py-12">
       <div className="flex flex-col md:flex-row items-center justify-center">
         <motion.img
           drag
