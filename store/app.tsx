@@ -29,7 +29,7 @@ export function AppProvider({ children }) {
           setNowPlaying(np)
         })
     }
-  })
+  }, [])
 
   return <AppContext.Provider value={{ nowPlaying }} children={children} />
 }
