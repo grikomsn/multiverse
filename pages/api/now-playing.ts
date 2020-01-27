@@ -67,7 +67,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     const data = await spotify.getMyCurrentPlayingTrack()
 
     if (!('is_playing' in data.body)) {
-      res.json({ isPlaying: false })
+      res.json({})
       console.log('> Currently not playing anything')
       return
     }
