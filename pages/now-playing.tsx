@@ -24,26 +24,11 @@ function NowPlaying() {
       <NextSeo
         title={title}
         description={description}
-        openGraph={{
-          title,
-          description,
-          ...(npExists
-            ? {
-                images: [
-                  {
-                    url: np.albumImageUrl,
-                    width: 640,
-                    height: 640,
-                    alt: title,
-                  },
-                ],
-              }
-            : {}),
-        }}
+        openGraph={{ title, description }}
       />
 
       <Content className="text-center">
-        {np ? (
+        {npExists ? (
           <React.Fragment>
             <A href={np.songUrl} className="text-gray-100 hover:text-gray-100">
               <motion.img

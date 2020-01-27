@@ -7,11 +7,12 @@ import A from './a'
 
 function FooterNowPlaying() {
   const { nowPlaying } = React.useContext(AppContext)
+  const npExists = nowPlaying && nowPlaying.isPlaying
 
   const router = useRouter()
 
   const motionProps: HTMLMotionProps<'div'> = {
-    animate: nowPlaying && router.asPath !== '/now-playing' ? 'show' : 'hide',
+    animate: npExists && router.asPath !== '/now-playing' ? 'show' : 'hide',
     variants: {
       hide: { height: 0, opacity: 0 },
       show: { height: 'auto', opacity: 1 },
@@ -20,7 +21,7 @@ function FooterNowPlaying() {
 
   return (
     <motion.div {...motionProps}>
-      {nowPlaying && (
+      {npExists && (
         <React.Fragment>
           <motion.span initial="initial" whileHover="hovering">
             <div className="md:inline-block md:pr-1">Now playing:</div>
