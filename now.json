@@ -29,7 +29,7 @@
     {
       "source": "/api/now-playing",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=60" }
+        { "key": "Cache-Control", "value": "public, max-age=120, stale-while-revalidate=60" }
       ]
     }
   ],
