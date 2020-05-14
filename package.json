@@ -5,8 +5,9 @@
   "repository": "https://github.com/grikomsn/griko.id.git",
   "author": "Griko Nibras <git@griko.id>",
   "scripts": {
-    "build": "yarn build:assets && yarn build:web",
-    "build:assets": "env-cmd node scripts/build.js",
+    "now-build": "yarn build:assets && yarn build:web",
+    "build": "yarn build:assets && env-cmd yarn build:web",
+    "build:assets": "node scripts/build.js",
     "build:web": "next build",
     "clean": "rimraf .next \"public/!(robots.txt|social.png)\"",
     "develop": "next dev",
