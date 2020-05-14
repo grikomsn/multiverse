@@ -6,7 +6,7 @@
   "author": "Griko Nibras <git@griko.id>",
   "scripts": {
     "now-build": "yarn build:assets && yarn build:web",
-    "build": "yarn build:assets && env-cmd yarn build:web",
+    "build": "env-cmd yarn build:assets && env-cmd yarn build:web",
     "build:assets": "node scripts/build.js",
     "build:web": "next build",
     "clean": "rimraf .next \"public/!(robots.txt|social.png)\"",
