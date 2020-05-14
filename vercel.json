@@ -1,0 +1,35 @@
+{
+  "alias": [
+    "griko.id"
+  ],
+  "env": {
+    "DATOCMS_API_KEY": "@griko-id-datocms-api-key"
+  },
+  "build": {
+    "env": {
+      "DATOCMS_API_KEY": "@griko-id-datocms-api-key"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(_next|icons)/(.*)|/(browserconfig.xml|manifest.json|social.png)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, stale-while-revalidate=86400"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(rss|sitemap).xml",
+      "destination": "/api/$1.xml"
+    }
+  ],
+  "github": {
+    "autoAlias": true,
+    "enabled": true
+  },
+  "public": true
+}

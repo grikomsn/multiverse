@@ -1,0 +1,6 @@
+{
+  "typescriptHero.imports.insertSemicolons": true,
+  "typescriptHero.imports.organizeOnSave": true,
+  "typescriptHero.imports.organizeSortsByFirstSpecifier": true,
+  "typescriptHero.imports.stringQuoteStyle": "\""
+}

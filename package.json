@@ -1,0 +1,61 @@
+{
+  "name": "griko-id",
+  "description": "Personal landing page 👋🏻",
+  "version": "6.0.0",
+  "repository": "https://github.com/grikomsn/griko.id.git",
+  "author": "Griko Nibras <git@griko.id>",
+  "scripts": {
+    "build": "yarn build:assets && yarn build:web",
+    "build:assets": "env-cmd node scripts/build.js",
+    "build:web": "next build",
+    "clean": "rimraf .next \"public/!(robots.txt|social.png)\"",
+    "develop": "next dev",
+    "format": "yarn format:index && yarn format:src",
+    "format:index": "prettier --write \"*.{js,json,md}\"",
+    "format:src": "prettier --write \"src/**/*.{js,ts,tsx}\"",
+    "prepare": "yarn format"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.7.0",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "date-fns": "^2.13.0",
+    "emotion-theming": "^10.0.27",
+    "favicons": "^6.0.0",
+    "framer-motion": "^2.0.0-beta.71",
+    "graphql-request": "^1.8.2",
+    "next": "^9.4.1-canary.3",
+    "next-cookies": "^2.0.3",
+    "next-seo": "^4.4.0",
+    "prism-react-renderer": "^1.1.0",
+    "react": "^16.13.1",
+    "react-datocms": "^1.2.4",
+    "react-dom": "^16.13.1",
+    "react-icons": "^3.10.0",
+    "react-markdown": "^4.3.1",
+    "rss": "^1.2.2",
+    "sitemap": "^6.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.1",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/rss": "^0.0.28",
+    "env-cmd": "^10.1.0",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  },
+  "license": "MIT"
+}
