@@ -99,21 +99,23 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ blogPost }) => {
             authors: [siteConfig.url],
             tags: blogPost.tags.split(",").map((t) => t.trim()),
           },
-          images: [
-            {
-              url: blogPost.cover.url,
-              width: blogPost.cover.width,
-              height: blogPost.cover.height,
-              alt: blogPost.cover.alt,
-            },
-          ],
+          images: blogPost.cover
+            ? [
+                {
+                  url: blogPost.cover.url,
+                  width: blogPost.cover.width,
+                  height: blogPost.cover.height,
+                  alt: blogPost.cover.alt,
+                },
+              ]
+            : [],
         }}
       />
 
       <BlogJsonLd
         url={`${siteConfig.url}/blog/${blogPost.slug}`}
         title={blogPost.title}
-        images={[blogPost.cover.url]}
+        images={blogPost.cover ? [blogPost.cover.url] : []}
         datePublished={postedAtIso}
         dateModified={postedAtIso}
         authorName={siteConfig.title}
@@ -135,7 +137,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ blogPost }) => {
         ]}
       />
 
-      <Card headerResponsiveImage={blogPost.cover.responsiveImage}>
+      <Card headerResponsiveImage={blogPost.cover?.responsiveImage}>
         <Stack spacing={4} textAlign="center">
           <Heading as="h1">{blogPost.title}</Heading>
 
