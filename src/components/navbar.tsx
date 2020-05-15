@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
   const externals: [any, string][] = [
     [FaGithub, socials["GitHub"]],
     [FaTwitter, socials["Twitter"]],
-    [FaRss, `/api/rss.xml`],
+    [FaRss, `/rss.xml`],
   ];
 
   return (

@@ -1,4 +1,4 @@
-Sitemap: https://griko.id/api/sitemap.xml
+Sitemap: https://griko.id/sitemap.xml
 
 User-agent: *
 Allow: /*

@@ -21,12 +21,6 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/(rss|sitemap).xml",
-      "destination": "/api/$1.xml"
-    }
-  ],
   "github": {
     "autoAlias": true,
     "enabled": true
