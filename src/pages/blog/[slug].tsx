@@ -1,6 +1,6 @@
+import { gql } from "@/cms";
 import { Card, Link } from "@/components";
 import { useColorMode, useSiteConfig } from "@/hooks";
-import { gql } from "@/services/datocms";
 import { BlogPost } from "@/types";
 import { formatDate } from "@/utils";
 import { blogPostRenderer } from "@/utils/renderers";

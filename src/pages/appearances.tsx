@@ -1,5 +1,5 @@
+import { gql } from "@/cms";
 import { Appearances, Card } from "@/components";
-import { gql } from "@/services/datocms";
 import { Appearance } from "@/types";
 import { Box, Heading, Stack } from "@chakra-ui/core";
 import { GetStaticProps } from "next";

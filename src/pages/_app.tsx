@@ -1,7 +1,7 @@
 import "../stylesheets/html.css";
 
+import { gql } from "@/cms";
 import { Footer, Navbar } from "@/components";
-import { fetchSiteConfig } from "@/services/datocms";
 import { SiteConfigProvider } from "@/store/site-config";
 import theme from "@/theme";
 import { SiteConfig } from "@/types";
@@ -80,7 +80,20 @@ const App = ({
 App.getInitialProps = async (context: AppContext) => {
   const props = NextApp.getInitialProps(context);
   const { colorMode = "dark" } = cookies(context.ctx);
-  const siteConfig = await fetchSiteConfig();
+
+  const { siteConfig } = await gql`
+    {
+      siteConfig {
+        title
+        description
+        url
+        twitterUsername
+        email
+        links
+        socials
+      }
+    }
+  `;
 
   return { ...props, colorMode, siteConfig };
 };

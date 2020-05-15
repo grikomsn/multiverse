@@ -1,5 +1,5 @@
+import { gql } from "@/cms";
 import { Card, Link } from "@/components";
-import { gql } from "@/services/datocms";
 import { AboutPageContent, SiteConfig } from "@/types";
 import { aboutPageRenderer } from "@/utils/renderers";
 import {
