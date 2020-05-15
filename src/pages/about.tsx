@@ -54,7 +54,12 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   `;
 
-  return { props: { content, siteConfig } };
+  return {
+    props: {
+      content,
+      siteConfig,
+    },
+  };
 };
 
 const AboutPage: React.FC<AboutPageProps> = ({ content, siteConfig }) => (

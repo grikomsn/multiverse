@@ -42,7 +42,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       showcases,
     },
-    unstable_revalidate: 86400,
   };
 };
 
