@@ -44,11 +44,21 @@ const Navbar: React.FC = () => {
         </Link>
 
         <Stack isInline spacing={4}>
-          <Box as="button" onClick={toggleColorMode} {...paddings}>
+          <Box
+            as="button"
+            aria-label="toggle dark mode"
+            onClick={toggleColorMode}
+            {...paddings}
+          >
             <Box as={FaMoon} size="18px" />
           </Box>
 
-          <Box as="button" onClick={onOpen} ref={btnRef}>
+          <Box
+            as="button"
+            aria-label="open sidebar menu"
+            onClick={onOpen}
+            ref={btnRef}
+          >
             <Box as={FaBars} size="18px" />
           </Box>
         </Stack>
@@ -91,7 +101,12 @@ const Navbar: React.FC = () => {
               <Box as={icon} size="18px" />
             </Link>
           ))}
-          <Box as="button" onClick={toggleColorMode} {...paddings}>
+          <Box
+            as="button"
+            aria-label="toggle dark mode"
+            onClick={toggleColorMode}
+            {...paddings}
+          >
             <Box as={FaMoon} size="18px" />
           </Box>
         </Stack>
@@ -135,7 +150,11 @@ const Navbar: React.FC = () => {
                   </Link>
                 ))}
 
-                <Box as="button" onClick={toggleColorMode}>
+                <Box
+                  as="button"
+                  aria-label="toggle dark mode"
+                  onClick={toggleColorMode}
+                >
                   <Box as={FaMoon} size="24px" />
                 </Box>
               </Stack>
