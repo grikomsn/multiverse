@@ -60,7 +60,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ showcases }) => (
         </Box>
       </Stack>
 
-      <Showcases showcases={showcases} full />
+      <Showcases showcases={showcases} />
     </Card>
   </Box>
 );

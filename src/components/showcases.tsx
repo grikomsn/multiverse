@@ -11,15 +11,14 @@ const MotionBox = motion.custom(Box);
 type ShowcasesProps = {
   showcases: Showcase[];
   slice?: number;
-  full?: boolean;
 };
 
-const Showcases: React.FC<ShowcasesProps> = ({ showcases, slice, full }) => {
+const Showcases: React.FC<ShowcasesProps> = ({ showcases, slice }) => {
   const { isDarkMode } = useColorMode();
 
   const maxHeights = {
     default: "96px",
-    lg: full ? "384px" : "192px",
+    lg: "192px",
   };
 
   const sliced = slice > 0 ? showcases.slice(0, slice) : showcases;
@@ -30,7 +29,7 @@ const Showcases: React.FC<ShowcasesProps> = ({ showcases, slice, full }) => {
         gap={4}
         templateColumns={{
           default: "repeat(1, 1fr)",
-          sm: full ? "repeat(1, 1fr)" : "repeat(2, 1fr)",
+          sm: "repeat(2, 1fr)",
         }}
       >
         {sliced.map(({ title, tech, image, url }, i) => (
@@ -44,18 +43,14 @@ const Showcases: React.FC<ShowcasesProps> = ({ showcases, slice, full }) => {
             textAlign="center"
           >
             <Stack h="full">
-              <Stack flexGrow={1} spacing={full ? 4 : 2}>
+              <Stack flexGrow={1} spacing={2}>
                 <Link href={url} isExternal>
-                  <Heading
-                    as={full ? "h2" : "h3"}
-                    fontWeight={full ? "bold" : "semibold"}
-                    size={full ? "lg" : "md"}
-                  >
+                  <Heading as="h3" fontWeight="semibold" size="md">
                     {title}
                   </Heading>
                 </Link>
 
-                <Box fontSize={full ? "md" : "sm"}>{tech}</Box>
+                <Box fontSize="sm">{tech}</Box>
               </Stack>
 
               <Link href={url} isExternal>
@@ -75,7 +70,6 @@ const Showcases: React.FC<ShowcasesProps> = ({ showcases, slice, full }) => {
 
 Showcases.defaultProps = {
   slice: 0,
-  full: false,
 };
 
 export default Showcases;
