@@ -74,8 +74,8 @@ const AboutPage: React.FC<AboutPageProps> = ({ content, siteConfig }) => (
             <Markdown source={content.excerpt} renderers={aboutPageRenderer} />
           </Stack>
 
-          <Box maxW="256px" mx="auto" pb={8}>
-            <Box borderRadius="full" maxH="256px" overflow="hidden">
+          <Box maxW="256px" mx="auto" pb={8} w="full">
+            <Box borderRadius="full" overflow="hidden">
               <DatoImage data={content.portrait.responsiveImage} />
             </Box>
           </Box>

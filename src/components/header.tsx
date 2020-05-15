@@ -30,16 +30,21 @@ const Header: React.FC = () => {
         </Box>
       </Stack>
 
-      <Icon
-        backgroundColor={isDarkMode ? "gray.700" : "white"}
+      <Box
         borderRadius="full"
-        color={isDarkMode ? "gray.700" : "white"}
         display={{ default: "block", lg: "none" }}
-        maxWidth={64}
+        maxW="64"
         mx="auto"
-        name="doodleCentered"
-        size="100%"
-      />
+        w="full"
+      >
+        <Icon
+          backgroundColor={isDarkMode ? "gray.700" : "white"}
+          borderRadius="full"
+          color={isDarkMode ? "gray.700" : "white"}
+          name="doodleCentered"
+          size="full"
+        />
+      </Box>
       <Icon
         color={isDarkMode ? "gray.700" : "white"}
         display={{ default: "none", lg: "block" }}
