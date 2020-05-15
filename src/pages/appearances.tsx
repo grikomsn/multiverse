@@ -60,7 +60,7 @@ const AppearancesPage: React.FC<AppearancesPageProps> = ({
   <Box>
     <NextSeo
       title="Appearances"
-      description="Talks, meetups, and other appearances from various events"
+      description="Talks, meetups, and other appearances from various events."
     />
 
     <Card headerResponsiveImage={header.responsiveImage}>

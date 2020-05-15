@@ -49,7 +49,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ showcases }) => (
   <Box>
     <NextSeo
       title="Projects"
-      description="past works from personal projects and open source ones"
+      description="Here are some of my past works from personal projects and open source ones."
     />
 
     <Card>
