@@ -13,7 +13,7 @@ type ProjectsPageProps = {
 export const getStaticProps: GetStaticProps = async () => {
   const { showcases } = await gql`
     {
-      showcases: allShowcases(orderBy: featuredOrder_ASC) {
+      showcases: allShowcases {
         title
         tech
         image {
@@ -33,7 +33,6 @@ export const getStaticProps: GetStaticProps = async () => {
           }
         }
         url
-        featuredOrder
       }
     }
   `;

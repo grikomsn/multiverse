@@ -23,7 +23,7 @@ type HomePageProps = {
 export const getStaticProps: GetStaticProps = async () => {
   const { showcases, appearances, blogPosts, siteConfig } = await gql`
     {
-      showcases: allShowcases(orderBy: featuredOrder_ASC, first: 4) {
+      showcases: allShowcases(first: 4) {
         title
         tech
         image {

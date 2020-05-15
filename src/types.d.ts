@@ -80,7 +80,6 @@ export interface Showcase {
   tech: string;
   image: DatoAsset;
   url: string;
-  featuredOrder: number;
 }
 
 export interface AboutPageContent {
