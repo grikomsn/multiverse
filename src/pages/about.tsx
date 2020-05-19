@@ -100,7 +100,14 @@ const AboutPage: React.FC<AboutPageProps> = ({ content, siteConfig }) => (
             )}
           </Stack>
 
-          <Box maxW="256px" mx="auto" pb={8} w="full">
+          <Box
+            borderRadius="full"
+            overflow="hidden"
+            maxW="256px"
+            mx="auto"
+            pb={8}
+            w="full"
+          >
             <Box borderRadius="full" overflow="hidden">
               <DatoImage data={content.portrait.responsiveImage} />
             </Box>
