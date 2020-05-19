@@ -86,6 +86,7 @@ App.getInitialProps = async (context: AppContext) => {
       siteConfig {
         title
         description
+        descriptionMarkdown
         url
         twitterUsername
         email

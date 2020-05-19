@@ -43,9 +43,11 @@ export interface DatoAsset {
 export interface SiteConfig {
   title: string;
   description: string;
+  descriptionMarkdown: string;
   url: string;
   twitterUsername: string;
   email: string;
+  availableForHire: boolean;
   links: Record<string, string>;
   socials: Record<string, string>;
 }

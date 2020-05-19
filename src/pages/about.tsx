@@ -49,6 +49,9 @@ export const getStaticProps: GetStaticProps = async () => {
       }
       siteConfig {
         title
+        email
+        availableForHire
+        links
         socials
       }
     }
@@ -71,7 +74,30 @@ const AboutPage: React.FC<AboutPageProps> = ({ content, siteConfig }) => (
         <Flex flexDirection={{ default: "column-reverse", lg: "row" }}>
           <Stack spacing={4} pr={{ default: 0, lg: 4 }}>
             <Heading as="h1">{content.title}</Heading>
+
             <Markdown source={content.excerpt} renderers={aboutPageRenderer} />
+
+            {siteConfig.availableForHire ? (
+              <Text>
+                I'm{" "}
+                <Link href={siteConfig.links["Resume"]}>
+                  available for hire
+                </Link>
+                , and you can contact me via email at{" "}
+                <Link href={`mailto:${siteConfig.email}`}>
+                  {siteConfig.email}
+                </Link>
+                .
+              </Text>
+            ) : (
+              <Text>
+                You can contact me via email at{" "}
+                <Link href={`mailto:${siteConfig.email}`}>
+                  {siteConfig.email}
+                </Link>
+                .
+              </Text>
+            )}
           </Stack>
 
           <Box maxW="256px" mx="auto" pb={8} w="full">

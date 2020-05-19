@@ -1,11 +1,13 @@
 import { Link } from "@/components";
 import { useColorMode, useSiteConfig } from "@/hooks";
+import { headerRenderer } from "@/utils/renderers";
 import { Box, Flex, Heading, Icon, Stack } from "@chakra-ui/core";
 import * as React from "react";
+import Markdown from "react-markdown";
 
 const Header: React.FC = () => {
   const { isDarkMode } = useColorMode();
-  const { email, links, socials } = useSiteConfig();
+  const { descriptionMarkdown, email } = useSiteConfig();
 
   return (
     <Flex
@@ -16,13 +18,7 @@ const Header: React.FC = () => {
       <Stack py={8} spacing={4}>
         <Heading as="h1">Hi, I'm Griko Nibras.</Heading>
 
-        <Box fontSize="xl">
-          I do full-stack web development using Laravel, Node.js, and
-          React-based frameworks. I also organize{" "}
-          <Link href={links["SurabayaJS"]}>SurabayaJS</Link>, create and
-          contribute <Link href={socials["GitHub"]}>open source stuff</Link>,
-          and <Link href={links["Resume"]}>available for hire</Link>.
-        </Box>
+        <Markdown source={descriptionMarkdown} renderers={headerRenderer} />
 
         <Box>
           For business inquiries, drop a mail at{" "}

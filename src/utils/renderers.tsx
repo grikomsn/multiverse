@@ -14,9 +14,15 @@ type RendererRecord = {
   [nodeType: string]: React.ElementType<any>;
 };
 
+export const headerRenderer: RendererRecord = {
+  link: (props) => <Link {...props} />,
+  root: (props) => <Box fontSize="xl" pb={4} {...props} />,
+  paragraph: Box,
+};
+
 export const aboutPageRenderer: RendererRecord = {
   link: (props) => <Link {...props} />,
-  root: (props) => <Stack spacing={4} {...props} />,
+  root: (props) => <Stack pb={4} spacing={4} {...props} />,
   paragraph: Box,
 };
 
