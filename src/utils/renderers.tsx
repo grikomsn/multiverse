@@ -15,7 +15,7 @@ type RendererRecord = {
 };
 
 export const aboutPageRenderer: RendererRecord = {
-  link: Link,
+  link: (props) => <Link {...props} />,
   root: (props) => <Stack spacing={4} {...props} />,
   paragraph: Box,
 };
@@ -62,7 +62,7 @@ export const blogPostRenderer: (_?: boolean) => RendererRecord = (
 
   inlineCode: Code,
 
-  link: Link,
+  link: (props) => <Link {...props} />,
 
   paragraph: Box,
 
