@@ -64,7 +64,7 @@ const AppearancesPage: React.FC<AppearancesPageProps> = ({
     />
 
     <Card headerResponsiveImage={header.responsiveImage}>
-      <Stack>
+      <Stack pb={4}>
         <Heading as="h2">Appearances</Heading>
         <Box>Talks, meetups, and other appearances from various events.</Box>
       </Stack>

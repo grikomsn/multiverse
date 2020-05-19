@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <Box>
+    <Box fontSize={{ default: "sm", lg: "md" }}>
       <Box
         display={{ default: "flex", md: "none" }}
         justifyContent="space-between"

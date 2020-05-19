@@ -16,7 +16,7 @@ type RendererRecord = {
 
 export const headerRenderer: RendererRecord = {
   link: (props) => <Link {...props} />,
-  root: (props) => <Box fontSize="xl" pb={4} {...props} />,
+  root: (props) => <Box fontSize="lg" pb={8} {...props} />,
   paragraph: Box,
 };
 

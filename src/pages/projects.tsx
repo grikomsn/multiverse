@@ -52,7 +52,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ showcases }) => (
     />
 
     <Card>
-      <Stack>
+      <Stack pb={4}>
         <Heading as="h2">Projects</Heading>
         <Box>
           Here are some of my past works from personal projects and open source

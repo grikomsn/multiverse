@@ -3,6 +3,7 @@ export { default as BlogPosts } from "./blog-posts";
 export { default as Card } from "./card";
 export { default as Footer } from "./footer";
 export { default as Header } from "./header";
+export { default as IndexSection } from "./index-section";
 export { default as Link } from "./link";
 export { default as Navbar } from "./navbar";
 export { default as Showcases } from "./showcases";

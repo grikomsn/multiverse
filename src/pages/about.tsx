@@ -73,7 +73,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ content, siteConfig }) => (
       <Stack spacing={16}>
         <Flex flexDirection={{ default: "column-reverse", lg: "row" }}>
           <Stack spacing={4} pr={{ default: 0, lg: 4 }}>
-            <Heading as="h1">{content.title}</Heading>
+            <Heading as="h1" size="xl">
+              {content.title}
+            </Heading>
 
             <Markdown source={content.excerpt} renderers={aboutPageRenderer} />
 
@@ -103,7 +105,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ content, siteConfig }) => (
           <Box
             borderRadius="full"
             overflow="hidden"
-            maxW="256px"
+            maxW={{ default: "256px", lg: "320px" }}
             mx="auto"
             pb={8}
             w="full"

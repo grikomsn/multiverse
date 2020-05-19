@@ -65,7 +65,13 @@ const App = ({
           ]}
         />
 
-        <Stack m="auto" maxW={[, , "2xl", "4xl"]} minH="100vh">
+        <Stack
+          fontSize="md"
+          m="auto"
+          maxW={[, , "2xl", "6xl"]}
+          minH="100vh"
+          px={{ lg: 8 }}
+        >
           <Navbar />
           <Box flexGrow={1}>
             <Component {...pageProps} />

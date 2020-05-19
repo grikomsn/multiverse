@@ -39,9 +39,16 @@ const BlogPosts: React.FC<BlogPostsProps> = ({ blogPosts, slice }) => {
                 </Link>
               </Box>
 
-              <Box width={{ lg: 2 / 5 }}>{subtitle}</Box>
+              <Box
+                fontSize="sm"
+                px={{ default: 0, lg: 4 }}
+                width={{ lg: 2 / 5 }}
+              >
+                {subtitle}
+              </Box>
 
               <Box
+                fontSize="sm"
                 color={isDarkMode ? "gray.400" : "gray.500"}
                 width={{ default: null, lg: 1 / 5 }}
                 textAlign={{ default: "initial", lg: "right" }}

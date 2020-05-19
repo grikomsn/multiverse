@@ -1,7 +1,7 @@
 import { Link } from "@/components";
 import { useColorMode, useSiteConfig } from "@/hooks";
 import { headerRenderer } from "@/utils/renderers";
-import { Box, Flex, Heading, Icon, Stack } from "@chakra-ui/core";
+import { Box, Flex, Heading, Icon } from "@chakra-ui/core";
 import * as React from "react";
 import Markdown from "react-markdown";
 
@@ -13,18 +13,21 @@ const Header: React.FC = () => {
     <Flex
       alignItems="end"
       flexDirection={{ default: "column-reverse", lg: "row" }}
+      justifyContent="space-between"
       px={8}
     >
-      <Stack py={8} spacing={4}>
-        <Heading as="h1">Hi, I'm Griko Nibras.</Heading>
+      <Box maxW={{ lg: "xl" }} py={8}>
+        <Heading as="h1" size="xl" pb={4}>
+          Hi, I'm Griko Nibras.
+        </Heading>
 
         <Markdown source={descriptionMarkdown} renderers={headerRenderer} />
 
-        <Box>
+        <Box pb={4}>
           For business inquiries, drop a mail at{" "}
           <Link href={`mailto:${email}`}>{email}</Link> and let’s talk.
         </Box>
-      </Stack>
+      </Box>
 
       <Box
         borderRadius="full"
@@ -45,7 +48,7 @@ const Header: React.FC = () => {
         color={isDarkMode ? "gray.700" : "white"}
         display={{ default: "none", lg: "block" }}
         name="doodle"
-        size="64"
+        size="18em"
       />
     </Flex>
   );

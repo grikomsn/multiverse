@@ -18,7 +18,7 @@ const Showcases: React.FC<ShowcasesProps> = ({ showcases, slice }) => {
 
   const maxHeights = {
     default: "96px",
-    lg: "192px",
+    lg: "224px",
   };
 
   const sliced = slice > 0 ? showcases.slice(0, slice) : showcases;

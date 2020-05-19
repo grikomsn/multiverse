@@ -56,7 +56,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts, header }) => (
     <NextSeo title="Latest Blog Posts" />
 
     <Card headerResponsiveImage={header.responsiveImage}>
-      <Stack>
+      <Stack pb={4}>
         <Heading as="h1">Latest Blog Posts</Heading>
         <Box>
           Sometimes I write about web development, other times about random

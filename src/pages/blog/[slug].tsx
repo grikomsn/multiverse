@@ -140,9 +140,9 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ blogPost }) => {
         <Stack spacing={4} textAlign="center">
           <Heading as="h1">{blogPost.title}</Heading>
 
-          <Text fontSize="lg">{blogPost.subtitle}</Text>
+          <Text fontSize={{ lg: "lg" }}>{blogPost.subtitle}</Text>
 
-          <Text color={isDarkMode ? "gray.400" : "gray.500"}>
+          <Text color={isDarkMode ? "gray.400" : "gray.500"} fontSize="sm">
             Posted at {formatDate(blogPost.postedAt)}
           </Text>
         </Stack>
