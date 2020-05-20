@@ -2,11 +2,11 @@ import { Link } from "@/components";
 import { useColorMode } from "@/hooks";
 import { Showcase } from "@/types";
 import { Box, Grid, Heading, Stack } from "@chakra-ui/core";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import * as React from "react";
 import { Image as DatoImage } from "react-datocms";
 
-const MotionBox = motion.custom(Box);
+const MotionBox = dynamic(() => import("@/components/motion-box"), {});
 
 type ShowcasesProps = {
   showcases: Showcase[];

@@ -5,6 +5,7 @@ export { default as Footer } from "./footer";
 export { default as Header } from "./header";
 export { default as IndexSection } from "./index-section";
 export { default as Link } from "./link";
+export { default as MotionBox } from "./motion-box";
 export { default as Navbar } from "./navbar";
 export { default as Showcases } from "./showcases";
 export { default as Snippet } from "./snippet";
