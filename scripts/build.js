@@ -1,3 +1,5 @@
+require("cross-fetch/polyfill");
+
 const { gql } = require("../src/cms");
 
 const buildFavicons = require("./build-favicons");
