@@ -1,8 +1,10 @@
+import * as React from "react";
+
 import { Box, Code, Heading } from "@chakra-ui/core";
-import { STATUS_CODES } from "http";
+
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import * as React from "react";
+import { STATUS_CODES } from "http";
 
 type ErrorPageProps = {
   statusCode: number;

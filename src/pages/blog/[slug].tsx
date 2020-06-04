@@ -1,15 +1,17 @@
-import { gql } from "@/cms";
-import { Card, Link } from "@/components";
-import { useColorMode, useSiteConfig } from "@/hooks";
-import { BlogPost } from "@/types";
-import { formatDate } from "@/utils";
-import { blogPostRenderer } from "@/utils/renderers";
-import { Box, Divider, Heading, Stack, Text } from "@chakra-ui/core";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
-import { stringify } from "querystring";
 import * as React from "react";
+
+import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
+import { Box, Divider, Heading, Stack, Text } from "@chakra-ui/core";
+import { Card, Link } from "@/components";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { useColorMode, useSiteConfig } from "@/hooks";
+
+import { BlogPost } from "@/types";
 import Markdown from "react-markdown";
+import { blogPostRenderer } from "@/utils/renderers";
+import { formatDate } from "@/utils";
+import { gql } from "@/cms";
+import { stringify } from "querystring";
 
 type BlogPostPageProps = {
   blogPost: BlogPost;
@@ -49,6 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       blogPost,
     },
+    unstable_revalidate: 86400,
   };
 };
 

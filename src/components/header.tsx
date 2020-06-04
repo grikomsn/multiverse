@@ -1,9 +1,11 @@
-import { Link } from "@/components";
-import { useColorMode, useSiteConfig } from "@/hooks";
-import { headerRenderer } from "@/utils/renderers";
-import { Box, Flex, Heading, Icon } from "@chakra-ui/core";
 import * as React from "react";
+
+import { Box, Flex, Heading, Icon } from "@chakra-ui/core";
+import { useColorMode, useSiteConfig } from "@/hooks";
+
+import { Link } from "@/components";
 import Markdown from "react-markdown";
+import { headerRenderer } from "@/utils/renderers";
 
 const Header: React.FC = () => {
   const { isDarkMode } = useColorMode();

@@ -1,9 +1,11 @@
-import { useColorMode } from "@/hooks";
-import { Box } from "@chakra-ui/core";
+import * as React from "react";
+
 import Highlight, { Language, Prism } from "prism-react-renderer";
+
+import { Box } from "@chakra-ui/core";
 import githubTheme from "prism-react-renderer/themes/github";
 import oceanicNextTheme from "prism-react-renderer/themes/oceanicNext";
-import * as React from "react";
+import { useColorMode } from "@/hooks";
 
 type SnippetProps = {
   code: string;

@@ -1,10 +1,12 @@
-import { gql } from "@/cms";
-import { Card, Showcases } from "@/components";
-import { Showcase } from "@/types";
+import * as React from "react";
+
 import { Box, Heading, Stack } from "@chakra-ui/core";
+import { Card, Showcases } from "@/components";
+
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
-import * as React from "react";
+import { Showcase } from "@/types";
+import { gql } from "@/cms";
 
 type ProjectsPageProps = {
   showcases: Showcase[];
@@ -41,6 +43,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       showcases,
     },
+    unstable_revalidate: 86400,
   };
 };
 

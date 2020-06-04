@@ -1,10 +1,11 @@
-import { useColorMode } from "@/hooks";
-import { BlogPost } from "@/types";
-import { formatDate } from "@/utils";
-import { Box, Divider, Stack } from "@chakra-ui/core";
 import * as React from "react";
 
+import { Box, Divider, Stack } from "@chakra-ui/core";
+
+import { BlogPost } from "@/types";
 import { Link } from ".";
+import { formatDate } from "@/utils";
+import { useColorMode } from "@/hooks";
 
 type BlogPostsProps = {
   blogPosts: BlogPost[];

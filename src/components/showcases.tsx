@@ -1,10 +1,12 @@
-import { Link } from "@/components";
-import { useColorMode } from "@/hooks";
-import { Showcase } from "@/types";
-import { Box, Grid, Heading, Stack } from "@chakra-ui/core";
-import dynamic from "next/dynamic";
 import * as React from "react";
+
+import { Box, Grid, Heading, Stack } from "@chakra-ui/core";
+
 import { Image as DatoImage } from "react-datocms";
+import { Link } from "@/components";
+import { Showcase } from "@/types";
+import dynamic from "next/dynamic";
+import { useColorMode } from "@/hooks";
 
 const MotionBox = dynamic(() => import("@/components/motion-box"), {});
 
@@ -45,9 +47,9 @@ const Showcases: React.FC<ShowcasesProps> = ({ showcases, slice }) => {
             <Stack h="full">
               <Stack flexGrow={1} spacing={2}>
                 <Link href={url} isExternal>
-                  <Heading as="h3" fontWeight="semibold" size="md">
+                  <Box as="h3" fontSize="lg" fontWeight="semibold">
                     {title}
-                  </Heading>
+                  </Box>
                 </Link>
 
                 <Box fontSize="sm">{tech}</Box>

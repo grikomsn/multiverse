@@ -1,7 +1,9 @@
+import * as React from "react";
+
 import { Box, Code, Heading, Image, Stack, Text } from "@chakra-ui/core";
+
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import * as React from "react";
 
 const NotFoundPage: React.FC = () => {
   const { asPath } = useRouter();

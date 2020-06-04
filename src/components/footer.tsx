@@ -1,7 +1,9 @@
+import * as React from "react";
+
+import { Box, Divider, Flex, Stack, Text } from "@chakra-ui/core";
+
 import { Link } from "@/components";
 import routes from "@/routes";
-import { Box, Divider, Flex, Stack, Text } from "@chakra-ui/core";
-import * as React from "react";
 
 const Footer: React.FC = () => (
   <Stack fontSize="sm" py={16} spacing={8}>

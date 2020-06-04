@@ -1,38 +1,33 @@
 import "../stylesheets/html.css";
 
-import { gql } from "@/cms";
-import { Footer, Navbar } from "@/components";
-import { SiteConfigProvider } from "@/store/site-config";
-import theme from "@/theme";
-import { SiteConfig } from "@/types";
-import { cssResetConfig } from "@/utils/chakra-ui";
+import * as React from "react";
+
 import {
   Box,
-  ColorModeProvider,
   CSSReset,
+  ColorModeProvider,
   Stack,
   ThemeProvider,
 } from "@chakra-ui/core";
-import cookies from "next-cookies";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
+import { Footer, Navbar } from "@/components";
 import NextApp, { AppContext, AppProps } from "next/app";
-import * as React from "react";
+
+import { SiteConfig } from "@/types";
+import { SiteConfigProvider } from "@/store/site-config";
+import { cssResetConfig } from "@/utils/chakra-ui";
+import { gql } from "@/cms";
+import theme from "@/theme";
 
 type CustomAppProps = AppProps & {
   colorMode: "dark" | "light";
   siteConfig: SiteConfig;
 };
 
-const App = ({
-  Component,
-  pageProps,
-  router,
-  colorMode,
-  siteConfig,
-}: CustomAppProps) => (
+const App = ({ Component, pageProps, router, siteConfig }: CustomAppProps) => (
   <SiteConfigProvider value={siteConfig}>
     <ThemeProvider theme={theme}>
-      <ColorModeProvider value={colorMode}>
+      <ColorModeProvider value="dark">
         <CSSReset config={cssResetConfig} />
 
         <DefaultSeo
@@ -85,7 +80,6 @@ const App = ({
 
 App.getInitialProps = async (context: AppContext) => {
   const props = NextApp.getInitialProps(context);
-  const { colorMode = "dark" } = cookies(context.ctx);
 
   const { siteConfig } = await gql`
     {
@@ -102,7 +96,7 @@ App.getInitialProps = async (context: AppContext) => {
     }
   `;
 
-  return { ...props, colorMode, siteConfig };
+  return { ...props, siteConfig };
 };
 
 export default App;

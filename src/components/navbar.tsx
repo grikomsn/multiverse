@@ -1,6 +1,5 @@
-import { Link } from "@/components";
-import { useColorMode, useSiteConfig } from "@/hooks";
-import routes from "@/routes";
+import * as React from "react";
+
 import {
   Box,
   Drawer,
@@ -12,13 +11,14 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/core";
-import * as React from "react";
-import { FaBars, FaGithub, FaMoon, FaRss, FaTwitter } from "react-icons/fa";
+import { FaBars, FaGithub, FaRss, FaTwitter } from "react-icons/fa";
+
+import { Link } from "@/components";
+import routes from "@/routes";
+import { useSiteConfig } from "@/hooks";
 
 const Navbar: React.FC = () => {
   const { title, socials } = useSiteConfig();
-
-  const { toggleColorMode } = useColorMode();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -44,15 +44,6 @@ const Navbar: React.FC = () => {
         </Link>
 
         <Stack isInline spacing={4}>
-          <Box
-            as="button"
-            aria-label="toggle dark mode"
-            onClick={toggleColorMode}
-            {...paddings}
-          >
-            <Box as={FaMoon} size="18px" />
-          </Box>
-
           <Box
             as="button"
             aria-label="open sidebar menu"
@@ -101,14 +92,6 @@ const Navbar: React.FC = () => {
               <Box as={icon} size="18px" />
             </Link>
           ))}
-          <Box
-            as="button"
-            aria-label="toggle dark mode"
-            onClick={toggleColorMode}
-            {...paddings}
-          >
-            <Box as={FaMoon} size="18px" />
-          </Box>
         </Stack>
       </Box>
 
@@ -149,14 +132,6 @@ const Navbar: React.FC = () => {
                     <Box as={icon} size="24px" />
                   </Link>
                 ))}
-
-                <Box
-                  as="button"
-                  aria-label="toggle dark mode"
-                  onClick={toggleColorMode}
-                >
-                  <Box as={FaMoon} size="24px" />
-                </Box>
               </Stack>
             </Stack>
           </DrawerBody>

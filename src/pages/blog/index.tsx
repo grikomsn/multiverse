@@ -1,11 +1,13 @@
-import { gql } from "@/cms";
+import * as React from "react";
+
 import { BlogPosts, Card } from "@/components";
-import { BlogPost } from "@/types";
 import { Box, Heading, Stack } from "@chakra-ui/core";
+
+import { BlogPost } from "@/types";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
-import * as React from "react";
 import { ResponsiveImageType } from "react-datocms";
+import { gql } from "@/cms";
 
 type BlogPageProps = {
   blogPosts: BlogPost[];
@@ -48,6 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
       blogPosts,
       header,
     },
+    unstable_revalidate: 86400,
   };
 };
 

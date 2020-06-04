@@ -1,5 +1,6 @@
-import { SiteConfig } from "@/types";
 import * as React from "react";
+
+import { SiteConfig } from "@/types";
 
 export const SiteConfigContext = React.createContext<Partial<SiteConfig>>({});
 

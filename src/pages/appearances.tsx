@@ -1,11 +1,13 @@
-import { gql } from "@/cms";
+import * as React from "react";
+
 import { Appearances, Card } from "@/components";
-import { Appearance } from "@/types";
 import { Box, Heading, Stack } from "@chakra-ui/core";
+
+import { Appearance } from "@/types";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
-import * as React from "react";
 import { ResponsiveImageType } from "react-datocms";
+import { gql } from "@/cms";
 
 type AppearancesPageProps = {
   appearances: Appearance[];
@@ -50,6 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
       appearances,
       header,
     },
+    unstable_revalidate: 86400,
   };
 };
 

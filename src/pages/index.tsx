@@ -1,4 +1,6 @@
-import { gql } from "@/cms";
+import * as React from "react";
+
+import { Appearance, BlogPost, Showcase, SiteConfig } from "@/types";
 import {
   Appearances,
   BlogPosts,
@@ -7,11 +9,11 @@ import {
   IndexSection,
   Showcases,
 } from "@/components";
-import { Appearance, BlogPost, Showcase, SiteConfig } from "@/types";
+
 import { Box } from "@chakra-ui/core";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
-import * as React from "react";
+import { gql } from "@/cms";
 
 type HomePageProps = {
   showcases: Showcase[];
@@ -71,6 +73,7 @@ export const getStaticProps: GetStaticProps = async () => {
       blogPosts,
       siteConfig,
     },
+    unstable_revalidate: 86400,
   };
 };
 

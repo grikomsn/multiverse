@@ -1,16 +1,18 @@
-import { Link } from "@/components";
-import { useColorMode } from "@/hooks";
-import { Appearance, AppearanceCategory } from "@/types";
-import { formatDate } from "@/utils";
-import { Box, Divider, Heading, Stack } from "@chakra-ui/core";
 import * as React from "react";
+
+import { Appearance, AppearanceCategory } from "@/types";
+import { Box, Divider, Heading, Stack } from "@chakra-ui/core";
 import {
   FaBolt,
   FaChalkboard,
   FaMicrophone,
   FaRegCommentAlt,
 } from "react-icons/fa";
+
 import { IconType } from "react-icons/lib";
+import { Link } from "@/components";
+import { formatDate } from "@/utils";
+import { useColorMode } from "@/hooks";
 
 const typeIcons: Record<AppearanceCategory, IconType> = {
   ["lightning-talk"]: FaBolt,
@@ -45,7 +47,7 @@ const Appearances: React.FC<AppearancesProps> = ({ appearances }) => {
                   {title}
                 </Heading>
               </Link>
-              <Box fontSize="sm">
+              <Box fontSize="md">
                 {formatDate(date)} - {subtitle}
               </Box>
               <Box color={isDarkMode ? "gray.400" : "gray.500"} fontSize="sm">

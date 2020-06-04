@@ -1,11 +1,13 @@
-import { useColorMode } from "@/hooks";
+import * as React from "react";
+
 import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
 } from "@chakra-ui/core";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import * as React from "react";
+
 import { UrlObject } from "url";
+import { useColorMode } from "@/hooks";
 
 type LinkProps = ChakraLinkProps & {
   isNextLink?: boolean;

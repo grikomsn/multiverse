@@ -1,7 +1,6 @@
-import { gql } from "@/cms";
-import { Card, Link } from "@/components";
+import * as React from "react";
+
 import { AboutPageContent, SiteConfig } from "@/types";
-import { aboutPageRenderer } from "@/utils/renderers";
 import {
   Box,
   Flex,
@@ -12,11 +11,14 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/core";
-import { GetStaticProps } from "next";
-import { NextSeo } from "next-seo";
-import * as React from "react";
+import { Card, Link } from "@/components";
+
 import { Image as DatoImage } from "react-datocms";
+import { GetStaticProps } from "next";
 import Markdown from "react-markdown";
+import { NextSeo } from "next-seo";
+import { aboutPageRenderer } from "@/utils/renderers";
+import { gql } from "@/cms";
 
 type AboutPageProps = {
   content: AboutPageContent;
@@ -62,6 +64,7 @@ export const getStaticProps: GetStaticProps = async () => {
       content,
       siteConfig,
     },
+    unstable_revalidate: 86400,
   };
 };
 

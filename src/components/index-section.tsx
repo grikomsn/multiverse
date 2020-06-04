@@ -1,6 +1,8 @@
-import { Link } from "@/components";
-import { Box, Heading, Stack } from "@chakra-ui/core";
 import * as React from "react";
+
+import { Box, Heading, Stack } from "@chakra-ui/core";
+
+import { Link } from "@/components";
 
 type IndexSectionProps = {
   title: string;
