@@ -1,5 +1,4 @@
 {
-  "alias": ["griko.id"],
   "env": {
     "DATOCMS_API_KEY": "@griko-id-datocms-api-key"
   },
@@ -18,10 +17,5 @@
         }
       ]
     }
-  ],
-  "github": {
-    "autoAlias": true,
-    "enabled": true
-  },
-  "public": true
+  ]
 }
