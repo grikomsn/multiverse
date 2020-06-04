@@ -28,6 +28,7 @@
     "next": "^9.4.4",
     "next-cookies": "^2.0.3",
     "next-seo": "^4.5.0",
+    "nprogress": "^0.2.0",
     "prism-react-renderer": "^1.1.1",
     "react": "^16.13.1",
     "react-datocms": "^1.2.5",

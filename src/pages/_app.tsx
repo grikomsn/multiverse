@@ -13,6 +13,8 @@ import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 import { Footer, Navbar } from "@/components";
 import NextApp, { AppContext, AppProps } from "next/app";
 
+import NProgress from "nprogress";
+import Router from "next/router";
 import { SiteConfig } from "@/types";
 import { SiteConfigProvider } from "@/store/site-config";
 import { cssResetConfig } from "@/utils/chakra-ui";
@@ -23,6 +25,10 @@ type CustomAppProps = AppProps & {
   colorMode: "dark" | "light";
   siteConfig: SiteConfig;
 };
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 const App = ({ Component, pageProps, router, siteConfig }: CustomAppProps) => (
   <SiteConfigProvider value={siteConfig}>
