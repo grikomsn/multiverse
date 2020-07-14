@@ -7,5 +7,6 @@ node_modules
 public/**/*
 
 !.env.example
+!/public/google41e31c2ed30c708d.html
 !/public/robots.txt
 !/public/social.png
