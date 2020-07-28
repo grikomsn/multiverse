@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
       blogPosts,
       header,
     },
-    unstable_revalidate: 86400,
+    revalidate: 86400,
   };
 };
 

@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps = async () => {
       blogPosts,
       siteConfig,
     },
-    unstable_revalidate: 86400,
+    revalidate: 86400,
   };
 };
 

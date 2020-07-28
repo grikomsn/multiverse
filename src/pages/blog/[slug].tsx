@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       blogPost,
     },
-    unstable_revalidate: 86400,
+    revalidate: 86400,
   };
 };
 
