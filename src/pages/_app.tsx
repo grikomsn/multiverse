@@ -13,6 +13,7 @@ import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 import { Footer, Navbar } from "@/components";
 import NextApp, { AppContext, AppProps } from "next/app";
 
+import Head from "next/head";
 import NProgress from "nprogress";
 import Router from "next/router";
 import { SiteConfig } from "@/types";
@@ -32,6 +33,10 @@ Router.events.on("routeChangeError", () => NProgress.done());
 
 const App = ({ Component, pageProps, router, siteConfig }: CustomAppProps) => (
   <SiteConfigProvider value={siteConfig}>
+    <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </Head>
+
     <ThemeProvider theme={theme}>
       <ColorModeProvider value="dark">
         <CSSReset config={cssResetConfig} />
