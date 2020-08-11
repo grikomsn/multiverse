@@ -116,6 +116,11 @@ export default class Document extends NextDocument {
             sizes="16x16"
             type="image/png"
           />
+
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+          />
         </Head>
 
         <body>
