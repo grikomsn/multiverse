@@ -1,4 +1,4 @@
-import "../stylesheets/html.css";
+import "@/stylesheets/html.css";
 
 import * as React from "react";
 
@@ -17,8 +17,8 @@ import NProgress from "nprogress";
 import Router from "next/router";
 import { SiteConfig } from "@/types";
 import { SiteConfigProvider } from "@/store/site-config";
+import { client } from "@/cms";
 import { cssResetConfig } from "@/utils/chakra-ui";
-import { gql } from "@/cms";
 import theme from "@/theme";
 
 type CustomAppProps = AppProps & {
@@ -87,7 +87,7 @@ const App = ({ Component, pageProps, router, siteConfig }: CustomAppProps) => (
 App.getInitialProps = async (context: AppContext) => {
   const props = NextApp.getInitialProps(context);
 
-  const { siteConfig } = await gql`
+  const { siteConfig } = await client.request(/* GraphQL */ `
     {
       siteConfig {
         title
@@ -100,7 +100,7 @@ App.getInitialProps = async (context: AppContext) => {
         socials
       }
     }
-  `;
+  `);
 
   return { ...props, siteConfig };
 };

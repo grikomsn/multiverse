@@ -1,13 +1,17 @@
 require("cross-fetch/polyfill");
 
-const { gql } = require("../src/cms");
+const { client } = require("../src/cms");
 
 const buildFavicons = require("./build-favicons");
 const buildRss = require("./build-rss");
 const buildSitemap = require("./build-sitemap");
 
 async function build() {
-  const { favicon, blogPosts, siteConfig } = await gql`
+  const {
+    favicon,
+    blogPosts,
+    siteConfig,
+  } = await client.request(/* GraphQL */ `
     {
       favicon: upload(filter: { notes: { matches: { pattern: "favicon" } } }) {
         url
@@ -29,7 +33,7 @@ async function build() {
         socials
       }
     }
-  `;
+  `);
 
   await buildFavicons({ favicon, siteConfig });
   await buildRss({ blogPosts, siteConfig });

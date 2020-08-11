@@ -18,7 +18,7 @@ import { GetStaticProps } from "next";
 import Markdown from "react-markdown";
 import { NextSeo } from "next-seo";
 import { aboutPageRenderer } from "@/utils/renderers";
-import { gql } from "@/cms";
+import { client } from "@/cms";
 
 type AboutPageProps = {
   content: AboutPageContent;
@@ -26,7 +26,7 @@ type AboutPageProps = {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { content, siteConfig } = await gql`
+  const { content, siteConfig } = await client.request(/* GraphQL */ `
     {
       content: aboutPage {
         portrait {
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps = async () => {
         socials
       }
     }
-  `;
+  `);
 
   return {
     props: {

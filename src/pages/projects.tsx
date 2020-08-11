@@ -6,14 +6,14 @@ import { Card, Showcases } from "@/components";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { Showcase } from "@/types";
-import { gql } from "@/cms";
+import { client } from "@/cms";
 
 type ProjectsPageProps = {
   showcases: Showcase[];
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { showcases } = await gql`
+  const { showcases } = await client.request(/* GraphQL */ `
     {
       showcases: allShowcases {
         title
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
         url
       }
     }
-  `;
+  `);
 
   return {
     props: {

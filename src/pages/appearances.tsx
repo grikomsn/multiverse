@@ -7,7 +7,7 @@ import { Appearance } from "@/types";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { ResponsiveImageType } from "react-datocms";
-import { gql } from "@/cms";
+import { client } from "@/cms";
 
 type AppearancesPageProps = {
   appearances: Appearance[];
@@ -17,7 +17,7 @@ type AppearancesPageProps = {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { appearances, header } = await gql`
+  const { appearances, header } = await client.request(/* GraphQL */ `
     {
       appearances: allAppearances {
         title
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async () => {
         }
       }
     }
-  `;
+  `);
 
   return {
     props: {

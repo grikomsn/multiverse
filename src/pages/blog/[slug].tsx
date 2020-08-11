@@ -9,8 +9,8 @@ import { useColorMode, useSiteConfig } from "@/hooks";
 import { BlogPost } from "@/types";
 import Markdown from "react-markdown";
 import { blogPostRenderer } from "@/utils/renderers";
+import { client } from "@/cms";
 import { formatDate } from "@/utils";
-import { gql } from "@/cms";
 import { stringify } from "querystring";
 
 type BlogPostPageProps = {
@@ -18,7 +18,7 @@ type BlogPostPageProps = {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { blogPost } = await gql`
+  const { blogPost } = await client.request(/* GraphQL */ `
     {
       blogPost(filter: { slug: { eq: "${`${params.slug}`}" } }) {
         cover {
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         markdown
       }
     }
-  `;
+  `);
 
   return {
     props: {
@@ -56,13 +56,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { blogPosts }: { blogPosts: BlogPost[] } = await gql`
+  type QueryResult = { blogPosts: BlogPost[] };
+  const { blogPosts }: QueryResult = await client.request(/* GraphQL */ `
     {
       blogPosts: allBlogPosts(orderBy: postedAt_DESC) {
         slug
       }
     }
-  `;
+  `);
 
   return {
     paths: blogPosts.map(({ slug }) => ({ params: { slug } })),

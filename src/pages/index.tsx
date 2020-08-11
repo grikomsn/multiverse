@@ -13,7 +13,7 @@ import {
 import { Box } from "@chakra-ui/core";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
-import { gql } from "@/cms";
+import { client } from "@/cms";
 
 type HomePageProps = {
   showcases: Showcase[];
@@ -23,7 +23,12 @@ type HomePageProps = {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { showcases, appearances, blogPosts, siteConfig } = await gql`
+  const {
+    showcases,
+    appearances,
+    blogPosts,
+    siteConfig,
+  } = await client.request(/* GraphQL */ `
     {
       showcases: allShowcases(first: 4) {
         title
@@ -64,7 +69,7 @@ export const getStaticProps: GetStaticProps = async () => {
         title
       }
     }
-  `;
+  `);
 
   return {
     props: {

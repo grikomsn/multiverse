@@ -7,7 +7,7 @@ import { BlogPost } from "@/types";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { ResponsiveImageType } from "react-datocms";
-import { gql } from "@/cms";
+import { client } from "@/cms";
 
 type BlogPageProps = {
   blogPosts: BlogPost[];
@@ -17,7 +17,7 @@ type BlogPageProps = {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { blogPosts, header } = await gql`
+  const { blogPosts, header } = await client.request(/* GraphQL */ `
     {
       blogPosts: allBlogPosts(orderBy: postedAt_DESC) {
         title
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async () => {
         }
       }
     }
-  `;
+  `);
 
   return {
     props: {
