@@ -11,7 +11,8 @@
     "moduleResolution": "node",
     "noEmit": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

@@ -1,45 +1,47 @@
 import * as React from "react";
 
-import { BlogPosts, Card } from "@/components";
-import { Box, Heading, Stack } from "@chakra-ui/core";
+import type { GetStaticProps, NextPage } from "next";
 
-import { BlogPost } from "@/types";
-import { GetStaticProps } from "next";
+import type { BlogPost } from "@/generated/graphql";
 import { NextSeo } from "next-seo";
-import { ResponsiveImageType } from "react-datocms";
-import { client } from "@/cms";
+import PostList from "@/components/post-list";
+import { Stack } from "@chakra-ui/core";
+import TitleSeparator from "@/components/title-separator";
+import { contentful } from "@/cms";
+import copywriting from "@/copywriting.json";
 
-type BlogPageProps = {
-  blogPosts: BlogPost[];
-  header: {
-    responsiveImage: ResponsiveImageType;
-  };
+interface BlogPostsPageProps {
+  posts: BlogPost[];
+}
+
+const meta = {
+  title: "Blog Posts",
+  description: copywriting.posts.description,
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { blogPosts, header } = await client.request(/* GraphQL */ `
+const BlogPostsPage: NextPage<BlogPostsPageProps> = ({ posts }) => {
+  return (
+    <Stack bgColor="gray.700" borderRadius="md" p={8} spacing={4}>
+      <NextSeo {...meta} />
+      <TitleSeparator {...meta} />
+      <PostList posts={posts} />
+    </Stack>
+  );
+};
+
+export const getStaticProps: GetStaticProps<BlogPostsPageProps> = async () => {
+  const data = await contentful().request(/* GraphQL */ `
     {
-      blogPosts: allBlogPosts(orderBy: postedAt_DESC) {
-        title
-        slug
-        subtitle
-        postedAt
-      }
-      header: upload(
-        filter: { notes: { matches: { pattern: "blog-header" } } }
-      ) {
-        responsiveImage {
-          alt
-          aspectRatio
-          base64
-          bgColor
-          height
-          sizes
-          src
-          srcSet
+      blogPostCollection(order: postedAt_DESC) {
+        items {
           title
-          webpSrcSet
-          width
+          slug
+          subtitle
+          postedAt
+          tags
+          sys {
+            id
+          }
         }
       }
     }
@@ -47,29 +49,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      blogPosts,
-      header,
+      posts: data.blogPostCollection.items,
     },
-    revalidate: 86400,
   };
 };
 
-const BlogPage: React.FC<BlogPageProps> = ({ blogPosts, header }) => (
-  <Box>
-    <NextSeo title="Latest Blog Posts" />
-
-    <Card headerResponsiveImage={header.responsiveImage}>
-      <Stack pb={4}>
-        <Heading as="h1">Latest Blog Posts</Heading>
-        <Box>
-          Sometimes I write about web development, other times about random
-          interesting stuff.
-        </Box>
-      </Stack>
-
-      <BlogPosts blogPosts={blogPosts} />
-    </Card>
-  </Box>
-);
-
-export default BlogPage;
+export default BlogPostsPage;

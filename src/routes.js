@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   ["Blog", "/blog"],
   ["Appearances", "/appearances"],
   ["Projects", "/projects"],

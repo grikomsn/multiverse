@@ -1,14 +1,17 @@
 const RSS = require("rss");
-const fs = require("fs");
-const { publicDir, resolveCwd } = require("./utils");
 
-const buildRss = async ({ blogPosts, siteConfig }) => {
+const fs = require("fs");
+const path = require("path");
+
+const siteConfig = require("../site-config");
+
+module.exports = ({ posts }) => {
   const { title, description, url } = siteConfig;
 
   const feed = new RSS({
-    title: title,
-    description: description,
-    feed_url: `${url}/api/rss.xml`,
+    title,
+    description,
+    feed_url: `${url}/rss.xml`,
     site_url: url,
     managingEditor: title,
     webMaster: title,
@@ -17,20 +20,19 @@ const buildRss = async ({ blogPosts, siteConfig }) => {
     generator: `${title} RSS API`,
   });
 
-  for (const post of blogPosts) {
+  for (const post of posts) {
     feed.item({
       title: post.title,
       description: post.subtitle,
       url: `${url}/blog/${post.slug}`,
-      categories: post.tags.split(",").map((t) => t.trim()),
+      categories: post.tags,
       author: title,
       date: post.postedAt,
     });
   }
 
-  const xml = feed.xml();
-
-  fs.writeFileSync(resolveCwd(publicDir, "rss.xml"), xml);
+  fs.writeFileSync(
+    path.resolve(process.cwd(), "public", "rss.xml"),
+    feed.xml(),
+  );
 };
-
-module.exports = buildRss;
