@@ -1,5 +1,5 @@
 const copy = require("copy");
 
-module.exports = () => {
+module.exports = async () => {
   copy("src/public/**/*", "public", () => {});
 };

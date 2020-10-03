@@ -5,7 +5,7 @@ const path = require("path");
 
 const siteConfig = require("../site-config");
 
-module.exports = ({ posts }) => {
+module.exports = async ({ posts }) => {
   const { title, description, url } = siteConfig;
 
   const feed = new RSS({

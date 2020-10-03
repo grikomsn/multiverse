@@ -28,4 +28,5 @@ module.exports = {
     Twitch: "https://twitch.tv/griko_nibras",
     Twitter: "https://twitter.com/griko_nibras",
   },
+  themeColor: "#1A202C",
 };
