@@ -66,4 +66,22 @@ export default extendTheme({
     "7xs": "6rem",
     "8xs": "4rem",
   },
+  styles: {
+    global: {
+      body: {
+        bg: "gray.800",
+        color: "whiteAlpha.900",
+        fontFamily: "body",
+        lineHeight: "base",
+        transition: "background-color 0.2s",
+      },
+      "*::placeholder": {
+        color: "whiteAlpha.400",
+      },
+      "*, *::before, &::after": {
+        borderColor: "whiteAlpha.300",
+        wordWrap: "break-word",
+      },
+    },
+  },
 });
