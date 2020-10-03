@@ -2,23 +2,22 @@ import * as React from "react";
 
 import {
   Box,
-  BoxProps,
+  Link as ChakraLink,
   Code,
   Divider,
   Heading,
   Image,
   List,
   ListItem,
-  Stack,
+  Text,
 } from "@chakra-ui/core";
-import { Link, Snippet } from "@/components";
 
-type RendererRecord = {
-  [nodeType: string]: React.ElementType<any>;
-};
+import type { BoxProps } from "@chakra-ui/core";
+import Snippet from "@/components/snippet";
 
 // https://github.com/rexxars/react-markdown/issues/404#issuecomment-604019030
-const slugifyChildren = (children: React.ReactNode) => {
+function slugifyChildren(children: React.ReactNode) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const flatten = (text: string, child: any) => {
     return typeof child === "string"
       ? text + child
@@ -30,112 +29,158 @@ const slugifyChildren = (children: React.ReactNode) => {
   const slug = text.toLowerCase().replace(/\W/g, "-");
 
   return slug;
+}
+
+function Link({ href, children }) {
+  return (
+    <ChakraLink href={href} isExternal variant="link">
+      {children}
+    </ChakraLink>
+  );
+}
+
+export const baseRenderer = {
+  link: Link,
+
+  paragraph: Text,
 };
 
-export const headerRenderer: RendererRecord = {
-  link: (props) => <Link {...props} />,
-  root: (props) => <Box fontSize="lg" pb={8} {...props} />,
-  paragraph: Box,
-};
+export const kbRenderer = {
+  ...baseRenderer,
 
-export const aboutPageRenderer: RendererRecord = {
-  link: (props) => <Link {...props} />,
-  root: (props) => <Stack pb={4} spacing={4} {...props} />,
-  paragraph: Box,
-};
-
-export const blogPostRenderer: (_?: boolean) => RendererRecord = (
-  isDarkMode,
-) => ({
-  blockquote: (props) => (
-    <Box
-      borderLeftColor="gray.500"
-      borderLeftWidth={2}
-      color={isDarkMode ? "gray.300" : "gray.500"}
-      pl={8}
-      py={4}
-      {...props}
-    />
-  ),
-
-  code: ({ language, value }) => (
-    <Box pb={8}>
-      <Snippet code={value} language={language} />
-    </Box>
-  ),
-
-  heading: ({ level, children, ...props }) => {
-    const slug = slugifyChildren(children);
-
-    const sizes = ["2xl", "xl", "lg", "md", "sm", "xs"];
+  heading: function KbHeading({ children }) {
     return (
-      <Heading as={`h${level}`} size={sizes[level - 1]} id={slug} {...props}>
+      <Heading pb={2} size="sm">
         {children}
       </Heading>
     );
   },
 
-  html: (props) => {
+  list: function KbList({ children }) {
+    return <List>{children}</List>;
+  },
+
+  listItem: function KbListItem({ children }) {
+    return <ListItem>{children}</ListItem>;
+  },
+};
+
+export const postRenderer = {
+  ...baseRenderer,
+
+  blockquote: function PostBlockquote(props) {
+    return (
+      <Box
+        borderLeftColor="gray.500"
+        borderLeftWidth={2}
+        color="gray.300"
+        pl={8}
+        py={4}
+        {...props}
+      />
+    );
+  },
+
+  code: function PostCode({ language, value }) {
+    return (
+      <Box pb={8}>
+        <Snippet code={value} language={language} />
+      </Box>
+    );
+  },
+
+  heading: function PostHeading({ level, children, ...props }) {
+    const slug = slugifyChildren(children);
+    const sizes = ["2xl", "xl", "lg", "md", "sm", "xs"];
+
+    return (
+      <Heading
+        as={`h${level}` as "h1"}
+        size={sizes[level - 1]}
+        id={slug}
+        {...props}
+      >
+        {children}
+      </Heading>
+    );
+  },
+
+  html: function PostHtml({ value }) {
     const htmlProps: BoxProps = {
-      dangerouslySetInnerHTML: { __html: props.value },
+      dangerouslySetInnerHTML: { __html: value },
       pb: 8,
 
-      ...(/<\/iframe>/.test(props.value) ? { mx: "auto" } : {}),
+      ...(/<\/iframe>/.test(value) ? { mx: "auto" } : {}),
     };
 
     return <Box {...htmlProps} />;
   },
 
-  image: (props) => {
+  image: function PostImage({ alt, ...props }) {
     return (
-      <React.Fragment>
-        <Box pb={4}>
-          <Image borderRadius={4} mx="auto" maxW="2xl" w="100%" {...props} />
+      <>
+        <Box as="span" pb={4}>
+          <Image
+            alt={alt}
+            borderRadius={4}
+            mx="auto"
+            maxW="2xl"
+            w="100%"
+            {...props}
+          />
         </Box>
-        <Box fontSize="sm" textAlign="center">
-          {props.alt}
+        <Box
+          as="span"
+          d="inline-block"
+          fontSize="sm"
+          textAlign="center"
+          w="full"
+        >
+          {alt}
         </Box>
-      </React.Fragment>
+      </>
     );
   },
 
-  inlineCode: (props) => <Code display="inline" p={1} {...props} />,
+  inlineCode: function PostInlineCode({ inline: _, ...props }) {
+    return <Code d="inline" p={1} {...props} />;
+  },
 
-  link: (props) => <Link {...props} />,
+  list: function PostList(props) {
+    return <List styleType="disc" {...props} />;
+  },
 
-  list: (props) => <List styleType="disc" {...props} />,
+  listItem: ListItem,
 
-  listItem: (props) => <ListItem pl={4} {...props} />,
+  table: function PostTable(props) {
+    return (
+      <Box overflow="auto">
+        <Box as="table" {...props} />
+      </Box>
+    );
+  },
 
-  paragraph: Box,
+  tableHead: function PostTableHead(props) {
+    return <Box as="thead" fontWeight="bold" {...props} />;
+  },
 
-  root: (props) => (
-    <Stack
-      fontSize={{ md: "lg" }}
-      lineHeight="tall"
-      spacing={8}
-      wordBreak="break-word"
-      {...props}
-    />
-  ),
+  tableBody: function PostTableBody(props) {
+    return <Box as="tbody" {...props} />;
+  },
 
-  table: (props) => (
-    <Box overflow="auto">
-      <Box as="table" {...props} />
-    </Box>
-  ),
+  tableRow: function PostTableRow(props) {
+    return <Box as="tr" {...props} />;
+  },
 
-  tableHead: (props) => <Box as="thead" fontWeight="bold" {...props} />,
+  tableCell: function PostTableCell(props) {
+    return <Box as="td" borderWidth={1} p={2} {...props} />;
+  },
 
-  tableBody: (props) => <Box as="tbody" {...props} />,
-
-  tableRow: (props) => <Box as="tr" {...props} />,
-
-  tableCell: (props) => <Box as="td" borderWidth={1} p={2} {...props} />,
-
-  thematicBreak: () => (
-    <Box maxW="xs" mx="auto" pb={8} px={8} w="full">
-      <Divider />
-    </Box>
-  ),
-});
+  thematicBreak: function PostDivider() {
+    return (
+      <Box py={4}>
+        <Divider />
+      </Box>
+    );
+  },
+};

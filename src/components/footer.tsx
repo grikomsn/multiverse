@@ -1,63 +1,65 @@
 import * as React from "react";
 
-import { Box, Divider, Flex, Stack, Text } from "@chakra-ui/core";
+import { Box, Divider, Flex, HStack, Icon, Link, Stack } from "@chakra-ui/core";
+import { useSocials } from "@/hooks/app";
 
-import { Link } from "@/components";
+import Markdown from "react-markdown";
+import NextLink from "next/link";
+import { baseRenderer } from "@/utils/renderers";
 import routes from "@/routes";
+import siteConfig from "~/site-config";
 
-const Footer: React.FC = () => (
-  <Stack fontSize="sm" py={16} spacing={8}>
-    <Divider />
-    <Flex
-      flexDirection={{ default: "column-reverse", md: "row" }}
-      justifyContent={{ md: "space-between" }}
-      px={8}
-    >
-      <Stack spacing={12} textAlign={{ default: "center", md: "left" }}>
-        <Box>
-          <Text>
-            Contents licensed under{" "}
-            <Link href="https://griko.dev/cc-by-nc-sa">CC BY-NC-SA 4.0</Link>.
-          </Text>
-          <Text>
-            Made using <Link href="https://nextjs.org">Next.js</Link>,{" "}
-            <Link href="https://chakra-ui.com">Chakra UI</Link>, and{" "}
-            <Link href="https://www.datocms.com">DatoCMS</Link>. Hosted on{" "}
-            <Link href="https://vercel.com/home">Vercel</Link>.
-          </Text>
-        </Box>
+const Footer: React.FC = () => {
+  const socials = useSocials();
 
-        <Box>
-          MIT License &copy; {new Date().getFullYear()}&mdash;present{" "}
-          <Link isNextLink href="/">
-            Griko Nibras
-          </Link>
-          .
-        </Box>
-      </Stack>
+  const content = `
+Contents licensed under [CC BY-NC-SA 4.0](https://griko.dev/cc-by-nc-sa).<br />
+Made using [Next.js](https://nextjs.org), [Chakra UI](https://next.chakra-ui.com),
+and [Contentful](https://www.contentful.com). Hosted on [Vercel](https://vercel.com).
+<br /><br /> MIT License &copy; ${new Date().getFullYear()}&ndash;present
+[${siteConfig.title}](.).`;
 
-      <Stack
-        flexDirection={{ default: "row", md: "column" }}
-        flexWrap="wrap"
-        justifyContent={{ default: "center", md: null }}
-        pb={{ default: 8, md: 0 }}
-        spacing={1}
-        textAlign={{ md: "right" }}
+  return (
+    <Stack as="footer" pb={16} pt={8} spacing={8}>
+      <Divider />
+      <Flex
+        alignItems="flex-start"
+        flexDir="row"
+        justifyContent="space-between"
+        px={8}
       >
-        {routes.map(([children, route]) => (
-          <Link
-            color="currentColor"
-            href={route}
-            isNextLink
-            key={route}
-            px={{ default: 2, md: 0 }}
-          >
-            {children}
-          </Link>
-        ))}
-      </Stack>
-    </Flex>
-  </Stack>
-);
+        <Stack spacing={8}>
+          <Box>
+            <Markdown
+              escapeHtml={false}
+              renderers={baseRenderer}
+              source={content.trim()}
+            />
+          </Box>
+          <HStack spacing={6}>
+            {socials.map(([href, SocialIcon]) => (
+              <Link href={href} isExternal key={href}>
+                <Icon as={SocialIcon} boxSize={5} />
+              </Link>
+            ))}
+          </HStack>
+        </Stack>
+
+        <Stack
+          d={{ base: "none", sm: "flex" }}
+          pl={8}
+          spacing={1}
+          textAlign="right"
+        >
+          {routes.map(([text, href]) => (
+            <NextLink href={href} key={href}>
+              <Link href={href}>{text}</Link>
+            </NextLink>
+          ))}
+        </Stack>
+      </Flex>
+    </Stack>
+  );
+};
 
 export default Footer;

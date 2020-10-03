@@ -3,8 +3,9 @@ html {
 }
 
 body {
-  -webkit-font-smoothing: auto;
-  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #nprogress {

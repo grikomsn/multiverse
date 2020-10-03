@@ -1,0 +1,14 @@
+{
+  "appearances": {
+    "title": "Appearances",
+    "description": "Talks, meetups, and other appearances from various events."
+  },
+  "posts": {
+    "title": "Posts",
+    "description": "Sometimes I write about web development, other times about random interesting stuff."
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Here are some of my past works from personal projects and open source ones."
+  }
+}

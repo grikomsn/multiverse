@@ -1,6 +1,0 @@
-Sitemap: https://griko.id/sitemap.xml
-
-User-agent: *
-Allow: /*
-
-Disallow: /api/*

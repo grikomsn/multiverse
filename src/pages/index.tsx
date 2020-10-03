@@ -1,127 +1,161 @@
 import * as React from "react";
 
-import { Appearance, BlogPost, Showcase, SiteConfig } from "@/types";
-import {
-  Appearances,
-  BlogPosts,
-  Card,
-  Header,
-  IndexSection,
-  Showcases,
-} from "@/components";
+import type { Appearance, BlogPost, Showcase } from "@/generated/graphql";
+import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/core";
+import type { GetStaticProps, NextPage } from "next";
 
-import { Box } from "@chakra-ui/core";
-import { GetStaticProps } from "next";
+import AppearanceList from "@/components/appearance-list";
+import Doodle from "@/components/doodle";
+import EmailInquiry from "@/components/email-inquiry";
+import { FaArrowRight } from "react-icons/fa";
+import Markdown from "react-markdown";
+import NextLink from "next/link";
 import { NextSeo } from "next-seo";
-import { client } from "@/cms";
+import PostList from "@/components/post-list";
+import ProjectList from "@/components/project-list";
+import TitleSeparator from "@/components/title-separator";
+import { baseRenderer } from "@/utils/renderers";
+import { contentful } from "@/cms";
+import copywriting from "@/copywriting.json";
+import siteConfig from "~/site-config";
 
-type HomePageProps = {
-  showcases: Showcase[];
-  appearances: Appearance[];
-  blogPosts: BlogPost[];
-  siteConfig: SiteConfig;
+interface HomePageProps {
+  showcase: Showcase[];
+  appearance: Appearance[];
+  posts: BlogPost[];
+}
+
+function ViewAllButton({ title, href }) {
+  return (
+    <Box>
+      <NextLink href={href} passHref>
+        <Button as="a" float="right" rightIcon={<FaArrowRight />}>
+          {title}
+        </Button>
+      </NextLink>
+    </Box>
+  );
+}
+
+const HomePage: NextPage<HomePageProps> = ({ showcase, appearance, posts }) => {
+  return (
+    <Box>
+      <NextSeo title={siteConfig.title} titleTemplate="%s" />
+      <Flex
+        alignItems="center"
+        direction={{ base: "column-reverse", lg: "row" }}
+        justifyContent="space-between"
+        pt={{ base: 8, lg: 0 }}
+        px={8}
+      >
+        <Stack
+          lineHeight="tall"
+          maxW={{ lg: "2xl" }}
+          py={{ base: 8, lg: 4 }}
+          spacing={4}
+        >
+          <Heading>Hi, I&apos;m {siteConfig.title}.</Heading>
+          <Box fontSize="lg">
+            <Markdown
+              renderers={baseRenderer}
+              source={siteConfig.descriptionMd}
+            />
+          </Box>
+          <Box fontSize="lg">
+            <EmailInquiry />
+          </Box>
+        </Stack>
+
+        <Box boxSize={4} />
+
+        <Doodle boxSize="xs" />
+      </Flex>
+
+      <Stack bgColor="gray.700" borderRadius={{ lg: "md" }} p={8} spacing={4}>
+        <TitleSeparator
+          title="Recent Projects"
+          description={copywriting.projects.description}
+        />
+        <ProjectList showcase={showcase} />
+        <ViewAllButton title="View all projects" href="/projects" />
+
+        <Box h={4} />
+
+        <TitleSeparator
+          title="Recent Appearances"
+          description={copywriting.appearances.description}
+        />
+        <AppearanceList appearance={appearance} />
+        <ViewAllButton title="View all appearances" href="/appearances" />
+
+        <Box h={4} />
+
+        <TitleSeparator
+          title="Recent Posts"
+          description={copywriting.posts.description}
+        />
+        <PostList posts={posts} />
+        <ViewAllButton title="View all posts" href="/blog" />
+      </Stack>
+    </Box>
+  );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const {
-    showcases,
-    appearances,
-    blogPosts,
-    siteConfig,
-  } = await client.request(/* GraphQL */ `
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  const data = await contentful().request(/* GraphQL */ `
     {
-      showcases: allShowcases(first: 4) {
-        title
-        tech
-        image {
+      showcaseCollection(
+        limit: 4
+        order: featuredOrder_ASC
+        where: { featuredOrder_exists: true }
+      ) {
+        items {
+          title
+          tech
+          image {
+            url(transform: { width: 1280 })
+          }
           url
-          responsiveImage {
-            alt
-            aspectRatio
-            base64
-            bgColor
-            height
-            sizes
-            src
-            srcSet
-            title
-            webpSrcSet
-            width
+          sys {
+            id
           }
         }
-        url
       }
-      appearances: allAppearances(orderBy: date_DESC, first: 10) {
-        title
-        date
-        subtitle
-        url
-        tags
-        category
+      appearanceCollection(limit: 10, order: date_DESC) {
+        items {
+          title
+          date
+          subtitle
+          url
+          tags
+          category
+          sys {
+            id
+          }
+        }
       }
-      blogPosts: allBlogPosts(orderBy: postedAt_DESC, first: 10) {
-        title
-        slug
-        subtitle
-        postedAt
-      }
-      siteConfig {
-        title
+      blogPostCollection(limit: 10, order: postedAt_DESC) {
+        items {
+          title
+          slug
+          subtitle
+          postedAt
+          tags
+          sys {
+            id
+          }
+        }
       }
     }
   `);
 
   return {
     props: {
-      showcases,
-      appearances,
-      blogPosts,
-      siteConfig,
+      showcase: data.showcaseCollection.items,
+      appearance: data.appearanceCollection.items,
+      posts: data.blogPostCollection.items,
     },
-    revalidate: 86400,
   };
 };
-
-const HomePage: React.FC<HomePageProps> = ({
-  showcases,
-  appearances,
-  blogPosts,
-  siteConfig,
-}) => (
-  <Box>
-    <NextSeo title={siteConfig.title} titleTemplate="%s" />
-
-    <Header />
-
-    <Card shouldWrapChildren>
-      <IndexSection
-        title="Recent Projects"
-        subtitle="Here are some of my past works from personal projects and open source ones."
-        route="/projects"
-        routeText="View all projects"
-      >
-        <Showcases showcases={showcases} />
-      </IndexSection>
-
-      <IndexSection
-        title="Recent Appearances"
-        subtitle="Talks, meetups, and other appearances from various events."
-        route="/appearances"
-        routeText="View all appearances"
-      >
-        <Appearances appearances={appearances} />
-      </IndexSection>
-
-      <IndexSection
-        title="Recent Posts"
-        subtitle="Sometimes I write about web development, other times about random interesting stuff."
-        route="/blog"
-        routeText="View all posts"
-      >
-        <BlogPosts blogPosts={blogPosts} />
-      </IndexSection>
-    </Card>
-  </Box>
-);
 
 export default HomePage;

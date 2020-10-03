@@ -1,47 +1,48 @@
 import * as React from "react";
 
-import { Appearances, Card } from "@/components";
-import { Box, Heading, Stack } from "@chakra-ui/core";
+import type { GetStaticProps, NextPage } from "next";
 
-import { Appearance } from "@/types";
-import { GetStaticProps } from "next";
+import type { Appearance } from "@/generated/graphql";
+import AppearanceList from "@/components/appearance-list";
 import { NextSeo } from "next-seo";
-import { ResponsiveImageType } from "react-datocms";
-import { client } from "@/cms";
+import { Stack } from "@chakra-ui/core";
+import TitleSeparator from "@/components/title-separator";
+import { contentful } from "@/cms";
+import copywriting from "@/copywriting.json";
 
-type AppearancesPageProps = {
-  appearances: Appearance[];
-  header: {
-    responsiveImage: ResponsiveImageType;
-  };
+interface AppearancesPageProps {
+  appearance: Appearance[];
+}
+
+const meta = {
+  title: "Appearances",
+  description: copywriting.appearances.description,
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { appearances, header } = await client.request(/* GraphQL */ `
+const AppearancesPage: NextPage<AppearancesPageProps> = ({ appearance }) => {
+  return (
+    <Stack bgColor="gray.700" borderRadius="md" p={8} spacing={4}>
+      <NextSeo {...meta} />
+      <TitleSeparator {...meta} />
+      <AppearanceList appearance={appearance} />
+    </Stack>
+  );
+};
+
+export const getStaticProps: GetStaticProps<AppearancesPageProps> = async () => {
+  const data = await contentful().request(/* GraphQL */ `
     {
-      appearances: allAppearances {
-        title
-        date
-        subtitle
-        url
-        tags
-        category
-      }
-      header: upload(
-        filter: { notes: { matches: { pattern: "appearances-header" } } }
-      ) {
-        responsiveImage {
-          alt
-          aspectRatio
-          base64
-          bgColor
-          height
-          sizes
-          src
-          srcSet
+      appearanceCollection(order: date_DESC) {
+        items {
           title
-          webpSrcSet
-          width
+          date
+          subtitle
+          url
+          tags
+          category
+          sys {
+            id
+          }
         }
       }
     }
@@ -49,32 +50,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      appearances,
-      header,
+      appearance: data.appearanceCollection.items,
     },
-    revalidate: 86400,
   };
 };
-
-const AppearancesPage: React.FC<AppearancesPageProps> = ({
-  appearances,
-  header,
-}) => (
-  <Box>
-    <NextSeo
-      title="Appearances"
-      description="Talks, meetups, and other appearances from various events."
-    />
-
-    <Card headerResponsiveImage={header.responsiveImage}>
-      <Stack pb={4}>
-        <Heading as="h2">Appearances</Heading>
-        <Box>Talks, meetups, and other appearances from various events.</Box>
-      </Stack>
-
-      <Appearances appearances={appearances} />
-    </Card>
-  </Box>
-);
 
 export default AppearancesPage;

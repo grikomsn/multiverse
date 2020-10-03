@@ -1,71 +1,58 @@
 import * as React from "react";
 
-import { Box, Heading, Stack } from "@chakra-ui/core";
-import { Card, Showcases } from "@/components";
+import type { GetStaticProps, NextPage } from "next";
 
-import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
-import { Showcase } from "@/types";
-import { client } from "@/cms";
+import ProjectList from "@/components/project-list";
+import type { Showcase } from "@/generated/graphql";
+import { Stack } from "@chakra-ui/core";
+import TitleSeparator from "@/components/title-separator";
+import { contentful } from "@/cms";
+import copywriting from "@/copywriting.json";
 
-type ProjectsPageProps = {
-  showcases: Showcase[];
+interface ProjectsPageProps {
+  showcase: Showcase[];
+}
+
+const meta = {
+  title: "Projects",
+  description: copywriting.projects.description,
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { showcases } = await client.request(/* GraphQL */ `
+const ProjectsPage: NextPage<ProjectsPageProps> = ({ showcase }) => {
+  return (
+    <Stack bgColor="gray.700" borderRadius="md" p={8} spacing={4}>
+      <NextSeo {...meta} />
+      <TitleSeparator {...meta} />
+      <ProjectList showcase={showcase} />
+    </Stack>
+  );
+};
+
+export const getStaticProps: GetStaticProps<ProjectsPageProps> = async () => {
+  const data = await contentful().request(/* GraphQL */ `
     {
-      showcases: allShowcases {
-        title
-        tech
-        image {
+      showcaseCollection(order: title_ASC) {
+        items {
+          title
+          tech
+          image {
+            url(transform: { width: 1280 })
+          }
           url
-          responsiveImage {
-            alt
-            aspectRatio
-            base64
-            bgColor
-            height
-            sizes
-            src
-            srcSet
-            title
-            webpSrcSet
-            width
+          sys {
+            id
           }
         }
-        url
       }
     }
   `);
 
   return {
     props: {
-      showcases,
+      showcase: data.showcaseCollection.items,
     },
-    revalidate: 86400,
   };
 };
-
-const ProjectsPage: React.FC<ProjectsPageProps> = ({ showcases }) => (
-  <Box>
-    <NextSeo
-      title="Projects"
-      description="Here are some of my past works from personal projects and open source ones."
-    />
-
-    <Card>
-      <Stack pb={4}>
-        <Heading as="h2">Projects</Heading>
-        <Box>
-          Here are some of my past works from personal projects and open source
-          ones.
-        </Box>
-      </Stack>
-
-      <Showcases showcases={showcases} />
-    </Card>
-  </Box>
-);
 
 export default ProjectsPage;

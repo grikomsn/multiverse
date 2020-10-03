@@ -1,0 +1,13 @@
+{
+  "overrides": [
+    {
+      "files": ["src/pages/_document.tsx"],
+      "options": {
+        "printWidth": 999
+      }
+    }
+  ],
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "all"
+}

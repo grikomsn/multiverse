@@ -2,112 +2,83 @@ import "@/stylesheets/html.css";
 
 import * as React from "react";
 
-import {
-  Box,
-  CSSReset,
-  ColorModeProvider,
-  Stack,
-  ThemeProvider,
-} from "@chakra-ui/core";
+import type { AppProps as NextAppProps } from "next/app";
+import { AppContextProps } from "@/store/app";
+import { Box, ChakraProvider, Stack } from "@chakra-ui/core";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
-import { Footer, Navbar } from "@/components";
-import NextApp, { AppContext, AppProps } from "next/app";
 
+import Footer from "@/components/footer";
 import Head from "next/head";
 import NProgress from "nprogress";
+import Navbar from "@/components/navbar";
 import Router from "next/router";
-import { SiteConfig } from "@/types";
-import { SiteConfigProvider } from "@/store/site-config";
-import { client } from "@/cms";
-import { cssResetConfig } from "@/utils/chakra-ui";
 import theme from "@/theme";
+import dynamic from "next/dynamic";
+import siteConfig from "~/site-config";
 
-type CustomAppProps = AppProps & {
-  colorMode: "dark" | "light";
-  siteConfig: SiteConfig;
-};
+const MobileDrawer = dynamic(() => import("@/components/mobile-drawer"));
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-const App = ({ Component, pageProps, router, siteConfig }: CustomAppProps) => (
-  <SiteConfigProvider value={siteConfig}>
-    <Head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    </Head>
+interface AppProps extends NextAppProps, AppContextProps {
+  //
+}
 
-    <ThemeProvider theme={theme}>
-      <ColorModeProvider value="dark">
-        <CSSReset config={cssResetConfig} />
+function App(props: AppProps) {
+  const { Component, pageProps, router } = props;
 
-        <DefaultSeo
-          title="Welcome!"
-          titleTemplate={`%s · ${siteConfig.title}`}
-          description={siteConfig.description}
-          canonical={siteConfig.url + (router.asPath || "")}
-          openGraph={{
-            title: siteConfig.title,
-            description: siteConfig.description,
-            type: "website",
-            site_name: siteConfig.title,
-            images: [{ url: `${siteConfig.url}/social.png` }],
-          }}
-          twitter={{
-            cardType: "summary_large_image",
-            handle: siteConfig.twitterUsername,
-            site: siteConfig.twitterUsername,
-          }}
-        />
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
 
-        <SocialProfileJsonLd
-          type="person"
-          name={siteConfig.title}
-          url={siteConfig.url}
-          sameAs={[
-            siteConfig.socials["GitHub"],
-            siteConfig.socials["Twitch"],
-            siteConfig.socials["Twitter"],
-          ]}
-        />
+      <DefaultSeo
+        title="Welcome!"
+        titleTemplate={`%s · ${siteConfig.title}`}
+        description={siteConfig.description}
+        canonical={siteConfig.url + (router.asPath || "")}
+        openGraph={{
+          title: siteConfig.title,
+          description: siteConfig.description,
+          type: "website",
+          site_name: siteConfig.title,
+          images: [
+            {
+              url: `${siteConfig.url}/social.png`,
+              alt: siteConfig.title,
+            },
+          ],
+        }}
+        twitter={{
+          cardType: "summary_large_image",
+          handle: siteConfig.twitterUsername,
+          site: siteConfig.twitterUsername,
+        }}
+      />
 
-        <Stack
-          fontSize="md"
-          m="auto"
-          maxW={[, , "2xl", "6xl"]}
-          minH="100vh"
-          px={{ lg: 8 }}
-        >
+      <SocialProfileJsonLd
+        type="person"
+        name={siteConfig.title}
+        url={siteConfig.url}
+        sameAs={Object.values(siteConfig.socials)}
+      />
+
+      <ChakraProvider resetCSS theme={theme}>
+        <Stack maxW="6xl" minH="100vh" mx="auto" spacing={0}>
           <Navbar />
-          <Box flexGrow={1}>
+          <Box as="main" flexGrow={1}>
             <Component {...pageProps} />
           </Box>
           <Footer />
         </Stack>
-      </ColorModeProvider>
-    </ThemeProvider>
-  </SiteConfigProvider>
-);
 
-App.getInitialProps = async (context: AppContext) => {
-  const props = NextApp.getInitialProps(context);
-
-  const { siteConfig } = await client.request(/* GraphQL */ `
-    {
-      siteConfig {
-        title
-        description
-        descriptionMarkdown
-        url
-        twitterUsername
-        email
-        links
-        socials
-      }
-    }
-  `);
-
-  return { ...props, siteConfig };
-};
+        <MobileDrawer />
+      </ChakraProvider>
+    </>
+  );
+}
 
 export default App;
