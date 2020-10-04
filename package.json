@@ -8,7 +8,7 @@
     "now-build": "run-s \"build:**\"",
     "build": "env-cmd run-s \"build:**\"",
     "build:scripts": "node scripts/build.js",
-    "build:web": "next build",
+    "build:web": "next build && next-sitemap",
     "clean": "rimraf \".next\" \"public/!(.gitkeep)\"",
     "codegen": "env-cmd yarn graphql-codegen --config codegen.yml",
     "develop": "next dev",
