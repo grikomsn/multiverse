@@ -2,18 +2,18 @@ import "@/stylesheets/html.css";
 
 import * as React from "react";
 
-import type { AppProps as NextAppProps } from "next/app";
-import { AppContextProps } from "@/store/app";
 import { Box, ChakraProvider, Stack } from "@chakra-ui/core";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 
+import { AppContextProps } from "@/store/app";
 import Footer from "@/components/footer";
 import Head from "next/head";
 import NProgress from "nprogress";
 import Navbar from "@/components/navbar";
+import type { AppProps as NextAppProps } from "next/app";
 import Router from "next/router";
-import theme from "@/theme";
 import dynamic from "next/dynamic";
+import theme from "@/theme";
 import siteConfig from "~/site-config";
 
 const MobileDrawer = dynamic(() => import("@/components/mobile-drawer"));

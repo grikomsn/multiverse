@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import { useEmail } from "@/hooks/app";
-
 import { Button } from "@chakra-ui/core";
+import { useEmail } from "@/hooks/app";
 import siteConfig from "~/site-config";
 
 const EmailInquiry = () => {
