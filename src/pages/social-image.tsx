@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps<SocialImageParameters> = asy
 }) => {
   const t = (query.title as string) || siteConfig.title;
   const d = (query.description as string) || siteConfig.descriptionMd;
-  const p = `${siteConfig.url}${query.path}`;
+  const p = `${siteConfig.url}${query.path ?? ""}`;
 
   return {
     props: {
