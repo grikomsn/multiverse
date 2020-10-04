@@ -105,7 +105,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const data = await contentful().request(/* GraphQL */ `
     {
       showcaseCollection(
-        limit: 4
+        limit: 10
         order: featuredOrder_ASC
         where: { featuredOrder_exists: true }
       ) {
