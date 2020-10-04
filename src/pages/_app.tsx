@@ -46,6 +46,14 @@ function App(props: AppProps) {
           images: [
             {
               url: `${siteConfig.url}/social.png`,
+              width: 1024,
+              height: 512,
+              alt: siteConfig.title,
+            },
+            {
+              url: `${siteConfig.url}/social-alt.png`,
+              width: 1024,
+              height: 512,
               alt: siteConfig.title,
             },
           ],
@@ -65,15 +73,22 @@ function App(props: AppProps) {
       />
 
       <ChakraProvider resetCSS theme={theme}>
-        <Stack maxW="6xl" minH="100vh" mx="auto" spacing={0}>
-          <Navbar />
-          <Box as="main" flexGrow={1}>
-            <Component {...pageProps} />
-          </Box>
-          <Footer />
-        </Stack>
+        {/* @ts-expect-error */}
+        {Component.disableLayout ? (
+          <Component {...pageProps} />
+        ) : (
+          <>
+            <Stack maxW="6xl" minH="100vh" mx="auto" spacing={0}>
+              <Navbar />
+              <Box as="main" flexGrow={1}>
+                <Component {...pageProps} />
+              </Box>
+              <Footer />
+            </Stack>
 
-        <MobileDrawer />
+            <MobileDrawer />
+          </>
+        )}
       </ChakraProvider>
     </>
   );
