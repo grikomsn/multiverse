@@ -15,10 +15,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/core";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useSocials } from "@/hooks/app";
 
 import NextLink from "next/link";
 import routes from "@/routes";
+import { useSocials } from "@/hooks/app";
 import siteConfig from "~/site-config";
 
 const MobileDrawer: React.FC = () => {

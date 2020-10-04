@@ -4,7 +4,6 @@ import NextDocument, { Head, Html, Main, NextScript } from "next/document";
 
 import { ColorModeScript } from "@chakra-ui/core";
 import type { DocumentContext } from "next/document";
-
 import siteConfig from "~/site-config";
 
 export default class Document extends NextDocument {

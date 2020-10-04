@@ -2,18 +2,18 @@ import "@/stylesheets/html.css";
 
 import * as React from "react";
 
-import type { AppProps as NextAppProps } from "next/app";
-import { AppContextProps } from "@/store/app";
 import { Box, ChakraProvider, Stack } from "@chakra-ui/core";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 
+import { AppContextProps } from "@/store/app";
 import Footer from "@/components/footer";
 import Head from "next/head";
 import NProgress from "nprogress";
 import Navbar from "@/components/navbar";
+import type { AppProps as NextAppProps } from "next/app";
 import Router from "next/router";
-import theme from "@/theme";
 import dynamic from "next/dynamic";
+import theme from "@/theme";
 import siteConfig from "~/site-config";
 
 const MobileDrawer = dynamic(() => import("@/components/mobile-drawer"));
@@ -22,9 +22,7 @@ Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-interface AppProps extends NextAppProps, AppContextProps {
-  //
-}
+type AppProps = NextAppProps & AppContextProps;
 
 function App(props: AppProps) {
   const { Component, pageProps, router } = props;
@@ -48,6 +46,14 @@ function App(props: AppProps) {
           images: [
             {
               url: `${siteConfig.url}/social.png`,
+              width: 1024,
+              height: 512,
+              alt: siteConfig.title,
+            },
+            {
+              url: `${siteConfig.url}/social-alt.png`,
+              width: 1024,
+              height: 512,
               alt: siteConfig.title,
             },
           ],
@@ -67,15 +73,22 @@ function App(props: AppProps) {
       />
 
       <ChakraProvider resetCSS theme={theme}>
-        <Stack maxW="6xl" minH="100vh" mx="auto" spacing={0}>
-          <Navbar />
-          <Box as="main" flexGrow={1}>
-            <Component {...pageProps} />
-          </Box>
-          <Footer />
-        </Stack>
+        {/* @ts-expect-error */}
+        {Component.disableLayout ? (
+          <Component {...pageProps} />
+        ) : (
+          <>
+            <Stack maxW="6xl" minH="100vh" mx="auto" spacing={0}>
+              <Navbar />
+              <Box as="main" flexGrow={1}>
+                <Component {...pageProps} />
+              </Box>
+              <Footer />
+            </Stack>
 
-        <MobileDrawer />
+            <MobileDrawer />
+          </>
+        )}
       </ChakraProvider>
     </>
   );

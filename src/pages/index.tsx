@@ -68,7 +68,7 @@ const HomePage: NextPage<HomePageProps> = ({ showcase, appearance, posts }) => {
 
         <Box boxSize={4} />
 
-        <Doodle boxSize="xs" />
+        <Doodle boxSize="full" maxW="xs" />
       </Flex>
 
       <Stack bgColor="gray.700" borderRadius={{ lg: "md" }} p={8} spacing={4}>

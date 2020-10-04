@@ -23,7 +23,6 @@ import { stringify } from "querystring";
 import { useRouter } from "next/router";
 import siteConfig from "~/site-config";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface BlogPostPageProps {
   post: BlogPost;
 }
@@ -47,6 +46,8 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
 
   const postedAtIso = new Date(post.postedAt).toISOString();
 
+  const socialImageUrl = `${siteConfig.url}/blog/${post.slug}/social.png`;
+
   return (
     <>
       <NextSeo
@@ -62,23 +63,21 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
             authors: [siteConfig.url],
             tags: post.tags.map((t) => t.trim()),
           },
-          images: post.image
-            ? [
-                {
-                  url: post.image.url,
-                  width: post.image.width,
-                  height: post.image.height,
-                  alt: post.image.title,
-                },
-              ]
-            : [],
+          images: [
+            {
+              url: socialImageUrl,
+              width: 1024,
+              height: 512,
+              alt: post.title,
+            },
+          ],
         }}
       />
 
       <BlogJsonLd
         url={`${siteConfig.url}/blog/${post.slug}`}
         title={post.title}
-        images={post.image ? [post.image.url] : []}
+        images={post.image ? [socialImageUrl] : []}
         datePublished={postedAtIso}
         dateModified={postedAtIso}
         authorName={siteConfig.title}
@@ -108,7 +107,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
             borderTopRightRadius={{ base: 0, md: 4 }}
             overflow="hidden"
           >
-            <Image alt={post.image.title} src={post.image.url} />
+            <Image alt={post.title} src={post.image.url} />
           </Box>
         )}
         <Stack

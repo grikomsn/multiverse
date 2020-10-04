@@ -1,10 +1,10 @@
 import * as React from "react";
 
 import { HStack, Icon, IconButton, Link } from "@chakra-ui/core";
-import { useSocials } from "@/hooks/app";
 
 import NextLink from "next/link";
 import routes from "@/routes";
+import { useSocials } from "@/hooks/app";
 import siteConfig from "~/site-config";
 
 const Navbar: React.FC = () => {
