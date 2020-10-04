@@ -68,7 +68,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
               url: socialImageUrl,
               width: 1024,
               height: 512,
-              alt: post.image.title,
+              alt: post.title,
             },
           ],
         }}
@@ -107,7 +107,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
             borderTopRightRadius={{ base: 0, md: 4 }}
             overflow="hidden"
           >
-            <Image alt={post.image.title} src={post.image.url} />
+            <Image alt={post.title} src={post.image.url} />
           </Box>
         )}
         <Stack
