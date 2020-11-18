@@ -2,10 +2,12 @@ import "@/stylesheets/html.css";
 
 import * as React from "react";
 
-import { Box, ChakraProvider, Stack } from "@chakra-ui/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Box, ChakraProvider, DarkMode, Stack } from "@chakra-ui/react";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 
 import { AppContextProps } from "@/store/app";
+import type { BoxProps } from "@chakra-ui/react";
 import Footer from "@/components/footer";
 import Head from "next/head";
 import NProgress from "nprogress";
@@ -23,6 +25,8 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 type AppProps = NextAppProps & AppContextProps;
+
+const MotionBox = motion.custom<BoxProps>(Box);
 
 function App(props: AppProps) {
   const { Component, pageProps, router } = props;
@@ -75,19 +79,35 @@ function App(props: AppProps) {
       <ChakraProvider resetCSS theme={theme}>
         {/* @ts-expect-error disable layout parameter */}
         {Component.disableLayout ? (
-          <Component {...pageProps} />
+          <DarkMode>
+            <Component {...pageProps} />
+          </DarkMode>
         ) : (
-          <>
+          <DarkMode>
             <Stack maxW="6xl" minH="100vh" mx="auto" spacing={0}>
               <Navbar />
-              <Box as="main" flexGrow={1}>
-                <Component {...pageProps} />
-              </Box>
+              <AnimatePresence exitBeforeEnter>
+                <MotionBox
+                  as="main"
+                  animate="enter"
+                  exit="exit"
+                  flexGrow={1}
+                  initial="initial"
+                  key={router.route}
+                  variants={{
+                    initial: { opacity: 0, y: -80 },
+                    enter: { opacity: 1, y: 0 },
+                    exit: { opacity: 0, y: 80 },
+                  }}
+                >
+                  <Component {...pageProps} />
+                </MotionBox>
+              </AnimatePresence>
               <Footer />
             </Stack>
 
             <MobileDrawer />
-          </>
+          </DarkMode>
         )}
       </ChakraProvider>
     </>
