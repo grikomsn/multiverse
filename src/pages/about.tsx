@@ -13,7 +13,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import type { GetStaticProps, NextPage } from "next";
 import { baseRenderer, kbRenderer } from "@/utils/renderers";
 
@@ -22,7 +22,7 @@ import Markdown from "react-markdown";
 import { NextSeo } from "next-seo";
 import TitleSeparator from "@/components/title-separator";
 import { contentful } from "@/cms";
-import siteConfig from "~/site-config";
+import siteConfig from "site-config";
 
 interface AboutPageProps {
   avatar: string;

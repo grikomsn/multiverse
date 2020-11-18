@@ -4,7 +4,7 @@ import * as React from "react";
 
 import Highlight, { Prism } from "prism-react-renderer";
 
-import { Box } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/react";
 import type { Language } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/oceanicNext";
 

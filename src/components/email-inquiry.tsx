@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { Button } from "@chakra-ui/core";
+import { Button } from "@chakra-ui/react";
+import siteConfig from "site-config";
 import { useEmail } from "@/hooks/app";
-import siteConfig from "~/site-config";
 
-const EmailInquiry = () => {
+const EmailInquiry: React.FC = () => {
   const { copyEmail, EmailTooltip } = useEmail();
 
   return (

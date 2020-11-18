@@ -5,7 +5,7 @@ import type { GetStaticProps, NextPage } from "next";
 import type { Appearance } from "@/generated/graphql";
 import AppearanceList from "@/components/appearance-list";
 import { NextSeo } from "next-seo";
-import { Stack } from "@chakra-ui/core";
+import { Stack } from "@chakra-ui/react";
 import TitleSeparator from "@/components/title-separator";
 import { contentful } from "@/cms";
 import copywriting from "@/copywriting.json";

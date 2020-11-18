@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Heading } from "@chakra-ui/core";
+import { Heading } from "@chakra-ui/react";
 
 interface TitleSeparatorProps {
   title: string;

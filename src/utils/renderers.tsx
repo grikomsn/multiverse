@@ -10,9 +10,9 @@ import {
   List,
   ListItem,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
-import type { BoxProps } from "@chakra-ui/core";
+import type { BoxProps } from "@chakra-ui/react";
 import Snippet from "@/components/snippet";
 
 // https://github.com/rexxars/react-markdown/issues/404#issuecomment-604019030

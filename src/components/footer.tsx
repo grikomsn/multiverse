@@ -1,13 +1,21 @@
 import * as React from "react";
 
-import { Box, Divider, Flex, HStack, Icon, Link, Stack } from "@chakra-ui/core";
+import {
+  Box,
+  Divider,
+  Flex,
+  HStack,
+  Icon,
+  Link,
+  Stack,
+} from "@chakra-ui/react";
 
 import Markdown from "react-markdown";
 import NextLink from "next/link";
 import { baseRenderer } from "@/utils/renderers";
 import routes from "@/routes";
+import siteConfig from "site-config";
 import { useSocials } from "@/hooks/app";
-import siteConfig from "~/site-config";
 
 const Footer: React.FC = () => {
   const socials = useSocials();

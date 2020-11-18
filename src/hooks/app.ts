@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import * as React from "react";
 import * as copee from "copee";
@@ -7,8 +8,8 @@ import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
 
 import EmailTooltip from "@/components/email-tooltip";
 import type { IconType } from "react-icons/lib";
-import { useToast } from "@chakra-ui/core";
-import siteConfig from "~/site-config";
+import siteConfig from "site-config";
+import { useToast } from "@chakra-ui/react";
 
 export function useEmail() {
   const toast = useToast();
@@ -22,7 +23,6 @@ export function useEmail() {
       position: "top",
       status: "success",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { copyEmail, EmailTooltip };

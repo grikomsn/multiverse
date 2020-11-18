@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Icon } from "@chakra-ui/core";
-import type { IconProps } from "@chakra-ui/core";
+import { Icon } from "@chakra-ui/react";
+import type { IconProps } from "@chakra-ui/react";
 
 const DoodleDesktop: React.FC<IconProps> = (props) => {
   return (

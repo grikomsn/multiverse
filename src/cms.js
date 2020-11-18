@@ -10,15 +10,4 @@ module.exports = {
         },
       },
     ),
-  datocms: () =>
-    new GraphQLClient(
-      process.env.NODE_ENV === "development"
-        ? "https://graphql.datocms.com/preview"
-        : "https://graphql.datocms.com/",
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
-        },
-      },
-    ),
 };

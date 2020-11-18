@@ -10,7 +10,7 @@ import {
   Link,
   Stack,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
 import type { BlogPost } from "@/generated/graphql";
@@ -19,9 +19,9 @@ import Markdown from "react-markdown";
 import { contentful } from "@/cms";
 import dateFnsFormat from "date-fns/format";
 import { postRenderer } from "@/utils/renderers";
+import siteConfig from "site-config";
 import { stringify } from "querystring";
 import { useRouter } from "next/router";
-import siteConfig from "~/site-config";
 
 interface BlogPostPageProps {
   post: BlogPost;

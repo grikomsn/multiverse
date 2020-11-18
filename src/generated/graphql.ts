@@ -133,6 +133,11 @@ export type AssetUrlArgs = {
   transform?: Maybe<ImageTransformOptions>;
 };
 
+/** Represents a binary file in a space. An asset can be any file type. */
+export type AssetLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars["String"]>>>;
+};
+
 export type Sys = {
   __typename?: "Sys";
   id: Scalars["String"];
@@ -305,8 +310,28 @@ export type AboutPage = Entry & {
 };
 
 /** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/aboutPage) */
+export type AboutPageLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars["String"]>>>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/aboutPage) */
+export type AboutPageTitleArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/aboutPage) */
 export type AboutPageAvatarArgs = {
   preview?: Maybe<Scalars["Boolean"]>;
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/aboutPage) */
+export type AboutPagePrefaceArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/aboutPage) */
+export type AboutPageKnowledgeBaseArgs = {
   locale?: Maybe<Scalars["String"]>;
 };
 
@@ -343,8 +368,33 @@ export type Showcase = Entry & {
 };
 
 /** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/showcase) */
+export type ShowcaseLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars["String"]>>>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/showcase) */
+export type ShowcaseTitleArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/showcase) */
+export type ShowcaseTechArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/showcase) */
 export type ShowcaseImageArgs = {
   preview?: Maybe<Scalars["Boolean"]>;
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/showcase) */
+export type ShowcaseUrlArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/showcase) */
+export type ShowcaseFeaturedOrderArgs = {
   locale?: Maybe<Scalars["String"]>;
 };
 
@@ -383,8 +433,43 @@ export type BlogPost = Entry & {
 };
 
 /** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
+export type BlogPostLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars["String"]>>>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
 export type BlogPostImageArgs = {
   preview?: Maybe<Scalars["Boolean"]>;
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
+export type BlogPostTitleArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
+export type BlogPostSlugArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
+export type BlogPostSubtitleArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
+export type BlogPostPostedAtArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
+export type BlogPostTagsArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/blogPost) */
+export type BlogPostContentArgs = {
   locale?: Maybe<Scalars["String"]>;
 };
 
@@ -539,6 +624,7 @@ export type AboutPageFilter = {
   title_not_in?: Maybe<Array<Maybe<Scalars["String"]>>>;
   title_contains?: Maybe<Scalars["String"]>;
   title_not_contains?: Maybe<Scalars["String"]>;
+  avatar_exists?: Maybe<Scalars["Boolean"]>;
   preface_exists?: Maybe<Scalars["Boolean"]>;
   preface?: Maybe<Scalars["String"]>;
   preface_not?: Maybe<Scalars["String"]>;
@@ -579,9 +665,11 @@ export type ShowcaseFilter = {
   title_not_in?: Maybe<Array<Maybe<Scalars["String"]>>>;
   title_contains?: Maybe<Scalars["String"]>;
   title_not_contains?: Maybe<Scalars["String"]>;
+  tech_exists?: Maybe<Scalars["Boolean"]>;
   tech_contains_all?: Maybe<Array<Maybe<Scalars["String"]>>>;
   tech_contains_some?: Maybe<Array<Maybe<Scalars["String"]>>>;
   tech_contains_none?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  image_exists?: Maybe<Scalars["Boolean"]>;
   url_exists?: Maybe<Scalars["Boolean"]>;
   url?: Maybe<Scalars["String"]>;
   url_not?: Maybe<Scalars["String"]>;
@@ -632,6 +720,41 @@ export type Appearance = Entry & {
   category?: Maybe<Scalars["String"]>;
 };
 
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/appearance) */
+export type AppearanceLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars["String"]>>>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/appearance) */
+export type AppearanceTitleArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/appearance) */
+export type AppearanceDateArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/appearance) */
+export type AppearanceSubtitleArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/appearance) */
+export type AppearanceUrlArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/appearance) */
+export type AppearanceTagsArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/kve0ex6jlycb/content_types/appearance) */
+export type AppearanceCategoryArgs = {
+  locale?: Maybe<Scalars["String"]>;
+};
+
 export type AppearanceLinkingCollections = {
   __typename?: "AppearanceLinkingCollections";
   entryCollection?: Maybe<EntryCollection>;
@@ -676,6 +799,7 @@ export type AppearanceFilter = {
   url_not_in?: Maybe<Array<Maybe<Scalars["String"]>>>;
   url_contains?: Maybe<Scalars["String"]>;
   url_not_contains?: Maybe<Scalars["String"]>;
+  tags_exists?: Maybe<Scalars["Boolean"]>;
   tags_contains_all?: Maybe<Array<Maybe<Scalars["String"]>>>;
   tags_contains_some?: Maybe<Array<Maybe<Scalars["String"]>>>;
   tags_contains_none?: Maybe<Array<Maybe<Scalars["String"]>>>;
@@ -721,6 +845,7 @@ export type AppearanceCollection = {
 
 export type BlogPostFilter = {
   sys?: Maybe<SysFilter>;
+  image_exists?: Maybe<Scalars["Boolean"]>;
   title_exists?: Maybe<Scalars["Boolean"]>;
   title?: Maybe<Scalars["String"]>;
   title_not?: Maybe<Scalars["String"]>;
@@ -751,6 +876,7 @@ export type BlogPostFilter = {
   postedAt_gte?: Maybe<Scalars["DateTime"]>;
   postedAt_lt?: Maybe<Scalars["DateTime"]>;
   postedAt_lte?: Maybe<Scalars["DateTime"]>;
+  tags_exists?: Maybe<Scalars["Boolean"]>;
   tags_contains_all?: Maybe<Array<Maybe<Scalars["String"]>>>;
   tags_contains_some?: Maybe<Array<Maybe<Scalars["String"]>>>;
   tags_contains_none?: Maybe<Array<Maybe<Scalars["String"]>>>;

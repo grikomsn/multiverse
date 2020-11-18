@@ -2,7 +2,7 @@ import "@/stylesheets/html.css";
 
 import * as React from "react";
 
-import { Box, ChakraProvider, Stack } from "@chakra-ui/core";
+import { Box, ChakraProvider, Stack } from "@chakra-ui/react";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 
 import { AppContextProps } from "@/store/app";
@@ -13,8 +13,8 @@ import Navbar from "@/components/navbar";
 import type { AppProps as NextAppProps } from "next/app";
 import Router from "next/router";
 import dynamic from "next/dynamic";
+import siteConfig from "site-config";
 import theme from "@/theme";
-import siteConfig from "~/site-config";
 
 const MobileDrawer = dynamic(() => import("@/components/mobile-drawer"));
 
@@ -73,7 +73,7 @@ function App(props: AppProps) {
       />
 
       <ChakraProvider resetCSS theme={theme}>
-        {/* @ts-expect-error */}
+        {/* @ts-expect-error disable layout parameter */}
         {Component.disableLayout ? (
           <Component {...pageProps} />
         ) : (

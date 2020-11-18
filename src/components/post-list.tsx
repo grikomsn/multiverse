@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Box, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/core";
+import { Box, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 
 import type { BlogPost } from "@/generated/graphql";
 import NextLink from "next/link";

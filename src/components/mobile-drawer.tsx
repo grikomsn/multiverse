@@ -13,13 +13,13 @@ import {
   Link,
   Stack,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 import NextLink from "next/link";
 import routes from "@/routes";
+import siteConfig from "site-config";
 import { useSocials } from "@/hooks/app";
-import siteConfig from "~/site-config";
 
 const MobileDrawer: React.FC = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();

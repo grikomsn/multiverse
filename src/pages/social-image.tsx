@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import { Box, Divider, HStack, Heading, Link, Stack } from "@chakra-ui/core";
+import { Box, Divider, HStack, Heading, Link, Stack } from "@chakra-ui/react";
 import type { GetServerSideProps, NextPage } from "next";
 
 import DoodleMobile from "@/components/doodle-mobile";
 import Markdown from "react-markdown";
 import type { SocialImageParameters } from "@/types";
 import { baseRenderer } from "@/utils/renderers";
-import siteConfig from "~/site-config";
+import siteConfig from "site-config";
 
 const SocialImagePage: NextPage<SocialImageParameters> = ({
   title,
@@ -51,8 +51,7 @@ const SocialImagePage: NextPage<SocialImageParameters> = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
+// @ts-expect-error custom disable layout parameter
 SocialImagePage.disableLayout = true;
 
 export const getServerSideProps: GetServerSideProps<SocialImageParameters> = async ({

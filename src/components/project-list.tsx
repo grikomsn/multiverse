@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/core";
+import { Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 
 import type { Showcase } from "@/generated/graphql";
 

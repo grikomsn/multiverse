@@ -8,7 +8,7 @@ import {
   Icon,
   Stack,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import {
   FaBolt,
   FaChalkboard,

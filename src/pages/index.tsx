@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import type { Appearance, BlogPost, Showcase } from "@/generated/graphql";
-import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/core";
+import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import type { GetStaticProps, NextPage } from "next";
 
 import AppearanceList from "@/components/appearance-list";
@@ -17,7 +17,7 @@ import TitleSeparator from "@/components/title-separator";
 import { baseRenderer } from "@/utils/renderers";
 import { contentful } from "@/cms";
 import copywriting from "@/copywriting.json";
-import siteConfig from "~/site-config";
+import siteConfig from "site-config";
 
 interface HomePageProps {
   showcase: Showcase[];
