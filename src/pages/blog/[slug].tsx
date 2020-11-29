@@ -6,7 +6,7 @@ import {
   Divider,
   HStack,
   Heading,
-  Image,
+  Img,
   Link,
   Stack,
   Text,
@@ -107,7 +107,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
             borderTopRightRadius={{ base: 0, md: 4 }}
             overflow="hidden"
           >
-            <Image alt={post.title} src={post.image.url} />
+            <Img alt={post.title} src={post.image.url} />
           </Box>
         )}
         <Stack

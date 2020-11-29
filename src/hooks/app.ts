@@ -1,21 +1,20 @@
-/* eslint-disable import/prefer-default-export */
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import * as React from "react";
-import * as copee from "copee";
 
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
+import { useClipboard, useToast } from "@chakra-ui/react";
 
 import EmailTooltip from "@/components/email-tooltip";
 import type { IconType } from "react-icons/lib";
 import siteConfig from "site-config";
-import { useToast } from "@chakra-ui/react";
 
 export function useEmail() {
+  const { onCopy } = useClipboard(siteConfig.email);
   const toast = useToast();
 
   const copyEmail = React.useCallback(() => {
-    copee.toClipboard(siteConfig.email);
+    onCopy();
     toast({
       title: "Copied!",
       description: "Email copied to clipboard.",

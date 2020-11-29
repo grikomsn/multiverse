@@ -6,7 +6,7 @@ import {
   Code,
   Divider,
   Heading,
-  Image,
+  Img,
   List,
   ListItem,
   Text,
@@ -17,7 +17,6 @@ import Snippet from "@/components/snippet";
 
 // https://github.com/rexxars/react-markdown/issues/404#issuecomment-604019030
 function slugifyChildren(children: React.ReactNode) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const flatten = (text: string, child: any) => {
     return typeof child === "string"
       ? text + child
@@ -120,7 +119,7 @@ export const postRenderer = {
     return (
       <>
         <Box as="span" pb={4}>
-          <Image
+          <Img
             alt={alt}
             borderRadius={4}
             mx="auto"

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Heading, Img, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 
 import type { Showcase } from "@/generated/graphql";
 
@@ -33,7 +33,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ showcase }) => {
             {s.title}
           </Heading>
           <Text>{s.tech.join(", ")}</Text>
-          <Image
+          <Img
             alt={s.title}
             _groupHover={{ transform: "translateY(-12px)" }}
             src={s.image.url}

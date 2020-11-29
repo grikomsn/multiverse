@@ -1,4 +1,5 @@
 {
+  "endOfLine": "auto",
   "overrides": [
     {
       "files": ["src/pages/_document.tsx"],

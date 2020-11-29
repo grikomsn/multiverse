@@ -6,7 +6,7 @@ import {
   Box,
   Flex,
   Heading,
-  Image,
+  Img,
   Link,
   List,
   ListItem,
@@ -54,7 +54,7 @@ const AboutPage: NextPage<AboutPageProps> = ({ avatar, preface, kb }) => {
           </Stack>
 
           <Box maxW="xs" mx="auto" w="full">
-            <Image alt={siteConfig.title} borderRadius="full" src={avatar} />
+            <Img alt={siteConfig.title} borderRadius="full" src={avatar} />
           </Box>
         </Flex>
 
