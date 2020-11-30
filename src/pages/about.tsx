@@ -25,12 +25,11 @@ import { contentful } from "@/cms";
 import siteConfig from "site-config";
 
 interface AboutPageProps {
-  avatar: string;
   preface: string;
   kb: string[];
 }
 
-const AboutPage: NextPage<AboutPageProps> = ({ avatar, preface, kb }) => {
+const AboutPage: NextPage<AboutPageProps> = ({ preface, kb }) => {
   return (
     <>
       <NextSeo title="About Me" />
@@ -54,7 +53,7 @@ const AboutPage: NextPage<AboutPageProps> = ({ avatar, preface, kb }) => {
           </Stack>
 
           <Box maxW="xs" mx="auto" w="full">
-            <Img alt={siteConfig.title} borderRadius="full" src={avatar} />
+            <Img alt={siteConfig.title} borderRadius="full" src="/me.jpg" />
           </Box>
         </Flex>
 
@@ -100,9 +99,6 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
     {
       aboutPage: aboutPageCollection(limit: 1) {
         items {
-          avatar {
-            url(transform: { height: 1280, width: 1280 })
-          }
           preface
           knowledgeBase
         }
@@ -114,7 +110,6 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
 
   return {
     props: {
-      avatar: content.avatar.url,
       preface: content.preface,
       kb: `${content.knowledgeBase}`.split("---").map((s) => s.trim()),
     },
