@@ -1,6 +1,8 @@
+import { stringify } from "querystring";
 import * as React from "react";
 
 import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
+import type { BlogPost, BlogPostCollection } from "@/generated/graphql";
 import {
   Box,
   Divider,
@@ -13,14 +15,12 @@ import {
 } from "@chakra-ui/react";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
-import type { BlogPost } from "@/generated/graphql";
 import Error from "next/error";
 import Markdown from "react-markdown";
 import { contentful } from "@/cms";
 import dateFnsFormat from "date-fns/format";
 import { postRenderer } from "@/utils/renderers";
 import siteConfig from "site-config";
-import { stringify } from "querystring";
 import { useRouter } from "next/router";
 
 interface BlogPostPageProps {
@@ -166,40 +166,53 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
 export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({
   params,
 }) => {
-  const query = /* GraphQL */ `
-    query BlogPost($slug: String!) {
-      post: blogPostCollection(limit: 1, where: { slug: $slug }) {
-        items {
-          image {
-            url(transform: { width: 1280 })
-            width
-            height
+  type QueryResult = {
+    blogPostCollection: BlogPostCollection;
+  };
+
+  const data = await contentful().request<QueryResult>(
+    /* GraphQL */ `
+      query BlogPost($slug: String!) {
+        blogPostCollection(limit: 1, where: { slug: $slug }) {
+          items {
+            image {
+              url(transform: { width: 1280 })
+              width
+              height
+              title
+            }
             title
+            slug
+            subtitle
+            postedAt
+            tags
+            content
           }
-          title
-          slug
-          subtitle
-          postedAt
-          tags
-          content
         }
       }
-    }
-  `;
-
-  const data = await contentful().request(query, { slug: params.slug });
+    `,
+    {
+      slug: params.slug,
+    },
+  );
 
   return {
     props: {
-      post: data.post.items[0] ?? null,
+      post: data.blogPostCollection.items[0] ?? null,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await contentful().request(/* GraphQL */ `
+  type QueryResult = {
+    blogPostCollection: {
+      items: Pick<BlogPost, "slug">[];
+    };
+  };
+
+  const data = await contentful().request<QueryResult>(/* GraphQL */ `
     {
-      posts: blogPostCollection(order: postedAt_DESC) {
+      blogPostCollection(order: postedAt_DESC) {
         items {
           slug
         }
@@ -208,7 +221,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   `);
 
   return {
-    paths: data.posts.items.map((params) => ({ params })),
+    paths: data.blogPostCollection.items.map((params) => ({ params })),
     fallback: false,
   };
 };

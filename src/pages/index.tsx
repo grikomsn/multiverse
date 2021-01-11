@@ -1,6 +1,13 @@
 import * as React from "react";
 
-import type { Appearance, BlogPost, Showcase } from "@/generated/graphql";
+import type {
+  Appearance,
+  AppearanceCollection,
+  BlogPost,
+  BlogPostCollection,
+  Showcase,
+  ShowcaseCollection,
+} from "@/generated/graphql";
 import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import type { GetStaticProps, NextPage } from "next";
 
@@ -101,8 +108,14 @@ const HomePage: NextPage<HomePageProps> = ({ showcase, appearance, posts }) => {
   );
 };
 
+type QueryResult = {
+  showcaseCollection: ShowcaseCollection;
+  appearanceCollection: AppearanceCollection;
+  blogPostCollection: BlogPostCollection;
+};
+
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const data = await contentful().request(/* GraphQL */ `
+  const data = await contentful().request<QueryResult>(/* GraphQL */ `
     {
       showcaseCollection(
         limit: 10

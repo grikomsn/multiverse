@@ -1,8 +1,8 @@
 import * as React from "react";
 
+import type { BlogPost, BlogPostCollection } from "@/generated/graphql";
 import type { GetStaticProps, NextPage } from "next";
 
-import type { BlogPost } from "@/generated/graphql";
 import { NextSeo } from "next-seo";
 import PostList from "@/components/post-list";
 import { Stack } from "@chakra-ui/react";
@@ -29,8 +29,12 @@ const BlogPostsPage: NextPage<BlogPostsPageProps> = ({ posts }) => {
   );
 };
 
+type QueryResult = {
+  blogPostCollection: BlogPostCollection;
+};
+
 export const getStaticProps: GetStaticProps<BlogPostsPageProps> = async () => {
-  const data = await contentful().request(/* GraphQL */ `
+  const data = await contentful().request<QueryResult>(/* GraphQL */ `
     {
       blogPostCollection(order: postedAt_DESC) {
         items {

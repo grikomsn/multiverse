@@ -1,10 +1,10 @@
 import * as React from "react";
 
 import type { GetStaticProps, NextPage } from "next";
+import type { Showcase, ShowcaseCollection } from "@/generated/graphql";
 
 import { NextSeo } from "next-seo";
 import ProjectList from "@/components/project-list";
-import type { Showcase } from "@/generated/graphql";
 import { Stack } from "@chakra-ui/react";
 import TitleSeparator from "@/components/title-separator";
 import { contentful } from "@/cms";
@@ -29,8 +29,12 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ showcase }) => {
   );
 };
 
+type QueryResult = {
+  showcaseCollection: ShowcaseCollection;
+};
+
 export const getStaticProps: GetStaticProps<ProjectsPageProps> = async () => {
-  const data = await contentful().request(/* GraphQL */ `
+  const data = await contentful().request<QueryResult>(/* GraphQL */ `
     {
       showcaseCollection(order: title_ASC) {
         items {

@@ -15,6 +15,7 @@ import {
 import type { GetStaticProps, NextPage } from "next";
 import { baseRenderer, kbRenderer } from "@/utils/renderers";
 
+import type { AboutPageCollection } from "@/generated/graphql";
 import EmailInquiry from "@/components/email-inquiry";
 import Markdown from "react-markdown";
 import { NextSeo } from "next-seo";
@@ -92,10 +93,14 @@ const AboutPage: NextPage<AboutPageProps> = ({ preface, kb }) => {
   );
 };
 
+type QueryResult = {
+  aboutPageCollection: AboutPageCollection;
+};
+
 export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
-  const data = await contentful().request(/* GraphQL */ `
+  const data = await contentful().request<QueryResult>(/* GraphQL */ `
     {
-      aboutPage: aboutPageCollection(limit: 1) {
+      aboutPageCollection(limit: 1) {
         items {
           preface
           knowledgeBase
@@ -104,7 +109,7 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
     }
   `);
 
-  const content = data.aboutPage.items[0];
+  const content = data.aboutPageCollection.items[0];
 
   return {
     props: {

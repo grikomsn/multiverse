@@ -1,8 +1,8 @@
 import * as React from "react";
 
+import type { Appearance, AppearanceCollection } from "@/generated/graphql";
 import type { GetStaticProps, NextPage } from "next";
 
-import type { Appearance } from "@/generated/graphql";
 import AppearanceList from "@/components/appearance-list";
 import { NextSeo } from "next-seo";
 import { Stack } from "@chakra-ui/react";
@@ -29,8 +29,12 @@ const AppearancesPage: NextPage<AppearancesPageProps> = ({ appearance }) => {
   );
 };
 
+type QueryResult = {
+  appearanceCollection: AppearanceCollection;
+};
+
 export const getStaticProps: GetStaticProps<AppearancesPageProps> = async () => {
-  const data = await contentful().request(/* GraphQL */ `
+  const data = await contentful().request<QueryResult>(/* GraphQL */ `
     {
       appearanceCollection(order: date_DESC) {
         items {

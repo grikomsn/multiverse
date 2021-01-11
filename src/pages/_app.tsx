@@ -46,6 +46,7 @@ function App(props: AppProps) {
           title: siteConfig.title,
           description: siteConfig.description,
           type: "website",
+          // eslint-disable-next-line babel/camelcase
           site_name: siteConfig.title,
           images: [
             {
