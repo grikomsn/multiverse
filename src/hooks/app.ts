@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import * as React from "react";
 
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";

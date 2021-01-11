@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const { GraphQLClient } = require("graphql-request");
 
 module.exports = {
