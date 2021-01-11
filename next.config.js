@@ -1,6 +1,9 @@
 const { contentful } = require("./src/cms");
 
 module.exports = {
+  images: {
+    domains: ["images.ctfassets.net"],
+  },
   reactStrictMode: true,
   async rewrites() {
     const data = await contentful().request(/* GraphQL */ `
