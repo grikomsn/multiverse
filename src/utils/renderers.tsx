@@ -24,7 +24,7 @@ function slugifyChildren(children: React.ReactNode) {
   };
 
   const arrayChildren = React.Children.toArray(children);
-  const text = arrayChildren.reduce(flatten, "");
+  const text = arrayChildren.reduce<string>(flatten, "");
   const slug = text.toLowerCase().replace(/\W/g, "-");
 
   return slug;
@@ -47,7 +47,7 @@ export const baseRenderer = {
 export const kbRenderer = {
   ...baseRenderer,
 
-  heading: function KbHeading({ children }) {
+  heading({ children }) {
     return (
       <Heading pb={2} size="sm">
         {children}
@@ -55,11 +55,11 @@ export const kbRenderer = {
     );
   },
 
-  list: function KbList({ children }) {
+  list({ children }) {
     return <List>{children}</List>;
   },
 
-  listItem: function KbListItem({ children }) {
+  listItem({ children }) {
     return <ListItem>{children}</ListItem>;
   },
 };
@@ -67,7 +67,7 @@ export const kbRenderer = {
 export const postRenderer = {
   ...baseRenderer,
 
-  blockquote: function PostBlockquote(props) {
+  blockquote(props) {
     return (
       <Box
         borderLeftColor="gray.500"
@@ -80,7 +80,7 @@ export const postRenderer = {
     );
   },
 
-  code: function PostCode({ language, value }) {
+  code({ language, value }) {
     return (
       <Box pb={8}>
         <Snippet code={value} language={language} />
@@ -88,7 +88,7 @@ export const postRenderer = {
     );
   },
 
-  heading: function PostHeading({ level, children, ...props }) {
+  heading({ level, children, ...props }) {
     const slug = slugifyChildren(children);
     const sizes = ["2xl", "xl", "lg", "md", "sm", "xs"];
 
@@ -104,7 +104,7 @@ export const postRenderer = {
     );
   },
 
-  html: function PostHtml({ value }) {
+  html({ value }) {
     const htmlProps: BoxProps = {
       dangerouslySetInnerHTML: { __html: value },
       pb: 8,
@@ -115,7 +115,7 @@ export const postRenderer = {
     return <Box {...htmlProps} />;
   },
 
-  image: function PostImage({ alt, ...props }) {
+  image({ alt, ...props }) {
     return (
       <>
         <Box as="span" pb={4}>
@@ -141,17 +141,17 @@ export const postRenderer = {
     );
   },
 
-  inlineCode: function PostInlineCode({ inline: _, ...props }) {
+  inlineCode({ inline: _, ...props }) {
     return <Code d="inline" p={1} {...props} />;
   },
 
-  list: function PostList(props) {
+  list(props) {
     return <List styleType="disc" {...props} />;
   },
 
   listItem: ListItem,
 
-  table: function PostTable(props) {
+  table(props) {
     return (
       <Box overflow="auto">
         <Box as="table" {...props} />
@@ -159,23 +159,23 @@ export const postRenderer = {
     );
   },
 
-  tableHead: function PostTableHead(props) {
+  tableHead(props) {
     return <Box as="thead" fontWeight="bold" {...props} />;
   },
 
-  tableBody: function PostTableBody(props) {
+  tableBody(props) {
     return <Box as="tbody" {...props} />;
   },
 
-  tableRow: function PostTableRow(props) {
+  tableRow(props) {
     return <Box as="tr" {...props} />;
   },
 
-  tableCell: function PostTableCell(props) {
+  tableCell(props) {
     return <Box as="td" borderWidth={1} p={2} {...props} />;
   },
 
-  thematicBreak: function PostDivider() {
+  thematicBreak() {
     return (
       <Box py={4}>
         <Divider />
