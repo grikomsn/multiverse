@@ -1,26 +1,8 @@
-import { extendTheme } from "@chakra-ui/react";
+import { theme as dt, extendTheme } from "@chakra-ui/react";
 
-const sans = [
-  "Jost",
-  "-apple-system",
-  "BlinkMacSystemFont",
-  "'Segoe UI'",
-  "Roboto",
-  "Oxygen",
-  "Ubuntu",
-  "Cantarell",
-  "'Open Sans'",
-  "'Helvetica Neue'",
-  "sans-serif",
-].join(",");
-
-const mono = [
-  "Cousine",
-  "Consolas",
-  "'Courier New'",
-  "Courier",
-  "monospace",
-].join(",");
+const body = `Jost,${dt.fonts.body}`;
+const heading = `Jost,${dt.fonts.heading}`;
+const mono = `Cousine,${dt.fonts.mono}`;
 
 export default extendTheme({
   components: {
@@ -43,8 +25,8 @@ export default extendTheme({
     },
   },
   fonts: {
-    body: sans,
-    heading: sans,
+    body,
+    heading,
     mono,
   },
   fontSizes: {
