@@ -3,7 +3,6 @@ import { introspectSchema, makeRemoteExecutableSchema } from "graphql-tools";
 
 import { ApolloServer } from "apollo-server-micro";
 import type { AsyncExecutor } from "graphql-tools";
-import type { PlaygroundConfig } from "apollo-server-micro";
 import { print } from "graphql";
 
 const IS_NOT_PROD = process.env.NODE_ENV !== "production";
@@ -30,19 +29,15 @@ export async function createSchema() {
 }
 
 export async function createApolloServer() {
-  const config: PlaygroundConfig = {
-    settings: {
-      "request.credentials": "include",
-    },
-  };
-
-  const schema = await createSchema();
-
   return new ApolloServer({
     debug: IS_NOT_PROD,
     introspection: IS_NOT_PROD,
-    playground: IS_NOT_PROD ? config : false,
-    schema,
+    playground: {
+      settings: {
+        "request.credentials": "include",
+      },
+    },
+    schema: await createSchema(),
     tracing: IS_NOT_PROD,
   });
 }
