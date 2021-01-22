@@ -1,3 +1,6 @@
+import { GraphQLClient } from "graphql-request";
+import { print } from "graphql";
+import gql from "graphql-tag";
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -913,3 +916,428 @@ export enum BlogPostOrder {
   SysPublishedVersionAsc = "sys_publishedVersion_ASC",
   SysPublishedVersionDesc = "sys_publishedVersion_DESC",
 }
+
+export type BlogStaticPropsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type BlogStaticPropsQuery = { __typename?: "Query" } & {
+  blogPostCollection?: Maybe<
+    { __typename?: "BlogPostCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "BlogPost" } & Pick<
+            BlogPost,
+            "title" | "slug" | "subtitle" | "postedAt" | "tags"
+          > & { sys: { __typename?: "Sys" } & Pick<Sys, "id"> }
+        >
+      >;
+    }
+  >;
+};
+
+export type BlogPostStaticPropsQueryVariables = Exact<{
+  slug: Scalars["String"];
+}>;
+
+export type BlogPostStaticPropsQuery = { __typename?: "Query" } & {
+  blogPostCollection?: Maybe<
+    { __typename?: "BlogPostCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "BlogPost" } & Pick<
+            BlogPost,
+            "title" | "slug" | "subtitle" | "postedAt" | "tags" | "content"
+          > & {
+              image?: Maybe<
+                { __typename?: "Asset" } & Pick<
+                  Asset,
+                  "url" | "width" | "height" | "title"
+                >
+              >;
+            }
+        >
+      >;
+    }
+  >;
+};
+
+export type BlogPostStaticPathsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type BlogPostStaticPathsQuery = { __typename?: "Query" } & {
+  blogPostCollection?: Maybe<
+    { __typename?: "BlogPostCollection" } & {
+      items: Array<Maybe<{ __typename?: "BlogPost" } & Pick<BlogPost, "slug">>>;
+    }
+  >;
+};
+
+export type AboutPageStaticPropsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AboutPageStaticPropsQuery = { __typename?: "Query" } & {
+  aboutPageCollection?: Maybe<
+    { __typename?: "AboutPageCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "AboutPage" } & Pick<
+            AboutPage,
+            "preface" | "knowledgeBase"
+          >
+        >
+      >;
+    }
+  >;
+};
+
+export type AppearancesStaticPropsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AppearancesStaticPropsQuery = { __typename?: "Query" } & {
+  appearanceCollection?: Maybe<
+    { __typename?: "AppearanceCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "Appearance" } & Pick<
+            Appearance,
+            "title" | "date" | "subtitle" | "url" | "tags" | "category"
+          > & { sys: { __typename?: "Sys" } & Pick<Sys, "id"> }
+        >
+      >;
+    }
+  >;
+};
+
+export type HomePageStaticPropsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type HomePageStaticPropsQuery = { __typename?: "Query" } & {
+  showcaseCollection?: Maybe<
+    { __typename?: "ShowcaseCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "Showcase" } & Pick<
+            Showcase,
+            "title" | "tech" | "url"
+          > & {
+              image?: Maybe<{ __typename?: "Asset" } & Pick<Asset, "url">>;
+              sys: { __typename?: "Sys" } & Pick<Sys, "id">;
+            }
+        >
+      >;
+    }
+  >;
+  appearanceCollection?: Maybe<
+    { __typename?: "AppearanceCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "Appearance" } & Pick<
+            Appearance,
+            "title" | "date" | "subtitle" | "url" | "tags" | "category"
+          > & { sys: { __typename?: "Sys" } & Pick<Sys, "id"> }
+        >
+      >;
+    }
+  >;
+  blogPostCollection?: Maybe<
+    { __typename?: "BlogPostCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "BlogPost" } & Pick<
+            BlogPost,
+            "title" | "slug" | "subtitle" | "postedAt" | "tags"
+          > & { sys: { __typename?: "Sys" } & Pick<Sys, "id"> }
+        >
+      >;
+    }
+  >;
+};
+
+export type ProjectsStaticPropsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ProjectsStaticPropsQuery = { __typename?: "Query" } & {
+  showcaseCollection?: Maybe<
+    { __typename?: "ShowcaseCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "Showcase" } & Pick<
+            Showcase,
+            "title" | "tech" | "url"
+          > & {
+              image?: Maybe<{ __typename?: "Asset" } & Pick<Asset, "url">>;
+              sys: { __typename?: "Sys" } & Pick<Sys, "id">;
+            }
+        >
+      >;
+    }
+  >;
+};
+
+export type BlogSocialImageQueryVariables = Exact<{
+  slug: Scalars["String"];
+}>;
+
+export type BlogSocialImageQuery = { __typename?: "Query" } & {
+  post?: Maybe<
+    { __typename?: "BlogPostCollection" } & {
+      items: Array<
+        Maybe<
+          { __typename?: "BlogPost" } & Pick<BlogPost, "title" | "subtitle">
+        >
+      >;
+    }
+  >;
+};
+
+export const BlogStaticPropsDocument = gql`
+  query blogStaticProps {
+    blogPostCollection(order: postedAt_DESC) {
+      items {
+        title
+        slug
+        subtitle
+        postedAt
+        tags
+        sys {
+          id
+        }
+      }
+    }
+  }
+`;
+export const BlogPostStaticPropsDocument = gql`
+  query blogPostStaticProps($slug: String!) {
+    blogPostCollection(limit: 1, where: { slug: $slug }) {
+      items {
+        image {
+          url(transform: { width: 1280 })
+          width
+          height
+          title
+        }
+        title
+        slug
+        subtitle
+        postedAt
+        tags
+        content
+      }
+    }
+  }
+`;
+export const BlogPostStaticPathsDocument = gql`
+  query blogPostStaticPaths {
+    blogPostCollection(order: postedAt_DESC) {
+      items {
+        slug
+      }
+    }
+  }
+`;
+export const AboutPageStaticPropsDocument = gql`
+  query aboutPageStaticProps {
+    aboutPageCollection(limit: 1) {
+      items {
+        preface
+        knowledgeBase
+      }
+    }
+  }
+`;
+export const AppearancesStaticPropsDocument = gql`
+  query appearancesStaticProps {
+    appearanceCollection(order: date_DESC) {
+      items {
+        title
+        date
+        subtitle
+        url
+        tags
+        category
+        sys {
+          id
+        }
+      }
+    }
+  }
+`;
+export const HomePageStaticPropsDocument = gql`
+  query homePageStaticProps {
+    showcaseCollection(
+      limit: 10
+      order: featuredOrder_ASC
+      where: { featuredOrder_exists: true }
+    ) {
+      items {
+        title
+        tech
+        image {
+          url(transform: { width: 1280 })
+        }
+        url
+        sys {
+          id
+        }
+      }
+    }
+    appearanceCollection(limit: 10, order: date_DESC) {
+      items {
+        title
+        date
+        subtitle
+        url
+        tags
+        category
+        sys {
+          id
+        }
+      }
+    }
+    blogPostCollection(limit: 10, order: postedAt_DESC) {
+      items {
+        title
+        slug
+        subtitle
+        postedAt
+        tags
+        sys {
+          id
+        }
+      }
+    }
+  }
+`;
+export const ProjectsStaticPropsDocument = gql`
+  query projectsStaticProps {
+    showcaseCollection(order: title_ASC) {
+      items {
+        title
+        tech
+        image {
+          url(transform: { width: 1280 })
+        }
+        url
+        sys {
+          id
+        }
+      }
+    }
+  }
+`;
+export const BlogSocialImageDocument = gql`
+  query blogSocialImage($slug: String!) {
+    post: blogPostCollection(limit: 1, where: { slug: $slug }) {
+      items {
+        title
+        subtitle
+      }
+    }
+  }
+`;
+
+export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
+
+const defaultWrapper: SdkFunctionWrapper = (sdkFunction) => sdkFunction();
+export function getSdk(
+  client: GraphQLClient,
+  withWrapper: SdkFunctionWrapper = defaultWrapper,
+) {
+  return {
+    blogStaticProps(
+      variables?: BlogStaticPropsQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<BlogStaticPropsQuery> {
+      return withWrapper(() =>
+        client.request<BlogStaticPropsQuery>(
+          print(BlogStaticPropsDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    blogPostStaticProps(
+      variables: BlogPostStaticPropsQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<BlogPostStaticPropsQuery> {
+      return withWrapper(() =>
+        client.request<BlogPostStaticPropsQuery>(
+          print(BlogPostStaticPropsDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    blogPostStaticPaths(
+      variables?: BlogPostStaticPathsQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<BlogPostStaticPathsQuery> {
+      return withWrapper(() =>
+        client.request<BlogPostStaticPathsQuery>(
+          print(BlogPostStaticPathsDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    aboutPageStaticProps(
+      variables?: AboutPageStaticPropsQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<AboutPageStaticPropsQuery> {
+      return withWrapper(() =>
+        client.request<AboutPageStaticPropsQuery>(
+          print(AboutPageStaticPropsDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    appearancesStaticProps(
+      variables?: AppearancesStaticPropsQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<AppearancesStaticPropsQuery> {
+      return withWrapper(() =>
+        client.request<AppearancesStaticPropsQuery>(
+          print(AppearancesStaticPropsDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    homePageStaticProps(
+      variables?: HomePageStaticPropsQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<HomePageStaticPropsQuery> {
+      return withWrapper(() =>
+        client.request<HomePageStaticPropsQuery>(
+          print(HomePageStaticPropsDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    projectsStaticProps(
+      variables?: ProjectsStaticPropsQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<ProjectsStaticPropsQuery> {
+      return withWrapper(() =>
+        client.request<ProjectsStaticPropsQuery>(
+          print(ProjectsStaticPropsDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    blogSocialImage(
+      variables: BlogSocialImageQueryVariables,
+      requestHeaders?: Headers,
+    ): Promise<BlogSocialImageQuery> {
+      return withWrapper(() =>
+        client.request<BlogSocialImageQuery>(
+          print(BlogSocialImageDocument),
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
