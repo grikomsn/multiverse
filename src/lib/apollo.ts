@@ -3,9 +3,8 @@ import { introspectSchema, makeRemoteExecutableSchema } from "graphql-tools";
 
 import { ApolloServer } from "apollo-server-micro";
 import type { AsyncExecutor } from "graphql-tools";
+import { IS_NOT_PROD } from "@/utils";
 import { print } from "graphql";
-
-const IS_NOT_PROD = process.env.NODE_ENV !== "production";
 
 export const executor: AsyncExecutor = async ({ document, variables }) => {
   const query = print(document);
