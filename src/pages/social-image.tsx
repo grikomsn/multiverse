@@ -5,11 +5,16 @@ import type { GetServerSideProps, NextPage } from "next";
 
 import DoodleMobile from "@/components/doodle-mobile";
 import Markdown from "react-markdown";
-import type { SocialImageParameters } from "@/types";
 import { baseRenderer } from "@/utils/renderers";
 import siteConfig from "site-config";
 
-const SocialImagePage: NextPage<SocialImageParameters> = ({
+interface SocialImagePageProps {
+  title: string;
+  description: string;
+  path: string;
+}
+
+const SocialImagePage: NextPage<SocialImagePageProps> = ({
   title,
   description,
   path,
@@ -54,7 +59,7 @@ const SocialImagePage: NextPage<SocialImageParameters> = ({
 // @ts-expect-error custom disable layout parameter
 SocialImagePage.disableLayout = true;
 
-export const getServerSideProps: GetServerSideProps<SocialImageParameters> = async ({
+export const getServerSideProps: GetServerSideProps<SocialImagePageProps> = async ({
   query,
 }) => {
   const t = (query.title as string) || siteConfig.title;
