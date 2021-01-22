@@ -15,18 +15,29 @@ import {
 import type { GetStaticProps, NextPage } from "next";
 import { baseRenderer, kbRenderer } from "@/utils/renderers";
 
-import type { AboutPageCollection } from "@/generated/graphql";
 import EmailInquiry from "@/components/email-inquiry";
 import Markdown from "react-markdown";
 import { NextSeo } from "next-seo";
 import TitleSeparator from "@/components/title-separator";
-import { contentful } from "@/cms";
+import { cms } from "@/lib/cms";
 import siteConfig from "site-config";
 
 interface AboutPageProps {
   preface: string;
   kb: string[];
 }
+
+export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
+  const data = await cms().aboutPageStaticProps();
+  const content = data.aboutPageCollection.items[0];
+
+  return {
+    props: {
+      preface: content.preface,
+      kb: `${content.knowledgeBase}`.split("---").map((s) => s.trim()),
+    },
+  };
+};
 
 const AboutPage: NextPage<AboutPageProps> = ({ preface, kb }) => {
   return (
@@ -91,32 +102,6 @@ const AboutPage: NextPage<AboutPageProps> = ({ preface, kb }) => {
       </Stack>
     </>
   );
-};
-
-type QueryResult = {
-  aboutPageCollection: AboutPageCollection;
-};
-
-export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
-  const data = await contentful().request<QueryResult>(/* GraphQL */ `
-    {
-      aboutPageCollection(limit: 1) {
-        items {
-          preface
-          knowledgeBase
-        }
-      }
-    }
-  `);
-
-  const content = data.aboutPageCollection.items[0];
-
-  return {
-    props: {
-      preface: content.preface,
-      kb: `${content.knowledgeBase}`.split("---").map((s) => s.trim()),
-    },
-  };
 };
 
 export default AboutPage;

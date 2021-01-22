@@ -1,18 +1,28 @@
 import * as React from "react";
 
 import type { GetStaticProps, NextPage } from "next";
-import type { Showcase, ShowcaseCollection } from "@/generated/graphql";
 
 import { NextSeo } from "next-seo";
 import ProjectList from "@/components/project-list";
+import type { Showcase } from "@/generated/graphql";
 import { Stack } from "@chakra-ui/react";
 import TitleSeparator from "@/components/title-separator";
-import { contentful } from "@/cms";
+import { cms } from "@/lib/cms";
 import copywriting from "@/copywriting.json";
 
 interface ProjectsPageProps {
   showcase: Showcase[];
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await cms().projectsStaticProps();
+
+  return {
+    props: {
+      showcase: data.showcaseCollection.items,
+    },
+  };
+};
 
 const meta = {
   title: "Projects",
@@ -27,36 +37,6 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ showcase }) => {
       <ProjectList showcase={showcase} />
     </Stack>
   );
-};
-
-type QueryResult = {
-  showcaseCollection: ShowcaseCollection;
-};
-
-export const getStaticProps: GetStaticProps<ProjectsPageProps> = async () => {
-  const data = await contentful().request<QueryResult>(/* GraphQL */ `
-    {
-      showcaseCollection(order: title_ASC) {
-        items {
-          title
-          tech
-          image {
-            url(transform: { width: 1280 })
-          }
-          url
-          sys {
-            id
-          }
-        }
-      }
-    }
-  `);
-
-  return {
-    props: {
-      showcase: data.showcaseCollection.items,
-    },
-  };
 };
 
 export default ProjectsPage;

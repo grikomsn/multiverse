@@ -1,13 +1,6 @@
 import * as React from "react";
 
-import type {
-  Appearance,
-  AppearanceCollection,
-  BlogPost,
-  BlogPostCollection,
-  Showcase,
-  ShowcaseCollection,
-} from "@/generated/graphql";
+import type { Appearance, BlogPost, Showcase } from "@/generated/graphql";
 import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import type { GetStaticProps, NextPage } from "next";
 
@@ -22,27 +15,27 @@ import PostList from "@/components/post-list";
 import ProjectList from "@/components/project-list";
 import TitleSeparator from "@/components/title-separator";
 import { baseRenderer } from "@/utils/renderers";
-import { contentful } from "@/cms";
+import { cms } from "@/lib/cms";
 import copywriting from "@/copywriting.json";
 import siteConfig from "site-config";
 
 interface HomePageProps {
-  showcase: Showcase[];
   appearance: Appearance[];
   posts: BlogPost[];
+  showcase: Showcase[];
 }
 
-function ViewAllButton({ title, href }) {
-  return (
-    <Box>
-      <NextLink href={href} passHref>
-        <Button as="a" float="right" rightIcon={<FaArrowRight />}>
-          {title}
-        </Button>
-      </NextLink>
-    </Box>
-  );
-}
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await cms().homePageStaticProps();
+
+  return {
+    props: {
+      showcase: data.showcaseCollection.items,
+      appearance: data.appearanceCollection.items,
+      posts: data.blogPostCollection.items,
+    },
+  };
+};
 
 const HomePage: NextPage<HomePageProps> = ({ showcase, appearance, posts }) => {
   return (
@@ -108,67 +101,16 @@ const HomePage: NextPage<HomePageProps> = ({ showcase, appearance, posts }) => {
   );
 };
 
-type QueryResult = {
-  showcaseCollection: ShowcaseCollection;
-  appearanceCollection: AppearanceCollection;
-  blogPostCollection: BlogPostCollection;
-};
-
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const data = await contentful().request<QueryResult>(/* GraphQL */ `
-    {
-      showcaseCollection(
-        limit: 10
-        order: featuredOrder_ASC
-        where: { featuredOrder_exists: true }
-      ) {
-        items {
-          title
-          tech
-          image {
-            url(transform: { width: 1280 })
-          }
-          url
-          sys {
-            id
-          }
-        }
-      }
-      appearanceCollection(limit: 10, order: date_DESC) {
-        items {
-          title
-          date
-          subtitle
-          url
-          tags
-          category
-          sys {
-            id
-          }
-        }
-      }
-      blogPostCollection(limit: 10, order: postedAt_DESC) {
-        items {
-          title
-          slug
-          subtitle
-          postedAt
-          tags
-          sys {
-            id
-          }
-        }
-      }
-    }
-  `);
-
-  return {
-    props: {
-      showcase: data.showcaseCollection.items,
-      appearance: data.appearanceCollection.items,
-      posts: data.blogPostCollection.items,
-    },
-  };
-};
+function ViewAllButton({ title, href }) {
+  return (
+    <Box>
+      <NextLink href={href} passHref>
+        <Button as="a" float="right" rightIcon={<FaArrowRight />}>
+          {title}
+        </Button>
+      </NextLink>
+    </Box>
+  );
+}
 
 export default HomePage;

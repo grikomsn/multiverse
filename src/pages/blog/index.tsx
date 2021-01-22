@@ -1,18 +1,28 @@
 import * as React from "react";
 
-import type { BlogPost, BlogPostCollection } from "@/generated/graphql";
 import type { GetStaticProps, NextPage } from "next";
 
+import type { BlogPost } from "@/generated/graphql";
 import { NextSeo } from "next-seo";
 import PostList from "@/components/post-list";
 import { Stack } from "@chakra-ui/react";
 import TitleSeparator from "@/components/title-separator";
-import { contentful } from "@/cms";
+import { cms } from "@/lib/cms";
 import copywriting from "@/copywriting.json";
 
 interface BlogPostsPageProps {
   posts: BlogPost[];
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await cms().blogStaticProps();
+
+  return {
+    props: {
+      posts: data.blogPostCollection.items,
+    },
+  };
+};
 
 const meta = {
   title: "Blog Posts",
@@ -27,35 +37,6 @@ const BlogPostsPage: NextPage<BlogPostsPageProps> = ({ posts }) => {
       <PostList posts={posts} />
     </Stack>
   );
-};
-
-type QueryResult = {
-  blogPostCollection: BlogPostCollection;
-};
-
-export const getStaticProps: GetStaticProps<BlogPostsPageProps> = async () => {
-  const data = await contentful().request<QueryResult>(/* GraphQL */ `
-    {
-      blogPostCollection(order: postedAt_DESC) {
-        items {
-          title
-          slug
-          subtitle
-          postedAt
-          tags
-          sys {
-            id
-          }
-        }
-      }
-    }
-  `);
-
-  return {
-    props: {
-      posts: data.blogPostCollection.items,
-    },
-  };
 };
 
 export default BlogPostsPage;
