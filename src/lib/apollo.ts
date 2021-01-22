@@ -1,4 +1,4 @@
-import { CMS_ENDPOINT, CMS_HEADERS } from "@/lib/cms";
+import { CMS_ENDPOINT, CMS_HEADERS } from "@/lib/cms-client";
 import { introspectSchema, makeRemoteExecutableSchema } from "graphql-tools";
 
 import { ApolloServer } from "apollo-server-micro";
