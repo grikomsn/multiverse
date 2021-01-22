@@ -1,9 +1,21 @@
 overwrite: true
+
 schema:
   "https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}":
     headers:
       Authorization: "Bearer ${CONTENTFUL_API_KEY}"
+
+documents:
+  - "src/graphql/client/**/*.graphql.ts"
+  - "src/graphql/client/**/*.graphql"
+
 generates:
-  src/generated/graphql.ts:
+  "src/generated/graphql.ts":
     plugins:
       - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
+    hooks:
+      afterOneFileWrite:
+        - prettier --write
+        - eslint --cache --fix

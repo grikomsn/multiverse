@@ -1,0 +1,9 @@
+{
+  "schema": "http://localhost:3000/api/graphql",
+  "documents": "./src/graphql/client/**/*.{gql,graphql}",
+  "endpoints": {
+    "default": {
+      "url": "http://localhost:3000/api/graphql"
+    }
+  }
+}
