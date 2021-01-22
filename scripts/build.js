@@ -4,10 +4,10 @@ const copyPublicAssets = require("./copy-public-assets");
 const generateRss = require("./generate-rss");
 const generateFavicons = require("./generate-favicons");
 
-const { contentful } = require("../src/cms");
+const { client, gql } = require("../src/lib/cms-client");
 
 async function build() {
-  const data = await contentful().request(/* GraphQL */ `
+  const data = await client.request(gql`
     {
       blogPostCollection(order: postedAt_DESC) {
         items {
