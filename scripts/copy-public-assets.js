@@ -1,3 +1,5 @@
+// @ts-check
+
 const copy = require("copy");
 
 module.exports = async () => {

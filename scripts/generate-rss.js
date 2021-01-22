@@ -1,3 +1,5 @@
+// @ts-check
+
 const RSS = require("rss");
 
 const fs = require("fs");

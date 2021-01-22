@@ -1,3 +1,5 @@
+// @ts-check
+
 const { client, gql } = require("./src/lib/cms-client");
 
 module.exports = {

@@ -1,3 +1,5 @@
+// @ts-check
+
 const descriptionMd = `
   Remote software developer doing web dev things. [SurabayaJS](https://surabayajs.org) core organizer,
   [Deno Land Indonesia](https://denoland.id) and [Frontend Indonesia](https://feid.dev) contributor,

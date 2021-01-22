@@ -1,3 +1,5 @@
+// @ts-check
+
 const favicons = require("favicons");
 
 const fs = require("fs");

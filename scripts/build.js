@@ -1,3 +1,5 @@
+// @ts-check
+
 require("cross-fetch/polyfill");
 
 const copyPublicAssets = require("./copy-public-assets");

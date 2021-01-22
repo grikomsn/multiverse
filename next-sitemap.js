@@ -1,3 +1,5 @@
+// @ts-check
+
 const siteConfig = require("./site-config");
 
 module.exports = {
