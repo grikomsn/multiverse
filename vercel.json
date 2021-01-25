@@ -1,14 +1,4 @@
 {
-  "env": {
-    "CONTENTFUL_API_KEY": "@griko-id-contentful-api-key",
-    "CONTENTFUL_SPACE_ID": "@griko-id-contentful-space-id"
-  },
-  "build": {
-    "env": {
-      "CONTENTFUL_API_KEY": "@griko-id-contentful-api-key",
-      "CONTENTFUL_SPACE_ID": "@griko-id-contentful-space-id"
-    }
-  },
   "github": {
     "autoAlias": true,
     "enabled": true
