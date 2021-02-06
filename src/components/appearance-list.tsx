@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import type { Appearance } from "@/generated/graphql";
+
 import {
   Box,
   Divider,
@@ -9,16 +11,14 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import format from "date-fns/format";
 import {
   FaBolt,
   FaChalkboard,
   FaMicrophone,
   FaRegCommentAlt,
 } from "react-icons/fa";
-
-import type { Appearance } from "@/generated/graphql";
 import type { IconType } from "react-icons/lib";
-import format from "date-fns/format";
 
 interface AppearanceListProps {
   appearance: Appearance[];
@@ -38,10 +38,10 @@ const AppearanceList: React.FC<AppearanceListProps> = ({ appearance }) => {
         <React.Fragment key={a.sys?.id || a.title}>
           {i > 0 && <Divider />}
           <Flex
-            as="a"
-            alignItems="center"
-            borderRadius="md"
             _hover={{ bgColor: "whiteAlpha.100" }}
+            alignItems="center"
+            as="a"
+            borderRadius="md"
             href={a.url}
             mx={-4}
             px={4}

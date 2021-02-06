@@ -1,27 +1,27 @@
-import { stringify } from "querystring";
 import * as React from "react";
 
-import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
+import type { BlogPost } from "@/generated/graphql";
+import { cms } from "@/lib/cms";
+import { postRenderer } from "@/utils/renderers";
+
 import {
   Box,
   Divider,
-  HStack,
   Heading,
+  HStack,
   Img,
   Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-
-import type { BlogPost } from "@/generated/graphql";
-import Error from "next/error";
-import Markdown from "react-markdown";
-import { cms } from "@/lib/cms";
 import dateFnsFormat from "date-fns/format";
-import { postRenderer } from "@/utils/renderers";
-import siteConfig from "site-config";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Error from "next/error";
 import { useRouter } from "next/router";
+import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
+import { stringify } from "querystring";
+import Markdown from "react-markdown";
+import siteConfig from "site-config";
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -71,7 +71,6 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
   return (
     <>
       <NextSeo
-        title={post.title}
         description={post.subtitle}
         openGraph={{
           title: post.title,
@@ -92,16 +91,17 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
             },
           ],
         }}
+        title={post.title}
       />
 
       <BlogJsonLd
-        url={`${siteConfig.url}/blog/${post.slug}`}
-        title={post.title}
-        images={post.image ? [socialImageUrl] : []}
-        datePublished={postedAtIso}
-        dateModified={postedAtIso}
         authorName={siteConfig.title}
+        dateModified={postedAtIso}
+        datePublished={postedAtIso}
         description={post.subtitle}
+        images={post.image ? [socialImageUrl] : []}
+        title={post.title}
+        url={`${siteConfig.url}/blog/${post.slug}`}
       />
 
       <BreadcrumbJsonLd
@@ -131,8 +131,8 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ post }) => {
           </Box>
         )}
         <Stack
-          as="header"
           alignItems="center"
+          as="header"
           p={8}
           spacing={4}
           textAlign="center"

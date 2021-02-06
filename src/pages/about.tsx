@@ -1,5 +1,10 @@
 import * as React from "react";
 
+import EmailInquiry from "@/components/email-inquiry";
+import TitleSeparator from "@/components/title-separator";
+import { cms } from "@/lib/cms";
+import { baseRenderer, kbRenderer } from "@/utils/renderers";
+
 import {
   Box,
   Flex,
@@ -13,13 +18,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import type { GetStaticProps, NextPage } from "next";
-import { baseRenderer, kbRenderer } from "@/utils/renderers";
-
-import EmailInquiry from "@/components/email-inquiry";
-import Markdown from "react-markdown";
 import { NextSeo } from "next-seo";
-import TitleSeparator from "@/components/title-separator";
-import { cms } from "@/lib/cms";
+import Markdown from "react-markdown";
 import siteConfig from "site-config";
 
 interface AboutPageProps {
@@ -69,8 +69,8 @@ const AboutPage: NextPage<AboutPageProps> = ({ preface, kb }) => {
 
         <Stack>
           <TitleSeparator
-            title="Knowledge Base"
             description="Here are the things I am proficient and/or currently use on a daily basis."
+            title="Knowledge Base"
           />
           <SimpleGrid columns={[2, 3, 4, 5]} gap={8} pt={4}>
             {kb.map((k, i) => (
@@ -83,8 +83,8 @@ const AboutPage: NextPage<AboutPageProps> = ({ preface, kb }) => {
 
         <Stack>
           <TitleSeparator
-            title="Social Presences"
             description="Get in touch with me on various platforms and social medias."
+            title="Social Presences"
           />
           <List pt={4}>
             {Object.entries(siteConfig.socials).map(

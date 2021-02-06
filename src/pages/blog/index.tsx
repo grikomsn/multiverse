@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import type { GetStaticProps, NextPage } from "next";
-
-import type { BlogPost } from "@/generated/graphql";
-import { NextSeo } from "next-seo";
 import PostList from "@/components/post-list";
-import { Stack } from "@chakra-ui/react";
 import TitleSeparator from "@/components/title-separator";
-import { cms } from "@/lib/cms";
 import copywriting from "@/copywriting.json";
+import type { BlogPost } from "@/generated/graphql";
+import { cms } from "@/lib/cms";
+
+import { Stack } from "@chakra-ui/react";
+import type { GetStaticProps, NextPage } from "next";
+import { NextSeo } from "next-seo";
 
 interface BlogPostsPageProps {
   posts: BlogPost[];

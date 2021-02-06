@@ -2,6 +2,7 @@ import * as React from "react";
 
 import DoodleDesktop from "@/components/doodle-desktop";
 import DoodleMobile from "@/components/doodle-mobile";
+
 import type { IconProps } from "@chakra-ui/react";
 
 const Doodle: React.FC<IconProps> = (props) => {

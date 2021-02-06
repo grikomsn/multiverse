@@ -1,5 +1,9 @@
 import * as React from "react";
 
+import { useSocials } from "@/hooks/app";
+import routes from "@/routes";
+import { baseRenderer } from "@/utils/renderers";
+
 import {
   Box,
   Divider,
@@ -9,13 +13,9 @@ import {
   Link,
   Stack,
 } from "@chakra-ui/react";
-
-import Markdown from "react-markdown";
 import NextLink from "next/link";
-import { baseRenderer } from "@/utils/renderers";
-import routes from "@/routes";
+import Markdown from "react-markdown";
 import siteConfig from "site-config";
-import { useSocials } from "@/hooks/app";
 
 const Footer: React.FC = () => {
   const socials = useSocials();
@@ -46,7 +46,7 @@ and [Contentful](https://www.contentful.com). Hosted on [Vercel](https://vercel.
           </Box>
           <HStack spacing={6}>
             {socials.map(([href, SocialIcon]) => (
-              <Link href={href} isExternal key={href}>
+              <Link key={href} href={href} isExternal>
                 <Icon as={SocialIcon} boxSize={5} />
               </Link>
             ))}
@@ -60,7 +60,7 @@ and [Contentful](https://www.contentful.com). Hosted on [Vercel](https://vercel.
           textAlign="right"
         >
           {routes.map(([text, href]) => (
-            <NextLink href={href} key={href}>
+            <NextLink key={href} href={href}>
               <Link href={href}>{text}</Link>
             </NextLink>
           ))}

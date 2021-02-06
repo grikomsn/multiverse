@@ -1,19 +1,19 @@
 import * as React from "react";
 
+import Snippet from "@/components/snippet";
+
+import type { BoxProps } from "@chakra-ui/react";
 import {
   Box,
-  Link as ChakraLink,
   Code,
   Divider,
   Heading,
   Img,
+  Link as ChakraLink,
   List,
   ListItem,
   Text,
 } from "@chakra-ui/react";
-
-import type { BoxProps } from "@chakra-ui/react";
-import Snippet from "@/components/snippet";
 
 // https://github.com/rexxars/react-markdown/issues/404#issuecomment-604019030
 function slugifyChildren(children: React.ReactNode) {
@@ -95,8 +95,8 @@ export const postRenderer = {
     return (
       <Heading
         as={`h${level}` as "h1"}
-        size={sizes[level - 1]}
         id={slug}
+        size={sizes[level - 1]}
         {...props}
       >
         {children}
@@ -122,8 +122,8 @@ export const postRenderer = {
           <Img
             alt={alt}
             borderRadius={4}
-            mx="auto"
             maxW="2xl"
+            mx="auto"
             w="100%"
             {...props}
           />

@@ -1,6 +1,7 @@
-import type { NextApiHandler } from "next";
 import { cms } from "@/lib/cms";
 import socialImageFn from "@/pages/api/social-image";
+
+import type { NextApiHandler } from "next";
 
 const handler: NextApiHandler = async (req, res) => {
   const [, slug] = /^([^.]+)(\.png)?$/.exec(req.query.slug as string);

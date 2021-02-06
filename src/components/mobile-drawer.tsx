@@ -1,5 +1,8 @@
 import * as React from "react";
 
+import { useSocials } from "@/hooks/app";
+import routes from "@/routes";
+
 import {
   Box,
   Drawer,
@@ -14,12 +17,9 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FaBars, FaTimes } from "react-icons/fa";
-
 import NextLink from "next/link";
-import routes from "@/routes";
+import { FaBars, FaTimes } from "react-icons/fa";
 import siteConfig from "site-config";
-import { useSocials } from "@/hooks/app";
 
 const MobileDrawer: React.FC = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();
@@ -64,7 +64,7 @@ const MobileDrawer: React.FC = () => {
               spacing={4}
             >
               {[["Home", "/"], ...routes].map(([title, href]) => (
-                <NextLink href={href} key={href}>
+                <NextLink key={href} href={href}>
                   <Link href={href} onClick={onClose}>
                     {title}
                   </Link>
@@ -75,11 +75,11 @@ const MobileDrawer: React.FC = () => {
             <DrawerFooter justifyContent="flex-start" px={4} py={8}>
               {socials.map(([href, SocialIcon]) => (
                 <IconButton
-                  as={Link}
+                  key={href}
                   aria-label={href}
+                  as={Link}
                   href={href}
                   icon={<Icon as={SocialIcon} boxSize={6} />}
-                  key={href}
                   isExternal
                   size="lg"
                   variant="link"

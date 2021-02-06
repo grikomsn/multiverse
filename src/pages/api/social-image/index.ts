@@ -1,9 +1,10 @@
-import qs from "querystring";
-import type { Browser } from "puppeteer";
-import type { NextApiHandler } from "next";
 import { absoluteUrl } from "@/utils";
+
 import chrome from "chrome-aws-lambda";
+import type { NextApiHandler } from "next";
+import type { Browser } from "puppeteer";
 import pptr from "puppeteer";
+import qs from "querystring";
 
 const isDev = process.env.NODE_ENV === "development";
 

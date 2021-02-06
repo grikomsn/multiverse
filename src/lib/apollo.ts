@@ -1,10 +1,10 @@
 import { CMS_ENDPOINT, CMS_HEADERS } from "@/lib/cms-client";
-import { introspectSchema, makeRemoteExecutableSchema } from "graphql-tools";
+import { IS_NOT_PROD } from "@/utils";
 
 import { ApolloServer } from "apollo-server-micro";
-import type { AsyncExecutor } from "graphql-tools";
-import { IS_NOT_PROD } from "@/utils";
 import { print } from "graphql";
+import type { AsyncExecutor } from "graphql-tools";
+import { introspectSchema, makeRemoteExecutableSchema } from "graphql-tools";
 
 export const executor: AsyncExecutor = async ({ document, variables }) => {
   const query = print(document);

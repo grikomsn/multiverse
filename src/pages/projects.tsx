@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import type { GetStaticProps, NextPage } from "next";
-
-import { NextSeo } from "next-seo";
 import ProjectList from "@/components/project-list";
-import type { Showcase } from "@/generated/graphql";
-import { Stack } from "@chakra-ui/react";
 import TitleSeparator from "@/components/title-separator";
-import { cms } from "@/lib/cms";
 import copywriting from "@/copywriting.json";
+import type { Showcase } from "@/generated/graphql";
+import { cms } from "@/lib/cms";
+
+import { Stack } from "@chakra-ui/react";
+import type { GetStaticProps, NextPage } from "next";
+import { NextSeo } from "next-seo";
 
 interface ProjectsPageProps {
   showcase: Showcase[];

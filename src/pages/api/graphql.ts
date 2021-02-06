@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
-import { IS_NOT_PROD } from "@/utils";
 import { createApolloServer } from "@/lib/apollo";
+import { IS_NOT_PROD } from "@/utils";
+
+import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
   api: {

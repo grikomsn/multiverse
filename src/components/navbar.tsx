@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import { HStack, Icon, IconButton, Link } from "@chakra-ui/react";
-
-import NextLink from "next/link";
-import routes from "@/routes";
-import siteConfig from "site-config";
 import { useSocials } from "@/hooks/app";
+import routes from "@/routes";
+
+import { HStack, Icon, IconButton, Link } from "@chakra-ui/react";
+import NextLink from "next/link";
+import siteConfig from "site-config";
 
 const Navbar: React.FC = () => {
   const socials = useSocials();
@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
 
       <HStack d={{ base: "none", md: "flex" }} spacing={0}>
         {routes.map(([text, href]) => (
-          <NextLink href={href} key={href}>
+          <NextLink key={href} href={href}>
             <Link href={href} p={4}>
               {text}
             </Link>
@@ -36,11 +36,11 @@ const Navbar: React.FC = () => {
       >
         {socials.map(([href, SocialIcon]) => (
           <IconButton
-            as={Link}
+            key={href}
             aria-label={href}
+            as={Link}
             href={href}
             icon={<Icon as={SocialIcon} boxSize={5} />}
-            key={href}
             isExternal
             variant="link"
           />

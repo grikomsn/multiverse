@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Tooltip } from "@chakra-ui/react";
 import type { TooltipProps } from "@chakra-ui/react";
+import { Tooltip } from "@chakra-ui/react";
 
 const EmailTooltip: React.FC<TooltipProps> = ({ children, ...props }) => {
   return (

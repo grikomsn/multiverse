@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import { Box, Divider, HStack, Heading, Link, Stack } from "@chakra-ui/react";
-import type { GetServerSideProps, NextPage } from "next";
-
 import DoodleMobile from "@/components/doodle-mobile";
-import Markdown from "react-markdown";
 import { baseRenderer } from "@/utils/renderers";
+
+import { Box, Divider, Heading, HStack, Link, Stack } from "@chakra-ui/react";
+import type { GetServerSideProps, NextPage } from "next";
+import Markdown from "react-markdown";
 import siteConfig from "site-config";
 
 interface SocialImagePageProps {

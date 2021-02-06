@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import Highlight, { Prism } from "prism-react-renderer";
-
 import { Box } from "@chakra-ui/react";
 import type { Language } from "prism-react-renderer";
+import Highlight, { Prism } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/oceanicNext";
 
 interface SnippetProps {
@@ -14,7 +13,7 @@ interface SnippetProps {
 const Snippet: React.FC<SnippetProps> = ({ code, language }) => {
   return (
     <Box>
-      <Highlight code={code} language={language} Prism={Prism} theme={theme}>
+      <Highlight Prism={Prism} code={code} language={language} theme={theme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <Box
             as="pre"
@@ -36,7 +35,7 @@ const Snippet: React.FC<SnippetProps> = ({ code, language }) => {
         )}
       </Highlight>
 
-      <Box color="gray.500" fontSize="sm" textAlign="right" pr={2}>
+      <Box color="gray.500" fontSize="sm" pr={2} textAlign="right">
         {language} snippet
       </Box>
     </Box>

@@ -1,4 +1,4 @@
-import { theme as dt, extendTheme } from "@chakra-ui/react";
+import { extendTheme, theme as dt } from "@chakra-ui/react";
 
 const body = `Jost,${dt.fonts.body}`;
 const heading = `Jost,${dt.fonts.heading}`;

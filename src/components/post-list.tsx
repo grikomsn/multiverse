@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { Box, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/react";
-
 import type { BlogPost } from "@/generated/graphql";
-import NextLink from "next/link";
+
+import { Box, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import format from "date-fns/format";
+import NextLink from "next/link";
 
 interface PostListProps {
   posts: BlogPost[];
@@ -18,11 +18,11 @@ const PostList: React.FC<PostListProps> = ({ posts }) => {
           {i > 0 && <Divider />}
           <NextLink href={`/blog/${p.slug}`} passHref>
             <Flex
+              _hover={{ bgColor: "whiteAlpha.100" }}
               alignItems="flex-start"
               as="a"
               borderRadius="md"
               flexDir={{ base: "column", md: "row" }}
-              _hover={{ bgColor: "whiteAlpha.100" }}
               mx={-4}
               p={4}
               role="group"

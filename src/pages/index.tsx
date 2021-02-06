@@ -1,22 +1,22 @@
 import * as React from "react";
 
-import type { Appearance, BlogPost, Showcase } from "@/generated/graphql";
-import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
-import type { GetStaticProps, NextPage } from "next";
-
 import AppearanceList from "@/components/appearance-list";
 import Doodle from "@/components/doodle";
 import EmailInquiry from "@/components/email-inquiry";
-import { FaArrowRight } from "react-icons/fa";
-import Markdown from "react-markdown";
-import NextLink from "next/link";
-import { NextSeo } from "next-seo";
 import PostList from "@/components/post-list";
 import ProjectList from "@/components/project-list";
 import TitleSeparator from "@/components/title-separator";
-import { baseRenderer } from "@/utils/renderers";
-import { cms } from "@/lib/cms";
 import copywriting from "@/copywriting.json";
+import type { Appearance, BlogPost, Showcase } from "@/generated/graphql";
+import { cms } from "@/lib/cms";
+import { baseRenderer } from "@/utils/renderers";
+
+import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
+import type { GetStaticProps, NextPage } from "next";
+import NextLink from "next/link";
+import { NextSeo } from "next-seo";
+import { FaArrowRight } from "react-icons/fa";
+import Markdown from "react-markdown";
 import siteConfig from "site-config";
 
 interface HomePageProps {
@@ -73,29 +73,29 @@ const HomePage: NextPage<HomePageProps> = ({ showcase, appearance, posts }) => {
 
       <Stack bgColor="gray.700" borderRadius={{ lg: "md" }} p={8} spacing={4}>
         <TitleSeparator
-          title="Recent Projects"
           description={copywriting.projects.description}
+          title="Recent Projects"
         />
         <ProjectList showcase={showcase} />
-        <ViewAllButton title="View all projects" href="/projects" />
+        <ViewAllButton href="/projects" title="View all projects" />
 
         <Box h={4} />
 
         <TitleSeparator
-          title="Recent Appearances"
           description={copywriting.appearances.description}
+          title="Recent Appearances"
         />
         <AppearanceList appearance={appearance} />
-        <ViewAllButton title="View all appearances" href="/appearances" />
+        <ViewAllButton href="/appearances" title="View all appearances" />
 
         <Box h={4} />
 
         <TitleSeparator
-          title="Recent Posts"
           description={copywriting.posts.description}
+          title="Recent Posts"
         />
         <PostList posts={posts} />
-        <ViewAllButton title="View all posts" href="/blog" />
+        <ViewAllButton href="/blog" title="View all posts" />
       </Stack>
     </Box>
   );

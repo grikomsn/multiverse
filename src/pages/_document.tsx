@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import NextDocument, { Head, Html, Main, NextScript } from "next/document";
-
 import { ColorModeScript } from "@chakra-ui/react";
 import type { DocumentContext } from "next/document";
+import NextDocument, { Head, Html, Main, NextScript } from "next/document";
 import siteConfig from "site-config";
 
 export default class Document extends NextDocument {
@@ -17,15 +16,15 @@ export default class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <meta charSet="UTF-8" />
-          <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+          <meta content="ie=edge" httpEquiv="X-UA-Compatible" />
+          <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-          <meta name="theme-color" content={siteConfig.themeColor} />
-          <meta name="msapplication-TileColor" content={siteConfig.themeColor} />
+          <meta content="yes" name="apple-mobile-web-app-capable" />
+          <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />
+          <meta content={siteConfig.themeColor} name="theme-color" />
+          <meta content={siteConfig.themeColor} name="msapplication-TileColor" />
 
-          <link rel="manifest" href="/manifest.json" />
+          <link href="/manifest.json" rel="manifest" />
 
           <meta content="/mstile-70x70.png" name="msapplication-square70x70" />
           <meta content="/mstile-144x144.png" name="msapplication-square144x144" />
@@ -45,8 +44,8 @@ export default class Document extends NextDocument {
           <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
           <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
 
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&display=swap" />
+          <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&display=swap" rel="stylesheet" />
         </Head>
 
         <body>
