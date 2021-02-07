@@ -20,13 +20,10 @@ module.exports = {
   twitterUsername: "@griko_nibras",
   email: "hello@griko.id",
   socials: {
-    "DEV Community": "https://dev.to/grikomsn",
     Discord: "https://discord.gg/9qffbAJ",
     GitHub: "https://github.com/grikomsn",
     LinkedIn: "https://linkedin.com/in/griko",
     Medium: "https://medium.com/@griko",
-    Steam: "https://steamcommunity.com/id/grikomsn",
-    Telegram: "https://t.me/griko_nibras",
     Twitch: "https://twitch.tv/griko_nibras",
     Twitter: "https://twitter.com/griko_nibras",
   },
