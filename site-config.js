@@ -1,9 +1,9 @@
 // @ts-check
 
 const descriptionMd = `
-  Remote software developer doing web dev things. [SurabayaJS](https://surabayajs.org) core organizer,
-  [Deno Land Indonesia](https://denoland.id) and [Frontend Indonesia](https://feid.dev) contributor,
-  and occasional [open sourcerer](https://github.com/grikomsn).
+  Remote software developer doing web dev things. Occasional [open sourcerer](https://github.com/grikomsn),
+  former organizer/contributor for [SurabayaJS](https://surabayajs.org),
+  [Deno Land Indonesia](https://denoland.id), and [Frontend Indonesia](https://feid.dev).
 `;
 
 const description = descriptionMd
