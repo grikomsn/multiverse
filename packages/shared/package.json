@@ -9,12 +9,14 @@
     "validate": "yarn lint && yarn type-check",
     "#": "###################################################################"
   },
-  "dependencies": {
-    "graphql": "^15",
-    "graphql-request": "^3"
-  },
   "devDependencies": {
     "lint-staged": "^10"
+  },
+  "peerDependencies": {
+    "graphql": "^15",
+    "graphql-request": "^3",
+    "next": "^10",
+    "next-connect": "^0"
   },
   "private": true
 }
