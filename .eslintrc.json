@@ -47,6 +47,7 @@
     ],
 
     // various rules
+    "max-lines": "off",
     "max-lines-per-function": "off",
     "no-void": "off",
     "require-await": "off"

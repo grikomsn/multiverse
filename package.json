@@ -5,6 +5,8 @@
     "packages/*"
   ],
   "scripts": {
+    "# workspace commands": "################################################",
+    "v7": "yarn workspace @grikomsn/v7",
     "# general commands": "##################################################",
     "deduplicate": "npx yarn-deduplicate && yarn",
     "postinstall": "patch-package",

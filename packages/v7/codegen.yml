@@ -1,0 +1,28 @@
+overwrite: true
+
+documents:
+  - "graphql/client/**/*.graphql.ts"
+  - "graphql/client/**/*.graphql"
+
+schema:
+  "https://graphql.datocms.com":
+    headers:
+      Authorization: ${DATOCMS_API_KEY}
+
+generates:
+  "./schema.graphql":
+    plugins:
+      - schema-ast
+  "./generated/graphql.ts":
+    plugins:
+      - "typescript"
+      - "typescript-graphql-request"
+      - "typescript-operations"
+      - "add":
+          content: "//@ts-nocheck\n/* eslint-disable */"
+    config:
+      dedupeOperationSuffix: true
+      pureMagicComment: true
+    hooks:
+      afterOneFileWrite:
+        - prettier --write

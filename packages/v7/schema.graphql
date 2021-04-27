@@ -1,0 +1,3371 @@
+"""
+Record of type About (about)
+"""
+type AboutRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  coverImage: FileField
+  createdAt: DateTime!
+  dashboardUrl: String
+  email: String
+  id: ItemId!
+  knowledgeBases: [EntryRecord]
+  preface(
+    """
+    Process content as markdown
+    """
+    markdown: Boolean
+  ): String
+  siteUrl: String
+  socialsJson: JsonField
+  updatedAt: DateTime!
+}
+
+input AppearanceModelFilter {
+  _createdAt: CreatedAtFilter
+  createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  tags: LinksFilter
+  url: StringFilter
+  category: StringFilter
+  date: DateFilter
+  subtitle: StringFilter
+  title: StringFilter
+  OR: [AppearanceModelFilter]
+}
+
+enum AppearanceModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  url_ASC
+  url_DESC
+  category_ASC
+  category_DESC
+  date_ASC
+  date_DESC
+  subtitle_ASC
+  subtitle_DESC
+  title_ASC
+  title_DESC
+}
+
+"""
+Record of type Appearance (appearance)
+"""
+type AppearanceRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  category: String
+  createdAt: DateTime!
+  date: Date
+  id: ItemId!
+  subtitle: String
+  tags: [TagRecord!]!
+  title: String
+  updatedAt: DateTime!
+  url: String
+}
+
+"""
+Specifies how to filter Boolean fields
+"""
+input BooleanFilter {
+  """
+  Search for records with an exact match
+  """
+  eq: BooleanType
+}
+
+"""
+Represents `true` or `false` values.
+"""
+scalar BooleanType
+
+type CollectionMetadata {
+  count: IntType!
+}
+
+enum ColorBucketType {
+  red
+  orange
+  pink
+  cyan
+  purple
+  blue
+  yellow
+  green
+  brown
+  grey
+  white
+  black
+}
+
+type ColorField {
+  alpha: IntType
+  blue: IntType
+  green: IntType
+  hex: String
+  red: IntType
+}
+
+"""
+Specifies how to filter by creation datetime
+"""
+input CreatedAtFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: DateTime
+
+  """
+  Filter records with a value that's less than the one specified
+  """
+  lt: DateTime
+
+  """
+  Filter records with a value that's greater than or equal to than the one specified
+  """
+  gte: DateTime
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: DateTime
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """
+  Search for records with an exact match (seconds are truncated)
+  """
+  eq: DateTime
+
+  """
+  Exclude records with an exact match
+  """
+  neq: DateTime
+}
+
+scalar CustomData
+
+"""
+A ISO 8601 compliant date value
+"""
+scalar Date
+
+"""
+Specifies how to filter Date fields
+"""
+input DateFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: Date
+
+  """
+  Filter records with a value that's less than the one specified
+  """
+  lt: Date
+
+  """
+  Filter records with a value that's greater than or equal to the one specified
+  """
+  gte: Date
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: Date
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """
+  Search for records with an exact match
+  """
+  eq: Date
+
+  """
+  Exclude records with an exact match
+  """
+  neq: Date
+}
+
+"""
+A ISO 8601 compliant datetime value
+"""
+scalar DateTime
+
+"""
+Record of type Entry (entry)
+"""
+type EntryRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  createdAt: DateTime!
+  entries: String
+  id: ItemId!
+  title: String
+  updatedAt: DateTime!
+}
+
+enum FaviconType {
+  icon
+  appleTouchIcon
+  msApplication
+}
+
+type FileField {
+  _createdAt: DateTime!
+  _updatedAt: DateTime!
+  alt(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): String
+  author: String
+  basename: String!
+  blurUpThumb(
+    """
+    Controls the "punch" value (~contrast) of the blurhash decoding algorithm (defaults to 1.0)
+    """
+    punch: Float = 1
+
+    """
+    Maximum image dimension (defaults to 24px)
+    """
+    size: Int = 24
+
+    """
+    JPEG quality (defaults to 70%)
+    """
+    quality: Int = 70
+
+    """
+    Imgix transformations to apply to the image
+    """
+    imgixParams: ImgixParams
+  ): String
+  blurhash: String
+  colors: [ColorField]!
+  copyright: String
+  customData(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): CustomData
+  exifInfo: CustomData
+  filename: String!
+  focalPoint(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): focalPoint
+  format: String!
+  height: IntType
+  id: UploadId!
+  mimeType: String!
+  notes: String
+  responsiveImage(
+    """
+    Imgix transformations to apply to the image
+    """
+    imgixParams: ImgixParams
+
+    """
+    Specify a custom `sizes` attribute for the image
+    """
+    sizes: String
+  ): ResponsiveImage
+  size: IntType!
+  smartTags: [String]!
+  tags: [String]!
+  title(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): String
+  url(
+    """
+    Imgix transformations to apply to the image
+    """
+    imgixParams: ImgixParams
+  ): String!
+  video: UploadVideoField
+  width: IntType
+}
+
+"""
+Specifies how to filter Single-file/image fields
+"""
+input FileFilter {
+  """
+  Search for records with an exact match. The specified value must be an Upload ID
+  """
+  eq: UploadId
+
+  """
+  Exclude records with an exact match. The specified value must be an Upload ID
+  """
+  neq: UploadId
+
+  """
+  Filter records that have one of the specified uploads
+  """
+  in: [UploadId]
+
+  """
+  Filter records that do not have one of the specified uploads
+  """
+  notIn: [UploadId]
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+"""
+Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point).
+"""
+scalar FloatType
+
+type GlobalSeoField {
+  facebookPageUrl: String
+  fallbackSeo: SeoField
+  siteName: String
+  titleSuffix: String
+  twitterAccount: String
+}
+
+input ImgixParams {
+  """
+  Aspect Ratio
+
+  Specifies an aspect ratio to maintain when resizing and cropping the image
+
+  Depends on: `fit=crop`
+  """
+  ar: String
+
+  """
+  Automatic
+
+  Applies automatic enhancements to images.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/auto)
+  """
+  auto: [ImgixParamsAuto!]
+
+  """
+  Background Color
+
+  Colors the background of padded and partially-transparent images.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/bg)
+  """
+  bg: String
+
+  """
+  Blend Align
+
+  Changes the blend alignment relative to the parent image.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-align)
+  """
+  blendAlign: [ImgixParamsBlendAlign!]
+
+  """
+  Blend Alpha
+
+  Changes the alpha of the blend image.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-alpha)
+  """
+  blendAlpha: IntType
+
+  """
+  Blend Color
+
+  Specifies a color to use when applying the blend.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-color)
+  """
+  blendColor: String
+
+  """
+  Blend Crop
+
+  Specifies the type of crop for blend images.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-crop)
+  """
+  blendCrop: [ImgixParamsBlendCrop!]
+
+  """
+  Blend Fit
+
+  Specifies the fit mode for blend images.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-fit)
+  """
+  blendFit: ImgixParamsBlendFit
+
+  """
+  Blend Height
+
+  Adjusts the height of the blend image.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-h)
+  """
+  blendH: FloatType
+
+  """
+  Blend Mode
+
+  Sets the blend mode for a blend image.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-mode)
+  """
+  blendMode: ImgixParamsBlendMode
+
+  """
+  Blend Padding
+
+  Applies padding to the blend image.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-pad)
+  """
+  blendPad: IntType
+
+  """
+  Blend Size
+
+  Adjusts the size of the blend image.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-size)
+  """
+  blendSize: ImgixParamsBlendSize
+
+  """
+  Blend Width
+
+  Adjusts the width of the blend image.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-w)
+  """
+  blendW: FloatType
+
+  """
+  Blend X Position
+
+  Adjusts the x-offset of the blend image relative to its parent.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-x)
+  """
+  blendX: IntType
+
+  """
+  Blend Y Position
+
+  Adjusts the y-offset of the blend image relative to its parent.
+
+  Depends on: `blend`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-y)
+  """
+  blendY: IntType
+
+  """
+  Blend
+
+  Specifies the location of the blend image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend)
+  """
+  blend: String
+
+  """
+  Gaussian Blur
+
+  Applies a gaussian blur to an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/blur)
+  """
+  blur: IntType
+
+  """
+  Border Bottom
+
+  Sets bottom border of an image.
+
+  Depends on: `border`
+  """
+  borderBottom: IntType
+
+  """
+  Border Left
+
+  Sets left border of an image.
+
+  Depends on: `border`
+  """
+  borderLeft: IntType
+
+  """
+  Inner Border Radius
+
+  Sets the inner radius of the image's border in pixels.
+
+  Depends on: `border`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius-inner)
+  """
+  borderRadiusInner: String
+
+  """
+  Outer Border Radius
+
+  Sets the outer radius of the image's border in pixels.
+
+  Depends on: `border`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius)
+  """
+  borderRadius: String
+
+  """
+  Border Right
+
+  Sets right border of an image.
+
+  Depends on: `border`
+  """
+  borderRight: IntType
+
+  """
+  Border Top
+
+  Sets top border of an image.
+
+  Depends on: `border`
+  """
+  borderTop: IntType
+
+  """
+  Border Size & Color
+
+  Applies a border to an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border)
+  """
+  border: String
+
+  """
+  Brightness
+
+  Adjusts the brightness of the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/bri)
+  """
+  bri: IntType
+
+  """
+  Client Hints
+
+  Sets one or more Client-Hints headers
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/ch)
+  """
+  ch: [ImgixParamsCh!]
+
+  """
+  Chroma Subsampling
+
+  Specifies the output chroma subsampling rate.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/chromasub)
+  """
+  chromasub: IntType
+
+  """
+  Color Quantization
+
+  Limits the number of unique colors in an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/colorquant)
+  """
+  colorquant: IntType
+
+  """
+  Palette Color Count
+
+  Specifies how many colors to include in a palette-extraction response.
+
+  Depends on: `palette`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/colors)
+  """
+  colors: IntType
+
+  """
+  Contrast
+
+  Adjusts the contrast of the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/con)
+  """
+  con: IntType
+
+  """
+  Mask Corner Radius
+
+  Specifies the radius value for a rounded corner mask.
+
+  Depends on: `mask=corners`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/corner-radius)
+  """
+  cornerRadius: String
+
+  """
+  Crop Mode
+
+  Specifies how to crop an image.
+
+  Depends on: `fit=crop`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/crop)
+  """
+  crop: [ImgixParamsCrop!]
+
+  """
+  Color Space
+
+  Specifies the color space of the output image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/cs)
+  """
+  cs: ImgixParamsCs
+
+  """
+  Download
+
+  Forces a URL to use send-file in its response.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dl)
+  """
+  dl: String
+
+  """
+  Dots Per Inch
+
+  Sets the DPI value in the EXIF header.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dpi)
+  """
+  dpi: IntType
+
+  """
+  Device Pixel Ratio
+
+  Adjusts the device-pixel ratio of the output image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/dpr)
+  """
+  dpr: FloatType
+
+  """
+  Duotone Alpha
+
+  Changes the alpha of the duotone effect atop the source image.
+
+  Depends on: `duotone`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone-alpha)
+  """
+  duotoneAlpha: IntType
+
+  """
+  Duotone
+
+  Applies a duotone effect to the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone)
+  """
+  duotone: String
+
+  """
+  Exposure
+
+  Adjusts the exposure of the output image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/exp)
+  """
+  exp: IntType
+
+  """
+  Url Expiration Timestamp
+
+  A Unix timestamp specifying a UTC time. Requests made to this URL after that time will output a 404 status code.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/expires)
+  """
+  expires: IntType
+
+  """
+  Face Index
+
+  Selects a face to crop to.
+
+  Depends on: `fit=facearea`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faceindex)
+  """
+  faceindex: IntType
+
+  """
+  Face Padding
+
+  Adjusts padding around a selected face.
+
+  Depends on: `fit=facearea`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/facepad)
+  """
+  facepad: FloatType
+
+  """
+  Json Face Data
+
+  Specifies that face data should be included in output when combined with `fm=json`.
+
+  Depends on: `fm=json`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faces)
+  """
+  faces: IntType
+
+  """
+  Fill Color
+
+  Sets the fill color for images with additional space created by the fit setting
+
+  Depends on: `fill=solid`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-color)
+  """
+  fillColor: String
+
+  """
+  Fill Mode
+
+  Determines how to fill in additional space created by the fit setting
+
+  Depends on: `fit`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill)
+  """
+  fill: ImgixParamsFill
+
+  """
+  Resize Fit Mode
+
+  Specifies how to map the source image to the output image dimensions.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/fit)
+  """
+  fit: ImgixParamsFit
+
+  """
+  Flip Axis
+
+  Flips an image on a specified axis.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/flip)
+  """
+  flip: ImgixParamsFlip
+
+  """
+  Output Format
+
+  Changes the format of the output image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/fm)
+  """
+  fm: ImgixParamsFm
+
+  """
+  Focal Point Debug
+
+  Displays crosshairs identifying the location of the set focal point
+
+  Depends on: `fit=crop`, `crop=focalpoint`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-debug)
+  """
+  fpDebug: BooleanType
+
+  """
+  Focal Point X Position
+
+  Sets the relative horizontal value for the focal point of an image
+
+  Depends on: `fit=crop`, `crop=focalpoint`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-x)
+  """
+  fpX: FloatType
+
+  """
+  Focal Point Y Position
+
+  Sets the relative vertical value for the focal point of an image
+
+  Depends on: `fit=crop`, `crop=focalpoint`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-y)
+  """
+  fpY: FloatType
+
+  """
+  Focal Point Zoom
+
+  Sets the relative zoom value for the focal point of an image
+
+  Depends on: `fit=crop`, `crop=focalpoint`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-z)
+  """
+  fpZ: IntType
+
+  """
+  Gamma
+
+  Adjusts the gamma of the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/gam)
+  """
+  gam: IntType
+
+  """
+  Grid Colors
+
+  Sets grid colors for the transparency checkerboard grid.
+
+  Depends on: `transparency`
+  """
+  gridColors: String
+
+  """
+  Grid Size
+
+  Sets grid size for the transparency checkerboard grid.
+
+  Depends on: `transparency`
+  """
+  gridSize: IntType
+
+  """
+  Image Height
+
+  Adjusts the height of the output image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/h)
+  """
+  h: FloatType
+
+  """
+  Highlight
+
+  Adjusts the highlights of the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/high)
+  """
+  high: IntType
+
+  """
+  Halftone
+
+  Applies a half-tone effect to the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/htn)
+  """
+  htn: IntType
+
+  """
+  Hue Shift
+
+  Adjusts the hue of the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/hue)
+  """
+  hue: IntType
+
+  """
+  Invert
+
+  Inverts the colors on the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/invert)
+  """
+  invert: BooleanType
+
+  """
+  Lossless Compression
+
+  Specifies that the output image should be a lossless variant.
+
+  Depends on: `fm=webp`, `fm=jxr`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/lossless)
+  """
+  lossless: BooleanType
+
+  """
+  Watermark Alignment Mode
+
+  Changes the watermark alignment relative to the parent image.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-align)
+  """
+  markAlign: [ImgixParamsMarkAlign!]
+
+  """
+  Watermark Alpha
+
+  Changes the alpha of the watermark image.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-alpha)
+  """
+  markAlpha: IntType
+
+  """
+  Watermark Base Url
+
+  Changes base URL of the watermark image.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-base)
+  """
+  markBase: String
+
+  """
+  Watermark Fit Mode
+
+  Specifies the fit mode for watermark images.
+
+  Depends on: `mark`, `markw`, `markh`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-fit)
+  """
+  markFit: ImgixParamsMarkFit
+
+  """
+  Watermark Height
+
+  Adjusts the height of the watermark image.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-h)
+  """
+  markH: FloatType
+
+  """
+  Watermark Padding
+
+  Applies padding to the watermark image.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-pad)
+  """
+  markPad: IntType
+
+  """
+  Watermark Scale
+
+  Adjusts the scale of the watermark image.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-scale)
+  """
+  markScale: IntType
+
+  """
+  Watermark Width
+
+  Adjusts the width of the watermark image.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-w)
+  """
+  markW: FloatType
+
+  """
+  Watermark X Position
+
+  Adjusts the x-offset of the watermark image relative to its parent.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-x)
+  """
+  markX: IntType
+
+  """
+  Watermark Y Position
+
+  Adjusts the y-offset of the watermark image relative to its parent.
+
+  Depends on: `mark`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-y)
+  """
+  markY: IntType
+
+  """
+  Watermark Image Url
+
+  Specifies the location of the watermark image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark)
+  """
+  mark: String
+
+  """
+  Mask Background Color
+
+  Colors the background of the transparent mask area of images
+
+  Depends on: `mask`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/mask-bg)
+  """
+  maskBg: String
+
+  """
+  Mask Type
+
+  Defines the type of mask and specifies the URL if that type is selected.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/mask)
+  """
+  mask: String
+
+  """
+  Maximum Height
+
+  Specifies the maximum height of the output image in pixels.
+
+  Depends on: `fit=crop`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-height)
+  """
+  maxH: IntType
+
+  """
+  Maximum Width
+
+  Specifies the maximum width of the output image in pixels.
+
+  Depends on: `fit=crop`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-width)
+  """
+  maxW: IntType
+
+  """
+  Minimum Height
+
+  Specifies the minimum height of the output image in pixels.
+
+  Depends on: `fit=crop`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-height)
+  """
+  minH: IntType
+
+  """
+  Minimum Width
+
+  Specifies the minimum width of the output image in pixels.
+
+  Depends on: `fit=crop`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-width)
+  """
+  minW: IntType
+
+  """
+  Monochrome
+
+  Applies a monochrome effect to the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/monochrome)
+  """
+  monochrome: String
+
+  """
+  Noise Reduction Bound
+
+  Reduces the noise in an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nr)
+  """
+  nr: IntType
+
+  """
+  Noise Reduction Sharpen
+
+  Provides a threshold by which to sharpen an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nrs)
+  """
+  nrs: IntType
+
+  """
+  Orientation
+
+  Changes the image orientation.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/orient)
+  """
+  orient: IntType
+
+  """
+  Padding Bottom
+
+  Sets bottom padding of an image.
+  """
+  padBottom: IntType
+
+  """
+  Padding Left
+
+  Sets left padding of an image.
+  """
+  padLeft: IntType
+
+  """
+  Padding Right
+
+  Sets right padding of an image.
+  """
+  padRight: IntType
+
+  """
+  Padding Top
+
+  Sets top padding of an image.
+  """
+  padTop: IntType
+
+  """
+  Padding
+
+  Pads an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad)
+  """
+  pad: IntType
+
+  """
+  Pdf Page Number
+
+  Selects a page from a PDF for display.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/pdf-page-number)
+  """
+  page: IntType
+
+  """
+  Color Palette Extraction
+
+  Specifies an output format for palette-extraction.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/palette)
+  """
+  palette: ImgixParamsPalette
+
+  """
+  Css Prefix
+
+  Specifies a CSS prefix for all classes in palette-extraction.
+
+  Depends on: `palette=css`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/prefix)
+  """
+  prefix: String
+
+  """
+  Pixellate
+
+  Applies a pixelation effect to an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/px)
+  """
+  px: IntType
+
+  """
+  Output Quality
+
+  Adjusts the quality of an output image.
+
+  Depends on: `fm=jpg`, `fm=pjpg`, `fm=webp`, `fm=jxr`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/format/q)
+  """
+  q: IntType
+
+  """
+  Source Rectangle Region
+
+  Crops an image to a specified rectangle.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/rect)
+  """
+  rect: String
+
+  """
+  Rotation
+
+  Rotates an image by a specified number of degrees.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/rot)
+  """
+  rot: FloatType
+
+  """
+  Saturation
+
+  Adjusts the saturation of an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sat)
+  """
+  sat: IntType
+
+  """
+  Sepia Tone
+
+  Applies a sepia effect to an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/sepia)
+  """
+  sepia: IntType
+
+  """
+  Shadow
+
+  Adjusts the highlights of the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/shad)
+  """
+  shad: FloatType
+
+  """
+  Sharpen
+
+  Adjusts the sharpness of the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sharp)
+  """
+  sharp: FloatType
+
+  """
+  Transparency
+
+  Adds checkerboard behind images which support transparency.
+  """
+  transparency: ImgixParamsTransparency
+
+  """
+  Trim Color
+
+  Specifies a trim color on a trim operation.
+
+  Depends on: `trim=color`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-color)
+  """
+  trimColor: String
+
+  """
+  Trim Mean Difference
+
+  Specifies the mean difference on a trim operation.
+
+  Depends on: `trim=auto`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-md)
+  """
+  trimMd: FloatType
+
+  """
+  Trim Padding
+
+  Pads the area of the source image before trimming.
+
+  Depends on: `trim`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-pad)
+  """
+  trimPad: IntType
+
+  """
+  Trim Standard Deviation
+
+  Specifies the standard deviation on a trim operation.
+
+  Depends on: `trim=auto`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-sd)
+  """
+  trimSd: FloatType
+
+  """
+  Trim Tolerance
+
+  Specifies the tolerance on a trim operation.
+
+  Depends on: `trim=color`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-tol)
+  """
+  trimTol: FloatType
+
+  """
+  Trim Image
+
+  Trims the source image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim)
+  """
+  trim: ImgixParamsTrim
+
+  """
+  Text Align
+
+  Sets the vertical and horizontal alignment of rendered text relative to the base image.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-align)
+  """
+  txtAlign: [ImgixParamsTxtAlign!]
+
+  """
+  Text Clipping Mode
+
+  Sets the clipping properties of rendered text.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-clip)
+  """
+  txtClip: [ImgixParamsTxtClip!]
+
+  """
+  Text Color
+
+  Specifies the color of rendered text.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-color)
+  """
+  txtColor: String
+
+  """
+  Text Fit Mode
+
+  Specifies the fit approach for rendered text.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-fit)
+  """
+  txtFit: ImgixParamsTxtFit
+
+  """
+  Text Font
+
+  Selects a font for rendered text.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-font)
+  """
+  txtFont: String
+
+  """
+  Text Leading
+
+  Sets the leading (line spacing) for rendered text. Only works on the multi-line text endpoint.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-lead)
+  """
+  txtLead: IntType
+
+  """
+  Text Ligatures
+
+  Controls the level of ligature substitution
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-lig)
+  """
+  txtLig: IntType
+
+  """
+  Text Outline Color
+
+  Specifies a text outline color.
+
+  Depends on: `txt`, `txtline`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line-color)
+  """
+  txtLineColor: String
+
+  """
+  Text Outline
+
+  Outlines the rendered text with a specified color.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line)
+  """
+  txtLine: IntType
+
+  """
+  Text Padding
+
+  Specifies the padding (in device-independent pixels) between a textbox and the edges of the base image.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-pad)
+  """
+  txtPad: IntType
+
+  """
+  Text Shadow
+
+  Applies a shadow to rendered text.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-shad)
+  """
+  txtShad: FloatType
+
+  """
+  Text Font Size
+
+  Sets the font size of rendered text.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-size)
+  """
+  txtSize: IntType
+
+  """
+  Text Tracking
+
+  Sets the tracking (letter spacing) for rendered text. Only works on the multi-line text endpoint.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-track)
+  """
+  txtTrack: IntType
+
+  """
+  Text Width
+
+  Sets the width of rendered text.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-width)
+  """
+  txtWidth: IntType
+
+  """
+  Text String
+
+  Sets the text string to render.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt)
+  """
+  txt: String
+
+  """
+  Unsharp Mask
+
+  Sharpens the source image using an unsharp mask.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usm)
+  """
+  usm: IntType
+
+  """
+  Unsharp Mask Radius
+
+  Specifies the radius for an unsharp mask operation.
+
+  Depends on: `usm`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usmrad)
+  """
+  usmrad: FloatType
+
+  """
+  Vibrance
+
+  Adjusts the vibrance of an image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/vib)
+  """
+  vib: IntType
+
+  """
+  Image Width
+
+  Adjusts the width of the output image.
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/size/w)
+  """
+  w: FloatType
+}
+
+enum ImgixParamsAuto {
+  enhance
+  format
+  redeye
+  compress
+}
+
+enum ImgixParamsBlendAlign {
+  top
+  bottom
+  middle
+  left
+  right
+  center
+}
+
+enum ImgixParamsBlendCrop {
+  top
+  bottom
+  left
+  right
+  faces
+}
+
+enum ImgixParamsBlendFit {
+  clamp
+  clip
+  crop
+  scale
+  max
+}
+
+enum ImgixParamsBlendMode {
+  color
+  burn
+  dodge
+  darken
+  difference
+  exclusion
+  hardlight
+  hue
+  lighten
+  luminosity
+  multiply
+  overlay
+  saturation
+  screen
+  softlight
+  normal
+}
+
+enum ImgixParamsBlendSize {
+  inherit
+}
+
+enum ImgixParamsCh {
+  width
+  dpr
+  saveData
+}
+
+enum ImgixParamsCrop {
+  top
+  bottom
+  left
+  right
+  faces
+  entropy
+  edges
+  focalpoint
+}
+
+enum ImgixParamsCs {
+  srgb
+  adobergb1998
+  tinysrgb
+  strip
+}
+
+enum ImgixParamsFill {
+  solid
+  blur
+}
+
+enum ImgixParamsFit {
+  clamp
+  clip
+  crop
+  facearea
+  fill
+  fillmax
+  max
+  min
+  scale
+}
+
+enum ImgixParamsFlip {
+  h
+  v
+  hv
+}
+
+enum ImgixParamsFm {
+  gif
+  jpg
+  jp2
+  json
+  jxr
+  pjpg
+  mp4
+  png
+  png8
+  png32
+  webp
+  webm
+}
+
+enum ImgixParamsMarkAlign {
+  top
+  middle
+  bottom
+  left
+  center
+  right
+}
+
+enum ImgixParamsMarkFit {
+  clip
+  crop
+  fill
+  max
+  scale
+}
+
+enum ImgixParamsPalette {
+  css
+  json
+}
+
+enum ImgixParamsTransparency {
+  grid
+}
+
+enum ImgixParamsTrim {
+  auto
+  color
+}
+
+enum ImgixParamsTxtAlign {
+  top
+  middle
+  bottom
+  left
+  center
+  right
+}
+
+enum ImgixParamsTxtClip {
+  start
+  middle
+  end
+  ellipsis
+}
+
+enum ImgixParamsTxtFit {
+  max
+}
+
+"""
+Specifies how to filter by usage
+"""
+input InUseFilter {
+  """
+  Search uploads that are currently used by some record or not
+  """
+  eq: BooleanType
+}
+
+"""
+Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+"""
+scalar IntType
+
+scalar ItemId
+
+"""
+Specifies how to filter by ID
+"""
+input ItemIdFilter {
+  """
+  Search the record with the specified ID
+  """
+  eq: ItemId
+
+  """
+  Exclude the record with the specified ID
+  """
+  neq: ItemId
+
+  """
+  Search records with the specified IDs
+  """
+  in: [ItemId]
+
+  """
+  Search records that do not have the specified IDs
+  """
+  notIn: [ItemId]
+}
+
+enum ItemStatus {
+  draft
+  updated
+  published
+}
+
+scalar JsonField
+
+"""
+Specifies how to filter Multiple-links fields
+"""
+input LinksFilter {
+  """
+  Search for records with an exact match. The specified values must be Record IDs
+  """
+  eq: [ItemId]
+
+  """
+  Filter records linked to all of the specified records. The specified values must be Record IDs
+  """
+  allIn: [ItemId]
+
+  """
+  Filter records linked to at least one of the specified records. The specified values must be Record IDs
+  """
+  anyIn: [ItemId]
+
+  """
+  Filter records not linked to any of the specified records. The specified values must be Record IDs
+  """
+  notIn: [ItemId]
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+scalar MetaTagAttributes
+
+enum MuxThumbnailFormatType {
+  jpg
+  png
+  gif
+}
+
+"""
+Specifies how to filter by image orientation
+"""
+input OrientationFilter {
+  """
+  Search uploads with the specified orientation
+  """
+  eq: UploadOrientation
+
+  """
+  Exclude uploads with the specified orientation
+  """
+  neq: UploadOrientation
+}
+
+"""
+Specifies how to filter by position (sorted and tree-like collections)
+"""
+input PositionFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: IntType
+
+  """
+  Filter records with a value that's less than the one specified
+  """
+  lt: IntType
+
+  """
+  Filter records with a value that's greater than or equal to the one specified
+  """
+  gte: IntType
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: IntType
+
+  """
+  Search for records with an exact match
+  """
+  eq: IntType
+
+  """
+  Exclude records with an exact match
+  """
+  neq: IntType
+}
+
+input PostModelFilter {
+  _createdAt: CreatedAtFilter
+  createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  slug: SlugFilter
+  subtitle: StringFilter
+  content: TextFilter
+  title: StringFilter
+  cover: FileFilter
+  tags: LinksFilter
+  OR: [PostModelFilter]
+}
+
+enum PostModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  subtitle_ASC
+  subtitle_DESC
+  title_ASC
+  title_DESC
+}
+
+"""
+Record of type Post (post)
+"""
+type PostRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """
+    Process content as markdown
+    """
+    markdown: Boolean
+  ): String
+  cover: FileField
+  createdAt: DateTime!
+  id: ItemId!
+  slug: String
+  subtitle: String
+  tags: [TagRecord!]!
+  title: String
+  updatedAt: DateTime!
+}
+
+"""
+Specifies how to filter by publication datetime
+"""
+input PublishedAtFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: DateTime
+
+  """
+  Filter records with a value that's less than the one specified
+  """
+  lt: DateTime
+
+  """
+  Filter records with a value that's greater than or equal to than the one specified
+  """
+  gte: DateTime
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: DateTime
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """
+  Search for records with an exact match (seconds are truncated)
+  """
+  eq: DateTime
+
+  """
+  Exclude records with an exact match
+  """
+  neq: DateTime
+}
+
+"""
+The query root for this schema
+"""
+type Query {
+  """
+  Returns meta information regarding a record collection
+  """
+  _allAppearancesMeta(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: AppearanceModelFilter
+  ): CollectionMetadata!
+
+  """
+  Returns meta information regarding a record collection
+  """
+  _allPostsMeta(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: PostModelFilter
+  ): CollectionMetadata!
+
+  """
+  Returns meta information regarding a record collection
+  """
+  _allShowcasesMeta(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: ShowcaseModelFilter
+  ): CollectionMetadata!
+
+  """
+  Returns meta information regarding a record collection
+  """
+  _allTagsMeta(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: TagModelFilter
+  ): CollectionMetadata!
+
+  """
+  Returns meta information regarding an assets collection
+  """
+  _allUploadsMeta(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: UploadFilter
+  ): CollectionMetadata
+
+  """
+  Returns the single instance record
+  """
+  _site(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): Site!
+
+  """
+  Returns the single instance record
+  """
+  about(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): AboutRecord
+
+  """
+  Returns a collection of records
+  """
+  allAppearances(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+
+    """
+    Skip the first results
+    """
+    skip: IntType
+
+    """
+    Limit the number of results
+    """
+    first: IntType = 20
+    filter: AppearanceModelFilter
+    orderBy: [AppearanceModelOrderBy] = [_updatedAt_DESC]
+  ): [AppearanceRecord!]!
+
+  """
+  Returns a collection of records
+  """
+  allPosts(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+
+    """
+    Skip the first results
+    """
+    skip: IntType
+
+    """
+    Limit the number of results
+    """
+    first: IntType = 20
+    filter: PostModelFilter
+    orderBy: [PostModelOrderBy] = [_updatedAt_DESC]
+  ): [PostRecord!]!
+
+  """
+  Returns a collection of records
+  """
+  allShowcases(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+
+    """
+    Skip the first results
+    """
+    skip: IntType
+
+    """
+    Limit the number of results
+    """
+    first: IntType = 20
+    filter: ShowcaseModelFilter
+    orderBy: [ShowcaseModelOrderBy] = [position_ASC]
+  ): [ShowcaseRecord!]!
+
+  """
+  Returns a collection of records
+  """
+  allTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+
+    """
+    Skip the first results
+    """
+    skip: IntType
+
+    """
+    Limit the number of results
+    """
+    first: IntType = 20
+    filter: TagModelFilter
+    orderBy: [TagModelOrderBy] = [_updatedAt_DESC]
+  ): [TagRecord!]!
+
+  """
+  Returns a collection of assets
+  """
+  allUploads(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+
+    """
+    Skip the first results
+    """
+    skip: IntType
+
+    """
+    Limit the number of results
+    """
+    first: IntType = 20
+    filter: UploadFilter
+    orderBy: [UploadOrderBy] = [_createdAt_DESC]
+  ): [FileField!]!
+
+  """
+  Returns a specific record
+  """
+  appearance(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: AppearanceModelFilter
+    orderBy: [AppearanceModelOrderBy] = [_updatedAt_DESC]
+  ): AppearanceRecord
+
+  """
+  Returns a specific record
+  """
+  post(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: PostModelFilter
+    orderBy: [PostModelOrderBy] = [_updatedAt_DESC]
+  ): PostRecord
+
+  """
+  Returns a specific record
+  """
+  showcase(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: ShowcaseModelFilter
+    orderBy: [ShowcaseModelOrderBy] = [position_ASC]
+  ): ShowcaseRecord
+
+  """
+  Returns a specific record
+  """
+  tag(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: TagModelFilter
+    orderBy: [TagModelOrderBy] = [_updatedAt_DESC]
+  ): TagRecord
+
+  """
+  Returns a specific asset
+  """
+  upload(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: UploadFilter
+    orderBy: [UploadOrderBy] = [_createdAt_DESC]
+  ): FileField
+}
+
+"""
+Specifies how to filter by upload type
+"""
+input ResolutionFilter {
+  """
+  Search uploads with the specified resolution
+  """
+  eq: ResolutionType
+
+  """
+  Exclude uploads with the specified resolution
+  """
+  neq: ResolutionType
+
+  """
+  Search uploads with the specified resolutions
+  """
+  in: [ResolutionType]
+
+  """
+  Search uploads without the specified resolutions
+  """
+  notIn: [ResolutionType]
+}
+
+enum ResolutionType {
+  icon
+  small
+  medium
+  large
+}
+
+type ResponsiveImage {
+  alt: String
+  aspectRatio: FloatType!
+  base64: String
+  bgColor: String
+  height: IntType!
+  sizes: String!
+  src: String!
+  srcSet: String!
+  title: String
+  webpSrcSet: String!
+  width: IntType!
+}
+
+type SeoField {
+  description: String
+  image: FileField
+  title: String
+  twitterCard: String
+}
+
+input ShowcaseModelFilter {
+  _createdAt: CreatedAtFilter
+  createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  position: PositionFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  subtitle: StringFilter
+  title: StringFilter
+  image: FileFilter
+  url: StringFilter
+  tags: LinksFilter
+  OR: [ShowcaseModelFilter]
+}
+
+enum ShowcaseModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  position_ASC
+  position_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  subtitle_ASC
+  subtitle_DESC
+  title_ASC
+  title_DESC
+  url_ASC
+  url_DESC
+}
+
+"""
+Record of type Showcase (showcase)
+"""
+type ShowcaseRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  createdAt: DateTime!
+  id: ItemId!
+  image: FileField
+  position: IntType
+  subtitle: String
+  tags: [TagRecord!]!
+  title: String
+  updatedAt: DateTime!
+  url: String
+}
+
+type Site {
+  favicon: FileField
+  faviconMetaTags(
+    """
+    The variants to build
+    """
+    variants: [FaviconType] = [icon]
+  ): [Tag!]!
+  globalSeo(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): GlobalSeoField
+}
+
+enum SiteLocale {
+  en
+}
+
+"""
+Specifies how to filter Slug fields
+"""
+input SlugFilter {
+  """
+  Search for records with an exact match
+  """
+  eq: String
+
+  """
+  Exclude records with an exact match
+  """
+  neq: String
+
+  """
+  Filter records that have one of the specified slugs
+  """
+  in: [String]
+
+  """
+  Filter records that do have one of the specified slugs
+  """
+  notIn: [String]
+}
+
+"""
+Specifies how to filter by status
+"""
+input StatusFilter {
+  """
+  Search the record with the specified status
+  """
+  eq: ItemStatus
+
+  """
+  Exclude the record with the specified status
+  """
+  neq: ItemStatus
+
+  """
+  Search records with the specified statuses
+  """
+  in: [ItemStatus]
+
+  """
+  Search records without the specified statuses
+  """
+  notIn: [ItemStatus]
+}
+
+"""
+Specifies how to filter Single-line string fields
+"""
+input StringFilter {
+  """
+  Filter records based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude records based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field set as blank (null or empty string)
+  """
+  isBlank: BooleanType
+
+  """
+  Search for records with an exact match
+  """
+  eq: String
+
+  """
+  Exclude records with an exact match
+  """
+  neq: String
+
+  """
+  Filter records that equal one of the specified values
+  """
+  in: [String]
+
+  """
+  Filter records that do not equal one of the specified values
+  """
+  notIn: [String]
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+input StringMatchesFilter {
+  pattern: String!
+  caseSensitive: BooleanType = false
+  regexp: BooleanType = true
+}
+
+type Tag {
+  attributes: MetaTagAttributes
+  content: String
+  tag: String!
+}
+
+input TagModelFilter {
+  _createdAt: CreatedAtFilter
+  createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  title: StringFilter
+  slug: SlugFilter
+  OR: [TagModelFilter]
+}
+
+enum TagModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  title_ASC
+  title_DESC
+}
+
+"""
+Record of type Tag (tag)
+"""
+type TagRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  createdAt: DateTime!
+  id: ItemId!
+  slug: String
+  title: String
+  updatedAt: DateTime!
+}
+
+"""
+Specifies how to filter text fields
+"""
+input TextFilter {
+  """
+  Filter records based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude records based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field set as blank (null or empty string)
+  """
+  isBlank: BooleanType
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+"""
+Specifies how to filter by upload type
+"""
+input TypeFilter {
+  """
+  Search uploads with the specified type
+  """
+  eq: UploadType
+
+  """
+  Exclude uploads with the specified type
+  """
+  neq: UploadType
+
+  """
+  Search uploads with the specified types
+  """
+  in: [UploadType]
+
+  """
+  Search uploads without the specified types
+  """
+  notIn: [UploadType]
+}
+
+"""
+Specifies how to filter by update datetime
+"""
+input UpdatedAtFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: DateTime
+
+  """
+  Filter records with a value that's less than the one specified
+  """
+  lt: DateTime
+
+  """
+  Filter records with a value that's greater than or equal to than the one specified
+  """
+  gte: DateTime
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: DateTime
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """
+  Search for records with an exact match (seconds are truncated)
+  """
+  eq: DateTime
+
+  """
+  Exclude records with an exact match
+  """
+  neq: DateTime
+}
+
+"""
+Specifies how to filter by default alt
+"""
+input UploadAltFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Search the uploads with the specified alt
+  """
+  eq: String
+
+  """
+  Exclude the uploads with the specified alt
+  """
+  neq: String
+
+  """
+  Search uploads with the specified values as default alt
+  """
+  in: [String]
+
+  """
+  Search uploads that do not have the specified values as default alt
+  """
+  notIn: [String]
+
+  """
+  Filter uploads with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+"""
+Specifies how to filter by auhtor
+"""
+input UploadAuthorFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Filter uploads with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+"""
+Specifies how to filter by basename
+"""
+input UploadBasenameFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+}
+
+"""
+Specifies how to filter by colors
+"""
+input UploadColorsFilter {
+  """
+  Filter uploads that have the specified colors
+  """
+  contains: ColorBucketType
+
+  """
+  Filter uploads that have all of the specified colors
+  """
+  allIn: [ColorBucketType]
+
+  """
+  Filter uploads that have at least one of the specified colors
+  """
+  anyIn: [ColorBucketType]
+
+  """
+  Filter uploads that do not have any of the specified colors
+  """
+  notIn: [ColorBucketType]
+
+  """
+  Search for uploads with an exact match
+  """
+  eq: [ColorBucketType]
+}
+
+"""
+Specifies how to filter by copyright
+"""
+input UploadCopyrightFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+"""
+Specifies how to filter by creation datetime
+"""
+input UploadCreatedAtFilter {
+  """
+  Search for uploads with an exact match
+  """
+  eq: DateTime
+
+  """
+  Exclude uploads with an exact match
+  """
+  neq: DateTime
+
+  """
+  Filter uploads with a value that's less than the one specified
+  """
+  lt: DateTime
+
+  """
+  Filter uploads with a value that's less or equal than the one specified
+  """
+  lte: DateTime
+
+  """
+  Filter uploads with a value that's strictly greater than the one specified
+  """
+  gt: DateTime
+
+  """
+  Filter uploads with a value that's greater than or equal to the one specified
+  """
+  gte: DateTime
+}
+
+"""
+Specifies how to filter by filename
+"""
+input UploadFilenameFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+}
+
+input UploadFilter {
+  type: TypeFilter
+  inUse: InUseFilter
+  resolution: ResolutionFilter
+  size: UploadSizeFilter
+  tags: UploadTagsFilter
+  smartTags: UploadTagsFilter
+  colors: UploadColorsFilter
+  orientation: OrientationFilter
+  id: UploadIdFilter
+  mimeType: UploadMimeTypeFilter
+  format: UploadFormatFilter
+  height: UploadHeightFilter
+  width: UploadWidthFilter
+  alt: UploadAltFilter
+  title: UploadTitleFilter
+  notes: UploadNotesFilter
+  author: UploadAuthorFilter
+  copyright: UploadCopyrightFilter
+  basename: UploadBasenameFilter
+  filename: UploadFilenameFilter
+  _createdAt: UploadCreatedAtFilter
+  _updatedAt: UploadUpdatedAtFilter
+  OR: [UploadFilter]
+}
+
+"""
+Specifies how to filter by format
+"""
+input UploadFormatFilter {
+  """
+  Search the asset with the specified format
+  """
+  eq: String
+
+  """
+  Exclude the asset with the specified format
+  """
+  neq: String
+
+  """
+  Search assets with the specified formats
+  """
+  in: [String]
+
+  """
+  Search assets that do not have the specified formats
+  """
+  notIn: [String]
+}
+
+"""
+Specifies how to filter by height
+"""
+input UploadHeightFilter {
+  """
+  Search all assets larger than the specified height
+  """
+  gt: IntType
+
+  """
+  Search all assets smaller than the specified height
+  """
+  lt: IntType
+
+  """
+  Search all assets larger or equal to the specified height
+  """
+  gte: IntType
+
+  """
+  Search all assets larger or equal to the specified height
+  """
+  lte: IntType
+
+  """
+  Search assets with the specified height
+  """
+  eq: IntType
+
+  """
+  Search assets that do not have the specified height
+  """
+  neq: IntType
+}
+
+scalar UploadId
+
+"""
+Specifies how to filter by ID
+"""
+input UploadIdFilter {
+  """
+  Search the asset with the specified ID
+  """
+  eq: UploadId
+
+  """
+  Exclude the asset with the specified ID
+  """
+  neq: UploadId
+
+  """
+  Search assets with the specified IDs
+  """
+  in: [UploadId]
+
+  """
+  Search assets that do not have the specified IDs
+  """
+  notIn: [UploadId]
+}
+
+"""
+Specifies how to filter by mime type
+"""
+input UploadMimeTypeFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Search the asset with the specified mime type
+  """
+  eq: String
+
+  """
+  Exclude the asset with the specified mime type
+  """
+  neq: String
+
+  """
+  Search assets with the specified mime types
+  """
+  in: [String]
+
+  """
+  Search assets that do not have the specified mime types
+  """
+  notIn: [String]
+}
+
+"""
+Specifies how to filter by notes
+"""
+input UploadNotesFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+enum UploadOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  size_ASC
+  size_DESC
+  resolution_ASC
+  resolution_DESC
+  filename_ASC
+  filename_DESC
+  basename_ASC
+  basename_DESC
+  mimeType_ASC
+  mimeType_DESC
+  format_ASC
+  format_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  id_ASC
+  id_DESC
+}
+
+enum UploadOrientation {
+  landscape
+  portrait
+  square
+}
+
+"""
+Specifies how to filter by size
+"""
+input UploadSizeFilter {
+  """
+  Search all assets larger than the specified size
+  """
+  gt: IntType
+
+  """
+  Search all assets smaller than the specified size
+  """
+  lt: IntType
+
+  """
+  Search all assets larger or equal to the specified size
+  """
+  gte: IntType
+
+  """
+  Search all assets larger or equal to the specified size
+  """
+  lte: IntType
+
+  """
+  Search assets with the specified size
+  """
+  eq: IntType
+
+  """
+  Search assets that do not have the specified size
+  """
+  neq: IntType
+}
+
+"""
+Specifies how to filter by tags
+"""
+input UploadTagsFilter {
+  """
+  Filter uploads linked to the specified tag
+  """
+  contains: String
+
+  """
+  Filter uploads linked to all of the specified tags
+  """
+  allIn: [String]
+
+  """
+  Filter uploads linked to at least one of the specified tags
+  """
+  anyIn: [String]
+
+  """
+  Filter uploads not linked to any of the specified tags
+  """
+  notIn: [String]
+
+  """
+  Search for uploads with an exact match
+  """
+  eq: [String]
+}
+
+"""
+Specifies how to filter by default title
+"""
+input UploadTitleFilter {
+  """
+  Filter uploads based on a regular expression
+  """
+  matches: StringMatchesFilter
+
+  """
+  Exclude uploads based on a regular expression
+  """
+  notMatches: StringMatchesFilter
+
+  """
+  Search the asset with the specified title
+  """
+  eq: String
+
+  """
+  Exclude the asset with the specified title
+  """
+  neq: String
+
+  """
+  Search assets with the specified as default title
+  """
+  in: [String]
+
+  """
+  Search assets that do not have the specified as default title
+  """
+  notIn: [String]
+
+  """
+  Filter assets with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
+enum UploadType {
+  image
+  audio
+  video
+  richtext
+  presentation
+  spreadsheet
+  pdfdocument
+  archive
+}
+
+"""
+Specifies how to filter by update datetime
+"""
+input UploadUpdatedAtFilter {
+  """
+  Search for uploads with an exact match
+  """
+  eq: DateTime
+
+  """
+  Exclude uploads with an exact match
+  """
+  neq: DateTime
+
+  """
+  Filter uploads with a value that's less than the one specified
+  """
+  lt: DateTime
+
+  """
+  Filter uploads with a value that's less or equal than the one specified
+  """
+  lte: DateTime
+
+  """
+  Filter uploads with a value that's strictly greater than the one specified
+  """
+  gt: DateTime
+
+  """
+  Filter uploads with a value that's greater than or equal to the one specified
+  """
+  gte: DateTime
+}
+
+type UploadVideoField {
+  duration: Int!
+  framerate: Int!
+  mp4Url(
+    """
+    Pick highest resolution available up to the specified argument
+    """
+    res: VideoMp4Res
+
+    """
+    Pick the exact resolution quality specified in the argument
+    """
+    exactRes: VideoMp4Res
+  ): String
+  muxAssetId: String!
+  muxPlaybackId: String!
+  streamingUrl: String!
+  thumbnailUrl(
+    """
+    The file extension of the requested image format. Either png, jpg or gif
+    """
+    format: MuxThumbnailFormatType = jpg
+  ): String!
+}
+
+"""
+Specifies how to filter by width
+"""
+input UploadWidthFilter {
+  """
+  Search all assets larger than the specified width
+  """
+  gt: IntType
+
+  """
+  Search all assets smaller than the specified width
+  """
+  lt: IntType
+
+  """
+  Search all assets larger or equal to the specified width
+  """
+  gte: IntType
+
+  """
+  Search all assets larger or equal to the specified width
+  """
+  lte: IntType
+
+  """
+  Search assets with the specified width
+  """
+  eq: IntType
+
+  """
+  Search assets that do not have the specified width
+  """
+  neq: IntType
+}
+
+enum VideoMp4Res {
+  low
+  medium
+  high
+}
+
+type focalPoint {
+  x: FloatType
+  y: FloatType
+}

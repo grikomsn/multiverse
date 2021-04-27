@@ -1,0 +1,4 @@
+projects:
+  v7:
+    schema: "./packages/v7/schema.graphql"
+    documents: "./packages/v7/graphql/**/*.{gql,graphql}"
