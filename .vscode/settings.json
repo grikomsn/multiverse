@@ -11,12 +11,11 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "discord.enabled": false,
   "eslint.packageManager": "yarn",
   "eslint.workingDirectories": [
     {
-      "pattern": "packages/*",
-      "!cwd": false
+      "!cwd": false,
+      "pattern": "packages/*"
     }
   ],
   "npm.packageManager": "yarn"
