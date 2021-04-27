@@ -10,7 +10,6 @@ import { MetaContext } from "~store/meta";
 import theme from "~theme";
 
 import { ChakraProvider, EASINGS, Flex } from "@chakra-ui/react";
-import tinykeys from "@grikomsn/shared/lib/tinykeys";
 import { AnimatePresence } from "framer-motion";
 import NextApp, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
@@ -18,6 +17,7 @@ import Router from "next/router";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 import nprogress from "nprogress";
 import { renderMetaTags, SeoMetaTagType } from "react-datocms";
+import tinykeys from "tinykeys";
 
 Router.events.on("routeChangeStart", () => {
   nprogress.start();
