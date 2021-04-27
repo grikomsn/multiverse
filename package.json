@@ -1,0 +1,32 @@
+{
+  "name": "@grikomsn/griko.id",
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "# general commands": "##################################################",
+    "deduplicate": "npx yarn-deduplicate && yarn",
+    "postinstall": "patch-package",
+    "validate": "tsc --noEmit",
+    "#": "###################################################################"
+  },
+  "devDependencies": {
+    "cross-env": "^7",
+    "env-cmd": "^10",
+    "eslint": "^7",
+    "eslint-config-kentcdodds": "^17",
+    "eslint-config-prettier": "^8",
+    "eslint-plugin-jsx-a11y": "^6",
+    "eslint-plugin-prettier": "^3",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-simple-import-sort": "^7",
+    "husky": "^4",
+    "lerna": "^4",
+    "patch-package": "^6",
+    "postinstall-postinstall": "^2",
+    "prettier": "^2",
+    "typescript": "^4"
+  },
+  "private": true
+}

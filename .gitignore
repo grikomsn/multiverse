@@ -1,0 +1,10 @@
+.DS_Store
+.env*
+.eslintcache
+.next
+.vercel
+*.log
+node_modules
+package-lock.json
+
+!.env.example

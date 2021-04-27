@@ -1,0 +1,9 @@
+{
+  "eslint.packageManager": "yarn",
+  "eslint.workingDirectories": [
+    {
+      "!cwd": false,
+      "pattern": "packages/*"
+    }
+  ]
+}

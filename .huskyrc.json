@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "post-merge": "yarn install",
+    "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents",
+    "pre-push": "lerna run --concurrency 1 --stream validate"
+  }
+}
