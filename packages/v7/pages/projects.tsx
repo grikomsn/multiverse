@@ -80,7 +80,6 @@ const ProjectsPage: NextPage<ProjectsPageProps> = (props) => {
                   _groupHover={{ opacity: 1 }}
                   align="center"
                   bgColor="blackAlpha.700"
-                  fontSize="sm"
                   inset={0}
                   justify="center"
                   opacity={0}
@@ -92,16 +91,17 @@ const ProjectsPage: NextPage<ProjectsPageProps> = (props) => {
                   transitionTimingFunction="ease-out"
                 >
                   <Heading size="lg">{s.title}</Heading>
-                  <Text>{s.subtitle}</Text>
+                  <Text fontSize={["xs", "sm"]}>{s.subtitle}</Text>
                   <LinkOverlay
                     color="yellow.200"
+                    fontSize={["xs", "sm"]}
                     href={s.url}
                     isExternal
                     pb={4}
                   >
                     {trimHttps(s.url)}
                   </LinkOverlay>
-                  <Wrap>
+                  <Wrap d={["none", "flex"]}>
                     {s.tags.map((t) => (
                       <WrapItem key={t.slug}>
                         <Tag size="sm" variant="subtle">
