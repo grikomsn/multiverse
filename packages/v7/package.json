@@ -25,7 +25,6 @@
     "graphql-request": "^3",
     "graphql-tag": "^2",
     "next": "^10",
-    "next-connect": "^0",
     "next-seo": "^4",
     "nprogress": "^0",
     "react": "^17",
