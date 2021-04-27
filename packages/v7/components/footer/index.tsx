@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
 
   const content = `
 Contents licensed under [CC BY-NC-SA 4.0](https://griko.dev/cc-by-nc-sa).${"  "}
-Made using [Next.js](https://nextjs.org), [Chakra UI](https://next.chakra-ui.com),
+Made using [Next.js](https://nextjs.org), [Chakra UI](https://chakra-ui.com),
 and [DatoCMS](https://www.datocms.com). Hosted on [Vercel](https://vercel.com).
 
 MIT License &copy; ${new Date().getFullYear()}&ndash;present
