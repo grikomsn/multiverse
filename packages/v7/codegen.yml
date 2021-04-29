@@ -13,6 +13,9 @@ generates:
   "./schema.graphql":
     plugins:
       - schema-ast
+    hooks:
+      afterOneFileWrite:
+        - eslint --cache --fix
   "./generated/graphql.ts":
     plugins:
       - "typescript"
@@ -25,4 +28,4 @@ generates:
       pureMagicComment: true
     hooks:
       afterOneFileWrite:
-        - prettier --write
+        - eslint --cache --fix
