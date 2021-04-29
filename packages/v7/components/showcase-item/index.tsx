@@ -14,6 +14,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import trimHttps from "@grikomsn/shared/utils/trim-https";
+import Link from "next/link";
 
 interface ShowcaseItemProps {
   data: ShowcaseFragment;
@@ -71,12 +72,14 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
         >
           {trimHttps(data.url)}
         </LinkOverlay>
-        <Wrap d={["none", "flex"]}>
+        <Wrap>
           {data.tags.map((t) => (
             <WrapItem key={t.slug}>
-              <Tag size="sm" variant="subtle">
-                {t.title}
-              </Tag>
+              <Link href={`/tag/${t.slug}`} passHref>
+                <Tag as="a" size="sm" variant="subtle">
+                  {t.title}
+                </Tag>
+              </Link>
             </WrapItem>
           ))}
         </Wrap>

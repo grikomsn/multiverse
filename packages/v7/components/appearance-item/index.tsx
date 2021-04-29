@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import trimHttps from "@grikomsn/shared/utils/trim-https";
 import format from "date-fns/format";
+import Link from "next/link";
 
 interface AppearanceItemProps {
   data: AppearanceFragment;
@@ -66,9 +67,11 @@ const AppearanceItem: React.FC<AppearanceItemProps> = (props) => {
           <Wrap justify={["center", "center", "initial"]}>
             {data.tags.map((t) => (
               <WrapItem key={t.slug}>
-                <Tag size="sm" variant="subtle">
-                  {t.title}
-                </Tag>
+                <Link href={`/tag/${t.slug}`} passHref>
+                  <Tag as="a" size="sm" variant="subtle">
+                    {t.title}
+                  </Tag>
+                </Link>
               </WrapItem>
             ))}
           </Wrap>
