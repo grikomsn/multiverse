@@ -2722,6 +2722,13 @@ export const WebsiteSeoTagsDocument = /*#__PURE__*/ gql`
     }
   }
 `;
+export const TagsStaticPathsDocument = /*#__PURE__*/ gql`
+  query tagsStaticPaths {
+    allTags {
+      slug
+    }
+  }
+`;
 export const TagSlugLookupDocument = /*#__PURE__*/ gql`
   query tagSlugLookup($slug: String!) {
     tag(filter: { slug: { eq: $slug } }) {
@@ -2808,6 +2815,18 @@ export function getSdk(
       return withWrapper(() =>
         client.request<WebsiteSeoTagsQuery>(
           WebsiteSeoTagsDocument,
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    tagsStaticPaths(
+      variables?: TagsStaticPathsQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"],
+    ): Promise<TagsStaticPathsQuery> {
+      return withWrapper(() =>
+        client.request<TagsStaticPathsQuery>(
+          TagsStaticPathsDocument,
           variables,
           requestHeaders,
         ),
@@ -2974,6 +2993,12 @@ export type WebsiteSeoTagsQuery = { __typename?: "Query" } & {
         }
     >;
   };
+};
+
+export type TagsStaticPathsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type TagsStaticPathsQuery = { __typename?: "Query" } & {
+  allTags: Array<{ __typename?: "TagRecord" } & Pick<TagRecord, "slug">>;
 };
 
 export type TagSlugLookupQueryVariables = Exact<{

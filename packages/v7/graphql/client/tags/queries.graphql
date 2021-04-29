@@ -1,3 +1,9 @@
+query tagsStaticPaths {
+  allTags {
+    slug
+  }
+}
+
 query tagSlugLookup($slug: String!) {
   tag(filter: { slug: { eq: $slug } }) {
     id
