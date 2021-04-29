@@ -2596,6 +2596,20 @@ export type FocalPoint = {
   y?: Maybe<Scalars["FloatType"]>;
 };
 
+export const AppearanceFragmentDoc = /*#__PURE__*/ gql`
+  fragment AppearanceFragment on AppearanceRecord {
+    id
+    title
+    subtitle
+    date
+    tags {
+      title
+      slug
+    }
+    url
+    category
+  }
+`;
 export const ResponsiveImageFieldsFragmentDoc = /*#__PURE__*/ gql`
   fragment ResponsiveImageFields on ResponsiveImage {
     alt
@@ -2609,6 +2623,24 @@ export const ResponsiveImageFieldsFragmentDoc = /*#__PURE__*/ gql`
     webpSrcSet
     width
   }
+`;
+export const ShowcaseFragmentDoc = /*#__PURE__*/ gql`
+  fragment ShowcaseFragment on ShowcaseRecord {
+    id
+    image {
+      responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+        ...ResponsiveImageFields
+      }
+    }
+    title
+    subtitle
+    tags {
+      title
+      slug
+    }
+    url
+  }
+  ${ResponsiveImageFieldsFragmentDoc}
 `;
 export const AboutStaticPropsDocument = /*#__PURE__*/ gql`
   query aboutStaticProps {
@@ -2631,18 +2663,10 @@ export const AboutStaticPropsDocument = /*#__PURE__*/ gql`
 export const AppearancesStaticPropsDocument = /*#__PURE__*/ gql`
   query appearancesStaticProps {
     allAppearances(orderBy: date_DESC) {
-      id
-      title
-      subtitle
-      date
-      tags {
-        title
-        slug
-      }
-      url
-      category
+      ...AppearanceFragment
     }
   }
+  ${AppearanceFragmentDoc}
 `;
 export const HomeStaticPropsDocument = /*#__PURE__*/ gql`
   query homeStaticProps {
@@ -2659,22 +2683,10 @@ export const HomeStaticPropsDocument = /*#__PURE__*/ gql`
 export const ProjectsStaticPropsDocument = /*#__PURE__*/ gql`
   query projectsStaticProps {
     allShowcases(orderBy: position_ASC) {
-      id
-      image {
-        responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
-          ...ResponsiveImageFields
-        }
-      }
-      title
-      subtitle
-      tags {
-        title
-        slug
-      }
-      url
+      ...ShowcaseFragment
     }
   }
-  ${ResponsiveImageFieldsFragmentDoc}
+  ${ShowcaseFragmentDoc}
 `;
 export const WebsiteSeoTagsDocument = /*#__PURE__*/ gql`
   query websiteSeoTags {
@@ -2709,6 +2721,27 @@ export const WebsiteSeoTagsDocument = /*#__PURE__*/ gql`
       }
     }
   }
+`;
+export const TagSlugLookupDocument = /*#__PURE__*/ gql`
+  query tagSlugLookup($slug: String!) {
+    tag(filter: { slug: { eq: $slug } }) {
+      id
+      title
+      slug
+    }
+  }
+`;
+export const TagRelationsDocument = /*#__PURE__*/ gql`
+  query tagRelations($id: ItemId!) {
+    allAppearances(filter: { tags: { anyIn: [$id] } }) {
+      ...AppearanceFragment
+    }
+    allShowcases(filter: { tags: { anyIn: [$id] } }) {
+      ...ShowcaseFragment
+    }
+  }
+  ${AppearanceFragmentDoc}
+  ${ShowcaseFragmentDoc}
 `;
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
@@ -2780,6 +2813,30 @@ export function getSdk(
         ),
       );
     },
+    tagSlugLookup(
+      variables: TagSlugLookupQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"],
+    ): Promise<TagSlugLookupQuery> {
+      return withWrapper(() =>
+        client.request<TagSlugLookupQuery>(
+          TagSlugLookupDocument,
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
+    tagRelations(
+      variables: TagRelationsQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"],
+    ): Promise<TagRelationsQuery> {
+      return withWrapper(() =>
+        client.request<TagRelationsQuery>(
+          TagRelationsDocument,
+          variables,
+          requestHeaders,
+        ),
+      );
+    },
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;
@@ -2812,20 +2869,22 @@ export type AboutStaticPropsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type AppearanceFragment = { __typename?: "AppearanceRecord" } & Pick<
+  AppearanceRecord,
+  "id" | "title" | "subtitle" | "date" | "url" | "category"
+> & {
+    tags: Array<
+      { __typename?: "TagRecord" } & Pick<TagRecord, "title" | "slug">
+    >;
+  };
+
 export type AppearancesStaticPropsQueryVariables = Exact<{
   [key: string]: never;
 }>;
 
 export type AppearancesStaticPropsQuery = { __typename?: "Query" } & {
   allAppearances: Array<
-    { __typename?: "AppearanceRecord" } & Pick<
-      AppearanceRecord,
-      "id" | "title" | "subtitle" | "date" | "url" | "category"
-    > & {
-        tags: Array<
-          { __typename?: "TagRecord" } & Pick<TagRecord, "title" | "slug">
-        >;
-      }
+    { __typename?: "AppearanceRecord" } & AppearanceFragment
   >;
 };
 
@@ -2859,26 +2918,26 @@ export type HomeStaticPropsQuery = { __typename?: "Query" } & {
   };
 };
 
+export type ShowcaseFragment = { __typename?: "ShowcaseRecord" } & Pick<
+  ShowcaseRecord,
+  "id" | "title" | "subtitle" | "url"
+> & {
+    image?: Maybe<
+      { __typename?: "FileField" } & {
+        responsiveImage?: Maybe<
+          { __typename?: "ResponsiveImage" } & ResponsiveImageFieldsFragment
+        >;
+      }
+    >;
+    tags: Array<
+      { __typename?: "TagRecord" } & Pick<TagRecord, "title" | "slug">
+    >;
+  };
+
 export type ProjectsStaticPropsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProjectsStaticPropsQuery = { __typename?: "Query" } & {
-  allShowcases: Array<
-    { __typename?: "ShowcaseRecord" } & Pick<
-      ShowcaseRecord,
-      "id" | "title" | "subtitle" | "url"
-    > & {
-        image?: Maybe<
-          { __typename?: "FileField" } & {
-            responsiveImage?: Maybe<
-              { __typename?: "ResponsiveImage" } & ResponsiveImageFieldsFragment
-            >;
-          }
-        >;
-        tags: Array<
-          { __typename?: "TagRecord" } & Pick<TagRecord, "title" | "slug">
-        >;
-      }
-  >;
+  allShowcases: Array<{ __typename?: "ShowcaseRecord" } & ShowcaseFragment>;
 };
 
 export type WebsiteSeoTagsQueryVariables = Exact<{ [key: string]: never }>;
@@ -2915,4 +2974,25 @@ export type WebsiteSeoTagsQuery = { __typename?: "Query" } & {
         }
     >;
   };
+};
+
+export type TagSlugLookupQueryVariables = Exact<{
+  slug: Scalars["String"];
+}>;
+
+export type TagSlugLookupQuery = { __typename?: "Query" } & {
+  tag?: Maybe<
+    { __typename?: "TagRecord" } & Pick<TagRecord, "id" | "title" | "slug">
+  >;
+};
+
+export type TagRelationsQueryVariables = Exact<{
+  id: Scalars["ItemId"];
+}>;
+
+export type TagRelationsQuery = { __typename?: "Query" } & {
+  allAppearances: Array<
+    { __typename?: "AppearanceRecord" } & AppearanceFragment
+  >;
+  allShowcases: Array<{ __typename?: "ShowcaseRecord" } & ShowcaseFragment>;
 };

@@ -1,0 +1,5 @@
+query appearancesStaticProps {
+  allAppearances(orderBy: date_DESC) {
+    ...AppearanceFragment
+  }
+}

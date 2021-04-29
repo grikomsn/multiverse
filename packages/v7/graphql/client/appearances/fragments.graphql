@@ -1,0 +1,12 @@
+fragment AppearanceFragment on AppearanceRecord {
+  id
+  title
+  subtitle
+  date
+  tags {
+    title
+    slug
+  }
+  url
+  category
+}

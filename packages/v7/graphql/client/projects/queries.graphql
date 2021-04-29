@@ -1,0 +1,5 @@
+query projectsStaticProps {
+  allShowcases(orderBy: position_ASC) {
+    ...ShowcaseFragment
+  }
+}

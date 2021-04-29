@@ -1,0 +1,16 @@
+query tagSlugLookup($slug: String!) {
+  tag(filter: { slug: { eq: $slug } }) {
+    id
+    title
+    slug
+  }
+}
+
+query tagRelations($id: ItemId!) {
+  allAppearances(filter: { tags: { anyIn: [$id] } }) {
+    ...AppearanceFragment
+  }
+  allShowcases(filter: { tags: { anyIn: [$id] } }) {
+    ...ShowcaseFragment
+  }
+}
