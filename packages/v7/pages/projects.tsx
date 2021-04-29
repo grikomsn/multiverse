@@ -1,22 +1,10 @@
 import * as React from "react";
 
-import DatoImage from "~components/dato-image";
+import ShowcaseItem from "~components/showcase-item";
 import { ProjectsStaticPropsQuery } from "~generated/graphql";
 import cms from "~lib/cms";
 
-import {
-  Container,
-  Heading,
-  LinkBox,
-  LinkOverlay,
-  SimpleGrid,
-  Stack,
-  Tag,
-  Text,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
-import trimHttps from "@grikomsn/shared/utils/trim-https";
+import { Container, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 
@@ -53,65 +41,7 @@ const ProjectsPage: NextPage<ProjectsPageProps> = (props) => {
 
           <SimpleGrid columns={[1, 1, 2]} gap={4}>
             {data.allShowcases.map((s) => (
-              <LinkBox
-                key={s.id as string}
-                _hover={{ boxShadow: "lg", transform: "translateY(-4px)" }}
-                bgColor="whiteAlpha.50"
-                borderRadius="md"
-                boxShadow="sm"
-                d="inline-block"
-                overflow="hidden"
-                pos="relative"
-                role="group"
-                transitionDuration="fast"
-                transitionProperty="common"
-                transitionTimingFunction="ease-out"
-              >
-                <DatoImage
-                  _groupHover={{ filter: "blur(2px)" }}
-                  d="block"
-                  data={s.image.responsiveImage}
-                  transitionDuration="normal"
-                  transitionProperty="common"
-                  transitionTimingFunction="ease-out"
-                />
-
-                <Stack
-                  _groupHover={{ opacity: 1 }}
-                  align="center"
-                  bgColor="blackAlpha.700"
-                  inset={0}
-                  justify="center"
-                  opacity={0}
-                  pos="absolute"
-                  px={8}
-                  py={4}
-                  transitionDuration="normal"
-                  transitionProperty="common"
-                  transitionTimingFunction="ease-out"
-                >
-                  <Heading size="lg">{s.title}</Heading>
-                  <Text fontSize={["xs", "sm"]}>{s.subtitle}</Text>
-                  <LinkOverlay
-                    color="yellow.200"
-                    fontSize={["xs", "sm"]}
-                    href={s.url}
-                    isExternal
-                    pb={4}
-                  >
-                    {trimHttps(s.url)}
-                  </LinkOverlay>
-                  <Wrap d={["none", "flex"]}>
-                    {s.tags.map((t) => (
-                      <WrapItem key={t.slug}>
-                        <Tag size="sm" variant="subtle">
-                          {t.title}
-                        </Tag>
-                      </WrapItem>
-                    ))}
-                  </Wrap>
-                </Stack>
-              </LinkBox>
+              <ShowcaseItem key={s.id as string} data={s} />
             ))}
           </SimpleGrid>
         </Stack>
