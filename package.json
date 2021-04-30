@@ -11,6 +11,7 @@
     "bootstrap": "lerna bootstrap",
     "deduplicate": "npx yarn-deduplicate && yarn",
     "postinstall": "patch-package",
+    "validate": "lerna run --concurrency 1 --stream validate",
     "#": "###################################################################"
   },
   "dependencies": {
