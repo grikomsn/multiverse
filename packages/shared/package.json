@@ -10,7 +10,10 @@
     "#": "###################################################################"
   },
   "devDependencies": {
-    "lint-staged": "^10"
+    "graphql": "^15",
+    "graphql-request": "^3",
+    "next": "^10",
+    "next-connect": "^0"
   },
   "peerDependencies": {
     "graphql": "^15",

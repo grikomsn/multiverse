@@ -8,9 +8,15 @@
     "# workspace commands": "################################################",
     "v7": "yarn workspace @grikomsn/v7",
     "# general commands": "##################################################",
+    "bootstrap": "lerna bootstrap",
     "deduplicate": "npx yarn-deduplicate && yarn",
     "postinstall": "patch-package",
     "#": "###################################################################"
+  },
+  "dependencies": {
+    "lerna": "^4",
+    "patch-package": "^6",
+    "postinstall-postinstall": "^2"
   },
   "devDependencies": {
     "cross-env": "^7",
@@ -23,9 +29,7 @@
     "eslint-plugin-react": "^7",
     "eslint-plugin-simple-import-sort": "^7",
     "husky": "^4",
-    "lerna": "^4",
-    "patch-package": "^6",
-    "postinstall-postinstall": "^2",
+    "lint-staged": "^10",
     "prettier": "^2",
     "typescript": "^4"
   },
