@@ -78,7 +78,7 @@ const AboutPage: NextPage<AboutPageProps> = (props) => {
           ))}
         </SimpleGrid>
 
-        <Box color="GrayText" py={8}>
+        <Box color="whiteAlpha.400" py={8}>
           · · ·
         </Box>
 

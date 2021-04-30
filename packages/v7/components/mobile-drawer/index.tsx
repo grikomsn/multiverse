@@ -55,7 +55,12 @@ const MobileModal: React.FC = () => {
                   </Button>
                 </Link>
               ))}
-              <Text color="GrayText" fontSize="xs" pt={8} textAlign="center">
+              <Text
+                color="whiteAlpha.400"
+                fontSize="xs"
+                pt={8}
+                textAlign="center"
+              >
                 Press outside the menu to close
               </Text>
             </ModalBody>
