@@ -20,19 +20,34 @@ const Navbar: React.FC = () => {
   );
 
   const theme = useTheme();
-  const bgColor = React.useMemo(
-    () => transparentize("gray.900", 0.9)(theme),
+  const [bgColor, lighterBgColor] = React.useMemo(
+    () => [
+      transparentize("gray.900", 0.9)(theme),
+      transparentize("gray.900", 0.6)(theme),
+    ],
     [],
   );
 
   return (
     <HStack
       bgColor={bgColor}
+      borderBottomColor="whiteAlpha.50"
+      borderBottomWidth="2px"
       d={["none", "flex"]}
       insetX={0}
       justify="center"
       p={[2, 4]}
       pos="sticky"
+      sx={{
+        "@supports (backdrop-filter: blur(12px))": {
+          "backdrop-filter": "blur(12px)",
+          bgColor: lighterBgColor,
+        },
+        "@supports (-webkit-backdrop-filter: blur(12px))": {
+          "-webkit-backdrop-filter": "blur(12px)",
+          bgColor: lighterBgColor,
+        },
+      }}
       top={0}
       zIndex="modal"
     >
