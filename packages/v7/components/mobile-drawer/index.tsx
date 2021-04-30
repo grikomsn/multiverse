@@ -38,7 +38,16 @@ const MobileModal: React.FC = () => {
   return (
     <>
       <Modal isCentered isOpen={isOpen} onClose={onClose} size="xs">
-        <ModalOverlay>
+        <ModalOverlay
+          sx={{
+            "@supports (backdrop-filter: blur(4px))": {
+              "backdrop-filter": "blur(4px)",
+            },
+            "@supports (-webkit-backdrop-filter: blur(4px))": {
+              "-webkit-backdrop-filter": "blur(4px)",
+            },
+          }}
+        >
           <ModalContent bgColor="gray.900">
             <ModalBody d="flex" flexDir="column" justifyContent="center" p={8}>
               {routeArray.map(([route, name]) => (
@@ -70,7 +79,7 @@ const MobileModal: React.FC = () => {
 
       {isMobile && (
         <Center
-          bgGradient="linear(to-t, gray.900 25%, transparent)"
+          bgGradient="linear(to-t, gray.900, transparent)"
           bottom={0}
           insetX={0}
           p={4}
@@ -79,10 +88,21 @@ const MobileModal: React.FC = () => {
         >
           <SlideFade in={!isOpen}>
             <Button
+              bgColor="blackAlpha.600"
               leftIcon={<Icon as={FaBars} />}
               onClick={onToggle}
               pointerEvents="visible"
               size="sm"
+              sx={{
+                "@supports (backdrop-filter: blur(6px))": {
+                  "backdrop-filter": "blur(6px)",
+                  bgColor: "whiteAlpha.50",
+                },
+                "@supports (-webkit-backdrop-filter: blur(6px))": {
+                  "-webkit-backdrop-filter": "blur(6px)",
+                  bgColor: "whiteAlpha.50",
+                },
+              }}
               variant="outline"
             >
               Open menu
