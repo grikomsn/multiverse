@@ -42,6 +42,13 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               borderRadius="full"
               maxW="xs"
               overflow="hidden"
+              sx={{
+                WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+                MozBackfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                MozTransform: "translate3d(0, 0, 0)",
+                WebkitTransform: "translate3d(0, 0, 0)",
+              }}
               transitionDuration="normal"
               transitionProperty="common"
               transitionTimingFunction="ease-out"
