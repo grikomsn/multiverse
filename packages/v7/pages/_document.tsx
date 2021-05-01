@@ -25,6 +25,8 @@ export default class Document extends NextDocument {
           <ColorModeScript initialColorMode="dark" />
           <Main />
           <NextScript />
+
+          <script data-cf-beacon='{"token": "52f35304eb2444229661422ed30baaed"}' defer src="https://static.cloudflareinsights.com/beacon.min.js" />
         </body>
       </Html>
     );
