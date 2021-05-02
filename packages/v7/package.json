@@ -4,6 +4,7 @@
   "scripts": {
     "# general commands": "##################################################",
     "build": "next build",
+    "build:static": "next build && next export",
     "codegen": "env-cmd yarn graphql-codegen",
     "dev": "next",
     "lint": "eslint --cache --fix \"./**/*.{js,jsx,ts,tsx}\"",
