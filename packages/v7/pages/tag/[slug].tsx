@@ -22,7 +22,6 @@ export const getStaticProps: GetStaticProps<TagPageProps> = async (ctx) => {
   if (!tag) {
     return {
       notFound: true,
-      revalidate: 86400,
     };
   }
 
@@ -33,7 +32,6 @@ export const getStaticProps: GetStaticProps<TagPageProps> = async (ctx) => {
       tag,
       relations,
     },
-    revalidate: 86400,
   };
 };
 

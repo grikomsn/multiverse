@@ -18,7 +18,6 @@ export const getStaticProps: GetStaticProps<AppearancesPageProps> = async () => 
     props: {
       data,
     },
-    revalidate: 86400,
   };
 };
 
