@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<TagPageProps> = async (ctx) => {
     };
   }
 
-  const relations = await cms().tagRelations({ id: tag.id });
+  const relations = await cms().tagRelations({ id: tag.id as string });
 
   return {
     props: {
@@ -39,7 +39,7 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
   const { allTags } = await cms().tagsStaticPaths();
   return {
     paths: allTags.map(({ slug }) => ({ params: { slug } })),
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
