@@ -120,7 +120,7 @@ export default function App(props: CustomAppProps) {
 
       <SocialProfileJsonLd
         name={meta.site.seo.siteName}
-        sameAs={Object.values(meta.about.siteUrl)}
+        sameAs={Object.values(meta.about.socialsJson as Record<string, string>)}
         type="person"
         url={meta.about.siteUrl}
       />
