@@ -1,5 +1,5 @@
 query tagsStaticPaths {
-  allTags {
+  allTags(orderBy: title_ASC) {
     slug
   }
 }
