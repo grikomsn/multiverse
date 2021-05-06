@@ -36,16 +36,16 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
   };
 };
 
-const pageMeta = {
-  title: `About me`,
-  description: `Get to know more about myself`,
-};
-
 const AboutPage: NextPage<AboutPageProps> = (props) => {
   const { data } = props;
 
   const meta = useMeta();
   const socials = meta.about.socialsJson as Record<string, string>;
+
+  const pageMeta = {
+    title: `About me`,
+    description: `Get to know more about myself`,
+  };
 
   return (
     <>

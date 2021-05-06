@@ -22,13 +22,14 @@ export const getStaticProps: GetStaticProps<AppearancesPageProps> = async () => 
   };
 };
 
-const pageMeta = {
-  title: `Appearances`,
-  description: `Talks, meetups, and other appearances from various events.`,
-};
-
 const AppearancesPage: NextPage<AppearancesPageProps> = (props) => {
   const { data } = props;
+
+  const pageMeta = {
+    title: `Appearances`,
+    description: `Talks, meetups, and other appearances from various events.`,
+  };
+
   return (
     <>
       <NextSeo {...pageMeta} />

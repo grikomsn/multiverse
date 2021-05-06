@@ -22,13 +22,13 @@ export const getStaticProps: GetStaticProps<ProjectsPageProps> = async () => {
   };
 };
 
-const pageMeta = {
-  title: `Creations and projects`,
-  description: `Here are some of my past works from personal projects and open source ones.`,
-};
-
 const ProjectsPage: NextPage<ProjectsPageProps> = (props) => {
   const { data } = props;
+
+  const pageMeta = {
+    title: `Creations and projects`,
+    description: `Here are some of my past works from personal projects and open source ones.`,
+  };
 
   return (
     <>
