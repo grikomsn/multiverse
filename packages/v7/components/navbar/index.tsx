@@ -2,8 +2,7 @@ import * as React from "react";
 
 import routes from "~routes";
 
-import { Button, HStack, useTheme } from "@chakra-ui/react";
-import { transparentize } from "@chakra-ui/theme-tools";
+import { Button, HStack, useToken } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -19,14 +18,9 @@ const Navbar: React.FC = () => {
     [router.route],
   );
 
-  const theme = useTheme();
-  const [bgColor, lighterBgColor] = React.useMemo(
-    () => [
-      transparentize("gray.900", 0.9)(theme),
-      transparentize("gray.900", 0.6)(theme),
-    ],
-    [],
-  );
+  const [gray900] = useToken("colors", ["gray.900"]) as [string];
+  const bgColor = `${gray900}E6`;
+  const lighterBgColor = `${gray900}99`;
 
   return (
     <HStack
