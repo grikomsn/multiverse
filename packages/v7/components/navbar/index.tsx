@@ -34,11 +34,11 @@ const Navbar: React.FC = () => {
       pos="sticky"
       sx={{
         "@supports (backdrop-filter: blur(12px))": {
-          "backdrop-filter": "blur(12px)",
+          backdropFilter: "blur(12px)",
           bgColor: lighterBgColor,
         },
         "@supports (-webkit-backdrop-filter: blur(12px))": {
-          "-webkit-backdrop-filter": "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
           bgColor: lighterBgColor,
         },
       }}

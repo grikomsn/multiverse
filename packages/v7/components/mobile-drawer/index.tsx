@@ -95,11 +95,11 @@ const MobileModal: React.FC = () => {
               size="sm"
               sx={{
                 "@supports (backdrop-filter: blur(6px))": {
-                  "backdrop-filter": "blur(6px)",
+                  backdropFilter: "blur(6px)",
                   bgColor: "whiteAlpha.50",
                 },
                 "@supports (-webkit-backdrop-filter: blur(6px))": {
-                  "-webkit-backdrop-filter": "blur(6px)",
+                  WebkitBackdropFilter: "blur(6px)",
                   bgColor: "whiteAlpha.50",
                 },
               }}
