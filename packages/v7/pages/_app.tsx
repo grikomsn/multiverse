@@ -110,7 +110,6 @@ export default function App(props: CustomAppProps) {
           site_name: meta.site.seo.siteName,
           images: [meta.site.seo.fallback.image],
         }}
-        title={meta.site.seo.fallback.title}
         twitter={{
           cardType: meta.site.seo.fallback.twitterCard,
           handle: meta.site.seo.twitterAccount,
