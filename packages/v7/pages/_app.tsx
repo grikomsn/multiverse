@@ -13,21 +13,10 @@ import { ChakraProvider, EASINGS, Flex } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import NextApp, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
-import Router from "next/router";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 import nprogress from "nprogress";
 import { renderMetaTags, SeoMetaTagType } from "react-datocms";
 import tinykeys from "tinykeys";
-
-Router.events.on("routeChangeStart", () => {
-  nprogress.start();
-});
-Router.events.on("routeChangeComplete", () => {
-  nprogress.done();
-});
-Router.events.on("routeChangeError", () => {
-  nprogress.done();
-});
 
 interface CustomAppProps extends AppProps {
   meta: WebsiteSeoTagsQuery;
@@ -73,6 +62,16 @@ const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
   const { meta, router } = props;
 
   React.useEffect(() => {
+    router.events.on("routeChangeStart", () => {
+      nprogress.start();
+    });
+    router.events.on("routeChangeComplete", () => {
+      nprogress.done();
+    });
+    router.events.on("routeChangeError", () => {
+      nprogress.done();
+    });
+
     const unsub = tinykeys(window, {
       "g h": () => router.push("/"),
       "g b": () => router.push("/blog"),
@@ -81,7 +80,18 @@ const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
       "g m": () => router.push("/about"),
       "g d": () => window.open(meta.about.dashboardUrl, "_blank"),
     });
+
     return () => {
+      router.events.off("routeChangeStart", () => {
+        nprogress.start();
+      });
+      router.events.off("routeChangeComplete", () => {
+        nprogress.done();
+      });
+      router.events.off("routeChangeError", () => {
+        nprogress.done();
+      });
+
       unsub();
     };
   }, []);
