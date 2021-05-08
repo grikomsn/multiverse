@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "# general commands": "##################################################",
-    "lint": "eslint --cache --fix \"./**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --fix \"./**/*.{js,jsx,ts,tsx}\"",
     "precommit": "lint-staged",
     "type-check": "tsc --noEmit",
     "validate": "yarn lint && yarn type-check",
