@@ -12,14 +12,15 @@ interface AppearancesPageProps {
   data: AppearancesStaticPropsQuery;
 }
 
-export const getStaticProps: GetStaticProps<AppearancesPageProps> = async () => {
-  const data = await cms().appearancesStaticProps();
-  return {
-    props: {
-      data,
-    },
+export const getStaticProps: GetStaticProps<AppearancesPageProps> =
+  async () => {
+    const data = await cms().appearancesStaticProps();
+    return {
+      props: {
+        data,
+      },
+    };
   };
-};
 
 const AppearancesPage: NextPage<AppearancesPageProps> = (props) => {
   const { data } = props;
