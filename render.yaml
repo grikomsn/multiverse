@@ -14,5 +14,5 @@ services:
     headers:
       - path: /*
         name: Cache-Control
-        value: public, s-maxage=1, stale-while-revalidate
+        value: public, s-maxage=1, stale-while-revalidate=59
     pullRequestPreviewsEnabled: true
