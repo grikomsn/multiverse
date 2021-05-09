@@ -27,15 +27,18 @@ Website monorepo for <https://griko.id> and previous versions
 
 ## Dependencies
 
-- [Node.js](https://nodejs.org) (LTS preferred)
-- [Yarn](https://yarnpkg.com)
-- [Vercel](https://vercel.com/home)
+- [Node.js LTS](https://nodejs.org)
+  - `brew install nvm && nvm install --lts`
+- [Yarn V1](https://classic.yarnpkg.com/lang/en)
+  - `npm --global install yarn`
+- [Lerna](https://github.com/lerna/lerna)
+  - `yarn global add lerna`
 
 ## Clone and prep locally
 
 - `gh repo clone grikomsn/griko.id`
 - `cd griko.id`
-- `yarn install`
+- `yarn install` or `lerna bootstrap`
 - `yarn lerna run validate`
 
 ## Scope commands
