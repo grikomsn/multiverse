@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: griko-id-v7
+    env: static
+    buildCommand: yarn install --production && yarn v7 build:static
+    staticPublishPath: ./packages/v7/out
+    domains:
+      - v7.render.griko.dev
+    envVars:
+      - key: DATOCMS_API_KEY
+        sync: false
+      - key: NEXT_PUBLIC_DATOCMS_PUBLIC_API_KEY
+        sync: false
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, s-maxage=1, stale-while-revalidate
+    pullRequestPreviewsEnabled: true
