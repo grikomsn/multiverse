@@ -36,9 +36,20 @@ export const getStaticProps: GetStaticProps<TagPageProps> = async (ctx) => {
 };
 
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const { allTags } = await cms().tagsStaticPaths();
+  const paths: { params: { slug: string } }[] = [];
+
+  function* fetchTagSlugs() {
+    let step = 0;
+    while (true) yield cms().tagsStaticPaths({ skip: step++ * 100 });
+  }
+
+  for await (const { allTags } of fetchTagSlugs()) {
+    if (allTags.length < 1) break;
+    paths.push(...allTags.map(({ slug }) => ({ params: { slug } })));
+  }
+
   return {
-    paths: allTags.map(({ slug }) => ({ params: { slug } })),
+    paths,
     fallback: false,
   };
 };
