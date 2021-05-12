@@ -81,11 +81,11 @@ export type AppearanceModelFilter = {
   _updatedAt?: Maybe<UpdatedAtFilter>;
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
-  category?: Maybe<StringFilter>;
   tags?: Maybe<LinksFilter>;
   url?: Maybe<StringFilter>;
-  subtitle?: Maybe<StringFilter>;
+  category?: Maybe<StringFilter>;
   date?: Maybe<DateFilter>;
+  subtitle?: Maybe<StringFilter>;
   title?: Maybe<StringFilter>;
   OR?: Maybe<Array<Maybe<AppearanceModelFilter>>>;
 };
@@ -113,14 +113,14 @@ export enum AppearanceModelOrderBy {
   UpdatedAtDesc = 'updatedAt_DESC',
   IsValidAsc = '_isValid_ASC',
   IsValidDesc = '_isValid_DESC',
-  CategoryAsc = 'category_ASC',
-  CategoryDesc = 'category_DESC',
   UrlAsc = 'url_ASC',
   UrlDesc = 'url_DESC',
-  SubtitleAsc = 'subtitle_ASC',
-  SubtitleDesc = 'subtitle_DESC',
+  CategoryAsc = 'category_ASC',
+  CategoryDesc = 'category_DESC',
   DateAsc = 'date_ASC',
   DateDesc = 'date_DESC',
+  SubtitleAsc = 'subtitle_ASC',
+  SubtitleDesc = 'subtitle_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
@@ -162,6 +162,32 @@ export type BooleanFilter = {
   eq?: Maybe<Scalars['BooleanType']>;
 };
 
+
+/** Record of type Build Trigger (build_trigger) */
+export type BuildTriggerRecord = {
+  __typename?: 'BuildTriggerRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  updatedAt: Scalars['DateTime'];
+  webhookUrls?: Maybe<Array<Maybe<UrlRecord>>>;
+};
+
+
+/** Record of type Build Trigger (build_trigger) */
+export type BuildTriggerRecord_SeoMetaTagsArgs = {
+  locale?: Maybe<SiteLocale>;
+};
 
 export type CollectionMetadata = {
   __typename?: 'CollectionMetadata';
@@ -1722,12 +1748,12 @@ export type PostModelFilter = {
   _updatedAt?: Maybe<UpdatedAtFilter>;
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
-  tags?: Maybe<LinksFilter>;
-  cover?: Maybe<FileFilter>;
-  subtitle?: Maybe<StringFilter>;
   slug?: Maybe<SlugFilter>;
+  subtitle?: Maybe<StringFilter>;
   content?: Maybe<TextFilter>;
   title?: Maybe<StringFilter>;
+  cover?: Maybe<FileFilter>;
+  tags?: Maybe<LinksFilter>;
   OR?: Maybe<Array<Maybe<PostModelFilter>>>;
 };
 
@@ -1844,6 +1870,8 @@ export type Query = {
   allUploads: Array<FileField>;
   /** Returns a specific record */
   appearance?: Maybe<AppearanceRecord>;
+  /** Returns the single instance record */
+  buildTrigger?: Maybe<BuildTriggerRecord>;
   /** Returns a specific record */
   post?: Maybe<PostRecord>;
   /** Returns a specific record */
@@ -1961,6 +1989,12 @@ export type QueryAppearanceArgs = {
 
 
 /** The query root for this schema */
+export type QueryBuildTriggerArgs = {
+  locale?: Maybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 export type QueryPostArgs = {
   locale?: Maybe<SiteLocale>;
   filter?: Maybe<PostModelFilter>;
@@ -2047,10 +2081,10 @@ export type ShowcaseModelFilter = {
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
   subtitle?: Maybe<StringFilter>;
-  tags?: Maybe<LinksFilter>;
-  url?: Maybe<StringFilter>;
-  image?: Maybe<FileFilter>;
   title?: Maybe<StringFilter>;
+  image?: Maybe<FileFilter>;
+  url?: Maybe<StringFilter>;
+  tags?: Maybe<LinksFilter>;
   OR?: Maybe<Array<Maybe<ShowcaseModelFilter>>>;
 };
 
@@ -2081,10 +2115,10 @@ export enum ShowcaseModelOrderBy {
   IsValidDesc = '_isValid_DESC',
   SubtitleAsc = 'subtitle_ASC',
   SubtitleDesc = 'subtitle_DESC',
-  UrlAsc = 'url_ASC',
-  UrlDesc = 'url_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
+  TitleDesc = 'title_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC'
 }
 
 /** Record of type Showcase (showcase) */
@@ -2208,8 +2242,8 @@ export type TagModelFilter = {
   _updatedAt?: Maybe<UpdatedAtFilter>;
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
-  slug?: Maybe<SlugFilter>;
   title?: Maybe<StringFilter>;
+  slug?: Maybe<SlugFilter>;
   OR?: Maybe<Array<Maybe<TagModelFilter>>>;
 };
 
@@ -2626,6 +2660,32 @@ export type UploadWidthFilter = {
   neq?: Maybe<Scalars['IntType']>;
 };
 
+/** Record of type URL (url) */
+export type UrlRecord = {
+  __typename?: 'UrlRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  updatedAt: Scalars['DateTime'];
+  url?: Maybe<Scalars['String']>;
+};
+
+
+/** Record of type URL (url) */
+export type UrlRecord_SeoMetaTagsArgs = {
+  locale?: Maybe<SiteLocale>;
+};
+
 export enum VideoMp4Res {
   Low = 'low',
   Medium = 'medium',
@@ -2707,6 +2767,15 @@ export const AppearancesStaticPropsDocument = /*#__PURE__*/ gql`
   }
 }
     ${AppearanceFragmentDoc}`;
+export const BuildTriggerUrlsDocument = /*#__PURE__*/ gql`
+    query buildTriggerUrls {
+  buildTrigger {
+    webhookUrls {
+      url
+    }
+  }
+}
+    `;
 export const HomeStaticPropsDocument = /*#__PURE__*/ gql`
     query homeStaticProps {
   site: _site {
@@ -2798,6 +2867,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     appearancesStaticProps(variables?: AppearancesStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AppearancesStaticPropsQuery> {
       return withWrapper(() => client.request<AppearancesStaticPropsQuery>(AppearancesStaticPropsDocument, variables, requestHeaders));
     },
+    buildTriggerUrls(variables?: BuildTriggerUrlsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BuildTriggerUrlsQuery> {
+      return withWrapper(() => client.request<BuildTriggerUrlsQuery>(BuildTriggerUrlsDocument, variables, requestHeaders));
+    },
     homeStaticProps(variables?: HomeStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomeStaticPropsQuery> {
       return withWrapper(() => client.request<HomeStaticPropsQuery>(HomeStaticPropsDocument, variables, requestHeaders));
     },
@@ -2857,6 +2929,20 @@ export type AppearancesStaticPropsQuery = (
   & { allAppearances: Array<(
     { __typename?: 'AppearanceRecord' }
     & AppearanceFragment
+  )> }
+);
+
+export type BuildTriggerUrlsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BuildTriggerUrlsQuery = (
+  { __typename?: 'Query' }
+  & { buildTrigger?: Maybe<(
+    { __typename?: 'BuildTriggerRecord' }
+    & { webhookUrls?: Maybe<Array<Maybe<(
+      { __typename?: 'UrlRecord' }
+      & Pick<UrlRecord, 'url'>
+    )>>> }
   )> }
 );
 

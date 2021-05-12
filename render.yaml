@@ -11,6 +11,8 @@ services:
         sync: false
       - key: NEXT_PUBLIC_DATOCMS_PUBLIC_API_KEY
         sync: false
+      - key: BUILD_TRIGGER_SECRET
+        sync: false
     headers:
       - path: /*
         name: Cache-Control
