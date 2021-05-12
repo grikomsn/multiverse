@@ -72,7 +72,7 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
         >
           {trimHttps(data.url)}
         </LinkOverlay>
-        <Wrap>
+        <Wrap justify="center">
           {data.tags.map((t) => (
             <WrapItem key={t.slug}>
               <Link href={`/tag/${t.slug}`} passHref>
