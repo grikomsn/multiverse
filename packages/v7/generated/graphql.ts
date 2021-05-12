@@ -2828,7 +2828,7 @@ export const WebsiteSeoTagsDocument = /*#__PURE__*/ gql`
     `;
 export const TagsStaticPathsDocument = /*#__PURE__*/ gql`
     query tagsStaticPaths {
-  allTags(orderBy: title_ASC) {
+  allTags(first: 100, orderBy: title_ASC) {
     slug
   }
 }
