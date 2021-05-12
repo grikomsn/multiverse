@@ -26,4 +26,7 @@ obviously deployed on [Vercel](https://vercel.com) and various services.
 **Hostman** <br/>
 <https://v7.hostman.griko.dev>
 
+**Render** <br/>
+<https://v7.render.griko.dev>
+
 </div>
