@@ -2827,8 +2827,8 @@ export const WebsiteSeoTagsDocument = /*#__PURE__*/ gql`
 }
     `;
 export const TagsStaticPathsDocument = /*#__PURE__*/ gql`
-    query tagsStaticPaths {
-  allTags(first: 100, orderBy: title_ASC) {
+    query tagsStaticPaths($skip: IntType) {
+  allTags(first: 100, orderBy: title_ASC, skip: $skip) {
     slug
   }
 }
@@ -3022,7 +3022,9 @@ export type WebsiteSeoTagsQuery = (
   ) }
 );
 
-export type TagsStaticPathsQueryVariables = Exact<{ [key: string]: never; }>;
+export type TagsStaticPathsQueryVariables = Exact<{
+  skip?: Maybe<Scalars['IntType']>;
+}>;
 
 
 export type TagsStaticPathsQuery = (

@@ -1,5 +1,5 @@
-query tagsStaticPaths {
-  allTags(first: 100, orderBy: title_ASC) {
+query tagsStaticPaths($skip: IntType) {
+  allTags(first: 100, orderBy: title_ASC, skip: $skip) {
     slug
   }
 }
