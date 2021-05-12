@@ -1,11 +1,9 @@
 const path = require("path");
 
-const withPreact = require("next-plugin-preact");
-
-module.exports = withPreact({
+module.exports = {
   // https://nextjs.org/docs/messages/webpack5
   future: {
-    // webpack5: true,
+    webpack5: true,
   },
 
   // https://nextjs.org/docs/api-reference/next.config.js/headers
@@ -65,4 +63,4 @@ module.exports = withPreact({
     ];
     return config;
   },
-});
+};
