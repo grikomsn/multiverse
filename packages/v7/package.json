@@ -4,7 +4,9 @@
   "scripts": {
     "# general commands": "##################################################",
     "build": "next build && yarn sitemap",
+    "build:local": "env-cmd yarn build",
     "build:static": "yarn build && next export",
+    "build:static-local": "env-cmd yarn build:static",
     "codegen": "env-cmd yarn graphql-codegen",
     "dev": "next",
     "dev:sync": "run-p -ln dev sync",
