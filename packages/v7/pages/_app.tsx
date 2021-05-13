@@ -4,6 +4,7 @@ import Footer from "~components/footer";
 import MobileDrawer from "~components/mobile-drawer/lazy";
 import MotionBox from "~components/motion/box";
 import Navbar from "~components/navbar";
+import siteConfig from "~config/site";
 import { WebsiteSeoTagsQuery } from "~generated/graphql";
 import cms from "~lib/cms";
 import { MetaContext } from "~store/meta";
@@ -59,6 +60,7 @@ const PAGE_TRANSITION_VARIANTS = {
 };
 
 const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { meta, router } = props;
 
   React.useEffect(() => {
@@ -78,7 +80,7 @@ const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
       "g a": () => router.push("/appearances"),
       "g p": () => router.push("/projects"),
       "g m": () => router.push("/about"),
-      "g d": () => window.open(meta.about.dashboardUrl, "_blank"),
+      "g d": () => window.open(siteConfig.dashboardUrl, "_blank"),
     });
 
     return () => {
@@ -111,7 +113,7 @@ export default function App(props: CustomAppProps) {
       </Head>
 
       <DefaultSeo
-        canonical={meta.about.siteUrl + (router.asPath || "")}
+        canonical={siteConfig.siteUrl + (router.asPath || "")}
         defaultTitle={meta.site.seo.fallback.title}
         description={meta.site.seo.fallback.description}
         openGraph={{
@@ -131,7 +133,7 @@ export default function App(props: CustomAppProps) {
         name={meta.site.seo.siteName}
         sameAs={Object.values(meta.about.socialsJson as Record<string, string>)}
         type="person"
-        url={meta.about.siteUrl}
+        url={siteConfig.siteUrl}
       />
 
       <Flex flexDir="column" minH="100vh">

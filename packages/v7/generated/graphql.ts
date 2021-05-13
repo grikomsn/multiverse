@@ -47,12 +47,10 @@ export type AboutRecord = {
   _updatedAt: Scalars['DateTime'];
   coverImage?: Maybe<FileField>;
   createdAt: Scalars['DateTime'];
-  dashboardUrl?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
   knowledgeBases?: Maybe<Array<Maybe<EntryRecord>>>;
   preface?: Maybe<Scalars['String']>;
-  siteUrl?: Maybe<Scalars['String']>;
   socialsJson?: Maybe<Scalars['JsonField']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -2798,8 +2796,6 @@ export const WebsiteSeoTagsDocument = /*#__PURE__*/ gql`
     query websiteSeoTags {
   about {
     email
-    siteUrl
-    dashboardUrl
     socialsJson
   }
   site: _site {
@@ -3001,7 +2997,7 @@ export type WebsiteSeoTagsQuery = (
   { __typename?: 'Query' }
   & { about?: Maybe<(
     { __typename?: 'AboutRecord' }
-    & Pick<AboutRecord, 'email' | 'siteUrl' | 'dashboardUrl' | 'socialsJson'>
+    & Pick<AboutRecord, 'email' | 'socialsJson'>
   )>, site: (
     { __typename?: 'Site' }
     & { favicon: Array<(

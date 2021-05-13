@@ -1,8 +1,6 @@
 query websiteSeoTags {
   about {
     email
-    siteUrl
-    dashboardUrl
     socialsJson
   }
   site: _site {

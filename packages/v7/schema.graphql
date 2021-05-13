@@ -23,7 +23,6 @@ type AboutRecord {
   _updatedAt: DateTime!
   coverImage: FileField
   createdAt: DateTime!
-  dashboardUrl: String
   email: String
   id: ItemId!
   knowledgeBases: [EntryRecord]
@@ -33,7 +32,6 @@ type AboutRecord {
     """
     markdown: Boolean
   ): String
-  siteUrl: String
   socialsJson: JsonField
   updatedAt: DateTime!
 }
