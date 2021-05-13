@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import create, { State } from "zustand";
 import shallow from "zustand/shallow";
 
@@ -20,8 +22,8 @@ export function useMobileDrawer() {
   );
   return {
     isOpen,
-    onClose: () => onToggle(false),
-    onOpen: () => onToggle(true),
+    onClose: useCallback(() => onToggle(false), []),
+    onOpen: useCallback(() => onToggle(true), []),
     onToggle,
   };
 }
