@@ -7,8 +7,10 @@
     "build:static": "next build && next export",
     "codegen": "env-cmd yarn graphql-codegen",
     "dev": "next",
+    "dev:sync": "run-p -ln dev sync",
     "lint": "eslint --fix \"./**/*.{js,jsx,ts,tsx}\"",
     "precommit": "lint-staged",
+    "sync": "browser-sync start -p \"localhost:3000\"",
     "type-check": "tsc --noEmit",
     "validate": "yarn lint && yarn type-check",
     "#": "###################################################################"
