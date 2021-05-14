@@ -6,6 +6,7 @@ import MotionBox from "~components/motion/box";
 import Navbar from "~components/navbar";
 import siteConfig from "~config/site";
 import { WebsiteSeoTagsQuery } from "~generated/graphql";
+import useNProgress from "~hooks/use-nprogress";
 import cms from "~lib/cms";
 import { MetaContext } from "~store/meta";
 import theme from "~theme";
@@ -15,7 +16,6 @@ import { AnimatePresence } from "framer-motion";
 import NextApp, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
-import nprogress from "nprogress";
 import { renderMetaTags, SeoMetaTagType } from "react-datocms";
 import tinykeys from "tinykeys";
 
@@ -63,17 +63,9 @@ const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { meta, router } = props;
 
-  React.useEffect(() => {
-    router.events.on("routeChangeStart", () => {
-      nprogress.start();
-    });
-    router.events.on("routeChangeComplete", () => {
-      nprogress.done();
-    });
-    router.events.on("routeChangeError", () => {
-      nprogress.done();
-    });
+  useNProgress(router);
 
+  React.useEffect(() => {
     const unsub = tinykeys(window, {
       "g h": () => router.push("/"),
       "g b": () => router.push("/blog"),
@@ -84,16 +76,6 @@ const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
     });
 
     return () => {
-      router.events.off("routeChangeStart", () => {
-        nprogress.start();
-      });
-      router.events.off("routeChangeComplete", () => {
-        nprogress.done();
-      });
-      router.events.off("routeChangeError", () => {
-        nprogress.done();
-      });
-
       unsub();
     };
   }, []);
