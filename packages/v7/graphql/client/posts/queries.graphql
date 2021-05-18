@@ -1,0 +1,29 @@
+query getPost($slug: String!) {
+  post(filter: { slug: { eq: $slug } }) {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    _firstPublishedAt
+    cover {
+      responsiveImage {
+        ...ResponsiveImageFields
+      }
+    }
+    title
+    slug
+    subtitle
+    tags {
+      slug
+      title
+    }
+    content
+  }
+}
+
+query postStaticPaths($skip: IntType) {
+  allPosts(first: 100, orderBy: title_ASC, skip: $skip) {
+    slug
+  }
+}

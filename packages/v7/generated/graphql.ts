@@ -79,11 +79,11 @@ export type AppearanceModelFilter = {
   _updatedAt?: Maybe<UpdatedAtFilter>;
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
+  category?: Maybe<StringFilter>;
   tags?: Maybe<LinksFilter>;
   url?: Maybe<StringFilter>;
-  category?: Maybe<StringFilter>;
-  date?: Maybe<DateFilter>;
   subtitle?: Maybe<StringFilter>;
+  date?: Maybe<DateFilter>;
   title?: Maybe<StringFilter>;
   OR?: Maybe<Array<Maybe<AppearanceModelFilter>>>;
 };
@@ -111,14 +111,14 @@ export enum AppearanceModelOrderBy {
   UpdatedAtDesc = 'updatedAt_DESC',
   IsValidAsc = '_isValid_ASC',
   IsValidDesc = '_isValid_DESC',
-  UrlAsc = 'url_ASC',
-  UrlDesc = 'url_DESC',
   CategoryAsc = 'category_ASC',
   CategoryDesc = 'category_DESC',
-  DateAsc = 'date_ASC',
-  DateDesc = 'date_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC',
   SubtitleAsc = 'subtitle_ASC',
   SubtitleDesc = 'subtitle_DESC',
+  DateAsc = 'date_ASC',
+  DateDesc = 'date_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
@@ -1746,12 +1746,12 @@ export type PostModelFilter = {
   _updatedAt?: Maybe<UpdatedAtFilter>;
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
-  slug?: Maybe<SlugFilter>;
+  tags?: Maybe<LinksFilter>;
+  cover?: Maybe<FileFilter>;
   subtitle?: Maybe<StringFilter>;
+  slug?: Maybe<SlugFilter>;
   content?: Maybe<TextFilter>;
   title?: Maybe<StringFilter>;
-  cover?: Maybe<FileFilter>;
-  tags?: Maybe<LinksFilter>;
   OR?: Maybe<Array<Maybe<PostModelFilter>>>;
 };
 
@@ -2079,10 +2079,10 @@ export type ShowcaseModelFilter = {
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
   subtitle?: Maybe<StringFilter>;
-  title?: Maybe<StringFilter>;
-  image?: Maybe<FileFilter>;
-  url?: Maybe<StringFilter>;
   tags?: Maybe<LinksFilter>;
+  url?: Maybe<StringFilter>;
+  image?: Maybe<FileFilter>;
+  title?: Maybe<StringFilter>;
   OR?: Maybe<Array<Maybe<ShowcaseModelFilter>>>;
 };
 
@@ -2113,10 +2113,10 @@ export enum ShowcaseModelOrderBy {
   IsValidDesc = '_isValid_DESC',
   SubtitleAsc = 'subtitle_ASC',
   SubtitleDesc = 'subtitle_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
   UrlAsc = 'url_ASC',
-  UrlDesc = 'url_DESC'
+  UrlDesc = 'url_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
 }
 
 /** Record of type Showcase (showcase) */
@@ -2240,8 +2240,8 @@ export type TagModelFilter = {
   _updatedAt?: Maybe<UpdatedAtFilter>;
   updatedAt?: Maybe<UpdatedAtFilter>;
   _isValid?: Maybe<BooleanFilter>;
-  title?: Maybe<StringFilter>;
   slug?: Maybe<SlugFilter>;
+  title?: Maybe<StringFilter>;
   OR?: Maybe<Array<Maybe<TagModelFilter>>>;
 };
 
@@ -2785,6 +2785,38 @@ export const HomeStaticPropsDocument = /*#__PURE__*/ gql`
   }
 }
     ${ResponsiveImageFieldsFragmentDoc}`;
+export const GetPostDocument = /*#__PURE__*/ gql`
+    query getPost($slug: String!) {
+  post(filter: {slug: {eq: $slug}}) {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    _firstPublishedAt
+    cover {
+      responsiveImage {
+        ...ResponsiveImageFields
+      }
+    }
+    title
+    slug
+    subtitle
+    tags {
+      slug
+      title
+    }
+    content
+  }
+}
+    ${ResponsiveImageFieldsFragmentDoc}`;
+export const PostStaticPathsDocument = /*#__PURE__*/ gql`
+    query postStaticPaths($skip: IntType) {
+  allPosts(first: 100, orderBy: title_ASC, skip: $skip) {
+    slug
+  }
+}
+    `;
 export const ProjectsStaticPropsDocument = /*#__PURE__*/ gql`
     query projectsStaticProps {
   allShowcases(orderBy: position_ASC) {
@@ -2850,39 +2882,45 @@ export const TagRelationsDocument = /*#__PURE__*/ gql`
     ${AppearanceFragmentDoc}
 ${ShowcaseFragmentDoc}`;
 
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
 
-const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     aboutStaticProps(variables?: AboutStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutStaticPropsQuery> {
-      return withWrapper(() => client.request<AboutStaticPropsQuery>(AboutStaticPropsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<AboutStaticPropsQuery>(AboutStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'aboutStaticProps');
     },
     appearancesStaticProps(variables?: AppearancesStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AppearancesStaticPropsQuery> {
-      return withWrapper(() => client.request<AppearancesStaticPropsQuery>(AppearancesStaticPropsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<AppearancesStaticPropsQuery>(AppearancesStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'appearancesStaticProps');
     },
     buildTriggerUrls(variables?: BuildTriggerUrlsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BuildTriggerUrlsQuery> {
-      return withWrapper(() => client.request<BuildTriggerUrlsQuery>(BuildTriggerUrlsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<BuildTriggerUrlsQuery>(BuildTriggerUrlsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'buildTriggerUrls');
     },
     homeStaticProps(variables?: HomeStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomeStaticPropsQuery> {
-      return withWrapper(() => client.request<HomeStaticPropsQuery>(HomeStaticPropsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<HomeStaticPropsQuery>(HomeStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'homeStaticProps');
+    },
+    getPost(variables: GetPostQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPostQuery>(GetPostDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPost');
+    },
+    postStaticPaths(variables?: PostStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PostStaticPathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PostStaticPathsQuery>(PostStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'postStaticPaths');
     },
     projectsStaticProps(variables?: ProjectsStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectsStaticPropsQuery> {
-      return withWrapper(() => client.request<ProjectsStaticPropsQuery>(ProjectsStaticPropsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<ProjectsStaticPropsQuery>(ProjectsStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'projectsStaticProps');
     },
     websiteSeoTags(variables?: WebsiteSeoTagsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<WebsiteSeoTagsQuery> {
-      return withWrapper(() => client.request<WebsiteSeoTagsQuery>(WebsiteSeoTagsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<WebsiteSeoTagsQuery>(WebsiteSeoTagsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'websiteSeoTags');
     },
     tagsStaticPaths(variables?: TagsStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TagsStaticPathsQuery> {
-      return withWrapper(() => client.request<TagsStaticPathsQuery>(TagsStaticPathsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<TagsStaticPathsQuery>(TagsStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'tagsStaticPaths');
     },
     tagSlugLookup(variables: TagSlugLookupQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TagSlugLookupQuery> {
-      return withWrapper(() => client.request<TagSlugLookupQuery>(TagSlugLookupDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<TagSlugLookupQuery>(TagSlugLookupDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'tagSlugLookup');
     },
     tagRelations(variables: TagRelationsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TagRelationsQuery> {
-      return withWrapper(() => client.request<TagRelationsQuery>(TagRelationsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<TagRelationsQuery>(TagRelationsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'tagRelations');
     }
   };
 }
@@ -2962,6 +3000,45 @@ export type HomeStaticPropsQuery = (
       )> }
     )> }
   ) }
+);
+
+export type GetPostQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type GetPostQuery = (
+  { __typename?: 'Query' }
+  & { post?: Maybe<(
+    { __typename?: 'PostRecord' }
+    & Pick<PostRecord, '_firstPublishedAt' | 'title' | 'slug' | 'subtitle' | 'content'>
+    & { _seoMetaTags: Array<(
+      { __typename?: 'Tag' }
+      & Pick<Tag, 'attributes' | 'content' | 'tag'>
+    )>, cover?: Maybe<(
+      { __typename?: 'FileField' }
+      & { responsiveImage?: Maybe<(
+        { __typename?: 'ResponsiveImage' }
+        & ResponsiveImageFieldsFragment
+      )> }
+    )>, tags: Array<(
+      { __typename?: 'TagRecord' }
+      & Pick<TagRecord, 'slug' | 'title'>
+    )> }
+  )> }
+);
+
+export type PostStaticPathsQueryVariables = Exact<{
+  skip?: Maybe<Scalars['IntType']>;
+}>;
+
+
+export type PostStaticPathsQuery = (
+  { __typename?: 'Query' }
+  & { allPosts: Array<(
+    { __typename?: 'PostRecord' }
+    & Pick<PostRecord, 'slug'>
+  )> }
 );
 
 export type ShowcaseFragment = (
