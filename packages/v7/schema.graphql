@@ -48,11 +48,11 @@ input AppearanceModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  category: StringFilter
   tags: LinksFilter
   url: StringFilter
-  category: StringFilter
-  date: DateFilter
   subtitle: StringFilter
+  date: DateFilter
   title: StringFilter
   OR: [AppearanceModelFilter]
 }
@@ -80,14 +80,14 @@ enum AppearanceModelOrderBy {
   updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  url_ASC
-  url_DESC
   category_ASC
   category_DESC
-  date_ASC
-  date_DESC
+  url_ASC
+  url_DESC
   subtitle_ASC
   subtitle_DESC
+  date_ASC
+  date_DESC
   title_ASC
   title_DESC
 }
@@ -2006,12 +2006,12 @@ input PostModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  slug: SlugFilter
+  tags: LinksFilter
+  cover: FileFilter
   subtitle: StringFilter
+  slug: SlugFilter
   content: TextFilter
   title: StringFilter
-  cover: FileFilter
-  tags: LinksFilter
   OR: [PostModelFilter]
 }
 
@@ -2450,10 +2450,10 @@ input ShowcaseModelFilter {
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   subtitle: StringFilter
-  title: StringFilter
-  image: FileFilter
-  url: StringFilter
   tags: LinksFilter
+  url: StringFilter
+  image: FileFilter
+  title: StringFilter
   OR: [ShowcaseModelFilter]
 }
 
@@ -2484,10 +2484,10 @@ enum ShowcaseModelOrderBy {
   _isValid_DESC
   subtitle_ASC
   subtitle_DESC
-  title_ASC
-  title_DESC
   url_ASC
   url_DESC
+  title_ASC
+  title_DESC
 }
 
 """
@@ -2663,8 +2663,8 @@ input TagModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  title: StringFilter
   slug: SlugFilter
+  title: StringFilter
   OR: [TagModelFilter]
 }
 
