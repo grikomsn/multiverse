@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { baseComponents } from "~components/md-components";
+import { baseComponents } from "~components/markdown";
 import { useMeta } from "~store/meta";
 
 import {
