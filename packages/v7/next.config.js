@@ -36,11 +36,11 @@ module.exports = {
   // https://nextjs.org/docs/api-reference/next.config.js/redirects
   async redirects() {
     return [
-      {
-        source: "/blog/:path*",
-        destination: "/blog",
-        permanent: false,
-      },
+      // {
+      //   source: "/blog/:path*",
+      //   destination: "/blog",
+      //   permanent: false,
+      // },
     ];
   },
 
