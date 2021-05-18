@@ -122,7 +122,7 @@ export default function App(props: CustomAppProps) {
         <Navbar />
         <AnimatePresence exitBeforeEnter>
           <MotionBox
-            key={router.asPath}
+            key={router.route}
             animate="enter"
             exit="exit"
             flexGrow={1}
