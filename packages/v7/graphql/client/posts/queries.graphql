@@ -1,24 +1,12 @@
+query getPosts($skip: IntType) {
+  allPosts(orderBy: _firstPublishedAt_DESC, skip: $skip) {
+    ...PostMetaFields
+  }
+}
+
 query getPost($slug: String!) {
   post(filter: { slug: { eq: $slug } }) {
-    _seoMetaTags {
-      attributes
-      content
-      tag
-    }
-    _firstPublishedAt
-    cover {
-      responsiveImage {
-        ...ResponsiveImageFields
-      }
-    }
-    title
-    slug
-    subtitle
-    tags {
-      slug
-      title
-    }
-    content
+    ...PostFields
   }
 }
 

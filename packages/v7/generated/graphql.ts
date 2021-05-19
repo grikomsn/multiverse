@@ -2724,6 +2724,34 @@ export const ResponsiveImageFieldsFragmentDoc = /*#__PURE__*/ gql`
   width
 }
     `;
+export const PostMetaFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment PostMetaFields on PostRecord {
+  _firstPublishedAt
+  cover {
+    responsiveImage {
+      ...ResponsiveImageFields
+    }
+  }
+  title
+  slug
+  subtitle
+  tags {
+    slug
+    title
+  }
+}
+    ${ResponsiveImageFieldsFragmentDoc}`;
+export const PostFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment PostFields on PostRecord {
+  _seoMetaTags {
+    attributes
+    content
+    tag
+  }
+  ...PostMetaFields
+  content
+}
+    ${PostMetaFieldsFragmentDoc}`;
 export const ShowcaseFragmentDoc = /*#__PURE__*/ gql`
     fragment ShowcaseFragment on ShowcaseRecord {
   id
@@ -2785,31 +2813,20 @@ export const HomeStaticPropsDocument = /*#__PURE__*/ gql`
   }
 }
     ${ResponsiveImageFieldsFragmentDoc}`;
+export const GetPostsDocument = /*#__PURE__*/ gql`
+    query getPosts($skip: IntType) {
+  allPosts(orderBy: _firstPublishedAt_DESC, skip: $skip) {
+    ...PostMetaFields
+  }
+}
+    ${PostMetaFieldsFragmentDoc}`;
 export const GetPostDocument = /*#__PURE__*/ gql`
     query getPost($slug: String!) {
   post(filter: {slug: {eq: $slug}}) {
-    _seoMetaTags {
-      attributes
-      content
-      tag
-    }
-    _firstPublishedAt
-    cover {
-      responsiveImage {
-        ...ResponsiveImageFields
-      }
-    }
-    title
-    slug
-    subtitle
-    tags {
-      slug
-      title
-    }
-    content
+    ...PostFields
   }
 }
-    ${ResponsiveImageFieldsFragmentDoc}`;
+    ${PostFieldsFragmentDoc}`;
 export const PostStaticPathsDocument = /*#__PURE__*/ gql`
     query postStaticPaths($skip: IntType) {
   allPosts(first: 100, orderBy: title_ASC, skip: $skip) {
@@ -2900,6 +2917,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     homeStaticProps(variables?: HomeStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomeStaticPropsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HomeStaticPropsQuery>(HomeStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'homeStaticProps');
+    },
+    getPosts(variables?: GetPostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPostsQuery>(GetPostsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPosts');
     },
     getPost(variables: GetPostQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPostQuery>(GetPostDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPost');
@@ -3002,6 +3022,44 @@ export type HomeStaticPropsQuery = (
   ) }
 );
 
+export type PostMetaFieldsFragment = (
+  { __typename?: 'PostRecord' }
+  & Pick<PostRecord, '_firstPublishedAt' | 'title' | 'slug' | 'subtitle'>
+  & { cover?: Maybe<(
+    { __typename?: 'FileField' }
+    & { responsiveImage?: Maybe<(
+      { __typename?: 'ResponsiveImage' }
+      & ResponsiveImageFieldsFragment
+    )> }
+  )>, tags: Array<(
+    { __typename?: 'TagRecord' }
+    & Pick<TagRecord, 'slug' | 'title'>
+  )> }
+);
+
+export type PostFieldsFragment = (
+  { __typename?: 'PostRecord' }
+  & Pick<PostRecord, 'content'>
+  & { _seoMetaTags: Array<(
+    { __typename?: 'Tag' }
+    & Pick<Tag, 'attributes' | 'content' | 'tag'>
+  )> }
+  & PostMetaFieldsFragment
+);
+
+export type GetPostsQueryVariables = Exact<{
+  skip?: Maybe<Scalars['IntType']>;
+}>;
+
+
+export type GetPostsQuery = (
+  { __typename?: 'Query' }
+  & { allPosts: Array<(
+    { __typename?: 'PostRecord' }
+    & PostMetaFieldsFragment
+  )> }
+);
+
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
@@ -3011,20 +3069,7 @@ export type GetPostQuery = (
   { __typename?: 'Query' }
   & { post?: Maybe<(
     { __typename?: 'PostRecord' }
-    & Pick<PostRecord, '_firstPublishedAt' | 'title' | 'slug' | 'subtitle' | 'content'>
-    & { _seoMetaTags: Array<(
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'attributes' | 'content' | 'tag'>
-    )>, cover?: Maybe<(
-      { __typename?: 'FileField' }
-      & { responsiveImage?: Maybe<(
-        { __typename?: 'ResponsiveImage' }
-        & ResponsiveImageFieldsFragment
-      )> }
-    )>, tags: Array<(
-      { __typename?: 'TagRecord' }
-      & Pick<TagRecord, 'slug' | 'title'>
-    )> }
+    & PostFieldsFragment
   )> }
 );
 
