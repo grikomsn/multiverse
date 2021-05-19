@@ -3,10 +3,11 @@ import * as React from "react";
 import DatoImage from "~components/dato-image";
 import { postComponents } from "~components/markdown";
 import { postPlugins } from "~components/markdown/plugins";
-import { GetPostQuery } from "~generated/graphql";
+import { PostFieldsFragment } from "~generated/graphql";
 import cms from "~lib/cms";
 
 import {
+  Box,
   Button,
   Center,
   Container,
@@ -29,7 +30,7 @@ import { FaChevronUp } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
 interface PostPageProps {
-  post: GetPostQuery["post"];
+  post: PostFieldsFragment;
 }
 
 export const getStaticProps: GetStaticProps<PostPageProps> = async (ctx) => {
@@ -76,7 +77,11 @@ const PostPage: NextPage<PostPageProps> = (props) => {
     <>
       <Head>{renderMetaTags(post._seoMetaTags as SeoMetaTagType[])}</Head>
 
-      {post.cover && <DatoImage data={post.cover.responsiveImage} />}
+      {post.cover && (
+        <Box bgColor="whiteAlpha.800">
+          <DatoImage data={post.cover.responsiveImage} />
+        </Box>
+      )}
 
       <Container maxW="6xl" p={[4, 8]}>
         <Stack align="center" spacing={4} textAlign="center">
