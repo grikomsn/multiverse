@@ -22,8 +22,13 @@ export function useMobileDrawer() {
   );
   return {
     isOpen,
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     onClose: useCallback(() => onToggle(false), []),
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     onOpen: useCallback(() => onToggle(true), []),
+
     onToggle,
   };
 }

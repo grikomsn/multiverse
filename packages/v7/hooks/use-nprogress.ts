@@ -26,6 +26,7 @@ export default function useNProgress(router: NextRouter) {
         nprogress.done();
       });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

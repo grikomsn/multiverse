@@ -25,7 +25,7 @@ type Components = Partial<NormalComponents & SpecialComponents>;
 
 function wrapLinkId(id: unknown, children: React.ReactNode) {
   if (id) {
-    return <Link href={`#${id}`}>{children}</Link>;
+    return <Link href={`#${id as string}`}>{children}</Link>;
   }
 
   return children;
