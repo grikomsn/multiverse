@@ -5,10 +5,9 @@ import { PostMetaFieldsFragment } from "~generated/graphql";
 
 import {
   Box,
+  BoxProps,
   Heading,
   Link,
-  LinkBox,
-  LinkOverlay,
   Stack,
   Tag,
   Text,
@@ -17,15 +16,15 @@ import {
 } from "@chakra-ui/react";
 import format from "date-fns/format";
 
-interface PostItemProps {
+interface PostItemProps extends BoxProps {
   post: PostMetaFieldsFragment;
 }
 
 const PostItem: React.FC<PostItemProps> = (props) => {
-  const { post } = props;
+  const { post, ...rest } = props;
 
   return (
-    <LinkBox
+    <Box
       _hover={{
         bgColor: "whiteAlpha.200",
         boxShadow: "lg",
@@ -40,6 +39,7 @@ const PostItem: React.FC<PostItemProps> = (props) => {
       transitionProperty="common"
       transitionTimingFunction="ease-out"
       w="full"
+      {...rest}
     >
       {post.cover && (
         <Box bgColor="whiteAlpha.800">
@@ -50,9 +50,7 @@ const PostItem: React.FC<PostItemProps> = (props) => {
         <Text color="whiteAlpha.700" fontSize="sm">
           {format(new Date(post._firstPublishedAt as string), "PPPP")}
         </Text>
-        <LinkOverlay href={`/blog/${post.slug}`}>
-          <Heading size="lg">{post.title}</Heading>
-        </LinkOverlay>
+        <Heading size="lg">{post.title}</Heading>
         <Text color="whiteAlpha.600" fontStyle="italic" pb={4}>
           {post.subtitle}
         </Text>
@@ -68,7 +66,7 @@ const PostItem: React.FC<PostItemProps> = (props) => {
           ))}
         </Wrap>
       </Stack>
-    </LinkBox>
+    </Box>
   );
 };
 
