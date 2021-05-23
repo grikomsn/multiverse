@@ -7,7 +7,6 @@ import {
   Box,
   BoxProps,
   Heading,
-  Link,
   Stack,
   Tag,
   Text,
@@ -15,6 +14,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import format from "date-fns/format";
+import Link from "next/link";
 
 interface PostItemProps extends BoxProps {
   post: PostMetaFieldsFragment;
