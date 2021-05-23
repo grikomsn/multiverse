@@ -48,6 +48,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
                 MozTransform: "translate3d(0, 0, 0)",
                 WebkitTransform: "translate3d(0, 0, 0)",
               }}
+              transform="auto-gpu"
               transitionDuration="normal"
               transitionProperty="common"
               transitionTimingFunction="ease-out"

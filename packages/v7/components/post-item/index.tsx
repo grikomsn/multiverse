@@ -28,13 +28,14 @@ const PostItem: React.FC<PostItemProps> = (props) => {
       _hover={{
         bgColor: "whiteAlpha.200",
         boxShadow: "lg",
-        transform: "translateY(-4px)",
+        translateY: "-4px",
       }}
       bgColor="whiteAlpha.50"
       borderRadius="md"
       boxShadow="sm"
       overflow="hidden"
       role="group"
+      transform="auto-gpu"
       transitionDuration="fast"
       transitionProperty="common"
       transitionTimingFunction="ease-out"

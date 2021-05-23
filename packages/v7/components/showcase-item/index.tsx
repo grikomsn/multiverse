@@ -26,7 +26,7 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
   return (
     <LinkBox
       key={data.id as string}
-      _hover={{ boxShadow: "lg", transform: "translateY(-4px)" }}
+      _hover={{ boxShadow: "lg", translateY: "-4px" }}
       bgColor="whiteAlpha.50"
       borderRadius="md"
       boxShadow="sm"
@@ -34,6 +34,7 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
       overflow="hidden"
       pos="relative"
       role="group"
+      transform="auto-gpu"
       transitionDuration="fast"
       transitionProperty="common"
       transitionTimingFunction="ease-out"
