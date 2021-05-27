@@ -54,7 +54,7 @@ const MobileModal: React.FC = () => {
                 <Link key={name} href={route} passHref>
                   <Button
                     as="a"
-                    colorScheme={isRoute(route) ? "yellow" : null}
+                    colorScheme={isRoute(route) ? "yellow" : undefined}
                     fontWeight={isRoute(route) ? "bold" : "normal"}
                     onClick={onClose}
                     size="lg"

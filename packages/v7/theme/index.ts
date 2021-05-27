@@ -1,11 +1,10 @@
 import {
   extendTheme,
-  Theme,
   theme as defaultTheme,
   ThemeOverride,
 } from "@chakra-ui/react";
 
-export default <Theme>extendTheme(<ThemeOverride>{
+export default extendTheme(<ThemeOverride>{
   components: {
     Heading: {
       baseStyle: {
@@ -47,7 +46,6 @@ export default <Theme>extendTheme(<ThemeOverride>{
         fontFamily: "body",
         lineHeight: "base",
         minH: "100vh",
-        transition: "background-color 0.2s",
 
         MozOsxFontSmoothing: "grayscale",
         WebkitFontSmoothing: "antialiased",

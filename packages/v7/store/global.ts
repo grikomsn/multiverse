@@ -20,6 +20,7 @@ export function useMobileDrawer() {
     (store) => [store.isMobileDrawerOpen, store.toggleMobileDrawer],
     shallow,
   );
+
   return {
     isOpen,
 
