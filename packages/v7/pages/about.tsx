@@ -83,7 +83,7 @@ const AboutPage: NextPage<AboutPageProps> = (props) => {
 
         <Text pb={2}>
           You can reach out via email at{" "}
-          <Link href="mailto:meta.about.email" variant="link">
+          <Link href={`mailto:${meta.about.email}`} variant="link">
             {meta.about.email}
           </Link>
           , or via socials below:
