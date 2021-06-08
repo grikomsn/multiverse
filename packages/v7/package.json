@@ -32,6 +32,7 @@
     "@types/react-dom": "^17",
     "@types/react-syntax-highlighter": "^13",
     "date-fns": "^2",
+    "fathom-client": "^3",
     "framer-motion": "^3",
     "graphql": "^15",
     "graphql-request": "^3",
