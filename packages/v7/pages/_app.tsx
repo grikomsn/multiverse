@@ -6,6 +6,8 @@ import MotionBox from "~components/motion/box";
 import Navbar from "~components/navbar";
 import siteConfig from "~config/site";
 import { WebsiteSeoTagsQuery } from "~generated/graphql";
+import useFathom from "~hooks/use-fathom";
+import useKeybinds from "~hooks/use-keybinds";
 import useNProgress from "~hooks/use-nprogress";
 import cms from "~lib/cms";
 import { MetaContext } from "~store/meta";
@@ -17,7 +19,6 @@ import NextApp, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 import { renderMetaTags, SeoMetaTagType } from "react-datocms";
-import tinykeys from "tinykeys";
 
 interface CustomAppProps extends AppProps {
   meta: WebsiteSeoTagsQuery;
@@ -63,23 +64,9 @@ const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { meta, router } = props;
 
+  useFathom(router);
+  useKeybinds(router);
   useNProgress(router);
-
-  React.useEffect(() => {
-    const unsub = tinykeys(window, {
-      "g h": () => router.push("/"),
-      "g b": () => router.push("/blog"),
-      "g a": () => router.push("/appearances"),
-      "g p": () => router.push("/projects"),
-      "g m": () => router.push("/about"),
-      "g d": () => window.open(siteConfig.dashboardUrl, "_blank"),
-    });
-
-    return () => {
-      unsub();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return null;
 };
