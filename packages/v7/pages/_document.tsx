@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import analyticsConfig from "~config/analytics";
+
 import { ColorModeScript } from "@chakra-ui/react";
 import NextDocument, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
 
@@ -26,7 +28,7 @@ export default class Document extends NextDocument {
           <Main />
           <NextScript />
 
-          <script data-cf-beacon='{"token": "52f35304eb2444229661422ed30baaed"}' defer src="https://static.cloudflareinsights.com/beacon.min.js" />
+          <script data-cf-beacon={`{"token": "${analyticsConfig.cloudflareBeaconToken}"}`} defer src="https://static.cloudflareinsights.com/beacon.min.js" />
         </body>
       </Html>
     );
