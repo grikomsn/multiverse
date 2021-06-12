@@ -6,7 +6,6 @@ import MotionBox from "~components/motion/box";
 import Navbar from "~components/navbar";
 import siteConfig from "~config/site";
 import { WebsiteSeoTagsQuery } from "~generated/graphql";
-import useFathom from "~hooks/use-fathom";
 import useKeybinds from "~hooks/use-keybinds";
 import useNProgress from "~hooks/use-nprogress";
 import cms from "~lib/cms";
@@ -64,7 +63,6 @@ const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { meta, router } = props;
 
-  useFathom(router);
   useKeybinds(router);
   useNProgress(router);
 
