@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "# general commands": "##################################################",
+    "clean": "rimraf .eslintcache",
     "lint": "eslint --fix \"./**/*.{js,jsx,ts,tsx}\"",
     "precommit": "lint-staged",
     "type-check": "tsc --noEmit",

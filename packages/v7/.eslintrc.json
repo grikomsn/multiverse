@@ -1,4 +1,4 @@
 {
-  "extends": ["../../.eslintrc.json"],
+  "extends": ["../../.eslintrc.json", "plugin:@next/next/recommended"],
   "ignorePatterns": ["generated/**/*"]
 }
