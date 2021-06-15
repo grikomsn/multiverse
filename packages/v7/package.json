@@ -60,7 +60,8 @@
     "@graphql-codegen/schema-ast": "^1",
     "@graphql-codegen/typescript": "^1",
     "@graphql-codegen/typescript-graphql-request": "^3",
-    "@graphql-codegen/typescript-operations": "^1"
+    "@graphql-codegen/typescript-operations": "^1",
+    "eslint-config-next": "^11"
   },
   "private": true
 }
