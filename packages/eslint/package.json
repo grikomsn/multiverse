@@ -1,0 +1,23 @@
+{
+  "name": "@grikomsn/eslint-config",
+  "version": "0.0.0",
+  "scripts": {
+    "# general commands": "##################################################",
+    "clean": "rimraf .eslintcache",
+    "lint": "eslint --fix \"./**/*.{js,ts}\"",
+    "precommit": "lint-staged",
+    "#": "###################################################################"
+  },
+  "dependencies": {
+    "eslint": "^7",
+    "eslint-config-kentcdodds": "^19",
+    "eslint-config-prettier": "^8",
+    "eslint-plugin-jsx-a11y": "^6",
+    "eslint-config-next": "^11",
+    "eslint-plugin-prettier": "^3",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-simple-import-sort": "^7"
+  },
+  "devDependencies": {},
+  "private": true
+}
