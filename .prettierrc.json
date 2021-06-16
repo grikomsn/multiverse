@@ -1,13 +1,5 @@
 {
   "endOfLine": "auto",
-  "overrides": [
-    {
-      "files": ["packages/v7/pages/_document.tsx"],
-      "options": {
-        "printWidth": 999
-      }
-    }
-  ],
   "semi": true,
   "singleQuote": false,
   "trailingComma": "all"
