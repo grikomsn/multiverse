@@ -1,5 +1,9 @@
 const path = require("path");
 
+const headers = require("./config/headers");
+const redirects = require("./config/redirects");
+
+/** @type {import("next/dist/next-server/server/config-shared").NextConfig} */
 module.exports = {
   // https://github.com/vercel/next.js/blob/canary/packages/next/next-server/server/config-shared.ts#L42-L65
   experimental: {
@@ -11,19 +15,7 @@ module.exports = {
   },
 
   // https://nextjs.org/docs/api-reference/next.config.js/headers
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, s-maxage=1, stale-while-revalidate=59",
-          },
-        ],
-      },
-    ];
-  },
+  headers,
 
   // https://nextjs.org/docs/basic-features/image-optimization#domains
   images: {
@@ -38,15 +30,7 @@ module.exports = {
   reactStrictMode: true,
 
   // https://nextjs.org/docs/api-reference/next.config.js/redirects
-  async redirects() {
-    return [
-      // {
-      //   source: "/blog/:path*",
-      //   destination: "/blog",
-      //   permanent: false,
-      // },
-    ];
-  },
+  redirects,
 
   // https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
   /** @param {import("webpack").Configuration} config */
