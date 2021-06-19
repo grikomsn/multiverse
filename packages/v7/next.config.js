@@ -1,6 +1,15 @@
 const path = require("path");
 
 module.exports = {
+  // https://github.com/vercel/next.js/blob/canary/packages/next/next-server/server/config-shared.ts#L42-L65
+  experimental: {
+    conformance: true,
+    optimizeCss: true,
+    optimizeImages: true,
+    scrollRestoration: true,
+    workerThreads: true,
+  },
+
   // https://nextjs.org/docs/api-reference/next.config.js/headers
   async headers() {
     return [
