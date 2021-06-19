@@ -37,6 +37,7 @@ MIT License &copy; ${new Date().getFullYear()}&ndash;present
             as="a"
             href={GitHub}
             icon={<Icon as={FaGithub} />}
+            rounded="full"
             target="_blank"
             variant="ghost"
           />
@@ -45,6 +46,7 @@ MIT License &copy; ${new Date().getFullYear()}&ndash;present
             as="a"
             href={Twitter}
             icon={<Icon as={FaTwitter} />}
+            rounded="full"
             target="_blank"
             variant="ghost"
           />
