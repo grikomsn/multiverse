@@ -85,7 +85,6 @@ export default function App(props: CustomAppProps) {
         defaultTitle={meta.site.seo.fallback.title}
         description={meta.site.seo.fallback.description}
         openGraph={{
-          title: meta.site.seo.fallback.title,
           type: "website",
           site_name: meta.site.seo.siteName,
           images: [meta.site.seo.fallback.image],
