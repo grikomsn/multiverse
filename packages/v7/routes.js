@@ -5,4 +5,5 @@ const routes = {
   "/projects": "Projects",
   "/about": "About",
 };
+
 module.exports = routes;
