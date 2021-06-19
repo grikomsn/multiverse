@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 
-import { NextRouter } from "next/router";
+import { useRouter } from "next/router";
 import nprogress from "nprogress";
 
-export default function useNProgress(router: NextRouter) {
+export default function useNProgress() {
+  const router = useRouter();
+
   useEffect(() => {
     router.events.on("routeChangeStart", () => {
       nprogress.start();

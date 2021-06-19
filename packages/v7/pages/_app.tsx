@@ -59,12 +59,12 @@ const PAGE_TRANSITION_VARIANTS = {
   },
 };
 
-const Effects: React.FC<Pick<CustomAppProps, "meta" | "router">> = (props) => {
+const Effects: React.FC<Pick<CustomAppProps, "meta">> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { meta, router } = props;
+  const { meta } = props;
 
-  useKeybinds(router);
-  useNProgress(router);
+  useKeybinds();
+  useNProgress();
 
   return null;
 };
@@ -122,7 +122,7 @@ export default function App(props: CustomAppProps) {
         <MobileDrawer />
       </Flex>
 
-      <Effects meta={meta} router={router} />
+      <Effects meta={meta} />
     </Providers>
   );
 }

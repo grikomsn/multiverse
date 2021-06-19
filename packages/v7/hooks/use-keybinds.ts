@@ -2,10 +2,12 @@ import { useEffect } from "react";
 
 import siteConfig from "~config/site";
 
-import { NextRouter } from "next/router";
+import { useRouter } from "next/router";
 import tinykeys from "tinykeys";
 
-export default function useKeybinds(router: NextRouter) {
+export default function useKeybinds() {
+  const router = useRouter();
+
   useEffect(() => {
     const unsub = tinykeys(window, {
       "g h": () => router.push("/"),
