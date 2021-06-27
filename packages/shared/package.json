@@ -16,7 +16,7 @@
   "peerDependencies": {
     "graphql": "^15",
     "graphql-request": "^3",
-    "next": "^10",
+    "next": "^11",
     "next-connect": "^0"
   },
   "private": true
