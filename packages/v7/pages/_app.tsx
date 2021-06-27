@@ -9,10 +9,12 @@ import { WebsiteSeoTagsQuery } from "~generated/graphql";
 import useKeybinds from "~hooks/use-keybinds";
 import useNProgress from "~hooks/use-nprogress";
 import cms from "~lib/cms";
+import emotionCache from "~lib/emotion-cache";
 import { MetaContext } from "~store/meta";
 import theme from "~theme";
 
 import { ChakraProvider, EASINGS, Flex } from "@chakra-ui/react";
+import { CacheProvider } from "@emotion/react";
 import { AnimatePresence } from "framer-motion";
 import NextApp, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
@@ -27,12 +29,14 @@ const Providers: React.FC<Pick<CustomAppProps, "meta">> = (props) => {
   const { meta, children } = props;
 
   return (
-    <ChakraProvider resetCSS theme={theme}>
-      <MetaContext.Provider value={meta}>
-        {/*  */}
-        {children}
-      </MetaContext.Provider>
-    </ChakraProvider>
+    <CacheProvider value={emotionCache}>
+      <ChakraProvider resetCSS theme={theme}>
+        <MetaContext.Provider value={meta}>
+          {/*  */}
+          {children}
+        </MetaContext.Provider>
+      </ChakraProvider>
+    </CacheProvider>
   );
 };
 
