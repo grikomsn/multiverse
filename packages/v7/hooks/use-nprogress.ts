@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+
+import { useGlobalStore } from "~store/global";
 
 import { useRouter } from "next/router";
 import nprogress from "nprogress";
@@ -6,27 +8,28 @@ import nprogress from "nprogress";
 export default function useNProgress() {
   const router = useRouter();
 
+  const closeModals = useGlobalStore(
+    useCallback((store) => store.closeModals, []),
+  );
+
   useEffect(() => {
-    router.events.on("routeChangeStart", () => {
+    function routeStart() {
       nprogress.start();
-    });
-    router.events.on("routeChangeComplete", () => {
+      closeModals();
+    }
+
+    function routeDone() {
       nprogress.done();
-    });
-    router.events.on("routeChangeError", () => {
-      nprogress.done();
-    });
+    }
+
+    router.events.on("routeChangeStart", routeStart);
+    router.events.on("routeChangeComplete", routeDone);
+    router.events.on("routeChangeError", routeDone);
 
     return () => {
-      router.events.off("routeChangeStart", () => {
-        nprogress.start();
-      });
-      router.events.off("routeChangeComplete", () => {
-        nprogress.done();
-      });
-      router.events.off("routeChangeError", () => {
-        nprogress.done();
-      });
+      router.events.off("routeChangeStart", routeStart);
+      router.events.off("routeChangeComplete", routeDone);
+      router.events.off("routeChangeError", routeDone);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
