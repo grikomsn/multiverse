@@ -77,9 +77,7 @@ const AboutPage: NextPage<AboutPageProps> = (props) => {
           ))}
         </SimpleGrid>
 
-        <Box color="whiteAlpha.400" py={8}>
-          · · ·
-        </Box>
+        <Box h={8} />
 
         <Text pb={2}>
           You can reach out via email at{" "}

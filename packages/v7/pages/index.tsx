@@ -63,7 +63,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
             {meta.site.seo.fallback.description}
           </Text>
 
-          <Box color="whiteAlpha.400">· · ·</Box>
+          <Box h={8} />
 
           <Text pb={8}>
             Reach me via email at{" "}
