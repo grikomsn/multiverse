@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { baseComponents } from "~components/markdown";
+import { useCheatsheet } from "~store/global";
 import { useMeta } from "~store/meta";
 
 import {
@@ -10,6 +11,7 @@ import {
   IconButton,
   Stack,
 } from "@chakra-ui/react";
+import { BiCommand } from "react-icons/bi";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
@@ -26,6 +28,8 @@ MIT License &copy; ${new Date().getFullYear()}&ndash;present
 `;
 
   const { GitHub, Twitter } = meta.about.socialsJson as Record<string, string>;
+
+  const { onToggle } = useCheatsheet();
 
   return (
     <Container as="footer" color="whiteAlpha.700" maxW="4xl" p={[4, 8]}>
@@ -48,6 +52,13 @@ MIT License &copy; ${new Date().getFullYear()}&ndash;present
             icon={<Icon as={FaTwitter} />}
             rounded="full"
             target="_blank"
+            variant="ghost"
+          />
+          <IconButton
+            aria-label="Open keybinds cheatsheet"
+            icon={<Icon as={BiCommand} />}
+            onClick={onToggle}
+            rounded="full"
             variant="ghost"
           />
         </ButtonGroup>
