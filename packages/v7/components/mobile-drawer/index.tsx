@@ -69,17 +69,11 @@ const MobileModal: React.FC = () => {
       </Modal>
 
       {isMobile && (
-        <Center
-          bgGradient="linear(to-t, gray.900, transparent)"
-          bottom={0}
-          insetX={0}
-          p={4}
-          pointerEvents="none"
-          pos="sticky"
-        >
+        <Center bottom={0} insetX={0} p={4} pointerEvents="none" pos="sticky">
           <SlideFade in={!isOpen}>
             <Button
               bgColor="blackAlpha.600"
+              boxShadow="dark-lg"
               leftIcon={<Icon as={FaBars} />}
               onClick={onToggle}
               pointerEvents="visible"
