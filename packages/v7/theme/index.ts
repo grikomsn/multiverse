@@ -19,6 +19,21 @@ export default extendTheme(<ThemeOverride>{
         },
       },
     },
+    Modal: {
+      baseStyle: {
+        dialog: {
+          bgColor: "gray.900",
+        },
+        overlay: {
+          "@supports (backdrop-filter: blur(4px))": {
+            "backdrop-filter": "blur(4px)",
+          },
+          "@supports (-webkit-backdrop-filter: blur(4px))": {
+            "-webkit-backdrop-filter": "blur(4px)",
+          },
+        },
+      },
+    },
   },
 
   config: {

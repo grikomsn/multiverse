@@ -38,17 +38,8 @@ const MobileModal: React.FC = () => {
   return (
     <>
       <Modal isCentered isOpen={isOpen} onClose={onClose} size="xs">
-        <ModalOverlay
-          sx={{
-            "@supports (backdrop-filter: blur(4px))": {
-              "backdrop-filter": "blur(4px)",
-            },
-            "@supports (-webkit-backdrop-filter: blur(4px))": {
-              "-webkit-backdrop-filter": "blur(4px)",
-            },
-          }}
-        >
-          <ModalContent bgColor="gray.900">
+        <ModalOverlay>
+          <ModalContent>
             <ModalBody d="flex" flexDir="column" justifyContent="center" p={8}>
               {routeArray.map(([route, name]) => (
                 <Link key={name} href={route} passHref>
