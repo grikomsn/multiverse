@@ -47,6 +47,9 @@ export default extendTheme(<ThemeOverride>{
 
   styles: {
     global: {
+      ":root": {
+        colorScheme: "dark",
+      },
       "::selection, ::-moz-selection": {
         bgColor: "whiteAlpha.400",
       },
