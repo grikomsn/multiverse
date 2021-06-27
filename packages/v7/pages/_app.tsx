@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Footer from "~components/footer";
+import KeybindsCheatsheet from "~components/keybinds-cheatsheet/lazy";
 import MobileDrawer from "~components/mobile-drawer/lazy";
 import MotionBox from "~components/motion/box";
 import Navbar from "~components/navbar";
@@ -123,6 +124,7 @@ export default function App(props: CustomAppProps) {
         </AnimatePresence>
         <Footer />
         <MobileDrawer />
+        <KeybindsCheatsheet />
       </Flex>
 
       <Effects meta={meta} />
