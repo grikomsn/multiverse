@@ -141,35 +141,6 @@ Represents `true` or `false` values.
 """
 scalar BooleanType
 
-"""
-Record of type Build Trigger (build_trigger)
-"""
-type BuildTriggerRecord {
-  _createdAt: DateTime!
-  _firstPublishedAt: DateTime
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
-
-  """
-  SEO meta tags
-  """
-  _seoMetaTags(
-    """
-    The locale to use to fetch the field's content
-    """
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  createdAt: DateTime!
-  id: ItemId!
-  updatedAt: DateTime!
-  webhookUrls: [UrlRecord]
-}
-
 type CollectionMetadata {
   count: IntType!
 }
@@ -2325,16 +2296,6 @@ type Query {
   ): AppearanceRecord
 
   """
-  Returns the single instance record
-  """
-  buildTrigger(
-    """
-    The locale to use to fetch the field's content
-    """
-    locale: SiteLocale
-  ): BuildTriggerRecord
-
-  """
   Returns a specific record
   """
   post(
@@ -3394,35 +3355,6 @@ input UploadWidthFilter {
   Search assets that do not have the specified width
   """
   neq: IntType
-}
-
-"""
-Record of type URL (url)
-"""
-type UrlRecord {
-  _createdAt: DateTime!
-  _firstPublishedAt: DateTime
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
-
-  """
-  SEO meta tags
-  """
-  _seoMetaTags(
-    """
-    The locale to use to fetch the field's content
-    """
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  createdAt: DateTime!
-  id: ItemId!
-  updatedAt: DateTime!
-  url: String
 }
 
 enum VideoMp4Res {

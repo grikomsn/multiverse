@@ -159,31 +159,6 @@ export type BooleanFilter = {
 };
 
 
-/** Record of type Build Trigger (build_trigger) */
-export type BuildTriggerRecord = {
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
-  _publishedAt: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
-  _seoMetaTags: Array<Tag>;
-  _status: ItemStatus;
-  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  updatedAt: Scalars['DateTime'];
-  webhookUrls: Maybe<Array<Maybe<UrlRecord>>>;
-};
-
-
-/** Record of type Build Trigger (build_trigger) */
-export type BuildTriggerRecord_SeoMetaTagsArgs = {
-  locale: Maybe<SiteLocale>;
-};
-
 export type CollectionMetadata = {
   count: Scalars['IntType'];
 };
@@ -1858,8 +1833,6 @@ export type Query = {
   allUploads: Array<FileField>;
   /** Returns a specific record */
   appearance: Maybe<AppearanceRecord>;
-  /** Returns the single instance record */
-  buildTrigger: Maybe<BuildTriggerRecord>;
   /** Returns a specific record */
   post: Maybe<PostRecord>;
   /** Returns a specific record */
@@ -1973,12 +1946,6 @@ export type QueryAppearanceArgs = {
   locale: Maybe<SiteLocale>;
   filter: Maybe<AppearanceModelFilter>;
   orderBy?: Maybe<Array<Maybe<AppearanceModelOrderBy>>>;
-};
-
-
-/** The query root for this schema */
-export type QueryBuildTriggerArgs = {
-  locale: Maybe<SiteLocale>;
 };
 
 
@@ -2641,31 +2608,6 @@ export type UploadWidthFilter = {
   neq: Maybe<Scalars['IntType']>;
 };
 
-/** Record of type URL (url) */
-export type UrlRecord = {
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
-  _publishedAt: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
-  _seoMetaTags: Array<Tag>;
-  _status: ItemStatus;
-  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  updatedAt: Scalars['DateTime'];
-  url: Maybe<Scalars['String']>;
-};
-
-
-/** Record of type URL (url) */
-export type UrlRecord_SeoMetaTagsArgs = {
-  locale: Maybe<SiteLocale>;
-};
-
 export enum VideoMp4Res {
   Low = 'low',
   Medium = 'medium',
@@ -2774,15 +2716,6 @@ export const AppearancesStaticPropsDocument = /*#__PURE__*/ gql`
   }
 }
     ${AppearanceFragmentDoc}`;
-export const BuildTriggerUrlsDocument = /*#__PURE__*/ gql`
-    query buildTriggerUrls {
-  buildTrigger {
-    webhookUrls {
-      url
-    }
-  }
-}
-    `;
 export const HomeStaticPropsDocument = /*#__PURE__*/ gql`
     query homeStaticProps {
   site: _site {
@@ -2898,9 +2831,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     appearancesStaticProps(variables?: AppearancesStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AppearancesStaticPropsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AppearancesStaticPropsQuery>(AppearancesStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'appearancesStaticProps');
     },
-    buildTriggerUrls(variables?: BuildTriggerUrlsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BuildTriggerUrlsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<BuildTriggerUrlsQuery>(BuildTriggerUrlsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'buildTriggerUrls');
-    },
     homeStaticProps(variables?: HomeStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomeStaticPropsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HomeStaticPropsQuery>(HomeStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'homeStaticProps');
     },
@@ -2948,11 +2878,6 @@ export type AppearancesStaticPropsQueryVariables = Exact<{ [key: string]: never;
 
 
 export type AppearancesStaticPropsQuery = { allAppearances: Array<AppearanceFragment> };
-
-export type BuildTriggerUrlsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type BuildTriggerUrlsQuery = { buildTrigger: Maybe<{ webhookUrls: Maybe<Array<Maybe<Pick<UrlRecord, 'url'>>>> }> };
 
 export type ResponsiveImageFieldsFragment = Pick<ResponsiveImage, 'alt' | 'aspectRatio' | 'base64' | 'height' | 'sizes' | 'src' | 'srcSet' | 'title' | 'webpSrcSet' | 'width'>;
 

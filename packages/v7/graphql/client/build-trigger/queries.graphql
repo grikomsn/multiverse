@@ -1,7 +1,0 @@
-query buildTriggerUrls {
-  buildTrigger {
-    webhookUrls {
-      url
-    }
-  }
-}
