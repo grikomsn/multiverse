@@ -1,4 +1,4 @@
-const nonReact = require("./non-react");
+const nonReact = require("./base");
 
 module.exports = {
   ...nonReact,
