@@ -33,59 +33,58 @@ export type Scalars = {
 
 /** Record of type About (about) */
 export type AboutRecord = {
-  __typename?: 'AboutRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
-  coverImage?: Maybe<FileField>;
+  coverImage: Maybe<FileField>;
   createdAt: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
+  email: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
-  knowledgeBases?: Maybe<Array<Maybe<EntryRecord>>>;
-  preface?: Maybe<Scalars['String']>;
-  socialsJson?: Maybe<Scalars['JsonField']>;
+  knowledgeBases: Maybe<Array<Maybe<EntryRecord>>>;
+  preface: Maybe<Scalars['String']>;
+  socialsJson: Maybe<Scalars['JsonField']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
 /** Record of type About (about) */
 export type AboutRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 /** Record of type About (about) */
 export type AboutRecordPrefaceArgs = {
-  markdown?: Maybe<Scalars['Boolean']>;
+  markdown: Maybe<Scalars['Boolean']>;
 };
 
 export type AppearanceModelFilter = {
-  _createdAt?: Maybe<CreatedAtFilter>;
-  createdAt?: Maybe<CreatedAtFilter>;
-  id?: Maybe<ItemIdFilter>;
-  _firstPublishedAt?: Maybe<PublishedAtFilter>;
-  _publicationScheduledAt?: Maybe<PublishedAtFilter>;
-  _unpublishingScheduledAt?: Maybe<PublishedAtFilter>;
-  _publishedAt?: Maybe<PublishedAtFilter>;
-  _status?: Maybe<StatusFilter>;
-  _updatedAt?: Maybe<UpdatedAtFilter>;
-  updatedAt?: Maybe<UpdatedAtFilter>;
-  _isValid?: Maybe<BooleanFilter>;
-  category?: Maybe<StringFilter>;
-  tags?: Maybe<LinksFilter>;
-  url?: Maybe<StringFilter>;
-  subtitle?: Maybe<StringFilter>;
-  date?: Maybe<DateFilter>;
-  title?: Maybe<StringFilter>;
-  OR?: Maybe<Array<Maybe<AppearanceModelFilter>>>;
+  _createdAt: Maybe<CreatedAtFilter>;
+  createdAt: Maybe<CreatedAtFilter>;
+  id: Maybe<ItemIdFilter>;
+  _firstPublishedAt: Maybe<PublishedAtFilter>;
+  _publicationScheduledAt: Maybe<PublishedAtFilter>;
+  _unpublishingScheduledAt: Maybe<PublishedAtFilter>;
+  _publishedAt: Maybe<PublishedAtFilter>;
+  _status: Maybe<StatusFilter>;
+  _updatedAt: Maybe<UpdatedAtFilter>;
+  updatedAt: Maybe<UpdatedAtFilter>;
+  _isValid: Maybe<BooleanFilter>;
+  category: Maybe<StringFilter>;
+  tags: Maybe<LinksFilter>;
+  url: Maybe<StringFilter>;
+  subtitle: Maybe<StringFilter>;
+  date: Maybe<DateFilter>;
+  title: Maybe<StringFilter>;
+  OR: Maybe<Array<Maybe<AppearanceModelFilter>>>;
 };
 
 export enum AppearanceModelOrderBy {
@@ -125,70 +124,67 @@ export enum AppearanceModelOrderBy {
 
 /** Record of type Appearance (appearance) */
 export type AppearanceRecord = {
-  __typename?: 'AppearanceRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
-  category?: Maybe<Scalars['String']>;
+  category: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
-  date?: Maybe<Scalars['Date']>;
+  date: Maybe<Scalars['Date']>;
   id: Scalars['ItemId'];
-  subtitle?: Maybe<Scalars['String']>;
+  subtitle: Maybe<Scalars['String']>;
   tags: Array<TagRecord>;
-  title?: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
+  url: Maybe<Scalars['String']>;
 };
 
 
 /** Record of type Appearance (appearance) */
 export type AppearanceRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 /** Specifies how to filter Boolean fields */
 export type BooleanFilter = {
   /** Search for records with an exact match */
-  eq?: Maybe<Scalars['BooleanType']>;
+  eq: Maybe<Scalars['BooleanType']>;
 };
 
 
 /** Record of type Build Trigger (build_trigger) */
 export type BuildTriggerRecord = {
-  __typename?: 'BuildTriggerRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   updatedAt: Scalars['DateTime'];
-  webhookUrls?: Maybe<Array<Maybe<UrlRecord>>>;
+  webhookUrls: Maybe<Array<Maybe<UrlRecord>>>;
 };
 
 
 /** Record of type Build Trigger (build_trigger) */
 export type BuildTriggerRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 export type CollectionMetadata = {
-  __typename?: 'CollectionMetadata';
   count: Scalars['IntType'];
 };
 
@@ -208,30 +204,29 @@ export enum ColorBucketType {
 }
 
 export type ColorField = {
-  __typename?: 'ColorField';
-  alpha?: Maybe<Scalars['IntType']>;
-  blue?: Maybe<Scalars['IntType']>;
-  green?: Maybe<Scalars['IntType']>;
-  hex?: Maybe<Scalars['String']>;
-  red?: Maybe<Scalars['IntType']>;
+  alpha: Maybe<Scalars['IntType']>;
+  blue: Maybe<Scalars['IntType']>;
+  green: Maybe<Scalars['IntType']>;
+  hex: Maybe<Scalars['String']>;
+  red: Maybe<Scalars['IntType']>;
 };
 
 /** Specifies how to filter by creation datetime */
 export type CreatedAtFilter = {
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: Maybe<Scalars['DateTime']>;
+  gt: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: Maybe<Scalars['DateTime']>;
+  lt: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's greater than or equal to than the one specified */
-  gte?: Maybe<Scalars['DateTime']>;
+  gte: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: Maybe<Scalars['DateTime']>;
+  lte: Maybe<Scalars['DateTime']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
   /** Search for records with an exact match (seconds are truncated) */
-  eq?: Maybe<Scalars['DateTime']>;
+  eq: Maybe<Scalars['DateTime']>;
   /** Exclude records with an exact match */
-  neq?: Maybe<Scalars['DateTime']>;
+  neq: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -239,47 +234,46 @@ export type CreatedAtFilter = {
 /** Specifies how to filter Date fields */
 export type DateFilter = {
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: Maybe<Scalars['Date']>;
+  gt: Maybe<Scalars['Date']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: Maybe<Scalars['Date']>;
+  lt: Maybe<Scalars['Date']>;
   /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: Maybe<Scalars['Date']>;
+  gte: Maybe<Scalars['Date']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: Maybe<Scalars['Date']>;
+  lte: Maybe<Scalars['Date']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
   /** Search for records with an exact match */
-  eq?: Maybe<Scalars['Date']>;
+  eq: Maybe<Scalars['Date']>;
   /** Exclude records with an exact match */
-  neq?: Maybe<Scalars['Date']>;
+  neq: Maybe<Scalars['Date']>;
 };
 
 
 /** Record of type Entry (entry) */
 export type EntryRecord = {
-  __typename?: 'EntryRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
-  entries?: Maybe<Scalars['String']>;
+  entries: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
-  title?: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
 /** Record of type Entry (entry) */
 export type EntryRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 export enum FaviconType {
@@ -289,38 +283,37 @@ export enum FaviconType {
 }
 
 export type FileField = {
-  __typename?: 'FileField';
   _createdAt: Scalars['DateTime'];
   _updatedAt: Scalars['DateTime'];
-  alt?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
+  alt: Maybe<Scalars['String']>;
+  author: Maybe<Scalars['String']>;
   basename: Scalars['String'];
-  blurUpThumb?: Maybe<Scalars['String']>;
-  blurhash?: Maybe<Scalars['String']>;
+  blurUpThumb: Maybe<Scalars['String']>;
+  blurhash: Maybe<Scalars['String']>;
   colors: Array<Maybe<ColorField>>;
-  copyright?: Maybe<Scalars['String']>;
-  customData?: Maybe<Scalars['CustomData']>;
-  exifInfo?: Maybe<Scalars['CustomData']>;
+  copyright: Maybe<Scalars['String']>;
+  customData: Maybe<Scalars['CustomData']>;
+  exifInfo: Maybe<Scalars['CustomData']>;
   filename: Scalars['String'];
-  focalPoint?: Maybe<FocalPoint>;
+  focalPoint: Maybe<FocalPoint>;
   format: Scalars['String'];
-  height?: Maybe<Scalars['IntType']>;
+  height: Maybe<Scalars['IntType']>;
   id: Scalars['UploadId'];
   mimeType: Scalars['String'];
-  notes?: Maybe<Scalars['String']>;
-  responsiveImage?: Maybe<ResponsiveImage>;
+  notes: Maybe<Scalars['String']>;
+  responsiveImage: Maybe<ResponsiveImage>;
   size: Scalars['IntType'];
   smartTags: Array<Maybe<Scalars['String']>>;
   tags: Array<Maybe<Scalars['String']>>;
-  title?: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
   url: Scalars['String'];
-  video?: Maybe<UploadVideoField>;
-  width?: Maybe<Scalars['IntType']>;
+  video: Maybe<UploadVideoField>;
+  width: Maybe<Scalars['IntType']>;
 };
 
 
 export type FileFieldAltArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
@@ -328,57 +321,56 @@ export type FileFieldBlurUpThumbArgs = {
   punch?: Maybe<Scalars['Float']>;
   size?: Maybe<Scalars['Int']>;
   quality?: Maybe<Scalars['Int']>;
-  imgixParams?: Maybe<ImgixParams>;
+  imgixParams: Maybe<ImgixParams>;
 };
 
 
 export type FileFieldCustomDataArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 export type FileFieldFocalPointArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 export type FileFieldResponsiveImageArgs = {
-  imgixParams?: Maybe<ImgixParams>;
-  sizes?: Maybe<Scalars['String']>;
+  imgixParams: Maybe<ImgixParams>;
+  sizes: Maybe<Scalars['String']>;
 };
 
 
 export type FileFieldTitleArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 export type FileFieldUrlArgs = {
-  imgixParams?: Maybe<ImgixParams>;
+  imgixParams: Maybe<ImgixParams>;
 };
 
 /** Specifies how to filter Single-file/image fields */
 export type FileFilter = {
   /** Search for records with an exact match. The specified value must be an Upload ID */
-  eq?: Maybe<Scalars['UploadId']>;
+  eq: Maybe<Scalars['UploadId']>;
   /** Exclude records with an exact match. The specified value must be an Upload ID */
-  neq?: Maybe<Scalars['UploadId']>;
+  neq: Maybe<Scalars['UploadId']>;
   /** Filter records that have one of the specified uploads */
-  in?: Maybe<Array<Maybe<Scalars['UploadId']>>>;
+  in: Maybe<Array<Maybe<Scalars['UploadId']>>>;
   /** Filter records that do not have one of the specified uploads */
-  notIn?: Maybe<Array<Maybe<Scalars['UploadId']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['UploadId']>>>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 
 export type GlobalSeoField = {
-  __typename?: 'GlobalSeoField';
-  facebookPageUrl?: Maybe<Scalars['String']>;
-  fallbackSeo?: Maybe<SeoField>;
-  siteName?: Maybe<Scalars['String']>;
-  titleSuffix?: Maybe<Scalars['String']>;
-  twitterAccount?: Maybe<Scalars['String']>;
+  facebookPageUrl: Maybe<Scalars['String']>;
+  fallbackSeo: Maybe<SeoField>;
+  siteName: Maybe<Scalars['String']>;
+  titleSuffix: Maybe<Scalars['String']>;
+  twitterAccount: Maybe<Scalars['String']>;
 };
 
 export type ImgixParams = {
@@ -389,7 +381,7 @@ export type ImgixParams = {
    *
    * Depends on: `fit=crop`
    */
-  ar?: Maybe<Scalars['String']>;
+  ar: Maybe<Scalars['String']>;
   /**
    * Automatic
    *
@@ -397,7 +389,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/auto)
    */
-  auto?: Maybe<Array<ImgixParamsAuto>>;
+  auto: Maybe<Array<ImgixParamsAuto>>;
   /**
    * Background Color
    *
@@ -405,7 +397,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/bg)
    */
-  bg?: Maybe<Scalars['String']>;
+  bg: Maybe<Scalars['String']>;
   /**
    * Blend Align
    *
@@ -415,7 +407,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-align)
    */
-  blendAlign?: Maybe<Array<ImgixParamsBlendAlign>>;
+  blendAlign: Maybe<Array<ImgixParamsBlendAlign>>;
   /**
    * Blend Alpha
    *
@@ -425,7 +417,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-alpha)
    */
-  blendAlpha?: Maybe<Scalars['IntType']>;
+  blendAlpha: Maybe<Scalars['IntType']>;
   /**
    * Blend Color
    *
@@ -433,7 +425,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-color)
    */
-  blendColor?: Maybe<Scalars['String']>;
+  blendColor: Maybe<Scalars['String']>;
   /**
    * Blend Crop
    *
@@ -443,7 +435,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-crop)
    */
-  blendCrop?: Maybe<Array<ImgixParamsBlendCrop>>;
+  blendCrop: Maybe<Array<ImgixParamsBlendCrop>>;
   /**
    * Blend Fit
    *
@@ -453,7 +445,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-fit)
    */
-  blendFit?: Maybe<ImgixParamsBlendFit>;
+  blendFit: Maybe<ImgixParamsBlendFit>;
   /**
    * Blend Height
    *
@@ -463,7 +455,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-h)
    */
-  blendH?: Maybe<Scalars['FloatType']>;
+  blendH: Maybe<Scalars['FloatType']>;
   /**
    * Blend Mode
    *
@@ -473,7 +465,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-mode)
    */
-  blendMode?: Maybe<ImgixParamsBlendMode>;
+  blendMode: Maybe<ImgixParamsBlendMode>;
   /**
    * Blend Padding
    *
@@ -483,7 +475,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-pad)
    */
-  blendPad?: Maybe<Scalars['IntType']>;
+  blendPad: Maybe<Scalars['IntType']>;
   /**
    * Blend Size
    *
@@ -493,7 +485,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-size)
    */
-  blendSize?: Maybe<ImgixParamsBlendSize>;
+  blendSize: Maybe<ImgixParamsBlendSize>;
   /**
    * Blend Width
    *
@@ -503,7 +495,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-w)
    */
-  blendW?: Maybe<Scalars['FloatType']>;
+  blendW: Maybe<Scalars['FloatType']>;
   /**
    * Blend X Position
    *
@@ -513,7 +505,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-x)
    */
-  blendX?: Maybe<Scalars['IntType']>;
+  blendX: Maybe<Scalars['IntType']>;
   /**
    * Blend Y Position
    *
@@ -523,7 +515,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-y)
    */
-  blendY?: Maybe<Scalars['IntType']>;
+  blendY: Maybe<Scalars['IntType']>;
   /**
    * Blend
    *
@@ -531,7 +523,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend)
    */
-  blend?: Maybe<Scalars['String']>;
+  blend: Maybe<Scalars['String']>;
   /**
    * Gaussian Blur
    *
@@ -539,7 +531,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/blur)
    */
-  blur?: Maybe<Scalars['IntType']>;
+  blur: Maybe<Scalars['IntType']>;
   /**
    * Border Bottom
    *
@@ -547,7 +539,7 @@ export type ImgixParams = {
    *
    * Depends on: `border`
    */
-  borderBottom?: Maybe<Scalars['IntType']>;
+  borderBottom: Maybe<Scalars['IntType']>;
   /**
    * Border Left
    *
@@ -555,7 +547,7 @@ export type ImgixParams = {
    *
    * Depends on: `border`
    */
-  borderLeft?: Maybe<Scalars['IntType']>;
+  borderLeft: Maybe<Scalars['IntType']>;
   /**
    * Inner Border Radius
    *
@@ -565,7 +557,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius-inner)
    */
-  borderRadiusInner?: Maybe<Scalars['String']>;
+  borderRadiusInner: Maybe<Scalars['String']>;
   /**
    * Outer Border Radius
    *
@@ -575,7 +567,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius)
    */
-  borderRadius?: Maybe<Scalars['String']>;
+  borderRadius: Maybe<Scalars['String']>;
   /**
    * Border Right
    *
@@ -583,7 +575,7 @@ export type ImgixParams = {
    *
    * Depends on: `border`
    */
-  borderRight?: Maybe<Scalars['IntType']>;
+  borderRight: Maybe<Scalars['IntType']>;
   /**
    * Border Top
    *
@@ -591,7 +583,7 @@ export type ImgixParams = {
    *
    * Depends on: `border`
    */
-  borderTop?: Maybe<Scalars['IntType']>;
+  borderTop: Maybe<Scalars['IntType']>;
   /**
    * Border Size & Color
    *
@@ -599,7 +591,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border)
    */
-  border?: Maybe<Scalars['String']>;
+  border: Maybe<Scalars['String']>;
   /**
    * Brightness
    *
@@ -607,7 +599,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/bri)
    */
-  bri?: Maybe<Scalars['IntType']>;
+  bri: Maybe<Scalars['IntType']>;
   /**
    * Client Hints
    *
@@ -615,7 +607,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/ch)
    */
-  ch?: Maybe<Array<ImgixParamsCh>>;
+  ch: Maybe<Array<ImgixParamsCh>>;
   /**
    * Chroma Subsampling
    *
@@ -623,7 +615,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/chromasub)
    */
-  chromasub?: Maybe<Scalars['IntType']>;
+  chromasub: Maybe<Scalars['IntType']>;
   /**
    * Color Quantization
    *
@@ -631,7 +623,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/colorquant)
    */
-  colorquant?: Maybe<Scalars['IntType']>;
+  colorquant: Maybe<Scalars['IntType']>;
   /**
    * Palette Color Count
    *
@@ -641,7 +633,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/colors)
    */
-  colors?: Maybe<Scalars['IntType']>;
+  colors: Maybe<Scalars['IntType']>;
   /**
    * Contrast
    *
@@ -649,7 +641,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/con)
    */
-  con?: Maybe<Scalars['IntType']>;
+  con: Maybe<Scalars['IntType']>;
   /**
    * Mask Corner Radius
    *
@@ -659,7 +651,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/corner-radius)
    */
-  cornerRadius?: Maybe<Scalars['String']>;
+  cornerRadius: Maybe<Scalars['String']>;
   /**
    * Crop Mode
    *
@@ -669,7 +661,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/crop)
    */
-  crop?: Maybe<Array<ImgixParamsCrop>>;
+  crop: Maybe<Array<ImgixParamsCrop>>;
   /**
    * Color Space
    *
@@ -677,7 +669,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/cs)
    */
-  cs?: Maybe<ImgixParamsCs>;
+  cs: Maybe<ImgixParamsCs>;
   /**
    * Download
    *
@@ -685,7 +677,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dl)
    */
-  dl?: Maybe<Scalars['String']>;
+  dl: Maybe<Scalars['String']>;
   /**
    * Dots Per Inch
    *
@@ -693,7 +685,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dpi)
    */
-  dpi?: Maybe<Scalars['IntType']>;
+  dpi: Maybe<Scalars['IntType']>;
   /**
    * Device Pixel Ratio
    *
@@ -701,7 +693,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/dpr)
    */
-  dpr?: Maybe<Scalars['FloatType']>;
+  dpr: Maybe<Scalars['FloatType']>;
   /**
    * Duotone Alpha
    *
@@ -711,7 +703,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone-alpha)
    */
-  duotoneAlpha?: Maybe<Scalars['IntType']>;
+  duotoneAlpha: Maybe<Scalars['IntType']>;
   /**
    * Duotone
    *
@@ -719,7 +711,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone)
    */
-  duotone?: Maybe<Scalars['String']>;
+  duotone: Maybe<Scalars['String']>;
   /**
    * Exposure
    *
@@ -727,7 +719,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/exp)
    */
-  exp?: Maybe<Scalars['IntType']>;
+  exp: Maybe<Scalars['IntType']>;
   /**
    * Url Expiration Timestamp
    *
@@ -735,7 +727,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/expires)
    */
-  expires?: Maybe<Scalars['IntType']>;
+  expires: Maybe<Scalars['IntType']>;
   /**
    * Face Index
    *
@@ -745,7 +737,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faceindex)
    */
-  faceindex?: Maybe<Scalars['IntType']>;
+  faceindex: Maybe<Scalars['IntType']>;
   /**
    * Face Padding
    *
@@ -755,7 +747,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/facepad)
    */
-  facepad?: Maybe<Scalars['FloatType']>;
+  facepad: Maybe<Scalars['FloatType']>;
   /**
    * Json Face Data
    *
@@ -765,7 +757,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faces)
    */
-  faces?: Maybe<Scalars['IntType']>;
+  faces: Maybe<Scalars['IntType']>;
   /**
    * Fill Color
    *
@@ -775,7 +767,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-color)
    */
-  fillColor?: Maybe<Scalars['String']>;
+  fillColor: Maybe<Scalars['String']>;
   /**
    * Fill Mode
    *
@@ -785,7 +777,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill)
    */
-  fill?: Maybe<ImgixParamsFill>;
+  fill: Maybe<ImgixParamsFill>;
   /**
    * Resize Fit Mode
    *
@@ -793,7 +785,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/fit)
    */
-  fit?: Maybe<ImgixParamsFit>;
+  fit: Maybe<ImgixParamsFit>;
   /**
    * Flip Axis
    *
@@ -801,7 +793,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/flip)
    */
-  flip?: Maybe<ImgixParamsFlip>;
+  flip: Maybe<ImgixParamsFlip>;
   /**
    * Output Format
    *
@@ -809,7 +801,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/fm)
    */
-  fm?: Maybe<ImgixParamsFm>;
+  fm: Maybe<ImgixParamsFm>;
   /**
    * Focal Point Debug
    *
@@ -819,7 +811,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-debug)
    */
-  fpDebug?: Maybe<Scalars['BooleanType']>;
+  fpDebug: Maybe<Scalars['BooleanType']>;
   /**
    * Focal Point X Position
    *
@@ -829,7 +821,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-x)
    */
-  fpX?: Maybe<Scalars['FloatType']>;
+  fpX: Maybe<Scalars['FloatType']>;
   /**
    * Focal Point Y Position
    *
@@ -839,7 +831,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-y)
    */
-  fpY?: Maybe<Scalars['FloatType']>;
+  fpY: Maybe<Scalars['FloatType']>;
   /**
    * Focal Point Zoom
    *
@@ -849,7 +841,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-z)
    */
-  fpZ?: Maybe<Scalars['IntType']>;
+  fpZ: Maybe<Scalars['IntType']>;
   /**
    * Gamma
    *
@@ -857,7 +849,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/gam)
    */
-  gam?: Maybe<Scalars['IntType']>;
+  gam: Maybe<Scalars['IntType']>;
   /**
    * Grid Colors
    *
@@ -865,7 +857,7 @@ export type ImgixParams = {
    *
    * Depends on: `transparency`
    */
-  gridColors?: Maybe<Scalars['String']>;
+  gridColors: Maybe<Scalars['String']>;
   /**
    * Grid Size
    *
@@ -873,7 +865,7 @@ export type ImgixParams = {
    *
    * Depends on: `transparency`
    */
-  gridSize?: Maybe<Scalars['IntType']>;
+  gridSize: Maybe<Scalars['IntType']>;
   /**
    * Image Height
    *
@@ -881,7 +873,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/h)
    */
-  h?: Maybe<Scalars['FloatType']>;
+  h: Maybe<Scalars['FloatType']>;
   /**
    * Highlight
    *
@@ -889,7 +881,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/high)
    */
-  high?: Maybe<Scalars['IntType']>;
+  high: Maybe<Scalars['IntType']>;
   /**
    * Halftone
    *
@@ -897,7 +889,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/htn)
    */
-  htn?: Maybe<Scalars['IntType']>;
+  htn: Maybe<Scalars['IntType']>;
   /**
    * Hue Shift
    *
@@ -905,7 +897,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/hue)
    */
-  hue?: Maybe<Scalars['IntType']>;
+  hue: Maybe<Scalars['IntType']>;
   /**
    * Invert
    *
@@ -913,7 +905,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/invert)
    */
-  invert?: Maybe<Scalars['BooleanType']>;
+  invert: Maybe<Scalars['BooleanType']>;
   /**
    * Lossless Compression
    *
@@ -923,7 +915,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/lossless)
    */
-  lossless?: Maybe<Scalars['BooleanType']>;
+  lossless: Maybe<Scalars['BooleanType']>;
   /**
    * Watermark Alignment Mode
    *
@@ -933,7 +925,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-align)
    */
-  markAlign?: Maybe<Array<ImgixParamsMarkAlign>>;
+  markAlign: Maybe<Array<ImgixParamsMarkAlign>>;
   /**
    * Watermark Alpha
    *
@@ -943,7 +935,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-alpha)
    */
-  markAlpha?: Maybe<Scalars['IntType']>;
+  markAlpha: Maybe<Scalars['IntType']>;
   /**
    * Watermark Base Url
    *
@@ -953,7 +945,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-base)
    */
-  markBase?: Maybe<Scalars['String']>;
+  markBase: Maybe<Scalars['String']>;
   /**
    * Watermark Fit Mode
    *
@@ -963,7 +955,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-fit)
    */
-  markFit?: Maybe<ImgixParamsMarkFit>;
+  markFit: Maybe<ImgixParamsMarkFit>;
   /**
    * Watermark Height
    *
@@ -973,7 +965,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-h)
    */
-  markH?: Maybe<Scalars['FloatType']>;
+  markH: Maybe<Scalars['FloatType']>;
   /**
    * Watermark Padding
    *
@@ -983,7 +975,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-pad)
    */
-  markPad?: Maybe<Scalars['IntType']>;
+  markPad: Maybe<Scalars['IntType']>;
   /**
    * Watermark Scale
    *
@@ -993,7 +985,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-scale)
    */
-  markScale?: Maybe<Scalars['IntType']>;
+  markScale: Maybe<Scalars['IntType']>;
   /**
    * Watermark Width
    *
@@ -1003,7 +995,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-w)
    */
-  markW?: Maybe<Scalars['FloatType']>;
+  markW: Maybe<Scalars['FloatType']>;
   /**
    * Watermark X Position
    *
@@ -1013,7 +1005,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-x)
    */
-  markX?: Maybe<Scalars['IntType']>;
+  markX: Maybe<Scalars['IntType']>;
   /**
    * Watermark Y Position
    *
@@ -1023,7 +1015,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-y)
    */
-  markY?: Maybe<Scalars['IntType']>;
+  markY: Maybe<Scalars['IntType']>;
   /**
    * Watermark Image Url
    *
@@ -1031,7 +1023,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark)
    */
-  mark?: Maybe<Scalars['String']>;
+  mark: Maybe<Scalars['String']>;
   /**
    * Mask Background Color
    *
@@ -1041,7 +1033,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/mask-bg)
    */
-  maskBg?: Maybe<Scalars['String']>;
+  maskBg: Maybe<Scalars['String']>;
   /**
    * Mask Type
    *
@@ -1049,7 +1041,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask)
    */
-  mask?: Maybe<Scalars['String']>;
+  mask: Maybe<Scalars['String']>;
   /**
    * Maximum Height
    *
@@ -1059,7 +1051,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-height)
    */
-  maxH?: Maybe<Scalars['IntType']>;
+  maxH: Maybe<Scalars['IntType']>;
   /**
    * Maximum Width
    *
@@ -1069,7 +1061,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-width)
    */
-  maxW?: Maybe<Scalars['IntType']>;
+  maxW: Maybe<Scalars['IntType']>;
   /**
    * Minimum Height
    *
@@ -1079,7 +1071,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-height)
    */
-  minH?: Maybe<Scalars['IntType']>;
+  minH: Maybe<Scalars['IntType']>;
   /**
    * Minimum Width
    *
@@ -1089,7 +1081,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-width)
    */
-  minW?: Maybe<Scalars['IntType']>;
+  minW: Maybe<Scalars['IntType']>;
   /**
    * Monochrome
    *
@@ -1097,7 +1089,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/monochrome)
    */
-  monochrome?: Maybe<Scalars['String']>;
+  monochrome: Maybe<Scalars['String']>;
   /**
    * Noise Reduction Bound
    *
@@ -1105,7 +1097,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nr)
    */
-  nr?: Maybe<Scalars['IntType']>;
+  nr: Maybe<Scalars['IntType']>;
   /**
    * Noise Reduction Sharpen
    *
@@ -1113,7 +1105,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nrs)
    */
-  nrs?: Maybe<Scalars['IntType']>;
+  nrs: Maybe<Scalars['IntType']>;
   /**
    * Orientation
    *
@@ -1121,31 +1113,31 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/orient)
    */
-  orient?: Maybe<Scalars['IntType']>;
+  orient: Maybe<Scalars['IntType']>;
   /**
    * Padding Bottom
    *
    * Sets bottom padding of an image.
    */
-  padBottom?: Maybe<Scalars['IntType']>;
+  padBottom: Maybe<Scalars['IntType']>;
   /**
    * Padding Left
    *
    * Sets left padding of an image.
    */
-  padLeft?: Maybe<Scalars['IntType']>;
+  padLeft: Maybe<Scalars['IntType']>;
   /**
    * Padding Right
    *
    * Sets right padding of an image.
    */
-  padRight?: Maybe<Scalars['IntType']>;
+  padRight: Maybe<Scalars['IntType']>;
   /**
    * Padding Top
    *
    * Sets top padding of an image.
    */
-  padTop?: Maybe<Scalars['IntType']>;
+  padTop: Maybe<Scalars['IntType']>;
   /**
    * Padding
    *
@@ -1153,7 +1145,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad)
    */
-  pad?: Maybe<Scalars['IntType']>;
+  pad: Maybe<Scalars['IntType']>;
   /**
    * Pdf Page Number
    *
@@ -1161,7 +1153,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/pdf-page-number)
    */
-  page?: Maybe<Scalars['IntType']>;
+  page: Maybe<Scalars['IntType']>;
   /**
    * Color Palette Extraction
    *
@@ -1169,7 +1161,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/palette)
    */
-  palette?: Maybe<ImgixParamsPalette>;
+  palette: Maybe<ImgixParamsPalette>;
   /**
    * Css Prefix
    *
@@ -1179,7 +1171,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/prefix)
    */
-  prefix?: Maybe<Scalars['String']>;
+  prefix: Maybe<Scalars['String']>;
   /**
    * Pixellate
    *
@@ -1187,7 +1179,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/px)
    */
-  px?: Maybe<Scalars['IntType']>;
+  px: Maybe<Scalars['IntType']>;
   /**
    * Output Quality
    *
@@ -1197,7 +1189,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/q)
    */
-  q?: Maybe<Scalars['IntType']>;
+  q: Maybe<Scalars['IntType']>;
   /**
    * Source Rectangle Region
    *
@@ -1205,7 +1197,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/rect)
    */
-  rect?: Maybe<Scalars['String']>;
+  rect: Maybe<Scalars['String']>;
   /**
    * Rotation
    *
@@ -1213,7 +1205,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/rot)
    */
-  rot?: Maybe<Scalars['FloatType']>;
+  rot: Maybe<Scalars['FloatType']>;
   /**
    * Saturation
    *
@@ -1221,7 +1213,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sat)
    */
-  sat?: Maybe<Scalars['IntType']>;
+  sat: Maybe<Scalars['IntType']>;
   /**
    * Sepia Tone
    *
@@ -1229,7 +1221,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/sepia)
    */
-  sepia?: Maybe<Scalars['IntType']>;
+  sepia: Maybe<Scalars['IntType']>;
   /**
    * Shadow
    *
@@ -1237,7 +1229,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/shad)
    */
-  shad?: Maybe<Scalars['FloatType']>;
+  shad: Maybe<Scalars['FloatType']>;
   /**
    * Sharpen
    *
@@ -1245,13 +1237,13 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sharp)
    */
-  sharp?: Maybe<Scalars['FloatType']>;
+  sharp: Maybe<Scalars['FloatType']>;
   /**
    * Transparency
    *
    * Adds checkerboard behind images which support transparency.
    */
-  transparency?: Maybe<ImgixParamsTransparency>;
+  transparency: Maybe<ImgixParamsTransparency>;
   /**
    * Trim Color
    *
@@ -1261,7 +1253,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-color)
    */
-  trimColor?: Maybe<Scalars['String']>;
+  trimColor: Maybe<Scalars['String']>;
   /**
    * Trim Mean Difference
    *
@@ -1271,7 +1263,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-md)
    */
-  trimMd?: Maybe<Scalars['FloatType']>;
+  trimMd: Maybe<Scalars['FloatType']>;
   /**
    * Trim Padding
    *
@@ -1281,7 +1273,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-pad)
    */
-  trimPad?: Maybe<Scalars['IntType']>;
+  trimPad: Maybe<Scalars['IntType']>;
   /**
    * Trim Standard Deviation
    *
@@ -1291,7 +1283,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-sd)
    */
-  trimSd?: Maybe<Scalars['FloatType']>;
+  trimSd: Maybe<Scalars['FloatType']>;
   /**
    * Trim Tolerance
    *
@@ -1301,7 +1293,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-tol)
    */
-  trimTol?: Maybe<Scalars['FloatType']>;
+  trimTol: Maybe<Scalars['FloatType']>;
   /**
    * Trim Image
    *
@@ -1309,7 +1301,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim)
    */
-  trim?: Maybe<ImgixParamsTrim>;
+  trim: Maybe<ImgixParamsTrim>;
   /**
    * Text Align
    *
@@ -1319,7 +1311,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-align)
    */
-  txtAlign?: Maybe<Array<ImgixParamsTxtAlign>>;
+  txtAlign: Maybe<Array<ImgixParamsTxtAlign>>;
   /**
    * Text Clipping Mode
    *
@@ -1329,7 +1321,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-clip)
    */
-  txtClip?: Maybe<Array<ImgixParamsTxtClip>>;
+  txtClip: Maybe<Array<ImgixParamsTxtClip>>;
   /**
    * Text Color
    *
@@ -1339,7 +1331,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-color)
    */
-  txtColor?: Maybe<Scalars['String']>;
+  txtColor: Maybe<Scalars['String']>;
   /**
    * Text Fit Mode
    *
@@ -1349,7 +1341,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-fit)
    */
-  txtFit?: Maybe<ImgixParamsTxtFit>;
+  txtFit: Maybe<ImgixParamsTxtFit>;
   /**
    * Text Font
    *
@@ -1359,7 +1351,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-font)
    */
-  txtFont?: Maybe<Scalars['String']>;
+  txtFont: Maybe<Scalars['String']>;
   /**
    * Text Leading
    *
@@ -1369,7 +1361,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-lead)
    */
-  txtLead?: Maybe<Scalars['IntType']>;
+  txtLead: Maybe<Scalars['IntType']>;
   /**
    * Text Ligatures
    *
@@ -1379,7 +1371,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-lig)
    */
-  txtLig?: Maybe<Scalars['IntType']>;
+  txtLig: Maybe<Scalars['IntType']>;
   /**
    * Text Outline Color
    *
@@ -1389,7 +1381,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line-color)
    */
-  txtLineColor?: Maybe<Scalars['String']>;
+  txtLineColor: Maybe<Scalars['String']>;
   /**
    * Text Outline
    *
@@ -1399,7 +1391,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line)
    */
-  txtLine?: Maybe<Scalars['IntType']>;
+  txtLine: Maybe<Scalars['IntType']>;
   /**
    * Text Padding
    *
@@ -1409,7 +1401,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-pad)
    */
-  txtPad?: Maybe<Scalars['IntType']>;
+  txtPad: Maybe<Scalars['IntType']>;
   /**
    * Text Shadow
    *
@@ -1419,7 +1411,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-shad)
    */
-  txtShad?: Maybe<Scalars['FloatType']>;
+  txtShad: Maybe<Scalars['FloatType']>;
   /**
    * Text Font Size
    *
@@ -1429,7 +1421,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-size)
    */
-  txtSize?: Maybe<Scalars['IntType']>;
+  txtSize: Maybe<Scalars['IntType']>;
   /**
    * Text Tracking
    *
@@ -1439,7 +1431,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-track)
    */
-  txtTrack?: Maybe<Scalars['IntType']>;
+  txtTrack: Maybe<Scalars['IntType']>;
   /**
    * Text Width
    *
@@ -1449,7 +1441,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-width)
    */
-  txtWidth?: Maybe<Scalars['IntType']>;
+  txtWidth: Maybe<Scalars['IntType']>;
   /**
    * Text String
    *
@@ -1457,7 +1449,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt)
    */
-  txt?: Maybe<Scalars['String']>;
+  txt: Maybe<Scalars['String']>;
   /**
    * Unsharp Mask
    *
@@ -1465,7 +1457,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usm)
    */
-  usm?: Maybe<Scalars['IntType']>;
+  usm: Maybe<Scalars['IntType']>;
   /**
    * Unsharp Mask Radius
    *
@@ -1475,7 +1467,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usmrad)
    */
-  usmrad?: Maybe<Scalars['FloatType']>;
+  usmrad: Maybe<Scalars['FloatType']>;
   /**
    * Vibrance
    *
@@ -1483,7 +1475,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/vib)
    */
-  vib?: Maybe<Scalars['IntType']>;
+  vib: Maybe<Scalars['IntType']>;
   /**
    * Image Width
    *
@@ -1491,7 +1483,7 @@ export type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/w)
    */
-  w?: Maybe<Scalars['FloatType']>;
+  w: Maybe<Scalars['FloatType']>;
 };
 
 export enum ImgixParamsAuto {
@@ -1665,7 +1657,7 @@ export enum ImgixParamsTxtFit {
 /** Specifies how to filter by usage */
 export type InUseFilter = {
   /** Search uploads that are currently used by some record or not */
-  eq?: Maybe<Scalars['BooleanType']>;
+  eq: Maybe<Scalars['BooleanType']>;
 };
 
 
@@ -1673,13 +1665,13 @@ export type InUseFilter = {
 /** Specifies how to filter by ID */
 export type ItemIdFilter = {
   /** Search the record with the specified ID */
-  eq?: Maybe<Scalars['ItemId']>;
+  eq: Maybe<Scalars['ItemId']>;
   /** Exclude the record with the specified ID */
-  neq?: Maybe<Scalars['ItemId']>;
+  neq: Maybe<Scalars['ItemId']>;
   /** Search records with the specified IDs */
-  in?: Maybe<Array<Maybe<Scalars['ItemId']>>>;
+  in: Maybe<Array<Maybe<Scalars['ItemId']>>>;
   /** Search records that do not have the specified IDs */
-  notIn?: Maybe<Array<Maybe<Scalars['ItemId']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['ItemId']>>>;
 };
 
 export enum ItemStatus {
@@ -1692,15 +1684,15 @@ export enum ItemStatus {
 /** Specifies how to filter Multiple-links fields */
 export type LinksFilter = {
   /** Search for records with an exact match. The specified values must be Record IDs */
-  eq?: Maybe<Array<Maybe<Scalars['ItemId']>>>;
+  eq: Maybe<Array<Maybe<Scalars['ItemId']>>>;
   /** Filter records linked to all of the specified records. The specified values must be Record IDs */
-  allIn?: Maybe<Array<Maybe<Scalars['ItemId']>>>;
+  allIn: Maybe<Array<Maybe<Scalars['ItemId']>>>;
   /** Filter records linked to at least one of the specified records. The specified values must be Record IDs */
-  anyIn?: Maybe<Array<Maybe<Scalars['ItemId']>>>;
+  anyIn: Maybe<Array<Maybe<Scalars['ItemId']>>>;
   /** Filter records not linked to any of the specified records. The specified values must be Record IDs */
-  notIn?: Maybe<Array<Maybe<Scalars['ItemId']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['ItemId']>>>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 
@@ -1713,46 +1705,46 @@ export enum MuxThumbnailFormatType {
 /** Specifies how to filter by image orientation */
 export type OrientationFilter = {
   /** Search uploads with the specified orientation */
-  eq?: Maybe<UploadOrientation>;
+  eq: Maybe<UploadOrientation>;
   /** Exclude uploads with the specified orientation */
-  neq?: Maybe<UploadOrientation>;
+  neq: Maybe<UploadOrientation>;
 };
 
 /** Specifies how to filter by position (sorted and tree-like collections) */
 export type PositionFilter = {
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: Maybe<Scalars['IntType']>;
+  gt: Maybe<Scalars['IntType']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: Maybe<Scalars['IntType']>;
+  lt: Maybe<Scalars['IntType']>;
   /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: Maybe<Scalars['IntType']>;
+  gte: Maybe<Scalars['IntType']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: Maybe<Scalars['IntType']>;
+  lte: Maybe<Scalars['IntType']>;
   /** Search for records with an exact match */
-  eq?: Maybe<Scalars['IntType']>;
+  eq: Maybe<Scalars['IntType']>;
   /** Exclude records with an exact match */
-  neq?: Maybe<Scalars['IntType']>;
+  neq: Maybe<Scalars['IntType']>;
 };
 
 export type PostModelFilter = {
-  _createdAt?: Maybe<CreatedAtFilter>;
-  createdAt?: Maybe<CreatedAtFilter>;
-  id?: Maybe<ItemIdFilter>;
-  _firstPublishedAt?: Maybe<PublishedAtFilter>;
-  _publicationScheduledAt?: Maybe<PublishedAtFilter>;
-  _unpublishingScheduledAt?: Maybe<PublishedAtFilter>;
-  _publishedAt?: Maybe<PublishedAtFilter>;
-  _status?: Maybe<StatusFilter>;
-  _updatedAt?: Maybe<UpdatedAtFilter>;
-  updatedAt?: Maybe<UpdatedAtFilter>;
-  _isValid?: Maybe<BooleanFilter>;
-  tags?: Maybe<LinksFilter>;
-  cover?: Maybe<FileFilter>;
-  subtitle?: Maybe<StringFilter>;
-  slug?: Maybe<SlugFilter>;
-  content?: Maybe<TextFilter>;
-  title?: Maybe<StringFilter>;
-  OR?: Maybe<Array<Maybe<PostModelFilter>>>;
+  _createdAt: Maybe<CreatedAtFilter>;
+  createdAt: Maybe<CreatedAtFilter>;
+  id: Maybe<ItemIdFilter>;
+  _firstPublishedAt: Maybe<PublishedAtFilter>;
+  _publicationScheduledAt: Maybe<PublishedAtFilter>;
+  _unpublishingScheduledAt: Maybe<PublishedAtFilter>;
+  _publishedAt: Maybe<PublishedAtFilter>;
+  _status: Maybe<StatusFilter>;
+  _updatedAt: Maybe<UpdatedAtFilter>;
+  updatedAt: Maybe<UpdatedAtFilter>;
+  _isValid: Maybe<BooleanFilter>;
+  tags: Maybe<LinksFilter>;
+  cover: Maybe<FileFilter>;
+  subtitle: Maybe<StringFilter>;
+  slug: Maybe<SlugFilter>;
+  content: Maybe<TextFilter>;
+  title: Maybe<StringFilter>;
+  OR: Maybe<Array<Maybe<PostModelFilter>>>;
 };
 
 export enum PostModelOrderBy {
@@ -1786,62 +1778,60 @@ export enum PostModelOrderBy {
 
 /** Record of type Post (post) */
 export type PostRecord = {
-  __typename?: 'PostRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
-  content?: Maybe<Scalars['String']>;
-  cover?: Maybe<FileField>;
+  content: Maybe<Scalars['String']>;
+  cover: Maybe<FileField>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  slug?: Maybe<Scalars['String']>;
-  subtitle?: Maybe<Scalars['String']>;
+  slug: Maybe<Scalars['String']>;
+  subtitle: Maybe<Scalars['String']>;
   tags: Array<TagRecord>;
-  title?: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
 /** Record of type Post (post) */
 export type PostRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 /** Record of type Post (post) */
 export type PostRecordContentArgs = {
-  markdown?: Maybe<Scalars['Boolean']>;
+  markdown: Maybe<Scalars['Boolean']>;
 };
 
 /** Specifies how to filter by publication datetime */
 export type PublishedAtFilter = {
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: Maybe<Scalars['DateTime']>;
+  gt: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: Maybe<Scalars['DateTime']>;
+  lt: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's greater than or equal to than the one specified */
-  gte?: Maybe<Scalars['DateTime']>;
+  gte: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: Maybe<Scalars['DateTime']>;
+  lte: Maybe<Scalars['DateTime']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
   /** Search for records with an exact match (seconds are truncated) */
-  eq?: Maybe<Scalars['DateTime']>;
+  eq: Maybe<Scalars['DateTime']>;
   /** Exclude records with an exact match */
-  neq?: Maybe<Scalars['DateTime']>;
+  neq: Maybe<Scalars['DateTime']>;
 };
 
 /** The query root for this schema */
 export type Query = {
-  __typename?: 'Query';
   /** Returns meta information regarding a record collection */
   _allAppearancesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
@@ -1851,11 +1841,11 @@ export type Query = {
   /** Returns meta information regarding a record collection */
   _allTagsMeta: CollectionMetadata;
   /** Returns meta information regarding an assets collection */
-  _allUploadsMeta?: Maybe<CollectionMetadata>;
+  _allUploadsMeta: Maybe<CollectionMetadata>;
   /** Returns the single instance record */
   _site: Site;
   /** Returns the single instance record */
-  about?: Maybe<AboutRecord>;
+  about: Maybe<AboutRecord>;
   /** Returns a collection of records */
   allAppearances: Array<AppearanceRecord>;
   /** Returns a collection of records */
@@ -1867,172 +1857,172 @@ export type Query = {
   /** Returns a collection of assets */
   allUploads: Array<FileField>;
   /** Returns a specific record */
-  appearance?: Maybe<AppearanceRecord>;
+  appearance: Maybe<AppearanceRecord>;
   /** Returns the single instance record */
-  buildTrigger?: Maybe<BuildTriggerRecord>;
+  buildTrigger: Maybe<BuildTriggerRecord>;
   /** Returns a specific record */
-  post?: Maybe<PostRecord>;
+  post: Maybe<PostRecord>;
   /** Returns a specific record */
-  showcase?: Maybe<ShowcaseRecord>;
+  showcase: Maybe<ShowcaseRecord>;
   /** Returns a specific record */
-  tag?: Maybe<TagRecord>;
+  tag: Maybe<TagRecord>;
   /** Returns a specific asset */
-  upload?: Maybe<FileField>;
+  upload: Maybe<FileField>;
 };
 
 
 /** The query root for this schema */
 export type Query_AllAppearancesMetaArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<AppearanceModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<AppearanceModelFilter>;
 };
 
 
 /** The query root for this schema */
 export type Query_AllPostsMetaArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<PostModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<PostModelFilter>;
 };
 
 
 /** The query root for this schema */
 export type Query_AllShowcasesMetaArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<ShowcaseModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<ShowcaseModelFilter>;
 };
 
 
 /** The query root for this schema */
 export type Query_AllTagsMetaArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<TagModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<TagModelFilter>;
 };
 
 
 /** The query root for this schema */
 export type Query_AllUploadsMetaArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<UploadFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<UploadFilter>;
 };
 
 
 /** The query root for this schema */
 export type Query_SiteArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
 export type QueryAboutArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
 export type QueryAllAppearancesArgs = {
-  locale?: Maybe<SiteLocale>;
-  skip?: Maybe<Scalars['IntType']>;
+  locale: Maybe<SiteLocale>;
+  skip: Maybe<Scalars['IntType']>;
   first?: Maybe<Scalars['IntType']>;
-  filter?: Maybe<AppearanceModelFilter>;
+  filter: Maybe<AppearanceModelFilter>;
   orderBy?: Maybe<Array<Maybe<AppearanceModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryAllPostsArgs = {
-  locale?: Maybe<SiteLocale>;
-  skip?: Maybe<Scalars['IntType']>;
+  locale: Maybe<SiteLocale>;
+  skip: Maybe<Scalars['IntType']>;
   first?: Maybe<Scalars['IntType']>;
-  filter?: Maybe<PostModelFilter>;
+  filter: Maybe<PostModelFilter>;
   orderBy?: Maybe<Array<Maybe<PostModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryAllShowcasesArgs = {
-  locale?: Maybe<SiteLocale>;
-  skip?: Maybe<Scalars['IntType']>;
+  locale: Maybe<SiteLocale>;
+  skip: Maybe<Scalars['IntType']>;
   first?: Maybe<Scalars['IntType']>;
-  filter?: Maybe<ShowcaseModelFilter>;
+  filter: Maybe<ShowcaseModelFilter>;
   orderBy?: Maybe<Array<Maybe<ShowcaseModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryAllTagsArgs = {
-  locale?: Maybe<SiteLocale>;
-  skip?: Maybe<Scalars['IntType']>;
+  locale: Maybe<SiteLocale>;
+  skip: Maybe<Scalars['IntType']>;
   first?: Maybe<Scalars['IntType']>;
-  filter?: Maybe<TagModelFilter>;
+  filter: Maybe<TagModelFilter>;
   orderBy?: Maybe<Array<Maybe<TagModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryAllUploadsArgs = {
-  locale?: Maybe<SiteLocale>;
-  skip?: Maybe<Scalars['IntType']>;
+  locale: Maybe<SiteLocale>;
+  skip: Maybe<Scalars['IntType']>;
   first?: Maybe<Scalars['IntType']>;
-  filter?: Maybe<UploadFilter>;
+  filter: Maybe<UploadFilter>;
   orderBy?: Maybe<Array<Maybe<UploadOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryAppearanceArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<AppearanceModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<AppearanceModelFilter>;
   orderBy?: Maybe<Array<Maybe<AppearanceModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryBuildTriggerArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
 export type QueryPostArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<PostModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<PostModelFilter>;
   orderBy?: Maybe<Array<Maybe<PostModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryShowcaseArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<ShowcaseModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<ShowcaseModelFilter>;
   orderBy?: Maybe<Array<Maybe<ShowcaseModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryTagArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<TagModelFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<TagModelFilter>;
   orderBy?: Maybe<Array<Maybe<TagModelOrderBy>>>;
 };
 
 
 /** The query root for this schema */
 export type QueryUploadArgs = {
-  locale?: Maybe<SiteLocale>;
-  filter?: Maybe<UploadFilter>;
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<UploadFilter>;
   orderBy?: Maybe<Array<Maybe<UploadOrderBy>>>;
 };
 
 /** Specifies how to filter by upload type */
 export type ResolutionFilter = {
   /** Search uploads with the specified resolution */
-  eq?: Maybe<ResolutionType>;
+  eq: Maybe<ResolutionType>;
   /** Exclude uploads with the specified resolution */
-  neq?: Maybe<ResolutionType>;
+  neq: Maybe<ResolutionType>;
   /** Search uploads with the specified resolutions */
-  in?: Maybe<Array<Maybe<ResolutionType>>>;
+  in: Maybe<Array<Maybe<ResolutionType>>>;
   /** Search uploads without the specified resolutions */
-  notIn?: Maybe<Array<Maybe<ResolutionType>>>;
+  notIn: Maybe<Array<Maybe<ResolutionType>>>;
 };
 
 export enum ResolutionType {
@@ -2043,47 +2033,45 @@ export enum ResolutionType {
 }
 
 export type ResponsiveImage = {
-  __typename?: 'ResponsiveImage';
-  alt?: Maybe<Scalars['String']>;
+  alt: Maybe<Scalars['String']>;
   aspectRatio: Scalars['FloatType'];
-  base64?: Maybe<Scalars['String']>;
-  bgColor?: Maybe<Scalars['String']>;
+  base64: Maybe<Scalars['String']>;
+  bgColor: Maybe<Scalars['String']>;
   height: Scalars['IntType'];
   sizes: Scalars['String'];
   src: Scalars['String'];
   srcSet: Scalars['String'];
-  title?: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
   webpSrcSet: Scalars['String'];
   width: Scalars['IntType'];
 };
 
 export type SeoField = {
-  __typename?: 'SeoField';
-  description?: Maybe<Scalars['String']>;
-  image?: Maybe<FileField>;
-  title?: Maybe<Scalars['String']>;
-  twitterCard?: Maybe<Scalars['String']>;
+  description: Maybe<Scalars['String']>;
+  image: Maybe<FileField>;
+  title: Maybe<Scalars['String']>;
+  twitterCard: Maybe<Scalars['String']>;
 };
 
 export type ShowcaseModelFilter = {
-  _createdAt?: Maybe<CreatedAtFilter>;
-  createdAt?: Maybe<CreatedAtFilter>;
-  id?: Maybe<ItemIdFilter>;
-  _firstPublishedAt?: Maybe<PublishedAtFilter>;
-  position?: Maybe<PositionFilter>;
-  _publicationScheduledAt?: Maybe<PublishedAtFilter>;
-  _unpublishingScheduledAt?: Maybe<PublishedAtFilter>;
-  _publishedAt?: Maybe<PublishedAtFilter>;
-  _status?: Maybe<StatusFilter>;
-  _updatedAt?: Maybe<UpdatedAtFilter>;
-  updatedAt?: Maybe<UpdatedAtFilter>;
-  _isValid?: Maybe<BooleanFilter>;
-  subtitle?: Maybe<StringFilter>;
-  tags?: Maybe<LinksFilter>;
-  url?: Maybe<StringFilter>;
-  image?: Maybe<FileFilter>;
-  title?: Maybe<StringFilter>;
-  OR?: Maybe<Array<Maybe<ShowcaseModelFilter>>>;
+  _createdAt: Maybe<CreatedAtFilter>;
+  createdAt: Maybe<CreatedAtFilter>;
+  id: Maybe<ItemIdFilter>;
+  _firstPublishedAt: Maybe<PublishedAtFilter>;
+  position: Maybe<PositionFilter>;
+  _publicationScheduledAt: Maybe<PublishedAtFilter>;
+  _unpublishingScheduledAt: Maybe<PublishedAtFilter>;
+  _publishedAt: Maybe<PublishedAtFilter>;
+  _status: Maybe<StatusFilter>;
+  _updatedAt: Maybe<UpdatedAtFilter>;
+  updatedAt: Maybe<UpdatedAtFilter>;
+  _isValid: Maybe<BooleanFilter>;
+  subtitle: Maybe<StringFilter>;
+  tags: Maybe<LinksFilter>;
+  url: Maybe<StringFilter>;
+  image: Maybe<FileFilter>;
+  title: Maybe<StringFilter>;
+  OR: Maybe<Array<Maybe<ShowcaseModelFilter>>>;
 };
 
 export enum ShowcaseModelOrderBy {
@@ -2121,40 +2109,38 @@ export enum ShowcaseModelOrderBy {
 
 /** Record of type Showcase (showcase) */
 export type ShowcaseRecord = {
-  __typename?: 'ShowcaseRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  image?: Maybe<FileField>;
-  position?: Maybe<Scalars['IntType']>;
-  subtitle?: Maybe<Scalars['String']>;
+  image: Maybe<FileField>;
+  position: Maybe<Scalars['IntType']>;
+  subtitle: Maybe<Scalars['String']>;
   tags: Array<TagRecord>;
-  title?: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
+  url: Maybe<Scalars['String']>;
 };
 
 
 /** Record of type Showcase (showcase) */
 export type ShowcaseRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 export type Site = {
-  __typename?: 'Site';
-  favicon?: Maybe<FileField>;
+  favicon: Maybe<FileField>;
   faviconMetaTags: Array<Tag>;
-  globalSeo?: Maybe<GlobalSeoField>;
+  globalSeo: Maybe<GlobalSeoField>;
 };
 
 
@@ -2164,7 +2150,7 @@ export type SiteFaviconMetaTagsArgs = {
 
 
 export type SiteGlobalSeoArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 export enum SiteLocale {
@@ -2174,75 +2160,74 @@ export enum SiteLocale {
 /** Specifies how to filter Slug fields */
 export type SlugFilter = {
   /** Search for records with an exact match */
-  eq?: Maybe<Scalars['String']>;
+  eq: Maybe<Scalars['String']>;
   /** Exclude records with an exact match */
-  neq?: Maybe<Scalars['String']>;
+  neq: Maybe<Scalars['String']>;
   /** Filter records that have one of the specified slugs */
-  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Filter records that do have one of the specified slugs */
-  notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 /** Specifies how to filter by status */
 export type StatusFilter = {
   /** Search the record with the specified status */
-  eq?: Maybe<ItemStatus>;
+  eq: Maybe<ItemStatus>;
   /** Exclude the record with the specified status */
-  neq?: Maybe<ItemStatus>;
+  neq: Maybe<ItemStatus>;
   /** Search records with the specified statuses */
-  in?: Maybe<Array<Maybe<ItemStatus>>>;
+  in: Maybe<Array<Maybe<ItemStatus>>>;
   /** Search records without the specified statuses */
-  notIn?: Maybe<Array<Maybe<ItemStatus>>>;
+  notIn: Maybe<Array<Maybe<ItemStatus>>>;
 };
 
 /** Specifies how to filter Single-line string fields */
 export type StringFilter = {
   /** Filter records based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude records based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Filter records with the specified field set as blank (null or empty string) */
-  isBlank?: Maybe<Scalars['BooleanType']>;
+  isBlank: Maybe<Scalars['BooleanType']>;
   /** Search for records with an exact match */
-  eq?: Maybe<Scalars['String']>;
+  eq: Maybe<Scalars['String']>;
   /** Exclude records with an exact match */
-  neq?: Maybe<Scalars['String']>;
+  neq: Maybe<Scalars['String']>;
   /** Filter records that equal one of the specified values */
-  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Filter records that do not equal one of the specified values */
-  notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 export type StringMatchesFilter = {
   pattern: Scalars['String'];
-  caseSensitive?: Maybe<Scalars['BooleanType']>;
-  regexp?: Maybe<Scalars['BooleanType']>;
+  caseSensitive: Maybe<Scalars['BooleanType']>;
+  regexp: Maybe<Scalars['BooleanType']>;
 };
 
 export type Tag = {
-  __typename?: 'Tag';
-  attributes?: Maybe<Scalars['MetaTagAttributes']>;
-  content?: Maybe<Scalars['String']>;
+  attributes: Maybe<Scalars['MetaTagAttributes']>;
+  content: Maybe<Scalars['String']>;
   tag: Scalars['String'];
 };
 
 export type TagModelFilter = {
-  _createdAt?: Maybe<CreatedAtFilter>;
-  createdAt?: Maybe<CreatedAtFilter>;
-  id?: Maybe<ItemIdFilter>;
-  _firstPublishedAt?: Maybe<PublishedAtFilter>;
-  _publicationScheduledAt?: Maybe<PublishedAtFilter>;
-  _unpublishingScheduledAt?: Maybe<PublishedAtFilter>;
-  _publishedAt?: Maybe<PublishedAtFilter>;
-  _status?: Maybe<StatusFilter>;
-  _updatedAt?: Maybe<UpdatedAtFilter>;
-  updatedAt?: Maybe<UpdatedAtFilter>;
-  _isValid?: Maybe<BooleanFilter>;
-  slug?: Maybe<SlugFilter>;
-  title?: Maybe<StringFilter>;
-  OR?: Maybe<Array<Maybe<TagModelFilter>>>;
+  _createdAt: Maybe<CreatedAtFilter>;
+  createdAt: Maybe<CreatedAtFilter>;
+  id: Maybe<ItemIdFilter>;
+  _firstPublishedAt: Maybe<PublishedAtFilter>;
+  _publicationScheduledAt: Maybe<PublishedAtFilter>;
+  _unpublishingScheduledAt: Maybe<PublishedAtFilter>;
+  _publishedAt: Maybe<PublishedAtFilter>;
+  _status: Maybe<StatusFilter>;
+  _updatedAt: Maybe<UpdatedAtFilter>;
+  updatedAt: Maybe<UpdatedAtFilter>;
+  _isValid: Maybe<BooleanFilter>;
+  slug: Maybe<SlugFilter>;
+  title: Maybe<StringFilter>;
+  OR: Maybe<Array<Maybe<TagModelFilter>>>;
 };
 
 export enum TagModelOrderBy {
@@ -2274,248 +2259,247 @@ export enum TagModelOrderBy {
 
 /** Record of type Tag (tag) */
 export type TagRecord = {
-  __typename?: 'TagRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  slug?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  slug: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
 /** Record of type Tag (tag) */
 export type TagRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 /** Specifies how to filter text fields */
 export type TextFilter = {
   /** Filter records based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude records based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Filter records with the specified field set as blank (null or empty string) */
-  isBlank?: Maybe<Scalars['BooleanType']>;
+  isBlank: Maybe<Scalars['BooleanType']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 /** Specifies how to filter by upload type */
 export type TypeFilter = {
   /** Search uploads with the specified type */
-  eq?: Maybe<UploadType>;
+  eq: Maybe<UploadType>;
   /** Exclude uploads with the specified type */
-  neq?: Maybe<UploadType>;
+  neq: Maybe<UploadType>;
   /** Search uploads with the specified types */
-  in?: Maybe<Array<Maybe<UploadType>>>;
+  in: Maybe<Array<Maybe<UploadType>>>;
   /** Search uploads without the specified types */
-  notIn?: Maybe<Array<Maybe<UploadType>>>;
+  notIn: Maybe<Array<Maybe<UploadType>>>;
 };
 
 /** Specifies how to filter by update datetime */
 export type UpdatedAtFilter = {
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: Maybe<Scalars['DateTime']>;
+  gt: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: Maybe<Scalars['DateTime']>;
+  lt: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's greater than or equal to than the one specified */
-  gte?: Maybe<Scalars['DateTime']>;
+  gte: Maybe<Scalars['DateTime']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: Maybe<Scalars['DateTime']>;
+  lte: Maybe<Scalars['DateTime']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
   /** Search for records with an exact match (seconds are truncated) */
-  eq?: Maybe<Scalars['DateTime']>;
+  eq: Maybe<Scalars['DateTime']>;
   /** Exclude records with an exact match */
-  neq?: Maybe<Scalars['DateTime']>;
+  neq: Maybe<Scalars['DateTime']>;
 };
 
 /** Specifies how to filter by default alt */
 export type UploadAltFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Search the uploads with the specified alt */
-  eq?: Maybe<Scalars['String']>;
+  eq: Maybe<Scalars['String']>;
   /** Exclude the uploads with the specified alt */
-  neq?: Maybe<Scalars['String']>;
+  neq: Maybe<Scalars['String']>;
   /** Search uploads with the specified values as default alt */
-  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Search uploads that do not have the specified values as default alt */
-  notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 /** Specifies how to filter by auhtor */
 export type UploadAuthorFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 /** Specifies how to filter by basename */
 export type UploadBasenameFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
 };
 
 /** Specifies how to filter by colors */
 export type UploadColorsFilter = {
   /** Filter uploads that have the specified colors */
-  contains?: Maybe<ColorBucketType>;
+  contains: Maybe<ColorBucketType>;
   /** Filter uploads that have all of the specified colors */
-  allIn?: Maybe<Array<Maybe<ColorBucketType>>>;
+  allIn: Maybe<Array<Maybe<ColorBucketType>>>;
   /** Filter uploads that have at least one of the specified colors */
-  anyIn?: Maybe<Array<Maybe<ColorBucketType>>>;
+  anyIn: Maybe<Array<Maybe<ColorBucketType>>>;
   /** Filter uploads that do not have any of the specified colors */
-  notIn?: Maybe<Array<Maybe<ColorBucketType>>>;
+  notIn: Maybe<Array<Maybe<ColorBucketType>>>;
   /** Search for uploads with an exact match */
-  eq?: Maybe<Array<Maybe<ColorBucketType>>>;
+  eq: Maybe<Array<Maybe<ColorBucketType>>>;
 };
 
 /** Specifies how to filter by copyright */
 export type UploadCopyrightFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 /** Specifies how to filter by creation datetime */
 export type UploadCreatedAtFilter = {
   /** Search for uploads with an exact match */
-  eq?: Maybe<Scalars['DateTime']>;
+  eq: Maybe<Scalars['DateTime']>;
   /** Exclude uploads with an exact match */
-  neq?: Maybe<Scalars['DateTime']>;
+  neq: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's less than the one specified */
-  lt?: Maybe<Scalars['DateTime']>;
+  lt: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's less or equal than the one specified */
-  lte?: Maybe<Scalars['DateTime']>;
+  lte: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
-  gt?: Maybe<Scalars['DateTime']>;
+  gt: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's greater than or equal to the one specified */
-  gte?: Maybe<Scalars['DateTime']>;
+  gte: Maybe<Scalars['DateTime']>;
 };
 
 /** Specifies how to filter by filename */
 export type UploadFilenameFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
 };
 
 export type UploadFilter = {
-  type?: Maybe<TypeFilter>;
-  inUse?: Maybe<InUseFilter>;
-  resolution?: Maybe<ResolutionFilter>;
-  size?: Maybe<UploadSizeFilter>;
-  tags?: Maybe<UploadTagsFilter>;
-  smartTags?: Maybe<UploadTagsFilter>;
-  colors?: Maybe<UploadColorsFilter>;
-  orientation?: Maybe<OrientationFilter>;
-  id?: Maybe<UploadIdFilter>;
-  mimeType?: Maybe<UploadMimeTypeFilter>;
-  format?: Maybe<UploadFormatFilter>;
-  height?: Maybe<UploadHeightFilter>;
-  width?: Maybe<UploadWidthFilter>;
-  alt?: Maybe<UploadAltFilter>;
-  title?: Maybe<UploadTitleFilter>;
-  notes?: Maybe<UploadNotesFilter>;
-  author?: Maybe<UploadAuthorFilter>;
-  copyright?: Maybe<UploadCopyrightFilter>;
-  basename?: Maybe<UploadBasenameFilter>;
-  filename?: Maybe<UploadFilenameFilter>;
-  _createdAt?: Maybe<UploadCreatedAtFilter>;
-  _updatedAt?: Maybe<UploadUpdatedAtFilter>;
-  OR?: Maybe<Array<Maybe<UploadFilter>>>;
+  type: Maybe<TypeFilter>;
+  inUse: Maybe<InUseFilter>;
+  resolution: Maybe<ResolutionFilter>;
+  size: Maybe<UploadSizeFilter>;
+  tags: Maybe<UploadTagsFilter>;
+  smartTags: Maybe<UploadTagsFilter>;
+  colors: Maybe<UploadColorsFilter>;
+  orientation: Maybe<OrientationFilter>;
+  id: Maybe<UploadIdFilter>;
+  mimeType: Maybe<UploadMimeTypeFilter>;
+  format: Maybe<UploadFormatFilter>;
+  height: Maybe<UploadHeightFilter>;
+  width: Maybe<UploadWidthFilter>;
+  alt: Maybe<UploadAltFilter>;
+  title: Maybe<UploadTitleFilter>;
+  notes: Maybe<UploadNotesFilter>;
+  author: Maybe<UploadAuthorFilter>;
+  copyright: Maybe<UploadCopyrightFilter>;
+  basename: Maybe<UploadBasenameFilter>;
+  filename: Maybe<UploadFilenameFilter>;
+  _createdAt: Maybe<UploadCreatedAtFilter>;
+  _updatedAt: Maybe<UploadUpdatedAtFilter>;
+  OR: Maybe<Array<Maybe<UploadFilter>>>;
 };
 
 /** Specifies how to filter by format */
 export type UploadFormatFilter = {
   /** Search the asset with the specified format */
-  eq?: Maybe<Scalars['String']>;
+  eq: Maybe<Scalars['String']>;
   /** Exclude the asset with the specified format */
-  neq?: Maybe<Scalars['String']>;
+  neq: Maybe<Scalars['String']>;
   /** Search assets with the specified formats */
-  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Search assets that do not have the specified formats */
-  notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 /** Specifies how to filter by height */
 export type UploadHeightFilter = {
   /** Search all assets larger than the specified height */
-  gt?: Maybe<Scalars['IntType']>;
+  gt: Maybe<Scalars['IntType']>;
   /** Search all assets smaller than the specified height */
-  lt?: Maybe<Scalars['IntType']>;
+  lt: Maybe<Scalars['IntType']>;
   /** Search all assets larger or equal to the specified height */
-  gte?: Maybe<Scalars['IntType']>;
+  gte: Maybe<Scalars['IntType']>;
   /** Search all assets larger or equal to the specified height */
-  lte?: Maybe<Scalars['IntType']>;
+  lte: Maybe<Scalars['IntType']>;
   /** Search assets with the specified height */
-  eq?: Maybe<Scalars['IntType']>;
+  eq: Maybe<Scalars['IntType']>;
   /** Search assets that do not have the specified height */
-  neq?: Maybe<Scalars['IntType']>;
+  neq: Maybe<Scalars['IntType']>;
 };
 
 
 /** Specifies how to filter by ID */
 export type UploadIdFilter = {
   /** Search the asset with the specified ID */
-  eq?: Maybe<Scalars['UploadId']>;
+  eq: Maybe<Scalars['UploadId']>;
   /** Exclude the asset with the specified ID */
-  neq?: Maybe<Scalars['UploadId']>;
+  neq: Maybe<Scalars['UploadId']>;
   /** Search assets with the specified IDs */
-  in?: Maybe<Array<Maybe<Scalars['UploadId']>>>;
+  in: Maybe<Array<Maybe<Scalars['UploadId']>>>;
   /** Search assets that do not have the specified IDs */
-  notIn?: Maybe<Array<Maybe<Scalars['UploadId']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['UploadId']>>>;
 };
 
 /** Specifies how to filter by mime type */
 export type UploadMimeTypeFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Search the asset with the specified mime type */
-  eq?: Maybe<Scalars['String']>;
+  eq: Maybe<Scalars['String']>;
   /** Exclude the asset with the specified mime type */
-  neq?: Maybe<Scalars['String']>;
+  neq: Maybe<Scalars['String']>;
   /** Search assets with the specified mime types */
-  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Search assets that do not have the specified mime types */
-  notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 /** Specifies how to filter by notes */
 export type UploadNotesFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 export enum UploadOrderBy {
@@ -2548,49 +2532,49 @@ export enum UploadOrientation {
 /** Specifies how to filter by size */
 export type UploadSizeFilter = {
   /** Search all assets larger than the specified size */
-  gt?: Maybe<Scalars['IntType']>;
+  gt: Maybe<Scalars['IntType']>;
   /** Search all assets smaller than the specified size */
-  lt?: Maybe<Scalars['IntType']>;
+  lt: Maybe<Scalars['IntType']>;
   /** Search all assets larger or equal to the specified size */
-  gte?: Maybe<Scalars['IntType']>;
+  gte: Maybe<Scalars['IntType']>;
   /** Search all assets larger or equal to the specified size */
-  lte?: Maybe<Scalars['IntType']>;
+  lte: Maybe<Scalars['IntType']>;
   /** Search assets with the specified size */
-  eq?: Maybe<Scalars['IntType']>;
+  eq: Maybe<Scalars['IntType']>;
   /** Search assets that do not have the specified size */
-  neq?: Maybe<Scalars['IntType']>;
+  neq: Maybe<Scalars['IntType']>;
 };
 
 /** Specifies how to filter by tags */
 export type UploadTagsFilter = {
   /** Filter uploads linked to the specified tag */
-  contains?: Maybe<Scalars['String']>;
+  contains: Maybe<Scalars['String']>;
   /** Filter uploads linked to all of the specified tags */
-  allIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  allIn: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Filter uploads linked to at least one of the specified tags */
-  anyIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  anyIn: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Filter uploads not linked to any of the specified tags */
-  notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Search for uploads with an exact match */
-  eq?: Maybe<Array<Maybe<Scalars['String']>>>;
+  eq: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 /** Specifies how to filter by default title */
 export type UploadTitleFilter = {
   /** Filter uploads based on a regular expression */
-  matches?: Maybe<StringMatchesFilter>;
+  matches: Maybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
-  notMatches?: Maybe<StringMatchesFilter>;
+  notMatches: Maybe<StringMatchesFilter>;
   /** Search the asset with the specified title */
-  eq?: Maybe<Scalars['String']>;
+  eq: Maybe<Scalars['String']>;
   /** Exclude the asset with the specified title */
-  neq?: Maybe<Scalars['String']>;
+  neq: Maybe<Scalars['String']>;
   /** Search assets with the specified as default title */
-  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Search assets that do not have the specified as default title */
-  notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Filter assets with the specified field defined (i.e. with any value) or not */
-  exists?: Maybe<Scalars['BooleanType']>;
+  exists: Maybe<Scalars['BooleanType']>;
 };
 
 export enum UploadType {
@@ -2607,24 +2591,23 @@ export enum UploadType {
 /** Specifies how to filter by update datetime */
 export type UploadUpdatedAtFilter = {
   /** Search for uploads with an exact match */
-  eq?: Maybe<Scalars['DateTime']>;
+  eq: Maybe<Scalars['DateTime']>;
   /** Exclude uploads with an exact match */
-  neq?: Maybe<Scalars['DateTime']>;
+  neq: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's less than the one specified */
-  lt?: Maybe<Scalars['DateTime']>;
+  lt: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's less or equal than the one specified */
-  lte?: Maybe<Scalars['DateTime']>;
+  lte: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
-  gt?: Maybe<Scalars['DateTime']>;
+  gt: Maybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's greater than or equal to the one specified */
-  gte?: Maybe<Scalars['DateTime']>;
+  gte: Maybe<Scalars['DateTime']>;
 };
 
 export type UploadVideoField = {
-  __typename?: 'UploadVideoField';
   duration: Scalars['Int'];
   framerate: Scalars['Int'];
-  mp4Url?: Maybe<Scalars['String']>;
+  mp4Url: Maybe<Scalars['String']>;
   muxAssetId: Scalars['String'];
   muxPlaybackId: Scalars['String'];
   streamingUrl: Scalars['String'];
@@ -2633,8 +2616,8 @@ export type UploadVideoField = {
 
 
 export type UploadVideoFieldMp4UrlArgs = {
-  res?: Maybe<VideoMp4Res>;
-  exactRes?: Maybe<VideoMp4Res>;
+  res: Maybe<VideoMp4Res>;
+  exactRes: Maybe<VideoMp4Res>;
 };
 
 
@@ -2645,43 +2628,42 @@ export type UploadVideoFieldThumbnailUrlArgs = {
 /** Specifies how to filter by width */
 export type UploadWidthFilter = {
   /** Search all assets larger than the specified width */
-  gt?: Maybe<Scalars['IntType']>;
+  gt: Maybe<Scalars['IntType']>;
   /** Search all assets smaller than the specified width */
-  lt?: Maybe<Scalars['IntType']>;
+  lt: Maybe<Scalars['IntType']>;
   /** Search all assets larger or equal to the specified width */
-  gte?: Maybe<Scalars['IntType']>;
+  gte: Maybe<Scalars['IntType']>;
   /** Search all assets larger or equal to the specified width */
-  lte?: Maybe<Scalars['IntType']>;
+  lte: Maybe<Scalars['IntType']>;
   /** Search assets with the specified width */
-  eq?: Maybe<Scalars['IntType']>;
+  eq: Maybe<Scalars['IntType']>;
   /** Search assets that do not have the specified width */
-  neq?: Maybe<Scalars['IntType']>;
+  neq: Maybe<Scalars['IntType']>;
 };
 
 /** Record of type URL (url) */
 export type UrlRecord = {
-  __typename?: 'UrlRecord';
   _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
+  url: Maybe<Scalars['String']>;
 };
 
 
 /** Record of type URL (url) */
 export type UrlRecord_SeoMetaTagsArgs = {
-  locale?: Maybe<SiteLocale>;
+  locale: Maybe<SiteLocale>;
 };
 
 export enum VideoMp4Res {
@@ -2691,9 +2673,8 @@ export enum VideoMp4Res {
 }
 
 export type FocalPoint = {
-  __typename?: 'focalPoint';
-  x?: Maybe<Scalars['FloatType']>;
-  y?: Maybe<Scalars['FloatType']>;
+  x: Maybe<Scalars['FloatType']>;
+  y: Maybe<Scalars['FloatType']>;
 };
 
 export const AppearanceFragmentDoc = /*#__PURE__*/ gql`
@@ -2819,14 +2800,17 @@ export const GetPostsDocument = /*#__PURE__*/ gql`
     ...PostMetaFields
   }
 }
-    ${PostMetaFieldsFragmentDoc}`;
+    ${PostMetaFieldsFragmentDoc}
+${ResponsiveImageFieldsFragmentDoc}`;
 export const GetPostDocument = /*#__PURE__*/ gql`
     query getPost($slug: String!) {
   post(filter: {slug: {eq: $slug}}) {
     ...PostFields
   }
 }
-    ${PostFieldsFragmentDoc}`;
+    ${PostFieldsFragmentDoc}
+${PostMetaFieldsFragmentDoc}
+${ResponsiveImageFieldsFragmentDoc}`;
 export const PostStaticPathsDocument = /*#__PURE__*/ gql`
     query postStaticPaths($skip: IntType) {
   allPosts(first: 100, orderBy: title_ASC, skip: $skip) {
@@ -2840,7 +2824,8 @@ export const ProjectsStaticPropsDocument = /*#__PURE__*/ gql`
     ...ShowcaseFragment
   }
 }
-    ${ShowcaseFragmentDoc}`;
+    ${ShowcaseFragmentDoc}
+${ResponsiveImageFieldsFragmentDoc}`;
 export const WebsiteSeoTagsDocument = /*#__PURE__*/ gql`
     query websiteSeoTags {
   about {
@@ -2897,7 +2882,8 @@ export const TagRelationsDocument = /*#__PURE__*/ gql`
   }
 }
     ${AppearanceFragmentDoc}
-${ShowcaseFragmentDoc}`;
+${ShowcaseFragmentDoc}
+${ResponsiveImageFieldsFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
@@ -2948,236 +2934,103 @@ export type Sdk = ReturnType<typeof getSdk>;
 export type AboutStaticPropsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AboutStaticPropsQuery = (
-  { __typename?: 'Query' }
-  & { about?: Maybe<(
-    { __typename?: 'AboutRecord' }
-    & Pick<AboutRecord, 'preface' | 'updatedAt'>
-    & { coverImage?: Maybe<(
-      { __typename?: 'FileField' }
-      & { responsiveImage?: Maybe<(
-        { __typename?: 'ResponsiveImage' }
-        & ResponsiveImageFieldsFragment
-      )> }
-    )>, knowledgeBases?: Maybe<Array<Maybe<(
-      { __typename?: 'EntryRecord' }
-      & Pick<EntryRecord, 'title' | 'entries'>
-    )>>> }
-  )> }
-);
+export type AboutStaticPropsQuery = { about: Maybe<(
+    Pick<AboutRecord, 'preface' | 'updatedAt'>
+    & { coverImage: Maybe<{ responsiveImage: Maybe<ResponsiveImageFieldsFragment> }>, knowledgeBases: Maybe<Array<Maybe<Pick<EntryRecord, 'title' | 'entries'>>>> }
+  )> };
 
 export type AppearanceFragment = (
-  { __typename?: 'AppearanceRecord' }
-  & Pick<AppearanceRecord, 'id' | 'title' | 'subtitle' | 'date' | 'url' | 'category'>
-  & { tags: Array<(
-    { __typename?: 'TagRecord' }
-    & Pick<TagRecord, 'title' | 'slug'>
-  )> }
+  Pick<AppearanceRecord, 'id' | 'title' | 'subtitle' | 'date' | 'url' | 'category'>
+  & { tags: Array<Pick<TagRecord, 'title' | 'slug'>> }
 );
 
 export type AppearancesStaticPropsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AppearancesStaticPropsQuery = (
-  { __typename?: 'Query' }
-  & { allAppearances: Array<(
-    { __typename?: 'AppearanceRecord' }
-    & AppearanceFragment
-  )> }
-);
+export type AppearancesStaticPropsQuery = { allAppearances: Array<AppearanceFragment> };
 
 export type BuildTriggerUrlsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BuildTriggerUrlsQuery = (
-  { __typename?: 'Query' }
-  & { buildTrigger?: Maybe<(
-    { __typename?: 'BuildTriggerRecord' }
-    & { webhookUrls?: Maybe<Array<Maybe<(
-      { __typename?: 'UrlRecord' }
-      & Pick<UrlRecord, 'url'>
-    )>>> }
-  )> }
-);
+export type BuildTriggerUrlsQuery = { buildTrigger: Maybe<{ webhookUrls: Maybe<Array<Maybe<Pick<UrlRecord, 'url'>>>> }> };
 
-export type ResponsiveImageFieldsFragment = (
-  { __typename?: 'ResponsiveImage' }
-  & Pick<ResponsiveImage, 'alt' | 'aspectRatio' | 'base64' | 'height' | 'sizes' | 'src' | 'srcSet' | 'title' | 'webpSrcSet' | 'width'>
-);
+export type ResponsiveImageFieldsFragment = Pick<ResponsiveImage, 'alt' | 'aspectRatio' | 'base64' | 'height' | 'sizes' | 'src' | 'srcSet' | 'title' | 'webpSrcSet' | 'width'>;
 
 export type HomeStaticPropsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomeStaticPropsQuery = (
-  { __typename?: 'Query' }
-  & { site: (
-    { __typename?: 'Site' }
-    & { favicon?: Maybe<(
-      { __typename?: 'FileField' }
-      & { responsiveImage?: Maybe<(
-        { __typename?: 'ResponsiveImage' }
-        & ResponsiveImageFieldsFragment
-      )> }
-    )> }
-  ) }
-);
+export type HomeStaticPropsQuery = { site: { favicon: Maybe<{ responsiveImage: Maybe<ResponsiveImageFieldsFragment> }> } };
 
 export type PostMetaFieldsFragment = (
-  { __typename?: 'PostRecord' }
-  & Pick<PostRecord, '_firstPublishedAt' | 'title' | 'slug' | 'subtitle'>
-  & { cover?: Maybe<(
-    { __typename?: 'FileField' }
-    & { responsiveImage?: Maybe<(
-      { __typename?: 'ResponsiveImage' }
-      & ResponsiveImageFieldsFragment
-    )> }
-  )>, tags: Array<(
-    { __typename?: 'TagRecord' }
-    & Pick<TagRecord, 'slug' | 'title'>
-  )> }
+  Pick<PostRecord, '_firstPublishedAt' | 'title' | 'slug' | 'subtitle'>
+  & { cover: Maybe<{ responsiveImage: Maybe<ResponsiveImageFieldsFragment> }>, tags: Array<Pick<TagRecord, 'slug' | 'title'>> }
 );
 
 export type PostFieldsFragment = (
-  { __typename?: 'PostRecord' }
-  & Pick<PostRecord, 'content'>
-  & { _seoMetaTags: Array<(
-    { __typename?: 'Tag' }
-    & Pick<Tag, 'attributes' | 'content' | 'tag'>
-  )> }
+  Pick<PostRecord, 'content'>
+  & { _seoMetaTags: Array<Pick<Tag, 'attributes' | 'content' | 'tag'>> }
   & PostMetaFieldsFragment
 );
 
 export type GetPostsQueryVariables = Exact<{
-  skip?: Maybe<Scalars['IntType']>;
+  skip: Maybe<Scalars['IntType']>;
 }>;
 
 
-export type GetPostsQuery = (
-  { __typename?: 'Query' }
-  & { allPosts: Array<(
-    { __typename?: 'PostRecord' }
-    & PostMetaFieldsFragment
-  )> }
-);
+export type GetPostsQuery = { allPosts: Array<PostMetaFieldsFragment> };
 
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type GetPostQuery = (
-  { __typename?: 'Query' }
-  & { post?: Maybe<(
-    { __typename?: 'PostRecord' }
-    & PostFieldsFragment
-  )> }
-);
+export type GetPostQuery = { post: Maybe<PostFieldsFragment> };
 
 export type PostStaticPathsQueryVariables = Exact<{
-  skip?: Maybe<Scalars['IntType']>;
+  skip: Maybe<Scalars['IntType']>;
 }>;
 
 
-export type PostStaticPathsQuery = (
-  { __typename?: 'Query' }
-  & { allPosts: Array<(
-    { __typename?: 'PostRecord' }
-    & Pick<PostRecord, 'slug'>
-  )> }
-);
+export type PostStaticPathsQuery = { allPosts: Array<Pick<PostRecord, 'slug'>> };
 
 export type ShowcaseFragment = (
-  { __typename?: 'ShowcaseRecord' }
-  & Pick<ShowcaseRecord, 'id' | 'title' | 'subtitle' | 'url'>
-  & { image?: Maybe<(
-    { __typename?: 'FileField' }
-    & { responsiveImage?: Maybe<(
-      { __typename?: 'ResponsiveImage' }
-      & ResponsiveImageFieldsFragment
-    )> }
-  )>, tags: Array<(
-    { __typename?: 'TagRecord' }
-    & Pick<TagRecord, 'title' | 'slug'>
-  )> }
+  Pick<ShowcaseRecord, 'id' | 'title' | 'subtitle' | 'url'>
+  & { image: Maybe<{ responsiveImage: Maybe<ResponsiveImageFieldsFragment> }>, tags: Array<Pick<TagRecord, 'title' | 'slug'>> }
 );
 
 export type ProjectsStaticPropsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProjectsStaticPropsQuery = (
-  { __typename?: 'Query' }
-  & { allShowcases: Array<(
-    { __typename?: 'ShowcaseRecord' }
-    & ShowcaseFragment
-  )> }
-);
+export type ProjectsStaticPropsQuery = { allShowcases: Array<ShowcaseFragment> };
 
 export type WebsiteSeoTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type WebsiteSeoTagsQuery = (
-  { __typename?: 'Query' }
-  & { about?: Maybe<(
-    { __typename?: 'AboutRecord' }
-    & Pick<AboutRecord, 'email' | 'socialsJson'>
-  )>, site: (
-    { __typename?: 'Site' }
-    & { favicon: Array<(
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'attributes' | 'content' | 'tag'>
-    )>, seo?: Maybe<(
-      { __typename?: 'GlobalSeoField' }
-      & Pick<GlobalSeoField, 'siteName' | 'titleSuffix' | 'twitterAccount'>
-      & { fallback?: Maybe<(
-        { __typename?: 'SeoField' }
-        & Pick<SeoField, 'description' | 'title' | 'twitterCard'>
-        & { image?: Maybe<(
-          { __typename?: 'FileField' }
-          & Pick<FileField, 'url' | 'width' | 'height'>
-        )> }
+export type WebsiteSeoTagsQuery = { about: Maybe<Pick<AboutRecord, 'email' | 'socialsJson'>>, site: { favicon: Array<Pick<Tag, 'attributes' | 'content' | 'tag'>>, seo: Maybe<(
+      Pick<GlobalSeoField, 'siteName' | 'titleSuffix' | 'twitterAccount'>
+      & { fallback: Maybe<(
+        Pick<SeoField, 'description' | 'title' | 'twitterCard'>
+        & { image: Maybe<Pick<FileField, 'url' | 'width' | 'height'>> }
       )> }
-    )> }
-  ) }
-);
+    )> } };
 
 export type TagsStaticPathsQueryVariables = Exact<{
-  skip?: Maybe<Scalars['IntType']>;
+  skip: Maybe<Scalars['IntType']>;
 }>;
 
 
-export type TagsStaticPathsQuery = (
-  { __typename?: 'Query' }
-  & { allTags: Array<(
-    { __typename?: 'TagRecord' }
-    & Pick<TagRecord, 'slug'>
-  )> }
-);
+export type TagsStaticPathsQuery = { allTags: Array<Pick<TagRecord, 'slug'>> };
 
 export type TagSlugLookupQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type TagSlugLookupQuery = (
-  { __typename?: 'Query' }
-  & { tag?: Maybe<(
-    { __typename?: 'TagRecord' }
-    & Pick<TagRecord, 'id' | 'title' | 'slug'>
-  )> }
-);
+export type TagSlugLookupQuery = { tag: Maybe<Pick<TagRecord, 'id' | 'title' | 'slug'>> };
 
 export type TagRelationsQueryVariables = Exact<{
   id: Scalars['ItemId'];
 }>;
 
 
-export type TagRelationsQuery = (
-  { __typename?: 'Query' }
-  & { allAppearances: Array<(
-    { __typename?: 'AppearanceRecord' }
-    & AppearanceFragment
-  )>, allShowcases: Array<(
-    { __typename?: 'ShowcaseRecord' }
-    & ShowcaseFragment
-  )> }
-);
+export type TagRelationsQuery = { allAppearances: Array<AppearanceFragment>, allShowcases: Array<ShowcaseFragment> };

@@ -24,8 +24,11 @@ generates:
       - "add":
           content: "//@ts-nocheck\n/* eslint-disable */"
     config:
+      avoidOptionals: true
+      dedupeFragments: true
       dedupeOperationSuffix: true
       pureMagicComment: true
+      skipTypename: true
     hooks:
       afterAllFileWrite:
         - prettier --write
