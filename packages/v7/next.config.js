@@ -33,8 +33,12 @@ module.exports = {
   redirects,
 
   // https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
-  /** @param {import("webpack").Configuration} config */
-  webpack(config, { defaultLoaders }) {
+  /**
+   * @param {import("webpack").Configuration} config
+   * @param {boolean} x.dev
+   * @param {import("webpack").Compiler} x.webpack
+   */
+  webpack(config, { defaultLoaders, dev, webpack }) {
     // https://github.com/belgattitude/nextjs-monorepo-example/blob/16eceafc9300a268436f007bf0ec2a40953751f9/apps/web-app/next.config.js#L22-L39
     // https://github.com/vercel/next.js/pull/13542
     const resolvedBaseUrl = path.resolve(config.context, "../../");
@@ -49,6 +53,11 @@ module.exports = {
         },
       },
     ];
+
+    if (dev) {
+      config.plugins.push(new webpack.DefinePlugin({ __DEV__: true }));
+    }
+
     return config;
   },
 };

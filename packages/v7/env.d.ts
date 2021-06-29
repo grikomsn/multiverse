@@ -17,3 +17,5 @@ declare namespace NodeJS {
     [k: string]: string;
   }
 }
+
+declare let __DEV__: true | undefined;
