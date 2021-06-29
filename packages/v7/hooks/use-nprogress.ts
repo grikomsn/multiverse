@@ -5,6 +5,10 @@ import { useGlobalStore } from "~store/global";
 import { useRouter } from "next/router";
 import nprogress from "nprogress";
 
+nprogress.configure({
+  showSpinner: false,
+});
+
 export default function useNProgress() {
   const router = useRouter();
 
