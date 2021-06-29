@@ -26,10 +26,10 @@ export default extendTheme(<ThemeOverride>{
         },
         overlay: {
           "@supports (backdrop-filter: blur(4px))": {
-            "backdrop-filter": "blur(4px)",
+            backdropFilter: "blur(4px)",
           },
           "@supports (-webkit-backdrop-filter: blur(4px))": {
-            "-webkit-backdrop-filter": "blur(4px)",
+            WebkitBackdropFilter: "blur(4px)",
           },
         },
       },
