@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import create, { State } from "zustand";
 import shallow from "zustand/shallow";
@@ -67,4 +67,56 @@ export function useCheatsheet() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     onToggle: useCallback(() => onToggle(), []),
   };
+}
+
+export function useCheatsheetSyncSetup() {
+  const channel = useRef<BroadcastChannel>();
+  const external = useRef(false);
+  const timestamp = useRef(0);
+
+  useEffect(() => {
+    if (!("BroadcastChannel" in window)) {
+      return () => {};
+    }
+
+    if (!channel.current) {
+      channel.current = new BroadcastChannel("state-cheatsheet");
+    }
+
+    const unsub = useGlobalStore.subscribe<boolean>(
+      (state) => {
+        if (!external.current) {
+          timestamp.current = Date.now();
+          const data = { state, ts: timestamp.current };
+          channel.current.postMessage(data);
+
+          if (__DEV__) {
+            console.info("POST", data);
+          }
+        }
+      },
+      (store) => store.isCheatsheetOpen,
+    );
+
+    function handler({ data }: MessageEvent<{ state: boolean; ts: number }>) {
+      if (data.ts > timestamp.current) {
+        external.current = true;
+        timestamp.current = data.ts;
+        useGlobalStore.setState({ isCheatsheetOpen: Boolean(data.state) });
+
+        if (__DEV__) {
+          console.info("RECV", data);
+        }
+      }
+    }
+
+    channel.current.addEventListener("message", handler);
+
+    return () => {
+      channel.current.removeEventListener("message", handler);
+      unsub();
+    };
+  }, []);
+
+  return null;
 }

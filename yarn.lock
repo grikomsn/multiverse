@@ -9470,6 +9470,11 @@ react-syntax-highlighter@^15:
     prismjs "^1.22.0"
     refractor "^3.2.0"
 
+react-web-broadcast-channel@^1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-web-broadcast-channel/-/react-web-broadcast-channel-1.1.0.tgz#67cdeddb5e769e4a48d4b81d2172a685e307a99c"
+  integrity sha512-VWbpOQpqUMFp1IKOZx03dDBNUWuHMG/8GqGqAc2vrJrHBhL3gTk7KVhNPSEyZHa+EoYo/8JUx954Qgeyda9E+Q==
+
 react@^17:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"

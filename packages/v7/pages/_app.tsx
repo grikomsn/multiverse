@@ -11,6 +11,7 @@ import useKeybinds from "~hooks/use-keybinds";
 import useNProgress from "~hooks/use-nprogress";
 import cms from "~lib/cms";
 import emotionCache from "~lib/emotion-cache";
+import { useCheatsheetSyncSetup } from "~store/global";
 import { MetaContext } from "~store/meta";
 import theme from "~theme";
 
@@ -68,6 +69,7 @@ const Effects: React.FC<Pick<CustomAppProps, "meta">> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { meta } = props;
 
+  useCheatsheetSyncSetup();
   useKeybinds();
   useNProgress();
 
