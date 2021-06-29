@@ -1,8 +1,8 @@
-import { createElement, useEffect } from "react";
+import { createElement, useCallback, useEffect } from "react";
 
 import siteConfig from "~config/site";
 import { createKeybindsRecord } from "~lib/keybinds";
-import { useCheatsheet, useMobileDrawer } from "~store/global";
+import { useGlobalStore } from "~store/global";
 
 import { Link, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -16,8 +16,12 @@ export default function useKeybinds() {
     variant: "subtle",
   });
 
-  const { onToggle: toggleCheatsheet } = useCheatsheet();
-  const { onToggle: toggleMobileDrawer } = useMobileDrawer();
+  const toggleCheatsheet = useGlobalStore(
+    useCallback((store) => store.toggleCheatsheet, []),
+  );
+  const toggleMobileDrawer = useGlobalStore(
+    useCallback((store) => store.toggleMobileDrawer, []),
+  );
 
   useEffect(() => {
     const unsub = tinykeys(

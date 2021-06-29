@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { KEYBINDS_MAP } from "~lib/keybinds";
-import { useCheatsheet } from "~store/global";
+import { useGlobalStore } from "~store/global";
 
 import {
   Heading,
@@ -14,9 +14,16 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import shallow from "zustand/shallow";
 
 const KeybindsCheatsheet: React.FC = () => {
-  const { isOpen, onClose } = useCheatsheet();
+  const [isOpen, onClose] = useGlobalStore(
+    React.useCallback(
+      (store) => [store.isCheatsheetOpen, store.closeCheatsheet],
+      [],
+    ),
+    shallow,
+  );
 
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>

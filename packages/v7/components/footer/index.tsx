@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { baseComponents } from "~components/markdown";
-import { useCheatsheet } from "~store/global";
+import { useGlobalStore } from "~store/global";
 import { useMeta } from "~store/meta";
 
 import {
@@ -29,7 +29,9 @@ MIT License &copy; ${new Date().getFullYear()}&ndash;present
 
   const { GitHub, Twitter } = meta.about.socialsJson as Record<string, string>;
 
-  const { onToggle } = useCheatsheet();
+  const open = useGlobalStore(
+    React.useCallback((store) => store.openCheatsheet, []),
+  );
 
   return (
     <Container as="footer" color="whiteAlpha.700" maxW="4xl" p={[4, 8]}>
@@ -57,7 +59,7 @@ MIT License &copy; ${new Date().getFullYear()}&ndash;present
           <IconButton
             aria-label="Open keybinds cheatsheet"
             icon={<Icon as={BiCommand} />}
-            onClick={onToggle}
+            onClick={() => open()}
             rounded="full"
             variant="ghost"
           />

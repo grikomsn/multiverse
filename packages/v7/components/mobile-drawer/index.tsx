@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import routes from "~routes";
-import { useMobileDrawer } from "~store/global";
+import { useGlobalStore } from "~store/global";
 
 import {
   Button,
@@ -18,11 +18,22 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaBars } from "react-icons/fa";
+import shallow from "zustand/shallow";
 
 const routeArray = Object.entries(routes as Record<string, string>);
 
 const MobileModal: React.FC = () => {
-  const { isOpen, onClose, onToggle } = useMobileDrawer();
+  const [isOpen, onClose, onOpen] = useGlobalStore(
+    React.useCallback(
+      (store) => [
+        store.isMobileDrawerOpen,
+        store.closeMobileDrawer,
+        store.openMobileDrawer,
+      ],
+      [],
+    ),
+    shallow,
+  );
 
   const router = useRouter();
 
@@ -75,7 +86,7 @@ const MobileModal: React.FC = () => {
               bgColor="blackAlpha.600"
               boxShadow="dark-lg"
               leftIcon={<Icon as={FaBars} />}
-              onClick={onToggle}
+              onClick={onOpen}
               pointerEvents="visible"
               size="sm"
               sx={{
