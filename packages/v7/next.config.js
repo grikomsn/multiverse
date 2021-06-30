@@ -54,9 +54,7 @@ module.exports = {
       },
     ];
 
-    if (dev) {
-      config.plugins.push(new webpack.DefinePlugin({ __DEV__: true }));
-    }
+    config.plugins.push(new webpack.DefinePlugin({ __DEV__: dev }));
 
     return config;
   },
