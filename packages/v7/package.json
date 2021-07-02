@@ -46,6 +46,7 @@
     "next-seo": "^4",
     "next-sitemap": "^1",
     "nprogress": "^0",
+    "preact": "^10",
     "react": "^17",
     "react-datocms": "^1",
     "react-dom": "^17",

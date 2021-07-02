@@ -110,10 +110,9 @@ module.exports = {
   // https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
   /**
    * @param {import("webpack").Configuration} config
-   * @param {boolean} x.dev
-   * @param {import("webpack").Compiler} x.webpack
+   * @param {{dev:boolean;isServer:boolean}} opts
    */
-  webpack(config, { defaultLoaders, dev, webpack }) {
+  webpack(config, { defaultLoaders, dev, isServer, webpack }) {
     // https://github.com/belgattitude/nextjs-monorepo-example/blob/16eceafc9300a268436f007bf0ec2a40953751f9/apps/web-app/next.config.js#L22-L39
     // https://github.com/vercel/next.js/pull/13542
     const resolvedBaseUrl = path.resolve(config.context, "../../");
@@ -130,6 +129,15 @@ module.exports = {
     ];
 
     config.plugins.push(new webpack.DefinePlugin({ __DEV__: dev }));
+
+    // https://github.com/leerob/leerob.io/blob/9adc510cbfb3da88c3b0ad15632eb876ca91b607/next.config.js#L27-L33
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+      });
+    }
 
     return config;
   },
