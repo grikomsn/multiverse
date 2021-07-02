@@ -10,6 +10,7 @@
   "include": [
     "env.d.ts",
     "next-env.d.ts",
+    "**/*.d.ts",
     "**/*.js",
     "**/*.json",
     "**/*.jsx",
