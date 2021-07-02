@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import trimHttps from "@grikomsn/shared/utils/trim-https";
 import Link from "next/link";
+import { ResponsiveImageType } from "react-datocms";
 
 interface ShowcaseItemProps {
   data: ShowcaseFragment;
@@ -42,7 +43,7 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
       <DatoImage
         _groupHover={{ filter: "blur(2px)" }}
         d="block"
-        data={data.image.responsiveImage}
+        data={data.image?.responsiveImage as ResponsiveImageType}
         transitionDuration="normal"
         transitionProperty="common"
         transitionTimingFunction="ease-out"
@@ -67,11 +68,11 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
         <LinkOverlay
           color="yellow.200"
           fontSize={["xs", "sm"]}
-          href={data.url}
+          href={data.url as string}
           isExternal
           pb={4}
         >
-          {trimHttps(data.url)}
+          {trimHttps(data.url as string)}
         </LinkOverlay>
         <Wrap justify="center">
           {data.tags.map((t) => (

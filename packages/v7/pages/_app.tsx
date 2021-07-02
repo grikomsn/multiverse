@@ -21,6 +21,7 @@ import { AnimatePresence } from "framer-motion";
 import NextApp, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
+import { OpenGraphImages } from "next-seo/lib/types";
 import { renderMetaTags, SeoMetaTagType } from "react-datocms";
 
 interface CustomAppProps extends AppProps {
@@ -89,23 +90,25 @@ export default function App(props: CustomAppProps) {
 
       <DefaultSeo
         canonical={siteConfig.siteUrl + (router.asPath || "")}
-        defaultTitle={meta.site.seo.fallback.title}
-        description={meta.site.seo.fallback.description}
+        defaultTitle={meta.site.seo?.fallback?.title as string}
+        description={meta.site.seo?.fallback?.description as string}
         openGraph={{
           type: "website",
-          site_name: meta.site.seo.siteName,
-          images: [meta.site.seo.fallback.image],
+          site_name: meta.site.seo?.siteName as string,
+          images: [meta.site.seo?.fallback?.image as OpenGraphImages],
         }}
         twitter={{
-          cardType: meta.site.seo.fallback.twitterCard,
-          handle: meta.site.seo.twitterAccount,
-          site: meta.site.seo.twitterAccount,
+          cardType: meta.site.seo?.fallback?.twitterCard as string,
+          handle: meta.site.seo?.twitterAccount as string,
+          site: meta.site.seo?.twitterAccount as string,
         }}
       />
 
       <SocialProfileJsonLd
-        name={meta.site.seo.siteName}
-        sameAs={Object.values(meta.about.socialsJson as Record<string, string>)}
+        name={meta.site.seo?.siteName as string}
+        sameAs={Object.values(
+          meta.about?.socialsJson as Record<string, string>,
+        )}
         type="person"
         url={siteConfig.siteUrl}
       />

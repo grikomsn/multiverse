@@ -33,7 +33,7 @@ const ErrorPage: NextPage<ErrorPageProps> = (props) => {
 ErrorPage.getInitialProps = ({ err, res }) => {
   console.error(err);
   return {
-    statusCode: res ? res.statusCode : err ? err.statusCode : 404,
+    statusCode: res?.statusCode ?? err?.statusCode ?? 404,
   };
 };
 

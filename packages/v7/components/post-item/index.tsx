@@ -44,7 +44,7 @@ const PostItem: React.FC<PostItemProps> = (props) => {
     >
       {post.cover && (
         <Box bgColor="whiteAlpha.800">
-          <DatoImage data={post.cover.responsiveImage} />
+          <DatoImage data={post.cover.responsiveImage as ResponsiveImageType} />
         </Box>
       )}
       <Stack align="center" direction="column" p={[4, 8]}>

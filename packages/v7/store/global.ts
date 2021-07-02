@@ -55,7 +55,7 @@ export function useCheatsheetSyncSetup() {
         if (!external.current) {
           timestamp.current = Date.now();
           const data = { state, ts: timestamp.current };
-          channel.current.postMessage(data);
+          channel.current?.postMessage(data);
 
           if (__DEV__) {
             console.info("POST", data);
@@ -81,7 +81,7 @@ export function useCheatsheetSyncSetup() {
     channel.current.addEventListener("message", handler);
 
     return () => {
-      channel.current.removeEventListener("message", handler);
+      channel.current?.removeEventListener("message", handler);
       unsub();
     };
   }, []);

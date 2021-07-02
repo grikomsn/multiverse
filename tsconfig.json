@@ -17,8 +17,16 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
+    "strictNullChecks": true,
     "target": "es5"
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.js", "**/*.json", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.json",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

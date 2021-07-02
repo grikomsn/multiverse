@@ -18,6 +18,7 @@ export const getStaticProps: GetStaticProps<BlogPostsPageProps> = async () => {
 
   function* fetchPosts() {
     let step = 0;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) yield cms().getPosts({ skip: step++ * 100 });
   }
 

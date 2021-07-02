@@ -10,12 +10,12 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 
 interface TagPageProps {
-  tag: TagSlugLookupQuery["tag"];
+  tag: Exclude<TagSlugLookupQuery["tag"], null>;
   relations: TagRelationsQuery;
 }
 
 export const getStaticProps: GetStaticProps<TagPageProps> = async (ctx) => {
-  const slug = ctx.params.slug as string;
+  const slug = ctx.params?.slug as string;
 
   const { tag } = await cms().tagSlugLookup({ slug });
 
@@ -40,12 +40,15 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
   function* fetchTagSlugs() {
     let step = 0;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) yield cms().tagsStaticPaths({ skip: step++ * 100 });
   }
 
   for await (const { allTags } of fetchTagSlugs()) {
     if (allTags.length < 1) break;
-    paths.push(...allTags.map(({ slug }) => ({ params: { slug } })));
+    paths.push(
+      ...allTags.map(({ slug }: { slug: string }) => ({ params: { slug } })),
+    );
   }
 
   return {

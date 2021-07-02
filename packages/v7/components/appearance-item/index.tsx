@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { AppearanceFragment } from "~generated/graphql";
 
-import icons from "./icons";
+import { getIcon } from "./icons";
 
 import {
   Heading,
@@ -49,7 +49,7 @@ const AppearanceItem: React.FC<AppearanceItemProps> = (props) => {
         spacing={[4, 8]}
         textAlign={["center", "center", "initial"]}
       >
-        <Icon as={icons[data.category]} boxSize={[8, 12]} />
+        <Icon as={getIcon(data.category)} boxSize={[8, 12]} />
         <Stack>
           <Text color="whiteAlpha.700" fontSize="sm">
             {format(new Date(data.date as string), "PPPP")}
@@ -59,11 +59,11 @@ const AppearanceItem: React.FC<AppearanceItemProps> = (props) => {
           <LinkOverlay
             color="yellow.200"
             fontSize="sm"
-            href={data.url}
+            href={data.url as string}
             isExternal
             pb={4}
           >
-            {trimHttps(data.url)}
+            {trimHttps(data.url as string)}
           </LinkOverlay>
           <Wrap justify={["center", "center", "initial"]}>
             {data.tags.map((t) => (

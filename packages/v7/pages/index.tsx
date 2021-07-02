@@ -9,6 +9,7 @@ import { Box, Container, Heading, Link, Stack, Text } from "@chakra-ui/react";
 import { GetStaticProps, NextPage } from "next";
 import NextLink from "next/link";
 import { NextSeo } from "next-seo";
+import { ResponsiveImageType } from "react-datocms";
 
 interface HomePageProps {
   data: HomeStaticPropsQuery;
@@ -30,7 +31,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
   return (
     <>
-      <NextSeo title={meta.site.seo.siteName} />
+      <NextSeo title={meta.site.seo?.siteName as string} />
 
       <Container maxW="4xl" p={[4, 8]}>
         <Stack align="center" spacing={4} textAlign="center">
@@ -53,30 +54,32 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               transitionProperty="common"
               transitionTimingFunction="ease-out"
             >
-              <DatoImage data={data.site.favicon.responsiveImage} />
+              <DatoImage
+                data={data.site.favicon?.responsiveImage as ResponsiveImageType}
+              />
             </Box>
           </NextLink>
 
           <Heading size="3xl">Hey! I&apos;m Griko Nibras.</Heading>
 
           <Text color="whiteAlpha.700" fontSize={["lg", "xl"]} maxW="2xl">
-            {meta.site.seo.fallback.description}
+            {meta.site.seo?.fallback?.description}
           </Text>
 
           <Box h={8} />
 
           <Text pb={8}>
             Reach me via email at{" "}
-            <Link href={`mailto:${meta.about.email}`} variant="link">
-              {meta.about.email}
+            <Link href={`mailto:${meta.about?.email}`} variant="link">
+              {meta.about?.email}
             </Link>
             , or Twitter at{" "}
             <Link
-              href={`https://twitter.com/${meta.site.seo.twitterAccount}`}
+              href={`https://twitter.com/${meta.site.seo?.twitterAccount}`}
               isExternal
               variant="link"
             >
-              {meta.site.seo.twitterAccount}
+              {meta.site.seo?.twitterAccount}
             </Link>
             .
           </Text>

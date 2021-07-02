@@ -59,7 +59,7 @@ export const postComponents: Components = {
   },
 
   code({ node, inline, className, children, ...rest }) {
-    const match = /language-(\w+)/.exec(className || "");
+    const match = /language-(\w+)/.exec(className ?? "");
     return !inline && match ? (
       <SyntaxHighlighter
         children={String(children).replace(/\n$/, "")}
@@ -84,7 +84,7 @@ export const postComponents: Components = {
         <Img mx="auto" {...rest} />
         {rest.alt && (
           <Text color="whiteAlpha.400" fontSize="sm" fontStyle="italic">
-            {rest.alt}
+            {rest.alt as string}
           </Text>
         )}
       </Stack>

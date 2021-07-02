@@ -14,7 +14,6 @@ import {
   Divider,
   Heading,
   Icon,
-  Link,
   Stack,
   Tag,
   Text,
@@ -25,7 +24,11 @@ import format from "date-fns/format";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
-import { renderMetaTags, SeoMetaTagType } from "react-datocms";
+import {
+  renderMetaTags,
+  ResponsiveImageType,
+  SeoMetaTagType,
+} from "react-datocms";
 import { FaChevronUp } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
@@ -34,7 +37,7 @@ interface PostPageProps {
 }
 
 export const getStaticProps: GetStaticProps<PostPageProps> = async (ctx) => {
-  const slug = ctx.params.slug as string;
+  const slug = ctx.params?.slug as string;
 
   const { post } = await cms().getPost({ slug });
 
@@ -56,12 +59,15 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
   function* fetchPostSlugs() {
     let step = 0;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) yield cms().postStaticPaths({ skip: step++ * 100 });
   }
 
   for await (const { allPosts } of fetchPostSlugs()) {
     if (allPosts.length < 1) break;
-    paths.push(...allPosts.map(({ slug }) => ({ params: { slug } })));
+    paths.push(
+      ...allPosts.map(({ slug }: { slug: string }) => ({ params: { slug } })),
+    );
   }
 
   return {
@@ -79,17 +85,13 @@ const PostPage: NextPage<PostPageProps> = (props) => {
 
       {post.cover && (
         <Box bgColor="whiteAlpha.800">
-          <DatoImage data={post.cover.responsiveImage} />
+          <DatoImage data={post.cover.responsiveImage as ResponsiveImageType} />
         </Box>
       )}
 
       <Container maxW="6xl" p={[4, 8]}>
         <Stack align="center" spacing={4} textAlign="center">
-          <NextLink href={`/blog/${post.slug}`} passHref>
-            <Link>
-              <Heading size="2xl">{post.title}</Heading>
-            </Link>
-          </NextLink>
+          <Heading size="2xl">{post.title}</Heading>
           <Text
             color="whiteAlpha.600"
             fontSize="lg"
@@ -100,8 +102,9 @@ const PostPage: NextPage<PostPageProps> = (props) => {
           </Text>
           <Text>
             Published on{" "}
-            {format(new Date(post._firstPublishedAt as string), "PPPP") ??
-              "UNPUBLISHED"}
+            {post._firstPublishedAt
+              ? format(new Date(post._firstPublishedAt as string), "PPPP")
+              : "UNPUBLISHED"}
           </Text>
           <Wrap pt={4}>
             {post.tags.map((t) => (
@@ -122,7 +125,7 @@ const PostPage: NextPage<PostPageProps> = (props) => {
       <Container maxW="4xl" p={[4, 8]}>
         <Stack lineHeight="tall" spacing={4}>
           <ReactMarkdown
-            children={post.content}
+            children={post.content as string}
             components={postComponents}
             remarkPlugins={postPlugins}
           />
