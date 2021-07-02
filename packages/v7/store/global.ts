@@ -70,6 +70,7 @@ export function useCheatsheetSyncSetup() {
         external.current = true;
         timestamp.current = data.ts;
         useGlobalStore.setState({ isCheatsheetOpen: Boolean(data.state) });
+        external.current = false;
 
         if (__DEV__) {
           console.info("RECV", data);
