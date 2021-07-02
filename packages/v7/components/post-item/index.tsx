@@ -5,8 +5,10 @@ import { PostMetaFieldsFragment } from "~generated/graphql";
 
 import {
   Box,
-  BoxProps,
   Heading,
+  LinkBox,
+  LinkBoxProps,
+  LinkOverlay,
   Stack,
   Tag,
   Text,
@@ -15,16 +17,23 @@ import {
 } from "@chakra-ui/react";
 import format from "date-fns/format";
 import Link from "next/link";
+import { ResponsiveImageType } from "react-datocms";
 
-interface PostItemProps extends BoxProps {
+interface PostItemProps extends LinkBoxProps {
+  href?: string;
   post: PostMetaFieldsFragment;
 }
 
-const PostItem: React.FC<PostItemProps> = (props) => {
-  const { post, ...rest } = props;
+const PostItem = React.forwardRef<null, PostItemProps>(function PostItem(
+  props,
+  ref,
+) {
+  const { href, post, ...rest } = props;
+
+  const Wrapper = href ? LinkBox : Box;
 
   return (
-    <Box
+    <Wrapper
       _hover={{
         bgColor: "whiteAlpha.200",
         boxShadow: "lg",
@@ -41,6 +50,7 @@ const PostItem: React.FC<PostItemProps> = (props) => {
       transitionTimingFunction="ease-out"
       w="full"
       {...rest}
+      ref={ref}
     >
       {post.cover && (
         <Box bgColor="whiteAlpha.800">
@@ -51,7 +61,13 @@ const PostItem: React.FC<PostItemProps> = (props) => {
         <Text color="whiteAlpha.700" fontSize="sm">
           {format(new Date(post._firstPublishedAt as string), "PPPP")}
         </Text>
-        <Heading size="lg">{post.title}</Heading>
+        {href ? (
+          <LinkOverlay href={href}>
+            <Heading size="lg">{post.title}</Heading>
+          </LinkOverlay>
+        ) : (
+          <Heading size="lg">{post.title}</Heading>
+        )}
         <Text color="whiteAlpha.600" fontStyle="italic" pb={4}>
           {post.subtitle}
         </Text>
@@ -67,8 +83,8 @@ const PostItem: React.FC<PostItemProps> = (props) => {
           ))}
         </Wrap>
       </Stack>
-    </Box>
+    </Wrapper>
   );
-};
+});
 
 export default PostItem;

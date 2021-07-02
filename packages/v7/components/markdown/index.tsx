@@ -38,7 +38,7 @@ export const baseComponents: Components = {
   },
 
   p({ node, ...rest }) {
-    return <Text {...rest} />;
+    return <Text as="div" {...rest} />;
   },
 };
 
@@ -110,13 +110,13 @@ export const postComponents: Components = {
     return wrapLinkId(id, <Heading size="xs" {...rest} />);
   },
 
-  ul({ node, ...rest }) {
+  ul({ node, ordered, ...rest }) {
     return <UnorderedList pl={4} {...rest} />;
   },
-  ol({ node, ...rest }) {
+  ol({ node, ordered, ...rest }) {
     return <OrderedList pl={4} {...rest} />;
   },
-  li({ node, ...rest }) {
+  li({ node, ordered, ...rest }) {
     return <ListItem {...rest} />;
   },
 };
