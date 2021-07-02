@@ -45,12 +45,13 @@ module.exports = {
     "max-lines": "off",
     "max-lines-per-function": "off",
     "no-void": "off",
+    "one-var": "off",
     "require-await": "off",
   },
 
   overrides: [
     {
-      files: ["**/*.ts", "**/*.tsx"],
+      files: ["**/*.(d.)?ts(x)?"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
         project: "./tsconfig.json",
