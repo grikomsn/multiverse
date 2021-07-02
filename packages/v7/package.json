@@ -52,7 +52,6 @@
     "react-icons": "^4",
     "react-markdown": "^6",
     "react-syntax-highlighter": "^15",
-    "react-web-broadcast-channel": "^1",
     "remark-slug": "^6",
     "remark-toc": "^7",
     "tinykeys": "^1",
