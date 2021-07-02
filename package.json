@@ -6,12 +6,14 @@
   ],
   "scripts": {
     "# workspace commands": "################################################",
+    "eslint-config": "yarn workspace @grikomsn/eslint-config",
+    "shared": "yarn workspace @grikomsn/shared",
     "v7": "yarn workspace @grikomsn/v7",
     "# general commands": "##################################################",
     "bootstrap": "lerna bootstrap",
     "deduplicate": "npx yarn-deduplicate && yarn",
     "postinstall": "patch-package",
-    "validate": "lerna run --concurrency 1 --stream validate",
+    "validate": "lerna run --stream validate",
     "#": "###################################################################"
   },
   "dependencies": {

@@ -22,8 +22,9 @@ Website monorepo for <https://griko.id> and previous versions
 
 ## Packages
 
-- [shared](./packages/shared/README.md) - Shared libraries, types, utilities, etc.
-- [v7](./packages/v7/README.md) - Seventh version of my website
+- [eslint](./packages/eslint-config) - ESLint configuration with bundled dependencies
+- [shared](./packages/shared) - Shared libraries, types, utilities, etc.
+- [v7](./packages/v7) - Seventh version of my website
 
 ## Dependencies
 
