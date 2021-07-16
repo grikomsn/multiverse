@@ -23,12 +23,10 @@
     "postinstall-postinstall": "^2"
   },
   "devDependencies": {
-    "browser-sync": "^2",
     "cross-env": "^7",
     "env-cmd": "^10",
     "husky": "^4",
     "lint-staged": "^11",
-    "npm-run-all": "^4",
     "prettier": "^2",
     "rimraf": "^3",
     "typescript": "^4"
