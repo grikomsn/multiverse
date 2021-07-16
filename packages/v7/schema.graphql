@@ -348,6 +348,7 @@ type FileField {
   format: String!
   height: IntType
   id: UploadId!
+  md5: String!
   mimeType: String!
   notes: String
   responsiveImage(
@@ -2968,6 +2969,7 @@ input UploadFilter {
   alt: UploadAltFilter
   title: UploadTitleFilter
   notes: UploadNotesFilter
+  md5: UploadMd5Filter
   author: UploadAuthorFilter
   copyright: UploadCopyrightFilter
   basename: UploadBasenameFilter
@@ -3062,6 +3064,31 @@ input UploadIdFilter {
   Search assets that do not have the specified IDs
   """
   notIn: [UploadId]
+}
+
+"""
+Specifies how to filter by MD5
+"""
+input UploadMd5Filter {
+  """
+  Search the asset with the specified MD5
+  """
+  eq: String
+
+  """
+  Exclude the asset with the specified MD5
+  """
+  neq: String
+
+  """
+  Search assets with the specified MD5s
+  """
+  in: [String]
+
+  """
+  Search assets that do not have the specified MD5s
+  """
+  notIn: [String]
 }
 
 """

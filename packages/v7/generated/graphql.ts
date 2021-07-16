@@ -274,6 +274,7 @@ export type FileField = {
   format: Scalars['String'];
   height: Maybe<Scalars['IntType']>;
   id: Scalars['UploadId'];
+  md5: Scalars['String'];
   mimeType: Scalars['String'];
   notes: Maybe<Scalars['String']>;
   responsiveImage: Maybe<ResponsiveImage>;
@@ -2393,6 +2394,7 @@ export type UploadFilter = {
   alt: Maybe<UploadAltFilter>;
   title: Maybe<UploadTitleFilter>;
   notes: Maybe<UploadNotesFilter>;
+  md5: Maybe<UploadMd5Filter>;
   author: Maybe<UploadAuthorFilter>;
   copyright: Maybe<UploadCopyrightFilter>;
   basename: Maybe<UploadBasenameFilter>;
@@ -2441,6 +2443,18 @@ export type UploadIdFilter = {
   in: Maybe<Array<Maybe<Scalars['UploadId']>>>;
   /** Search assets that do not have the specified IDs */
   notIn: Maybe<Array<Maybe<Scalars['UploadId']>>>;
+};
+
+/** Specifies how to filter by MD5 */
+export type UploadMd5Filter = {
+  /** Search the asset with the specified MD5 */
+  eq: Maybe<Scalars['String']>;
+  /** Exclude the asset with the specified MD5 */
+  neq: Maybe<Scalars['String']>;
+  /** Search assets with the specified MD5s */
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** Search assets that do not have the specified MD5s */
+  notIn: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 /** Specifies how to filter by mime type */
