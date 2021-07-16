@@ -9,6 +9,8 @@ nprogress.configure({
   showSpinner: false,
 });
 
+const NPROGRESS_START_DELAY = 500;
+
 export default function useNProgress() {
   const router = useRouter();
 
@@ -17,12 +19,17 @@ export default function useNProgress() {
   );
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
     function routeStart() {
-      nprogress.start();
+      timeout = setTimeout(() => {
+        nprogress.start();
+      }, NPROGRESS_START_DELAY);
       closeModals();
     }
 
     function routeDone() {
+      clearTimeout(timeout);
       nprogress.done();
     }
 
