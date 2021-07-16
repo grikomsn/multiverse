@@ -19,7 +19,6 @@ module.exports = {
     conformance: true,
     optimizeCss: true,
     optimizeImages: true,
-    scrollRestoration: true,
     workerThreads: true,
   },
 
