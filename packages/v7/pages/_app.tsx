@@ -66,10 +66,7 @@ const PAGE_TRANSITION_VARIANTS = {
   },
 };
 
-const Effects: React.FC<Pick<CustomAppProps, "meta">> = (props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { meta } = props;
-
+const Effects: React.FC = () => {
   useCheatsheetSyncSetup();
   useKeybinds();
   useNProgress();
@@ -132,7 +129,7 @@ export default function App(props: CustomAppProps) {
         <KeybindsCheatsheet />
       </Flex>
 
-      <Effects meta={meta} />
+      <Effects />
     </Providers>
   );
 }
