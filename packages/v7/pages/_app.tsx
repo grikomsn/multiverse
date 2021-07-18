@@ -32,14 +32,14 @@ const Providers: React.FC<Pick<CustomAppProps, "meta">> = (props) => {
   const { meta, children } = props;
 
   return (
-    <ChakraProvider resetCSS theme={theme}>
-      <CacheProvider value={emotionCache}>
+    <CacheProvider value={emotionCache}>
+      <ChakraProvider resetCSS theme={theme}>
         <MetaContext.Provider value={meta}>
           {/*  */}
           {children}
         </MetaContext.Provider>
-      </CacheProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </CacheProvider>
   );
 };
 
