@@ -23,8 +23,6 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^1",
-    "@chakra-ui/theme-tools": "^1",
-    "@chakra-ui/utils": "^1",
     "@emotion/cache": "^11",
     "@emotion/react": "^11",
     "@emotion/server": "^11",
