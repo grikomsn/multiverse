@@ -24,11 +24,11 @@ import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 import { OpenGraphImages } from "next-seo/lib/types";
 import { renderMetaTags, SeoMetaTagType } from "react-datocms";
 
-interface CustomAppProps extends AppProps {
+interface ProvidersProps {
   meta: WebsiteSeoTagsQuery;
 }
 
-const Providers: React.FC<Pick<CustomAppProps, "meta">> = (props) => {
+const Providers: React.FC<ProvidersProps> = (props) => {
   const { meta, children } = props;
 
   return (
@@ -73,6 +73,10 @@ const Effects: React.FC = () => {
 
   return null;
 };
+
+interface CustomAppProps extends AppProps {
+  meta: WebsiteSeoTagsQuery;
+}
 
 export default function App(props: CustomAppProps) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
