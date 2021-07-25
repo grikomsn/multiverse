@@ -16,8 +16,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { NextPage } from "@grikomsn/shared/types/next";
 import trimHttps from "@grikomsn/shared/utils/trim-https";
-import { GetStaticProps, NextPage } from "next";
+import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { Image, ResponsiveImageType } from "react-datocms";
 import ReactMarkdown from "react-markdown";

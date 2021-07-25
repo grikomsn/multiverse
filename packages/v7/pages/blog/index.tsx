@@ -5,7 +5,8 @@ import { PostMetaFieldsFragment } from "~generated/graphql";
 import cms from "~lib/cms";
 
 import { Container, Heading, Text, VStack } from "@chakra-ui/react";
-import { GetStaticProps, NextPage } from "next";
+import { NextPage } from "@grikomsn/shared/types/next";
+import { GetStaticProps } from "next";
 import NextLink from "next/link";
 import { NextSeo } from "next-seo";
 

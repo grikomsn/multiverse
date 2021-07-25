@@ -5,7 +5,8 @@ import { AppearancesStaticPropsQuery } from "~generated/graphql";
 import cms from "~lib/cms";
 
 import { Container, Heading, Stack, Text } from "@chakra-ui/react";
-import { GetStaticProps, NextPage } from "next";
+import { NextPage } from "@grikomsn/shared/types/next";
+import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 
 interface AppearancesPageProps {

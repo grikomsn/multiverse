@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Container, Heading, Stack, Text } from "@chakra-ui/react";
-import { NextPage } from "next";
+import { NextPage } from "@grikomsn/shared/types/next";
 import { NextSeo } from "next-seo";
 
 interface ErrorPageProps {

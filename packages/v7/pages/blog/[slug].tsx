@@ -20,8 +20,9 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import { NextPage } from "@grikomsn/shared/types/next";
 import format from "date-fns/format";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
 import {
