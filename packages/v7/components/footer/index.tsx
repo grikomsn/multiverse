@@ -24,7 +24,7 @@ Made using [Next.js](https://nextjs.org), [Chakra UI](https://chakra-ui.com),
 and [DatoCMS](https://www.datocms.com). Hosted on [Vercel](https://vercel.com).
 
 MIT License &copy; ${new Date().getFullYear()}&ndash;present
-[${meta.site.seo?.siteName}](.). Version 7.
+[${meta.site.seo?.siteName as string}](.). Version 7.
 `;
 
   const { GitHub, Twitter } = meta.about?.socialsJson as Record<string, string>;

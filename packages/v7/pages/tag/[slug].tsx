@@ -65,8 +65,8 @@ const TagPage: NextPage<TagPageProps> = (props) => {
     relations.allAppearances.length < 1 && relations.allShowcases.length < 1;
 
   const pageMeta = {
-    title: `${tag.title} related`,
-    description: `Showing all things related to the ${tag.title} tag`,
+    title: `${tag.title as string} related`,
+    description: `Showing all things related to the ${tag.title as string} tag`,
   };
 
   return (

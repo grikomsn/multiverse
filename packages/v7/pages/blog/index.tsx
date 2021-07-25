@@ -54,7 +54,11 @@ const BlogPostsPage: NextPage<BlogPostsPageProps> = (props) => {
 
           <VStack spacing={16}>
             {posts.map((post) => (
-              <NextLink key={post.slug} href={`/blog/${post.slug}`} passHref>
+              <NextLink
+                key={post.slug}
+                href={`/blog/${post.slug as string}`}
+                passHref
+              >
                 <PostItem post={post} />
               </NextLink>
             ))}

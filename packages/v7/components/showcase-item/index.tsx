@@ -77,7 +77,7 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
         <Wrap justify="center">
           {data.tags.map((t) => (
             <WrapItem key={t.slug}>
-              <Link href={`/tag/${t.slug}`} passHref>
+              <Link href={`/tag/${t.slug as string}`} passHref>
                 <Tag as="a" size="sm" variant="subtle">
                   {t.title}
                 </Tag>

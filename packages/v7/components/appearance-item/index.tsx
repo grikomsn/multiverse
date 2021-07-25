@@ -68,7 +68,7 @@ const AppearanceItem: React.FC<AppearanceItemProps> = (props) => {
           <Wrap justify={["center", "center", "initial"]}>
             {data.tags.map((t) => (
               <WrapItem key={t.slug}>
-                <Link href={`/tag/${t.slug}`} passHref>
+                <Link href={`/tag/${t.slug as string}`} passHref>
                   <Tag as="a" size="sm" variant="subtle">
                     {t.title}
                   </Tag>

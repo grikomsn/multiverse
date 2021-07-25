@@ -71,12 +71,14 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
           <Text pb={8}>
             Reach me via email at{" "}
-            <Link href={`mailto:${meta.about?.email}`} variant="link">
+            <Link href={`mailto:${meta.about?.email as string}`} variant="link">
               {meta.about?.email}
             </Link>
             , or Twitter at{" "}
             <Link
-              href={`https://twitter.com/${meta.site.seo?.twitterAccount}`}
+              href={`https://twitter.com/${
+                meta.site.seo?.twitterAccount as string
+              }`}
               isExternal
               variant="link"
             >

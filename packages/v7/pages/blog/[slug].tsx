@@ -110,7 +110,7 @@ const PostPage: NextPage<PostPageProps> = (props) => {
           <Wrap pt={4}>
             {post.tags.map((t) => (
               <WrapItem key={t.slug}>
-                <NextLink href={`/tag/${t.slug}`} passHref>
+                <NextLink href={`/tag/${t.slug as string}`} passHref>
                   <Tag as="a" size="sm" variant="subtle">
                     {t.title}
                   </Tag>
