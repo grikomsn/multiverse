@@ -1,5 +1,9 @@
 const path = require("path");
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: true,
+});
+
 // https://github.com/leerob/leerob.io/blob/9adc510cbfb3da88c3b0ad15632eb876ca91b607/next.config.js#L39-L49
 const csp = `
   default-src 'self';
@@ -13,7 +17,7 @@ const csp = `
 `;
 
 /** @type {import("next/dist/next-server/server/config-shared").NextConfig} */
-module.exports = {
+const nextConfig = {
   // https://github.com/vercel/next.js/blob/3b388c346c6990c98e83357ad68263edc7081210/packages/next/server/config-shared.ts#L73-L97
   experimental: {
     conformance: true,
@@ -159,3 +163,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = withBundleAnalyzer(nextConfig);

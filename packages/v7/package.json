@@ -30,6 +30,7 @@
     "@fec/remark-a11y-emoji": "^3",
     "@grikomsn/eslint-config": "*",
     "@grikomsn/shared": "*",
+    "@next/bundle-analyzer": "^11",
     "@types/node": "^14",
     "@types/nprogress": "^0",
     "@types/react": "^17",
