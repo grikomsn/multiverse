@@ -7,6 +7,7 @@
     "lint": "eslint --fix \"./**/*.{js,jsx,ts,tsx}\"",
     "precommit": "lint-staged",
     "type-check": "tsc --noEmit",
+    "typings": "tsc ./**/*.js --declaration --allowJs --emitDeclarationOnly",
     "validate": "yarn lint && yarn type-check",
     "#": "###################################################################"
   },
