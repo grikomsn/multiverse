@@ -1,7 +1,7 @@
 const path = require("path");
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: true,
+  enabled: process.env.ANALYZE == "true",
 });
 
 // https://github.com/leerob/leerob.io/blob/9adc510cbfb3da88c3b0ad15632eb876ca91b607/next.config.js#L39-L49
