@@ -59,6 +59,7 @@ export default class CustomDocument extends Document {
 
           <Script
             data-cf-beacon={`{"token": "${analyticsConfig.cloudflareBeaconToken}"}`}
+            defer
             src="https://static.cloudflareinsights.com/beacon.min.js"
           />
         </body>
