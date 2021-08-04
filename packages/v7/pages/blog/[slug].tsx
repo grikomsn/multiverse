@@ -3,6 +3,7 @@ import * as React from "react";
 import DatoImage from "~components/dato-image";
 import { postComponents } from "~components/markdown";
 import { postPlugins } from "~components/markdown/plugins";
+import siteConfig from "~config/site";
 import { PostFieldsFragment } from "~generated/graphql";
 import cms from "~lib/cms";
 
@@ -25,6 +26,7 @@ import format from "date-fns/format";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
+import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
 import {
   renderMetaTags,
   ResponsiveImageType,
@@ -60,7 +62,6 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
   function* fetchPostSlugs() {
     let step = 0;
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) yield cms().postStaticPaths({ skip: step++ * 100 });
   }
 
@@ -83,6 +84,55 @@ const PostPage: NextPage<PostPageProps> = (props) => {
   return (
     <>
       <Head>{renderMetaTags(post._seoMetaTags as SeoMetaTagType[])}</Head>
+
+      <NextSeo
+        description={post.subtitle as string}
+        openGraph={{
+          type: "article",
+          article: {
+            publishedTime: post._publishedAt as string,
+            modifiedTime: post._updatedAt as string,
+            authors: [siteConfig.siteUrl],
+            tags: post.tags.map((t) => t.title as string),
+          },
+          images: post.cover
+            ? [
+                {
+                  url: post.cover?.responsiveImage?.src as string,
+                  width: post.cover?.responsiveImage?.width as number,
+                  height: post.cover?.responsiveImage?.height as number,
+                  alt: post.cover?.responsiveImage?.alt as string,
+                },
+              ]
+            : undefined,
+        }}
+        title={post.title as string}
+      />
+
+      <BlogJsonLd
+        authorName="Griko Nibras"
+        dateModified={post._updatedAt as string}
+        datePublished={post._publishedAt as string}
+        description={post.subtitle as string}
+        images={post.cover ? [post.cover?.responsiveImage?.src as string] : []}
+        title={post.title as string}
+        url={`${siteConfig.siteUrl}/blog/${post.slug as string}`}
+      />
+
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: "Blog Posts",
+            item: `${siteConfig.siteUrl}/blog`,
+          },
+          {
+            position: 2,
+            name: post.title as string,
+            item: `${siteConfig.siteUrl}/blog/${post.slug as string}`,
+          },
+        ]}
+      />
 
       {post.cover && (
         <Box bgColor="whiteAlpha.800">
