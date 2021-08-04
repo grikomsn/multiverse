@@ -76,7 +76,7 @@ const DefaultLayout: React.FC = (props) => {
         <Navbar />
         <AnimatePresence exitBeforeEnter>
           <MotionBox
-            key={router.route}
+            key={router.asPath}
             animate="enter"
             exit="exit"
             flexGrow={1}
