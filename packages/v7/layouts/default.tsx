@@ -11,7 +11,7 @@ import useNProgress from "~hooks/use-nprogress";
 import { useCheatsheetSyncSetup } from "~store/global";
 import { useMeta } from "~store/meta";
 
-import { EASINGS, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -19,11 +19,15 @@ import { DefaultSeo, SocialProfileJsonLd } from "next-seo";
 import { OpenGraphImages } from "next-seo/lib/types";
 import { renderMetaTags, SeoMetaTagType } from "react-datocms";
 
-// https://github.com/chakra-ui/chakra-ui/blob/437302f73c475cdf66edb2f46715ddf8bf43e00e/packages/transition/src/slide-fade.tsx
-const PAGE_TRANSITION_VARIANTS = {
-  initial: { opacity: 0, x: 0, y: -8 },
-  enter: { duration: 0.2, ease: EASINGS.easeOut, opacity: 1, x: 0, y: 0 },
-  exit: { duration: 0.1, ease: EASINGS.easeIn, opacity: 0, x: 0, y: 8 },
+const PAGE_TRANSITION_PROPS = {
+  animate: "enter",
+  exit: "exit",
+  initial: "initial",
+  variants: {
+    initial: { opacity: 0, x: 0, y: -8 },
+    enter: { duration: 0.2, opacity: 1, x: 0, y: 0 },
+    exit: { duration: 0.1, opacity: 0, x: 0, y: 8 },
+  },
 };
 
 const Effects: React.FC = () => {
@@ -77,11 +81,8 @@ const DefaultLayout: React.FC = (props) => {
         <AnimatePresence exitBeforeEnter>
           <MotionBox
             key={router.asPath}
-            animate="enter"
-            exit="exit"
             flexGrow={1}
-            initial="initial"
-            variants={PAGE_TRANSITION_VARIANTS}
+            {...PAGE_TRANSITION_PROPS}
           >
             {children}
           </MotionBox>
