@@ -41,7 +41,6 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
   function* fetchTagSlugs() {
     let step = 0;
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) yield cms().tagsStaticPaths({ skip: step++ * 100 });
   }
 
