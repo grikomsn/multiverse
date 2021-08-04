@@ -1,5 +1,6 @@
 fragment PostMetaFields on PostRecord {
-  _firstPublishedAt
+  _publishedAt
+  _updatedAt
   cover {
     responsiveImage {
       ...ResponsiveImageFields

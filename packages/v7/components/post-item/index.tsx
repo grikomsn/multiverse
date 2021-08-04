@@ -59,7 +59,7 @@ const PostItem = React.forwardRef<null, PostItemProps>(function PostItem(
       )}
       <Stack align="center" direction="column" p={[4, 8]}>
         <Text color="whiteAlpha.700" fontSize="sm">
-          {format(new Date(post._firstPublishedAt as string), "PPPP")}
+          {format(new Date(post._publishedAt as string), "PPPP")}
         </Text>
         {href ? (
           <LinkOverlay href={href}>

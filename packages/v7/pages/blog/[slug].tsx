@@ -103,8 +103,8 @@ const PostPage: NextPage<PostPageProps> = (props) => {
           </Text>
           <Text>
             Published on{" "}
-            {post._firstPublishedAt
-              ? format(new Date(post._firstPublishedAt as string), "PPPP")
+            {post._publishedAt
+              ? format(new Date(post._publishedAt as string), "PPPP")
               : "UNPUBLISHED"}
           </Text>
           <Wrap pt={4}>

@@ -2790,7 +2790,8 @@ export const ResponsiveImageFieldsFragmentDoc = /*#__PURE__*/ gql`
     `;
 export const PostMetaFieldsFragmentDoc = /*#__PURE__*/ gql`
     fragment PostMetaFields on PostRecord {
-  _firstPublishedAt
+  _publishedAt
+  _updatedAt
   cover {
     responsiveImage {
       ...ResponsiveImageFields
@@ -2884,7 +2885,7 @@ export const PageStaticPathsDocument = /*#__PURE__*/ gql`
     `;
 export const GetPostsDocument = /*#__PURE__*/ gql`
     query getPosts($skip: IntType) {
-  allPosts(orderBy: _firstPublishedAt_DESC, skip: $skip) {
+  allPosts(orderBy: _publishedAt_ASC, skip: $skip) {
     ...PostMetaFields
   }
 }
@@ -3067,7 +3068,7 @@ export type PageStaticPathsQueryVariables = Exact<{
 export type PageStaticPathsQuery = { allPages: Array<Pick<PageRecord, 'slug'>> };
 
 export type PostMetaFieldsFragment = (
-  Pick<PostRecord, '_firstPublishedAt' | 'title' | 'slug' | 'subtitle'>
+  Pick<PostRecord, '_publishedAt' | '_updatedAt' | 'title' | 'slug' | 'subtitle'>
   & { cover: Maybe<{ responsiveImage: Maybe<ResponsiveImageFieldsFragment> }>, tags: Array<Pick<TagRecord, 'slug' | 'title'>> }
 );
 

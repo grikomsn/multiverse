@@ -1,5 +1,5 @@
 query getPosts($skip: IntType) {
-  allPosts(orderBy: _firstPublishedAt_DESC, skip: $skip) {
+  allPosts(orderBy: _publishedAt_ASC, skip: $skip) {
     ...PostMetaFields
   }
 }
