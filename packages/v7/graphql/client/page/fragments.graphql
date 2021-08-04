@@ -1,0 +1,12 @@
+fragment PageFields on PageRecord {
+  _seoMetaTags {
+    attributes
+    content
+    tag
+  }
+  _updatedAt
+  title
+  subtitle
+  slug
+  content
+}

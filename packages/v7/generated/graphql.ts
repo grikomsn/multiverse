@@ -1686,6 +1686,88 @@ export type OrientationFilter = {
   neq: Maybe<UploadOrientation>;
 };
 
+export type PageModelFilter = {
+  _createdAt: Maybe<CreatedAtFilter>;
+  createdAt: Maybe<CreatedAtFilter>;
+  id: Maybe<ItemIdFilter>;
+  _firstPublishedAt: Maybe<PublishedAtFilter>;
+  _publicationScheduledAt: Maybe<PublishedAtFilter>;
+  _unpublishingScheduledAt: Maybe<PublishedAtFilter>;
+  _publishedAt: Maybe<PublishedAtFilter>;
+  _status: Maybe<StatusFilter>;
+  _updatedAt: Maybe<UpdatedAtFilter>;
+  updatedAt: Maybe<UpdatedAtFilter>;
+  _isValid: Maybe<BooleanFilter>;
+  subtitle: Maybe<StringFilter>;
+  content: Maybe<TextFilter>;
+  slug: Maybe<SlugFilter>;
+  title: Maybe<StringFilter>;
+  OR: Maybe<Array<Maybe<PageModelFilter>>>;
+};
+
+export enum PageModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  SubtitleAsc = 'subtitle_ASC',
+  SubtitleDesc = 'subtitle_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
+/** Record of type Page (page) */
+export type PageRecord = {
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt: Maybe<Scalars['DateTime']>;
+  _publishedAt: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  content: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  slug: Maybe<Scalars['String']>;
+  subtitle: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Page (page) */
+export type PageRecord_SeoMetaTagsArgs = {
+  locale: Maybe<SiteLocale>;
+};
+
+
+/** Record of type Page (page) */
+export type PageRecordContentArgs = {
+  markdown: Maybe<Scalars['Boolean']>;
+};
+
 /** Specifies how to filter by position (sorted and tree-like collections) */
 export type PositionFilter = {
   /** Filter records with a value that's strictly greater than the one specified */
@@ -1811,6 +1893,8 @@ export type Query = {
   /** Returns meta information regarding a record collection */
   _allAppearancesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allPagesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allPostsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allShowcasesMeta: CollectionMetadata;
@@ -1825,6 +1909,8 @@ export type Query = {
   /** Returns a collection of records */
   allAppearances: Array<AppearanceRecord>;
   /** Returns a collection of records */
+  allPages: Array<PageRecord>;
+  /** Returns a collection of records */
   allPosts: Array<PostRecord>;
   /** Returns a collection of records */
   allShowcases: Array<ShowcaseRecord>;
@@ -1834,6 +1920,8 @@ export type Query = {
   allUploads: Array<FileField>;
   /** Returns a specific record */
   appearance: Maybe<AppearanceRecord>;
+  /** Returns a specific record */
+  page: Maybe<PageRecord>;
   /** Returns a specific record */
   post: Maybe<PostRecord>;
   /** Returns a specific record */
@@ -1849,6 +1937,13 @@ export type Query = {
 export type Query_AllAppearancesMetaArgs = {
   locale: Maybe<SiteLocale>;
   filter: Maybe<AppearanceModelFilter>;
+};
+
+
+/** The query root for this schema */
+export type Query_AllPagesMetaArgs = {
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<PageModelFilter>;
 };
 
 
@@ -1903,6 +1998,16 @@ export type QueryAllAppearancesArgs = {
 
 
 /** The query root for this schema */
+export type QueryAllPagesArgs = {
+  locale: Maybe<SiteLocale>;
+  skip: Maybe<Scalars['IntType']>;
+  first?: Maybe<Scalars['IntType']>;
+  filter: Maybe<PageModelFilter>;
+  orderBy?: Maybe<Array<Maybe<PageModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
 export type QueryAllPostsArgs = {
   locale: Maybe<SiteLocale>;
   skip: Maybe<Scalars['IntType']>;
@@ -1947,6 +2052,14 @@ export type QueryAppearanceArgs = {
   locale: Maybe<SiteLocale>;
   filter: Maybe<AppearanceModelFilter>;
   orderBy?: Maybe<Array<Maybe<AppearanceModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+export type QueryPageArgs = {
+  locale: Maybe<SiteLocale>;
+  filter: Maybe<PageModelFilter>;
+  orderBy?: Maybe<Array<Maybe<PageModelOrderBy>>>;
 };
 
 
@@ -2647,6 +2760,20 @@ export const AppearanceFragmentDoc = /*#__PURE__*/ gql`
   category
 }
     `;
+export const PageFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment PageFields on PageRecord {
+  _seoMetaTags {
+    attributes
+    content
+    tag
+  }
+  _updatedAt
+  title
+  subtitle
+  slug
+  content
+}
+    `;
 export const ResponsiveImageFieldsFragmentDoc = /*#__PURE__*/ gql`
     fragment ResponsiveImageFields on ResponsiveImage {
   alt
@@ -2741,6 +2868,20 @@ export const HomeStaticPropsDocument = /*#__PURE__*/ gql`
   }
 }
     ${ResponsiveImageFieldsFragmentDoc}`;
+export const GetPageDocument = /*#__PURE__*/ gql`
+    query getPage($slug: String!) {
+  page(filter: {slug: {eq: $slug}}) {
+    ...PageFields
+  }
+}
+    ${PageFieldsFragmentDoc}`;
+export const PageStaticPathsDocument = /*#__PURE__*/ gql`
+    query pageStaticPaths($skip: IntType) {
+  allPages(first: 100, orderBy: title_ASC, skip: $skip) {
+    slug
+  }
+}
+    `;
 export const GetPostsDocument = /*#__PURE__*/ gql`
     query getPosts($skip: IntType) {
   allPosts(orderBy: _firstPublishedAt_DESC, skip: $skip) {
@@ -2848,6 +2989,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     homeStaticProps(variables?: HomeStaticPropsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomeStaticPropsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HomeStaticPropsQuery>(HomeStaticPropsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'homeStaticProps');
     },
+    getPage(variables: GetPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPageQuery>(GetPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPage');
+    },
+    pageStaticPaths(variables?: PageStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PageStaticPathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PageStaticPathsQuery>(PageStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'pageStaticPaths');
+    },
     getPosts(variables?: GetPostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPostsQuery>(GetPostsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPosts');
     },
@@ -2899,6 +3046,25 @@ export type HomeStaticPropsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HomeStaticPropsQuery = { site: { favicon: Maybe<{ responsiveImage: Maybe<ResponsiveImageFieldsFragment> }> } };
+
+export type PageFieldsFragment = (
+  Pick<PageRecord, '_updatedAt' | 'title' | 'subtitle' | 'slug' | 'content'>
+  & { _seoMetaTags: Array<Pick<Tag, 'attributes' | 'content' | 'tag'>> }
+);
+
+export type GetPageQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type GetPageQuery = { page: Maybe<PageFieldsFragment> };
+
+export type PageStaticPathsQueryVariables = Exact<{
+  skip: Maybe<Scalars['IntType']>;
+}>;
+
+
+export type PageStaticPathsQuery = { allPages: Array<Pick<PageRecord, 'slug'>> };
 
 export type PostMetaFieldsFragment = (
   Pick<PostRecord, '_firstPublishedAt' | 'title' | 'slug' | 'subtitle'>

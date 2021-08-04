@@ -1931,6 +1931,91 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
+input PageModelFilter {
+  _createdAt: CreatedAtFilter
+  createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  subtitle: StringFilter
+  content: TextFilter
+  slug: SlugFilter
+  title: StringFilter
+  OR: [PageModelFilter]
+}
+
+enum PageModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  subtitle_ASC
+  subtitle_DESC
+  title_ASC
+  title_DESC
+}
+
+"""
+Record of type Page (page)
+"""
+type PageRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """
+    Process content as markdown
+    """
+    markdown: Boolean
+  ): String
+  createdAt: DateTime!
+  id: ItemId!
+  slug: String
+  subtitle: String
+  title: String
+  updatedAt: DateTime!
+}
+
 """
 Specifies how to filter by position (sorted and tree-like collections)
 """
@@ -2113,6 +2198,17 @@ type Query {
   """
   Returns meta information regarding a record collection
   """
+  _allPagesMeta(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: PageModelFilter
+  ): CollectionMetadata!
+
+  """
+  Returns meta information regarding a record collection
+  """
   _allPostsMeta(
     """
     The locale to use to fetch the field's content
@@ -2195,6 +2291,28 @@ type Query {
     filter: AppearanceModelFilter
     orderBy: [AppearanceModelOrderBy] = [_updatedAt_DESC]
   ): [AppearanceRecord!]!
+
+  """
+  Returns a collection of records
+  """
+  allPages(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+
+    """
+    Skip the first results
+    """
+    skip: IntType
+
+    """
+    Limit the number of results
+    """
+    first: IntType = 20
+    filter: PageModelFilter
+    orderBy: [PageModelOrderBy] = [_updatedAt_DESC]
+  ): [PageRecord!]!
 
   """
   Returns a collection of records
@@ -2295,6 +2413,18 @@ type Query {
     filter: AppearanceModelFilter
     orderBy: [AppearanceModelOrderBy] = [_updatedAt_DESC]
   ): AppearanceRecord
+
+  """
+  Returns a specific record
+  """
+  page(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    filter: PageModelFilter
+    orderBy: [PageModelOrderBy] = [_updatedAt_DESC]
+  ): PageRecord
 
   """
   Returns a specific record

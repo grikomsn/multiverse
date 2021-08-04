@@ -1,0 +1,11 @@
+query getPage($slug: String!) {
+  page(filter: { slug: { eq: $slug } }) {
+    ...PageFields
+  }
+}
+
+query pageStaticPaths($skip: IntType) {
+  allPages(first: 100, orderBy: title_ASC, skip: $skip) {
+    slug
+  }
+}
