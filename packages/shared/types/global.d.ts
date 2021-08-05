@@ -10,6 +10,8 @@ declare namespace NodeJS {
 
     readonly DATOCMS_API_KEY: string;
     readonly NEXT_PUBLIC_DATOCMS_PUBLIC_API_KEY: string;
+
+    readonly [key: string]: string | undefined;
   }
 }
 
