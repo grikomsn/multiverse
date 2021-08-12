@@ -16,13 +16,15 @@ const csp = `
   font-src 'self' fonts.gstatic.com;
 `;
 
-/** @type {import("next/dist/next-server/server/config-shared").NextConfig} */
+/** @type {import("next/dist/server/config-shared").NextConfig} */
 const nextConfig = {
   // https://github.com/vercel/next.js/blob/3b388c346c6990c98e83357ad68263edc7081210/packages/next/server/config-shared.ts#L73-L97
   experimental: {
     conformance: true,
     optimizeCss: true,
     optimizeImages: true,
+    stats: true,
+    swcMinify: true,
     workerThreads: true,
   },
 
