@@ -24,7 +24,6 @@ const nextConfig = {
     optimizeCss: true,
     optimizeImages: true,
     stats: true,
-    swcMinify: true,
     workerThreads: true,
   },
 
