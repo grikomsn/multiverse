@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import AppearanceItem from "~components/appearance-item";
+import PostItem from "~components/post-item";
 import ShowcaseItem from "~components/showcase-item";
 import { TagRelationsQuery, TagSlugLookupQuery } from "~generated/graphql";
 import cms from "~lib/cms";
@@ -8,6 +9,7 @@ import cms from "~lib/cms";
 import { Container, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { NextPage } from "@grikomsn/shared/types/next";
 import { GetStaticPaths, GetStaticProps } from "next";
+import NextLink from "next/link";
 import { NextSeo } from "next-seo";
 
 interface TagPageProps {
@@ -61,7 +63,9 @@ const TagPage: NextPage<TagPageProps> = (props) => {
   const { tag, relations } = props;
 
   const isEmpty =
-    relations.allAppearances.length < 1 && relations.allShowcases.length < 1;
+    relations.allAppearances.length < 1 &&
+    relations.allPosts.length < 1 &&
+    relations.allShowcases.length < 1;
 
   const pageMeta = {
     title: `${tag.title as string} related`,
@@ -90,6 +94,25 @@ const TagPage: NextPage<TagPageProps> = (props) => {
             <Stack align="stretch" spacing={4}>
               {relations.allAppearances.map((a) => (
                 <AppearanceItem key={a.id as string} data={a} />
+              ))}
+            </Stack>
+          </Container>
+        )}
+
+        {relations.allPosts.length > 0 && (
+          <Container maxW="4xl" pb={4}>
+            <Heading pb={4} size="md">
+              Posts
+            </Heading>
+            <Stack spacing={16}>
+              {relations.allPosts.map((post) => (
+                <NextLink
+                  key={post.slug}
+                  href={`/blog/${post.slug as string}`}
+                  passHref
+                >
+                  <PostItem post={post} />
+                </NextLink>
               ))}
             </Stack>
           </Container>

@@ -2966,13 +2966,17 @@ export const TagRelationsDocument = /*#__PURE__*/ gql`
   allAppearances(filter: {tags: {anyIn: [$id]}}) {
     ...AppearanceFragment
   }
+  allPosts(filter: {tags: {anyIn: [$id]}}) {
+    ...PostMetaFields
+  }
   allShowcases(filter: {tags: {anyIn: [$id]}}) {
     ...ShowcaseFragment
   }
 }
     ${AppearanceFragmentDoc}
-${ShowcaseFragmentDoc}
-${ResponsiveImageFieldsFragmentDoc}`;
+${PostMetaFieldsFragmentDoc}
+${ResponsiveImageFieldsFragmentDoc}
+${ShowcaseFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
@@ -3139,4 +3143,4 @@ export type TagRelationsQueryVariables = Exact<{
 }>;
 
 
-export type TagRelationsQuery = { allAppearances: Array<AppearanceFragment>, allShowcases: Array<ShowcaseFragment> };
+export type TagRelationsQuery = { allAppearances: Array<AppearanceFragment>, allPosts: Array<PostMetaFieldsFragment>, allShowcases: Array<ShowcaseFragment> };

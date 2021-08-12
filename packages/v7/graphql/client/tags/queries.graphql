@@ -16,6 +16,9 @@ query tagRelations($id: ItemId!) {
   allAppearances(filter: { tags: { anyIn: [$id] } }) {
     ...AppearanceFragment
   }
+  allPosts(filter: { tags: { anyIn: [$id] } }) {
+    ...PostMetaFields
+  }
   allShowcases(filter: { tags: { anyIn: [$id] } }) {
     ...ShowcaseFragment
   }
