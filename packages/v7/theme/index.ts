@@ -1,10 +1,6 @@
-import {
-  extendTheme,
-  theme as defaultTheme,
-  ThemeOverride,
-} from "@chakra-ui/react";
+import { extendTheme, theme as defaultTheme } from "@chakra-ui/react";
 
-export default extendTheme(<ThemeOverride>{
+export default extendTheme({
   components: {
     Heading: {
       baseStyle: {
