@@ -2885,7 +2885,7 @@ export const PageStaticPathsDocument = /*#__PURE__*/ gql`
     `;
 export const GetPostsDocument = /*#__PURE__*/ gql`
     query getPosts($skip: IntType) {
-  allPosts(orderBy: _publishedAt_ASC, skip: $skip) {
+  allPosts(orderBy: _publishedAt_DESC, skip: $skip) {
     ...PostMetaFields
   }
 }
@@ -2902,7 +2902,7 @@ ${PostMetaFieldsFragmentDoc}
 ${ResponsiveImageFieldsFragmentDoc}`;
 export const PostStaticPathsDocument = /*#__PURE__*/ gql`
     query postStaticPaths($skip: IntType) {
-  allPosts(first: 100, orderBy: title_ASC, skip: $skip) {
+  allPosts(first: 100, orderBy: title_DESC, skip: $skip) {
     slug
   }
 }
