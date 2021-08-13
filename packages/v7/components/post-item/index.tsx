@@ -53,7 +53,7 @@ const PostItem = React.forwardRef<null, PostItemProps>(function PostItem(
       ref={ref}
     >
       {post.cover && (
-        <Box bgColor="whiteAlpha.800">
+        <Box bgColor="whiteAlpha.800" maxH={["3xs", "2xs"]} overflow="hidden">
           <DatoImage data={post.cover.responsiveImage as ResponsiveImageType} />
         </Box>
       )}
