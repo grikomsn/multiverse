@@ -135,7 +135,7 @@ const PostPage: NextPage<PostPageProps> = (props) => {
       />
 
       {post.cover && (
-        <Box bgColor="whiteAlpha.800">
+        <Box bgColor="whiteAlpha.800" maxH="50vh" overflow="hidden">
           <DatoImage data={post.cover.responsiveImage as ResponsiveImageType} />
         </Box>
       )}
