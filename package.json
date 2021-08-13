@@ -14,7 +14,7 @@
     "clean": "lerna run --stream clean",
     "deduplicate": "npx yarn-deduplicate && yarn",
     "postinstall": "patch-package",
-    "prepare": "husky install",
+    "prepare": "husky install $PWD/.husky && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks",
     "validate": "lerna run --stream validate",
     "#": "###################################################################"
   },
@@ -31,6 +31,7 @@
     "lint-staged": "^11",
     "prettier": "^2",
     "rimraf": "^3",
+    "shx": "^0",
     "typescript": "^4"
   },
   "private": true
