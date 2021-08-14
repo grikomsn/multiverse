@@ -157,7 +157,7 @@ const PostPage: NextPage<PostPageProps> = (props) => {
               ? format(new Date(post._publishedAt as string), "PPPP")
               : "UNPUBLISHED"}
           </Text>
-          <Wrap pt={4}>
+          <Wrap justify="center" pt={4}>
             {post.tags.map((t) => (
               <WrapItem key={t.slug}>
                 <NextLink href={`/tag/${t.slug as string}`} passHref>
