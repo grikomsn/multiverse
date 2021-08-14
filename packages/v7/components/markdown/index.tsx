@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import AdaptiveTooltip from "~components/adaptive-tooltip";
+
 import prismTheme from "./prism-theme";
 
 import {
@@ -7,6 +9,8 @@ import {
   Code,
   Divider,
   Heading,
+  Icon,
+  IconButton,
   Img,
   Link,
   ListItem,
@@ -14,7 +18,9 @@ import {
   Stack,
   Text,
   UnorderedList,
+  useClipboard,
 } from "@chakra-ui/react";
+import { FaCheck, FaCopy } from "react-icons/fa";
 import {
   NormalComponents,
   SpecialComponents,
@@ -60,17 +66,45 @@ export const postComponents: Components = {
   },
 
   code({ node, inline, className, children, ...rest }) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const source = React.useMemo(
+      () => String(children).replace(/\n$/, ""),
+      [children],
+    );
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { hasCopied, onCopy } = useClipboard(source);
+
     const match = /language-(\w+)/.exec(className ?? "");
+
     return !inline && match ? (
-      <SyntaxHighlighter
-        children={String(children).replace(/\n$/, "")}
-        language={match[1]}
-        style={prismTheme}
-        {...rest}
-      />
+      <Box fontSize={["xs", "sm"]} pos="relative">
+        <AdaptiveTooltip
+          closeOnClick={false}
+          hasArrow
+          label={hasCopied ? "Snippet copied!" : "Copy snippet"}
+          placement="left"
+        >
+          <IconButton
+            _hover={{ opacity: 1 }}
+            aria-label="Copy snippet"
+            icon={<Icon as={hasCopied ? FaCheck : FaCopy} />}
+            onClick={onCopy}
+            opacity={0.5}
+            pos="absolute"
+            right={2}
+            size="sm"
+            top={2}
+            variant="ghost"
+          />
+        </AdaptiveTooltip>
+        <SyntaxHighlighter language={match[1]} style={prismTheme} {...rest}>
+          {source}
+        </SyntaxHighlighter>
+      </Box>
     ) : (
       <Code className={className} fontSize={["sm", "md"]} {...rest}>
-        {children}
+        {source}
       </Code>
     );
   },
