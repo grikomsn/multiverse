@@ -24,9 +24,9 @@ const PAGE_TRANSITION_PROPS = {
   exit: "exit",
   initial: "initial",
   variants: {
-    initial: { opacity: 0, x: 0, y: -8 },
-    enter: { duration: 0.2, opacity: 1, x: 0, y: 0 },
-    exit: { duration: 0.1, opacity: 0, x: 0, y: 8 },
+    initial: { opacity: 0 },
+    enter: { duration: 0.2, opacity: 1 },
+    exit: { duration: 0.1, opacity: 0 },
   },
 };
 
