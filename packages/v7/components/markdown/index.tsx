@@ -38,7 +38,7 @@ export const baseComponents: Components = {
   },
 
   p({ node, ...rest }) {
-    return <Text as="div" {...rest} />;
+    return <Text as="div" fontSize={["sm", "md"]} {...rest} />;
   },
 };
 
@@ -51,6 +51,7 @@ export const postComponents: Components = {
         borderLeftColor="whiteAlpha.400"
         borderLeftWidth={2}
         color="whiteAlpha.700"
+        fontSize={["sm", "md"]}
         pl={4}
         py={2}
         {...rest}
@@ -68,7 +69,9 @@ export const postComponents: Components = {
         {...rest}
       />
     ) : (
-      <Code children={children} className={className} {...rest} />
+      <Code className={className} fontSize={["sm", "md"]} {...rest}>
+        {children}
+      </Code>
     );
   },
   hr({ node, ...rest }) {
@@ -117,6 +120,6 @@ export const postComponents: Components = {
     return <OrderedList pl={4} {...rest} />;
   },
   li({ node, ordered, ...rest }) {
-    return <ListItem {...rest} />;
+    return <ListItem fontSize={["sm", "md"]} {...rest} />;
   },
 };
