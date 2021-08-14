@@ -15,17 +15,19 @@ import { BiCommand } from "react-icons/bi";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
-const Footer: React.FC = () => {
-  const meta = useMeta();
-
-  const content = `
+function content(owner: unknown) {
+  return `
 Contents licensed under [CC BY-NC-SA 4.0](https://griko.dev/cc-by-nc-sa).${"  "}
 Made using [Next.js](https://nextjs.org), [Chakra UI](https://chakra-ui.com),
 and [DatoCMS](https://www.datocms.com). Hosted on [Vercel](https://vercel.com).
 
 MIT License &copy; ${new Date().getFullYear()}&ndash;present
-[${meta.site.seo?.siteName as string}](.). Version 7.
-`;
+[${String(owner)}](.). Version 7.
+`.trim();
+}
+
+const Footer: React.FC = () => {
+  const meta = useMeta();
 
   const { GitHub, Twitter } = meta.about?.socialsJson as Record<string, string>;
 
@@ -36,7 +38,9 @@ MIT License &copy; ${new Date().getFullYear()}&ndash;present
   return (
     <Container as="footer" color="whiteAlpha.700" maxW="4xl" p={[4, 8]}>
       <Stack align="center" fontSize="xs" spacing={4} textAlign="center">
-        <ReactMarkdown children={content.trim()} components={baseComponents} />
+        <ReactMarkdown components={baseComponents}>
+          {content(meta.site.seo?.siteName)}
+        </ReactMarkdown>
         <ButtonGroup>
           <IconButton
             aria-label="GitHub"

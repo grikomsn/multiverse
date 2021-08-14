@@ -44,12 +44,16 @@ export const baseComponents: Components = {
   },
 
   p({ node, ...rest }) {
-    return <Text as="div" fontSize={["sm", "md"]} {...rest} />;
+    return <Text as="div" {...rest} />;
   },
 };
 
 export const postComponents: Components = {
   ...baseComponents,
+
+  p({ node, ...rest }) {
+    return <Text as="div" fontSize={["sm", "md"]} {...rest} />;
+  },
 
   blockquote({ node, ...rest }) {
     return (
