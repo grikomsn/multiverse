@@ -4,6 +4,8 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE == "true",
 });
 
+const Log = require("next/dist/build/output/log");
+
 // https://github.com/leerob/leerob.io/blob/9adc510cbfb3da88c3b0ad15632eb876ca91b607/next.config.js#L39-L49
 const csp = `
   default-src 'self';
@@ -152,8 +154,9 @@ const nextConfig = {
 
     config.plugins.push(new webpack.DefinePlugin({ __DEV__: dev }));
 
-    // https://github.com/leerob/leerob.io/blob/9adc510cbfb3da88c3b0ad15632eb876ca91b607/next.config.js#L27-L33
     if (!dev && !isServer) {
+      Log.info("Replacing 'react' and 'react-dom' with 'preact'");
+
       Object.assign(config.resolve.alias, {
         react: "preact/compat",
         "react-dom/test-utils": "preact/test-utils",
