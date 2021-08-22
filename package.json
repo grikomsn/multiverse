@@ -19,13 +19,11 @@
     "#": "###################################################################"
   },
   "dependencies": {
-    "copy": "^0",
     "lerna": "^4",
     "patch-package": "^6",
     "postinstall-postinstall": "^2"
   },
   "devDependencies": {
-    "cross-env": "^7",
     "env-cmd": "^10",
     "husky": "^7",
     "lint-staged": "^11",

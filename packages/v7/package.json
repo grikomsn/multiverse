@@ -12,7 +12,7 @@
     "codegen": "env-cmd yarn graphql-codegen",
     "dev": "next",
     "lint": "eslint --fix \"./**/*.{js,jsx,ts,tsx}\"",
-    "prebuild": "env-cmd node scripts/prefetch-meta",
+    "prebuild": "node scripts/prefetch-meta",
     "precommit": "lint-staged",
     "sitemap": "next-sitemap --config config/sitemap.js",
     "start": "next start",
