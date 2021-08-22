@@ -18,7 +18,7 @@ module.exports = {
       "never",
       {
         css: "ignorePackages",
-        graphql: "ignorePackages",
+        json: "ignorePackages",
       },
     ],
     "import/newline-after-import": "warn",
