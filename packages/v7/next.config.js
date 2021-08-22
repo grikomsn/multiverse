@@ -117,6 +117,9 @@ const nextConfig = {
     ],
   },
 
+  // https://nextjs.org/docs/advanced-features/source-maps
+  productionBrowserSourceMaps: true,
+
   // https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
   reactStrictMode: true,
 
