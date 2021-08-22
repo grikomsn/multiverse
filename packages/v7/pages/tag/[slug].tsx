@@ -67,10 +67,13 @@ const TagPage: NextPage<TagPageProps> = (props) => {
     relations.allPosts.length < 1 &&
     relations.allShowcases.length < 1;
 
-  const pageMeta = {
-    title: `${tag.title as string} related`,
-    description: `Showing all things related to the ${tag.title as string} tag`,
-  };
+  const pageMeta = React.useMemo(() => {
+    const t = tag.title as string;
+    return {
+      title: `${t} related`,
+      description: `Showing all things related to the ${t} tag`,
+    };
+  }, [tag.title]);
 
   return (
     <>

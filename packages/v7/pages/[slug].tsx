@@ -19,7 +19,6 @@ import { NextPage } from "@grikomsn/shared/types/next";
 import format from "date-fns/format";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
-import { renderMetaTags, SeoMetaTagType } from "react-datocms";
 import { FaChevronUp } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
@@ -70,7 +69,11 @@ const CustomPage: NextPage<CustomPageProps> = (props) => {
   const { page } = props;
   return (
     <>
-      <Head>{renderMetaTags(page._seoMetaTags as SeoMetaTagType[])}</Head>
+      <Head>
+        {page._seoMetaTags.map((t, key) =>
+          React.createElement(t.tag, { key, ...t.attributes }, null),
+        )}
+      </Head>
 
       <Container maxW="6xl" p={[4, 8]}>
         <Stack align="center" spacing={4} textAlign="center">

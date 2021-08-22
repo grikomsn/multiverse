@@ -34,13 +34,13 @@ export const getStaticProps: GetStaticProps<BlogPostsPageProps> = async () => {
   };
 };
 
+const pageMeta = {
+  title: `Blog posts`,
+  description: `Sometimes I write about web development, other times about random interesting stuff.`,
+};
+
 const BlogPostsPage: NextPage<BlogPostsPageProps> = (props) => {
   const { posts } = props;
-
-  const pageMeta = {
-    title: `Blog posts`,
-    description: `Sometimes I write about web development, other times about random interesting stuff.`,
-  };
 
   return (
     <>

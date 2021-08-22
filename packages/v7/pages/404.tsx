@@ -4,12 +4,12 @@ import { Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { NextPage } from "@grikomsn/shared/types/next";
 import { NextSeo } from "next-seo";
 
-const FourOhFourPage: NextPage = () => {
-  const pageMeta = {
-    title: `404`,
-    description: `Uhhh there's nothing here...`,
-  };
+const pageMeta = {
+  title: `404`,
+  description: `Uhhh there's nothing here...`,
+};
 
+const FourOhFourPage: NextPage = () => {
   return (
     <>
       <NextSeo {...pageMeta} />

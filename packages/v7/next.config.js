@@ -157,6 +157,10 @@ const nextConfig = {
 
     config.plugins.push(new webpack.DefinePlugin({ __DEV__: dev }));
 
+    if (isServer) {
+      require("./scripts/prefetch-meta");
+    }
+
     if (!dev && !isServer) {
       Log.info("Replacing 'react' and 'react-dom' with 'preact'");
 

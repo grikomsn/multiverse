@@ -27,11 +27,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
 import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
-import {
-  renderMetaTags,
-  ResponsiveImageType,
-  SeoMetaTagType,
-} from "react-datocms";
+import { ResponsiveImageType } from "react-datocms";
 import { FaChevronUp } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
@@ -83,7 +79,11 @@ const PostPage: NextPage<PostPageProps> = (props) => {
 
   return (
     <>
-      <Head>{renderMetaTags(post._seoMetaTags as SeoMetaTagType[])}</Head>
+      <Head>
+        {post._seoMetaTags.map((t, key) =>
+          React.createElement(t.tag, { key, ...t.attributes }, null),
+        )}
+      </Head>
 
       <NextSeo
         description={post.subtitle as string}

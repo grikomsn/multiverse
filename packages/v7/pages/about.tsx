@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { baseComponents } from "~components/markdown";
 import { AboutStaticPropsQuery } from "~generated/graphql";
+import meta from "~generated/meta.json";
 import cms from "~lib/cms";
-import { useMeta } from "~store/meta";
 
 import {
   Box,
@@ -36,16 +36,13 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
   };
 };
 
+const pageMeta = {
+  title: `About me`,
+  description: `Get to know more about myself`,
+};
+
 const AboutPage: NextPage<AboutPageProps> = (props) => {
   const { data } = props;
-
-  const meta = useMeta();
-  const socials = meta.about?.socialsJson as Record<string, string>;
-
-  const pageMeta = {
-    title: `About me`,
-    description: `Get to know more about myself`,
-  };
 
   return (
     <>
@@ -89,13 +86,13 @@ const AboutPage: NextPage<AboutPageProps> = (props) => {
 
         <Text pb={2}>
           You can reach out via email at{" "}
-          <Link href={`mailto:${meta.about?.email as string}`} variant="link">
-            {meta.about?.email}
+          <Link href={`mailto:${meta.about.email}`} variant="link">
+            {meta.about.email}
           </Link>
           , or via socials below:
         </Text>
         <List spacing={1}>
-          {Object.entries(socials).map(([name, href]) => (
+          {Object.entries(meta.about.socialsJson).map(([name, href]) => (
             <ListItem key={name}>
               {name} -{" "}
               <Link href={href} isExternal variant="link">
