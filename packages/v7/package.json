@@ -5,7 +5,6 @@
     "# general commands": "##################################################",
     "build": "yarn prebuild && next build && yarn sitemap",
     "build:local": "env-cmd yarn build",
-    "build:render": "yarn prebuild:render && yarn build && yarn postbuild:render",
     "build:static": "yarn build && next export",
     "build:static-local": "env-cmd yarn build:static",
     "clean": "rimraf .eslintcache .next",
