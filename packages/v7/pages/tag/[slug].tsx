@@ -48,9 +48,7 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
   for await (const { allTags } of fetchTagSlugs()) {
     if (allTags.length < 1) break;
-    paths.push(
-      ...allTags.map(({ slug }: { slug: string }) => ({ params: { slug } })),
-    );
+    paths.push(...allTags.map(({ slug }: { slug: string }) => ({ params: { slug } })));
   }
 
   return {
@@ -63,9 +61,7 @@ const TagPage: NextPage<TagPageProps> = (props) => {
   const { tag, relations } = props;
 
   const isEmpty =
-    relations.allAppearances.length < 1 &&
-    relations.allPosts.length < 1 &&
-    relations.allShowcases.length < 1;
+    relations.allAppearances.length < 1 && relations.allPosts.length < 1 && relations.allShowcases.length < 1;
 
   const pageMeta = React.useMemo(() => {
     const t = tag.title as string;
@@ -109,11 +105,7 @@ const TagPage: NextPage<TagPageProps> = (props) => {
             </Heading>
             <Stack spacing={16}>
               {relations.allPosts.map((post) => (
-                <NextLink
-                  key={post.slug}
-                  href={`/blog/${post.slug as string}`}
-                  passHref
-                >
+                <NextLink key={post.slug} href={`/blog/${post.slug as string}`} passHref>
                   <PostItem post={post} />
                 </NextLink>
               ))}

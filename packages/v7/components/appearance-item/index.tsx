@@ -4,17 +4,7 @@ import { AppearanceFragment } from "~generated/graphql";
 
 import { getIcon } from "./icons";
 
-import {
-  Heading,
-  Icon,
-  LinkBox,
-  LinkOverlay,
-  Stack,
-  Tag,
-  Text,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Heading, Icon, LinkBox, LinkOverlay, Stack, Tag, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import trimHttps from "@grikomsn/shared/utils/trim-https";
 import format from "date-fns/format";
 import Link from "next/link";
@@ -56,13 +46,7 @@ const AppearanceItem: React.FC<AppearanceItemProps> = (props) => {
           </Text>
           <Heading size="lg">{data.title}</Heading>
           <Text>{data.subtitle}</Text>
-          <LinkOverlay
-            color="yellow.200"
-            fontSize="sm"
-            href={data.url as string}
-            isExternal
-            pb={4}
-          >
+          <LinkOverlay color="yellow.200" fontSize="sm" href={data.url as string} isExternal pb={4}>
             {trimHttps(data.url as string)}
           </LinkOverlay>
           <Wrap justify={["center", "center", "initial"]}>

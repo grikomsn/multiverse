@@ -53,9 +53,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               transitionProperty="common"
               transitionTimingFunction="ease-out"
             >
-              <DatoImage
-                data={data.site.favicon?.responsiveImage as ResponsiveImageType}
-              />
+              <DatoImage data={data.site.favicon?.responsiveImage as ResponsiveImageType} />
             </Box>
           </NextLink>
 
@@ -73,11 +71,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               {meta.about.email}
             </Link>
             , or Twitter at{" "}
-            <Link
-              href={`https://twitter.com/${meta.site.seo.twitterAccount}`}
-              isExternal
-              variant="link"
-            >
+            <Link href={`https://twitter.com/${meta.site.seo.twitterAccount}`} isExternal variant="link">
               {meta.site.seo.twitterAccount}
             </Link>
             .

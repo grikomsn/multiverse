@@ -5,13 +5,7 @@ import emotionCache from "~lib/emotion-cache";
 
 import { ColorModeScript } from "@chakra-ui/react";
 import createEmotionServer from "@emotion/server/create-instance";
-import Document, {
-  DocumentContext,
-  Head,
-  Html,
-  Main,
-  NextScript,
-} from "next/document";
+import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
 import Script from "next/script";
 
 // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -46,10 +40,7 @@ export default class CustomDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
             rel="stylesheet"
           />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap"
-            rel="stylesheet"
-          />
+          <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet" />
         </Head>
 
         <body>

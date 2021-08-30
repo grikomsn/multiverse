@@ -63,9 +63,7 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
   for await (const { allPosts } of fetchPostSlugs()) {
     if (allPosts.length < 1) break;
-    paths.push(
-      ...allPosts.map(({ slug }: { slug: string }) => ({ params: { slug } })),
-    );
+    paths.push(...allPosts.map(({ slug }: { slug: string }) => ({ params: { slug } })));
   }
 
   return {
@@ -79,11 +77,7 @@ const PostPage: NextPage<PostPageProps> = (props) => {
 
   return (
     <>
-      <Head>
-        {post._seoMetaTags.map((t, key) =>
-          React.createElement(t.tag, { key, ...t.attributes }, null),
-        )}
-      </Head>
+      <Head>{post._seoMetaTags.map((t, key) => React.createElement(t.tag, { key, ...t.attributes }, null))}</Head>
 
       <NextSeo
         description={post.subtitle as string}
@@ -143,19 +137,11 @@ const PostPage: NextPage<PostPageProps> = (props) => {
       <Container maxW="6xl" p={[4, 8]}>
         <Stack align="center" spacing={4} textAlign="center">
           <Heading size="2xl">{post.title}</Heading>
-          <Text
-            color="whiteAlpha.600"
-            fontSize="lg"
-            fontStyle="italic"
-            maxW="2xl"
-          >
+          <Text color="whiteAlpha.600" fontSize="lg" fontStyle="italic" maxW="2xl">
             {post.subtitle}
           </Text>
           <Text>
-            Published on{" "}
-            {post._publishedAt
-              ? format(new Date(post._publishedAt as string), "PPPP")
-              : "UNPUBLISHED"}
+            Published on {post._publishedAt ? format(new Date(post._publishedAt as string), "PPPP") : "UNPUBLISHED"}
           </Text>
           <Wrap justify="center" pt={4}>
             {post.tags.map((t) => (
@@ -175,11 +161,7 @@ const PostPage: NextPage<PostPageProps> = (props) => {
 
       <Container maxW="4xl" p={[4, 8]}>
         <Stack lineHeight="tall" spacing={4}>
-          <ReactMarkdown
-            children={post.content as string}
-            components={postComponents}
-            remarkPlugins={postPlugins}
-          />
+          <ReactMarkdown children={post.content as string} components={postComponents} remarkPlugins={postPlugins} />
           <Center pt={8}>
             <Button
               color="whiteAlpha.700"

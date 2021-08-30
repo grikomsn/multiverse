@@ -16,12 +16,8 @@ export default function useKeybinds() {
     variant: "subtle",
   });
 
-  const toggleCheatsheet = useGlobalStore(
-    useCallback((store) => store.toggleCheatsheet, []),
-  );
-  const toggleMobileDrawer = useGlobalStore(
-    useCallback((store) => store.toggleMobileDrawer, []),
-  );
+  const toggleCheatsheet = useGlobalStore(useCallback((store) => store.toggleCheatsheet, []));
+  const toggleMobileDrawer = useGlobalStore(useCallback((store) => store.toggleMobileDrawer, []));
 
   useEffect(() => {
     const unsub = tinykeys(

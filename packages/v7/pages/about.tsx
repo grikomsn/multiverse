@@ -5,17 +5,7 @@ import { AboutStaticPropsQuery } from "~generated/graphql";
 import meta from "~generated/meta.json";
 import cms from "~lib/cms";
 
-import {
-  Box,
-  Container,
-  Heading,
-  Link,
-  List,
-  ListItem,
-  SimpleGrid,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Container, Heading, Link, List, ListItem, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { NextPage } from "@grikomsn/shared/types/next";
 import trimHttps from "@grikomsn/shared/utils/trim-https";
 import { GetStaticProps } from "next";
@@ -50,18 +40,11 @@ const AboutPage: NextPage<AboutPageProps> = (props) => {
 
       <Container maxW="4xl" p={[4, 8]}>
         <Box pb={8}>
-          <Image
-            data={
-              data.about?.coverImage?.responsiveImage as ResponsiveImageType
-            }
-          />
+          <Image data={data.about?.coverImage?.responsiveImage as ResponsiveImageType} />
         </Box>
 
         <Stack lineHeight="tall" pb={8} spacing={4}>
-          <ReactMarkdown
-            children={data.about?.preface as string}
-            components={baseComponents}
-          />
+          <ReactMarkdown children={data.about?.preface as string} components={baseComponents} />
         </Stack>
 
         <SimpleGrid columns={[2, 3, 4]} gap={4}>

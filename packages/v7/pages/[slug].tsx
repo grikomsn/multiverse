@@ -5,16 +5,7 @@ import { postPlugins } from "~components/markdown/plugins";
 import { PageFieldsFragment } from "~generated/graphql";
 import cms from "~lib/cms";
 
-import {
-  Button,
-  Center,
-  Container,
-  Divider,
-  Heading,
-  Icon,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Center, Container, Divider, Heading, Icon, Stack, Text } from "@chakra-ui/react";
 import { NextPage } from "@grikomsn/shared/types/next";
 import format from "date-fns/format";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -54,9 +45,7 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
   for await (const { allPages } of fetchPageSlugs()) {
     if (allPages.length < 1) break;
-    paths.push(
-      ...allPages.map(({ slug }: { slug: string }) => ({ params: { slug } })),
-    );
+    paths.push(...allPages.map(({ slug }: { slug: string }) => ({ params: { slug } })));
   }
 
   return {
@@ -69,28 +58,16 @@ const CustomPage: NextPage<CustomPageProps> = (props) => {
   const { page } = props;
   return (
     <>
-      <Head>
-        {page._seoMetaTags.map((t, key) =>
-          React.createElement(t.tag, { key, ...t.attributes }, null),
-        )}
-      </Head>
+      <Head>{page._seoMetaTags.map((t, key) => React.createElement(t.tag, { key, ...t.attributes }, null))}</Head>
 
       <Container maxW="6xl" p={[4, 8]}>
         <Stack align="center" spacing={4} textAlign="center">
           <Heading size="2xl">{page.title}</Heading>
-          <Text
-            color="whiteAlpha.600"
-            fontSize="lg"
-            fontStyle="italic"
-            maxW="2xl"
-          >
+          <Text color="whiteAlpha.600" fontSize="lg" fontStyle="italic" maxW="2xl">
             {page.subtitle}
           </Text>
           <Text>
-            Last updated on{" "}
-            {page._updatedAt
-              ? format(new Date(page._updatedAt as string), "PPPP")
-              : "UNPUBLISHED"}
+            Last updated on {page._updatedAt ? format(new Date(page._updatedAt as string), "PPPP") : "UNPUBLISHED"}
           </Text>
         </Stack>
       </Container>
@@ -99,11 +76,7 @@ const CustomPage: NextPage<CustomPageProps> = (props) => {
 
       <Container maxW="4xl" p={[4, 8]}>
         <Stack lineHeight="tall" spacing={4}>
-          <ReactMarkdown
-            children={page.content as string}
-            components={postComponents}
-            remarkPlugins={postPlugins}
-          />
+          <ReactMarkdown children={page.content as string} components={postComponents} remarkPlugins={postPlugins} />
           <Center pt={8}>
             <Button
               color="whiteAlpha.700"

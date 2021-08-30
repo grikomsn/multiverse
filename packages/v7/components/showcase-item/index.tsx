@@ -3,16 +3,7 @@ import * as React from "react";
 import DatoImage from "~components/dato-image";
 import { ShowcaseFragment } from "~generated/graphql";
 
-import {
-  Heading,
-  LinkBox,
-  LinkOverlay,
-  Stack,
-  Tag,
-  Text,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Heading, LinkBox, LinkOverlay, Stack, Tag, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import trimHttps from "@grikomsn/shared/utils/trim-https";
 import Link from "next/link";
 import { ResponsiveImageType } from "react-datocms";
@@ -65,13 +56,7 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = (props) => {
       >
         <Heading size="lg">{data.title}</Heading>
         <Text fontSize={["xs", "sm"]}>{data.subtitle}</Text>
-        <LinkOverlay
-          color="yellow.200"
-          fontSize={["xs", "sm"]}
-          href={data.url as string}
-          isExternal
-          pb={4}
-        >
+        <LinkOverlay color="yellow.200" fontSize={["xs", "sm"]} href={data.url as string} isExternal pb={4}>
           {trimHttps(data.url as string)}
         </LinkOverlay>
         <Wrap justify="center">

@@ -1,12 +1,6 @@
 import * as React from "react";
 
-import {
-  ThemeTypings,
-  Tooltip,
-  TooltipProps,
-  useMediaQuery,
-  useTheme,
-} from "@chakra-ui/react";
+import { ThemeTypings, Tooltip, TooltipProps, useMediaQuery, useTheme } from "@chakra-ui/react";
 
 interface AdaptiveTooltipProps extends TooltipProps {
   breakpoint?: ThemeTypings["breakpoints"];

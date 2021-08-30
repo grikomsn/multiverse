@@ -33,9 +33,7 @@ const DefaultLayout: React.FC = (props) => {
     <>
       <Head>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        {meta.site.favicon.map((f, key) =>
-          React.createElement(f.tag, { key, ...f.attributes }, null),
-        )}
+        {meta.site.favicon.map((f, key) => React.createElement(f.tag, { key, ...f.attributes }, null))}
       </Head>
 
       <DefaultSeo

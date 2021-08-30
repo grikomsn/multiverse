@@ -14,9 +14,7 @@ const NPROGRESS_START_DELAY = 500;
 export default function useNProgress() {
   const router = useRouter();
 
-  const closeModals = useGlobalStore(
-    useCallback((store) => store.closeModals, []),
-  );
+  const closeModals = useGlobalStore(useCallback((store) => store.closeModals, []));
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;

@@ -21,10 +21,7 @@ import {
   useClipboard,
 } from "@chakra-ui/react";
 import { FaCheck, FaCopy } from "react-icons/fa";
-import {
-  NormalComponents,
-  SpecialComponents,
-} from "react-markdown/src/ast-to-react";
+import { NormalComponents, SpecialComponents } from "react-markdown/src/ast-to-react";
 import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 
 type Components = Partial<NormalComponents & SpecialComponents>;
@@ -71,10 +68,7 @@ export const postComponents: Components = {
 
   code({ node, inline, className, children, ...rest }) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const source = React.useMemo(
-      () => String(children).replace(/\n$/, ""),
-      [children],
-    );
+    const source = React.useMemo(() => String(children).replace(/\n$/, ""), [children]);
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { hasCopied, onCopy } = useClipboard(source);

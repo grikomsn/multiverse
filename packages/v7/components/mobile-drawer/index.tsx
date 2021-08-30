@@ -24,14 +24,7 @@ const routeArray = Object.entries(routes as Record<string, string>);
 
 const MobileModal: React.FC = () => {
   const [isOpen, onClose, onOpen] = useGlobalStore(
-    React.useCallback(
-      (store) => [
-        store.isMobileDrawerOpen,
-        store.closeMobileDrawer,
-        store.openMobileDrawer,
-      ],
-      [],
-    ),
+    React.useCallback((store) => [store.isMobileDrawerOpen, store.closeMobileDrawer, store.openMobileDrawer], []),
     shallow,
   );
 
@@ -66,12 +59,7 @@ const MobileModal: React.FC = () => {
                   </Button>
                 </Link>
               ))}
-              <Text
-                color="whiteAlpha.400"
-                fontSize="xs"
-                pt={8}
-                textAlign="center"
-              >
+              <Text color="whiteAlpha.400" fontSize="xs" pt={8} textAlign="center">
                 Press outside the menu to close
               </Text>
             </ModalBody>

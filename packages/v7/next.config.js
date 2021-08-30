@@ -70,8 +70,7 @@ const nextConfig = {
           // Opt-out of Google FLoC: https://amifloced.org/
           {
             key: "Permissions-Policy",
-            value:
-              "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+            value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
 
           // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy

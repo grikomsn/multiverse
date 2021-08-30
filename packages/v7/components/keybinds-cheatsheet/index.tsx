@@ -3,25 +3,12 @@ import * as React from "react";
 import { KEYBINDS_MAP } from "~lib/keybinds";
 import { useGlobalStore } from "~store/global";
 
-import {
-  Heading,
-  HStack,
-  Kbd,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Heading, HStack, Kbd, Modal, ModalBody, ModalContent, ModalOverlay, Stack, Text } from "@chakra-ui/react";
 import shallow from "zustand/shallow";
 
 const KeybindsCheatsheet: React.FC = () => {
   const [isOpen, onClose] = useGlobalStore(
-    React.useCallback(
-      (store) => [store.isCheatsheetOpen, store.closeCheatsheet],
-      [],
-    ),
+    React.useCallback((store) => [store.isCheatsheetOpen, store.closeCheatsheet], []),
     shallow,
   );
 
@@ -43,12 +30,7 @@ const KeybindsCheatsheet: React.FC = () => {
               ))}
             </Stack>
 
-            <Text
-              color="whiteAlpha.400"
-              fontSize="xs"
-              pt={8}
-              textAlign="center"
-            >
+            <Text color="whiteAlpha.400" fontSize="xs" pt={8} textAlign="center">
               Press outside the menu to close
             </Text>
           </ModalBody>

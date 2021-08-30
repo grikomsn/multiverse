@@ -8,8 +8,6 @@ import nc, { Options as NextConnectOptions } from "next-connect";
  *
  * @param options handler creation options
  */
-export function createApiHandler(
-  options?: NextConnectOptions<NextApiRequest, NextApiResponse>,
-) {
+export function createApiHandler(options?: NextConnectOptions<NextApiRequest, NextApiResponse>) {
   return nc<NextApiRequest, NextApiResponse>(options);
 }

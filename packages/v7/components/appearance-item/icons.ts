@@ -1,10 +1,4 @@
-import {
-  FaBolt,
-  FaChalkboard,
-  FaGlobeAsia,
-  FaMicrophone,
-  FaRegCommentAlt,
-} from "react-icons/fa";
+import { FaBolt, FaChalkboard, FaGlobeAsia, FaMicrophone, FaRegCommentAlt } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 
 const icons = {
