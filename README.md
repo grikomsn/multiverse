@@ -16,6 +16,7 @@ Website monorepo for <https://griko.id> and previous versions
 - [Dependencies](#dependencies)
 - [Clone and prep locally](#clone-and-prep-locally)
 - [Scope commands](#scope-commands)
+- [Compliance](#compliance)
 - [License](#license)
 
 ---
@@ -29,7 +30,7 @@ Website monorepo for <https://griko.id> and previous versions
 ## Dependencies
 
 - [Node.js LTS](https://nodejs.org)
-  - `brew install nvm && nvm install --lts`
+  - `brew install fnm && fnm install --lts`
 - [Yarn V1](https://classic.yarnpkg.com/lang/en)
   - `npm --global install yarn`
 - [Lerna](https://github.com/lerna/lerna)
@@ -51,7 +52,11 @@ Website monorepo for <https://griko.id> and previous versions
 **v7 common scripts**
 
 - `yarn v7 dev`
-- `yarn v7 codegen --write`
+- `yarn v7 codegen --watch`
+
+## Compliance
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgrikomsn%2Fgriko.id.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgrikomsn%2Fgriko.id?ref=badge_large)
 
 ## License
 
