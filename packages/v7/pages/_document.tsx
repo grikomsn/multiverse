@@ -6,7 +6,6 @@ import emotionCache from "~lib/emotion-cache";
 import { ColorModeScript } from "@chakra-ui/react";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
-import Script from "next/script";
 
 // eslint-disable-next-line @typescript-eslint/unbound-method
 const { extractCritical } = createEmotionServer(emotionCache);
@@ -48,7 +47,7 @@ export default class CustomDocument extends Document {
           <Main />
           <NextScript />
 
-          <Script
+          <script
             data-cf-beacon={`{"token": "${analyticsConfig.cloudflareBeaconToken}"}`}
             defer
             src="https://static.cloudflareinsights.com/beacon.min.js"
