@@ -7,7 +7,6 @@
     "build:local": "env-cmd yarn build",
     "build:static": "yarn build && next export",
     "build:static-local": "env-cmd yarn build:static",
-    "clean": "rimraf .eslintcache .next",
     "codegen": "env-cmd yarn graphql-codegen",
     "dev": "next",
     "lint": "eslint --fix \"./**/*.{js,jsx,ts,tsx}\"",
