@@ -4859,6 +4859,22 @@ escape-string-regexp@^4.0.0:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
 
+eslint-config-kdnj@^0:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-kdnj/-/eslint-config-kdnj-0.0.2.tgz#9bfbdc1832df49bd69e2cb8afe71bf299232aec7"
+  integrity sha512-DYjVdpomNQ1Ijk4DGT3rqilTLcI+jcPpKOaGV1gMH7bF4d6woDH2/5MKIK9v4urXjrMuDvsBZHlRhBmTwzk5uQ==
+  dependencies:
+    eslint "^7"
+    eslint-config-kentcdodds "^19"
+    eslint-config-prettier "^8"
+    eslint-plugin-prettier "^3"
+    eslint-plugin-simple-import-sort "^7"
+    prettier "^2"
+    typescript "^4"
+  optionalDependencies:
+    eslint-plugin-jsx-a11y "^6"
+    eslint-plugin-react "^7"
+
 eslint-config-kentcdodds@^19:
   version "19.2.0"
   resolved "https://registry.yarnpkg.com/eslint-config-kentcdodds/-/eslint-config-kentcdodds-19.2.0.tgz#2e61281f2a70b963a8816f5ab8e342963ea1f6a3"

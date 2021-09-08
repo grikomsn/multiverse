@@ -25,7 +25,6 @@
     "@emotion/server": "^11",
     "@emotion/styled": "^11",
     "@fec/remark-a11y-emoji": "^3",
-    "@grikomsn/eslint-config": "*",
     "@grikomsn/shared": "*",
     "@next/bundle-analyzer": "^11",
     "@types/node": "^14",
@@ -35,6 +34,10 @@
     "@types/react-syntax-highlighter": "^13",
     "critters": "^0",
     "date-fns": "^2",
+    "eslint-config-kdnj": "^0",
+    "eslint-config-next": "^11",
+    "eslint-plugin-jsx-a11y": "^6",
+    "eslint-plugin-react": "^7",
     "framer-motion": "^3",
     "graphql": "^15",
     "graphql-request": "^3",
@@ -64,6 +67,26 @@
     "@graphql-codegen/typescript": "^1",
     "@graphql-codegen/typescript-graphql-request": "^3",
     "@graphql-codegen/typescript-operations": "^1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj/react",
+      "plugin:@next/next/recommended"
+    ],
+    "ignorePatterns": [
+      "generated"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write"
+    ],
+    "**/**.{css,graphql}": [
+      "prettier --write"
+    ],
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "private": true
 }
