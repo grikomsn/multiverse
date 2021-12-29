@@ -1,0 +1,62 @@
+{
+  "name": "personal-websites",
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*",
+    "sites/*"
+  ],
+  "scripts": {
+    "# general commands": "--------------------------------------------------",
+    "clean": "turbo run clean",
+    "deduplicate": "npx yarn-deduplicate && yarn install",
+    "postinstall": "patch-package",
+    "prepare": "husky install $PWD/.husky",
+    "purge": "shx rm -rf node_modules/.cache/ packages/**/.turbo/ website/.turbo/",
+    "validate": "turbo run validate",
+    "# scope commands": "----------------------------------------------------",
+    "griko.id": "yarn workspace griko.id",
+    "#": "-------------------------------------------------------------------"
+  },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build",
+          "generate"
+        ],
+        "outputs": [
+          ".next/**"
+        ]
+      },
+      "clean": {
+        "cache": false
+      },
+      "generate": {
+        "outputs": [
+          "assets/**",
+          "generated/**"
+        ]
+      },
+      "git:pre-commit": {
+        "cache": false
+      },
+      "validate": {
+        "dependsOn": [
+          "^validate"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "cross-env": "^7",
+    "env-cmd": "^10",
+    "husky": "^7",
+    "lint-staged": "^12",
+    "patch-package": "^6",
+    "postinstall-postinstall": "^2",
+    "shx": "^0",
+    "turbo": "^1"
+  },
+  "private": true
+}

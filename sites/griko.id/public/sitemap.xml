@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://griko.id</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.110Z</lastmod></url>
+<url><loc>https://griko.id/500</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.110Z</lastmod></url>
+<url><loc>https://griko.id/about</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.110Z</lastmod></url>
+<url><loc>https://griko.id/empty</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.110Z</lastmod></url>
+<url><loc>https://griko.id/kitchen-sink</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.110Z</lastmod></url>
+<url><loc>https://griko.id/projects</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.110Z</lastmod></url>
+<url><loc>https://griko.id/thanks</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.110Z</lastmod></url>
+<url><loc>https://griko.id/writings</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.111Z</lastmod></url>
+<url><loc>https://griko.id/writings/exploring-undocumented-getinitialprops-properties-on-next-js</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.111Z</lastmod></url>
+<url><loc>https://griko.id/writings/gatsby-js-plugin-priority-vs-ocd</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.111Z</lastmod></url>
+<url><loc>https://griko.id/writings/i-made-a-deno-module-registry-using-next-js-vercel-and-github</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.111Z</lastmod></url>
+<url><loc>https://griko.id/writings/prevent-fouc-on-next-js-chakra-ui</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.111Z</lastmod></url>
+<url><loc>https://griko.id/writings/windows-is-now-great-for-development</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-29T21:08:56.111Z</lastmod></url>
+</urlset>

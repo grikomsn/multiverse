@@ -1,0 +1,38 @@
+{
+  "name": "@packages/hooks",
+  "version": "0.0.0",
+  "devDependencies": {
+    "react": "^17",
+    "@types/node": "^14",
+    "@types/react": "^17"
+  },
+  "peerDependencies": {
+    "react": "^17"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj/react"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  }
+}

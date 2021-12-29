@@ -1,0 +1,182 @@
+---
+title: I Made a Deno Module Registry Using Next.js, Vercel, and GitHub
+description: An adventure log about how I remade deno.land module registry from scratch for denoland.id
+date: 2019-06-14
+---
+
+#### Table of contents
+
+# Introduction 🦕
+
+When [Deno premiered its version 1.0.0](https://twitter.com/deno_land/status/1260701643311583234?s=20), everyone was on the Deno hype train. And one of the most interesting feature about Deno is that [external modules are imported using direct URLs](https://deno.land/manual/linking_to_external_code), so rather than downloading a module then store metadata on some `package-lock.json`-like file, Deno uses URLs which the runtime will download and cache the module locally for future usage. But if you need to have some kind of lockfile, Deno can do this too, which you can read more on the [manual about integrity checking](https://deno.land/manual/linking_to_external_code/integrity_checking).
+
+# Third Party Modules 📦
+
+And speaking of modules, lots of third party modules are being submitted on [deno.land/x](https://deno.land/x), which is Deno's official module registry for third party modules.
+
+Unlike npm or other package/module registries, Deno uses [a single JSON file](https://github.com/denoland/deno_website2/blob/master/database.json) to store module names, source type (GitHub or npm), user/org name and repo name. With that metadata, the deno.land website/API will proxy to its module source. For example, here's the entry for the `airtable` module:
+
+![https://github.com/denoland/deno_website2/blob/master/database.json#L32-L37](https://dev-to-uploads.s3.amazonaws.com/i/vymucm8vz6mq2dnz8oou.png)
+
+So if we want to import a `mod.ts` file on the module, deno.land will resolve the `airtable` module from GitHub with the owner/org `grikomsn`, the repo `airtable-deno`, and the contents of `mod.ts` file, which the proxied URL will be https://deno.land/x/airtable/mod.ts.
+
+So no need to use GitHub's very long CDN URL like `https://raw.githubusercontent.com/grikomsn/airtable-deno/master/mod.ts`. There are also other services like https://denopkg.com where it doesn't proxy sources but redirects to GitHub CDN, so https://denopkg.com/grikomsn/airtable-deno/mod.ts redirects to the GitHub CDN URL. Neat!
+
+# The Magic URL ✨
+
+Now you may or may not noticed that the import URL for modules and the module explorer page URL is _exactly the same_.
+
+![The magical deno.land/x route.](https://dev-to-uploads.s3.amazonaws.com/i/fqm6xx427xfdn7m931kl.png)
+
+It was designed on purpose so by just using the same URL, you can explore the module contents and just copy paste the same URL to import on Deno. This is achieved using [Cloudflare Workers](https://workers.cloudflare.com) where it proxies HTML requests to the module explorer page which is deployed on [Vercel](https://vercel.com/home), and non-HTML requests to the module source files from their respective sources. This was the most mind-blowing thing when I started experimenting on Deno, and I'm still astonished that the Deno team can pull this off. 🤯
+
+Sidetrack for a moment. I joined and help maintain a new Deno user group for Indonesia folks, aptly named [Deno Land Indonesia](https://denoland.id). Everyone was [joining the Telegram group](https://t.me/deno_id) from various places, probably someone broadcasted the invite link to other groups, which resulted from 10–20 members to instantly 200–300 members. And one day, someone bought the `denoland.id` domain and filled it with a Gatsby-based placeholder page, and then out of the blue, this thought hit me:
+
+> _"What if we have our own module registry?"_
+
+…which followed with another thought:
+
+> _"Could this be achieved only using Vercel rewrites?"_
+
+And with that, my week long journey on sleepless nights and constant trial and error begins.
+
+# Testing and Tinkering 👨‍🔧
+
+First order of business was experimenting if [Vercel `rewrites` config](https://vercel.com/docs/configuration#project/rewrites) could proxy another URL, which it could. But realizing that I also need to detect if the request accepts HTML or not, I definitely need something else that just rewriting requests. I created a [Next.js](https://nextjs.org/) project with a [page route](https://nextjs.org/docs/basic-features/pages) to view the module explorer page and an [API route](https://nextjs.org/docs/api-routes/introduction) to resolve module sources, which it a success. Just need to proxy those URLs with Vercel `rewrites` config and ready to go. And so I thought.
+
+So here's the basic idea on that iteration:
+
+- `/x/[...segments]` is the page route showing the module explorer page.
+- `/api/x/[...segments]` is the API route which returns the module source.
+- If `/x` is `accept`-ing HTML, it shouldn't proxy to `/api/x` and show as is.
+- If `/x` is not `accept`-ing HTML, it should proxy to `/api/x`.
+- Since `/x` is the page route and I also want it to handle `/api/x`, that means I should rewrite `/x` to `/api/x`.
+- And if `/x` is now `/api/x`, the API should be able to load regular `/x` page.
+- But since `/x` is `/api/x`, so that means it's requesting itself.
+
+For clarity, here's a rough diagram I made using [Excalidraw](https://excalidraw.com/):
+
+![The recursion route dilemma.](https://dev-to-uploads.s3.amazonaws.com/i/vr53xq1jt3vi5czfxefm.png)
+
+So basically rewriting to and redirecting to itself. And I only realized this when working on _the third day_! Imagine those sleepless nights. 😞
+
+# Using Different Routes ⤵️
+
+After the recursion problem, I tried a workaround using a different route for the module explorer, like `/mod` for module explorer page and rewrite `/api/x` to `/x`. And same as before where if `/x` is requesting HTML, it should be able to load `/mod` since it's not referring to anything else like before, and it should be able to load modules since it's `/api/x`.
+
+So here's what this should do:
+
+- `/mod` is the page route showing the module explorer page.
+- `/x` is a rewrite of `/api/x` which is the API route returning the module source.
+- If `/x` is `accept`-ing HTML, it should proxy to `/mod`.
+- If `/x` is not `accept`-ing HTML, it should load the module.
+- With that, there's no looping routes like before.
+
+Here's another diagram:
+
+![An alternative route solution, should probably work.](https://dev-to-uploads.s3.amazonaws.com/i/rverlphq3l0t3dxoejz8.png)
+
+This should work, right? There's no recursion requests, no same route conflicts, this should definitely work. (Yeah, it doesn't.)
+
+Apparently it's a Next.js related issue. Let's trace things one by one. `/mod` is the page route and `/x` is the rewritten API route which also returns the `/mod` page if it's `accept`-ing HTML. But since `/x` technically does not exist and if you were to navigate to `/x` on a loaded page, Next.js will throw an error since it doesn't find any `/x` pages. `/x` will only work on first page load since it's just a rewrite/proxy from `/api/x`, so what if maybe renaming all Next.js navigation links from `/mod` to `/x`?
+
+I tried that "solution", but Next.js can't do aliased client-side navigation routes that aren't dynamic, so it can't access `/mod` as `/x`, only dynamic routes like `/x/[...segments]` can utilize the aliased navigation or just hard reload or on first page load requests. So yeah, this one also does not work. Back to the drawing board. 😣
+
+# Separate Deployment 🔀
+
+Okay so we know that we can't use same route proxying and rewriting a Next.js page route is also not an option. I start re-exploring the Deno website codebase and thinking of another way to achieve the magical `/x` route, when it hit me:
+
+> "So if deno.land is using Cloudflare Workers, that means it's using a separate thing to proxy routes. What if using a separate Vercel deployment to proxy routes?"
+
+Which basically means that I have given up trying to do same route proxying and just implement a proxy like a normal human being. So with that in mind, I deleted all the "same route" stuff and spin up a separate project to test if using [Vercel serverless functions](https://vercel.com/docs/v2/serverless-functions/introduction) or `rewrite` configs could forward requests to the original Next.js codebase. Here's another breakdown:
+
+- Let's say the proxy project will be called `example.com`.
+- And the original website with the module explorer page and the API route to load modules will be called `web.example.com`.
+- So that means the module explorer page will be `web.example.com/x` and the API route will be `web.example.com/api/x`.
+- Which means the proxy should rewrite requests from `example.com` to `web.example.com`.
+- And for `/x` routes, the proxy should check if it's `accept`-ing HTML, pass it to `web.example.com/x`.
+- If it's not, the proxy should pass it to `web.example.com/api/x`.
+
+Diagrams should explain things better:
+
+![A sane routing solution, I'd say.](https://dev-to-uploads.s3.amazonaws.com/i/uo210rz58b89p90xkcwx.png)
+
+No route conflicts, no loop requests, no hacky rewrites, this definitely checks a lot of boxes! So with that planned ahead, I start iterating many versions on how the proxy is handling requests and forwarding responses. 👏
+
+# If This Then That 👨‍💻
+
+The proxy project was quite challenging since there are a lot of edge cases that I need to cover, not to mention the technical limitations of Vercel `rewrites` and serverless functions, and also finding out how to properly forward requests to specific routes. It took me another three or four days to develop the proxy and also working on the module explorer page. But the proxy is my main priority since the module explorer is basically ready at that time.
+
+The first iteration of the proxy was just testing if using Vercel `rewrites` config could actually rewrite `example.com` to `web.example.com`. But since we need to handle `/x` routes differently, so again, `rewrites` won't do the job.
+
+![First iteration diagram, just basic rewriting.](https://dev-to-uploads.s3.amazonaws.com/i/ua5821fz5f15yt1d0u30.png)
+
+The second iteration was adding an function to handle `/x` routes while any other routes can just use Vercel `rewrites` config. This works as intended, but in further development I realized that if I want to test something that isn't production ready, I need a way so that the proxy can forward request to a separate branch deployment. And again, `rewrites` won't do the job.
+
+![Second iteration diagram, now using functions.](https://dev-to-uploads.s3.amazonaws.com/i/o2crio6ucyg89wkbfyee.png)
+
+The third iteration was removing Vercel `rewrites` completely and use functions to handle all requests but with an additional checking phase. So now if the request is from `example.com`, it should forward to `web.example.com`. But if it's from `staging.example.com`, it should forward to `web-staging.example.com`. The staging domains are just deployments from the `develop` branch from both projects (Next.js website and proxy), so I can test something without actually pushing to the production domain `example.com`.
+
+![Third iteration diagram, same as second one but with different destinations.](https://dev-to-uploads.s3.amazonaws.com/i/8i6b7oq9yz7xlib3zt30.png)
+
+And with further testing and improvements on how the proxy forwards request and response headers, this was the final and working solution, and boy am I relieved that this is finished. 😅
+
+# Painting the Picture ️👨‍🎨
+
+The proxy is finished, now it's time to continue working on the main website.
+
+deno.land uses Next.js, [Preact](https://preactjs.com/), and [Tailwind UI](https://tailwindui.com/), whereas denoland.id uses Next.js, [React](https://reactjs.org/), and [Chakra UI](https://chakra-ui.com/). So it's not quite apples to apples, but since the theme specs are inspired from [Tailwind CSS](https://tailwindcss.com/), I can achieve the same visual identity of deno.land just by using Chakra UI. Here's a screenshot side by side of deno.land and denoland.id:
+
+![https://twitter.com/denoland_id/status/1266390919755882496](/images/denoland-id-comparison.jpg)
+
+The only thing I can't replicate completely is the nav animation from Tailwind UI, so I just use Chakra UI's `<Drawer />` component. But that's not the main attraction, the module explorer is! So after tidying things up, I start working on the module explorer page.
+
+When I was tinkering the first iteration of the proxy, the module explorer page was already up and running but only listing and redirecting to the modules' repository. The module list was initially stored on [Airtable](https://airtable.com/home) where I utilize [Next.js static data fetching](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) to populate the list and resolve the module repository URL. Airtable was chosen since the [API is dead simple](https://airtable.com/api) and quick for small cases like this, and with its form creation, I can share a form quickly where other module creators can submit their modules. But this didn't last long since I ended up using another solution (more on that later on).
+
+![Airtable table and form for the initial module registry.](https://dev-to-uploads.s3.amazonaws.com/i/oxyn97yg6ue5nm1o3lpr.png)
+
+With that implemented, I start working on the API route to resolve repository trees and file contents by inspecting how deno.land/x loads content.
+
+The upside is that deno.land/x fetches the tree and contents on the client side using the browser's built-in fetch, which is using the [optimistic UI approach](https://uxplanet.org/optimistic-1000-34d9eefe4c05) so users can get an early response by showing a skeleton content then show the actual content when it resolves. Another bonus point is since it's fetching client-side, response will be cached so next navigations will be quick and snappy. The only downside is it fetches the data from the browser to GitHub's API directly, so if you were to say refresh the page multiple times, you'll get rate limited and deno.land/x will show an error, which rarely happens but unfortunate if it happens.
+
+After learning how deno.land/x does does things, I start working on the tree list but with another approach where I use Next.js [server-side data fetching](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering). The upside is the page requests once and there's no client-side fetching, but with the downside where every page load will take some time since it's fetching things server-side. Probably in a future update, I'll update the page like deno.land/x. [Let me know what you think!](https://github.com/denoland-id/denoland.id/issues)
+
+![https://denoland.id/x/airtable](https://dev-to-uploads.s3.amazonaws.com/i/cx544d6k9ouohl1i8lpa.png)
+
+The module explorer is finally up and running, tree lists and file contents are showing correctly, another task finished. After wrapping things up, I started a discussion on the Telegram group about how we should implement the module registry else than Airtable. [Zain Fathoni](https://twitter.com/zainfathoni) [pitched an idea](https://t.me/deno_id/4989) where we could store metadatas on JSON files like how deno.land does but instead on a single file, we split the modules alphabetically. I thought it was a great idea since everyone can view and submit PRs whereas Airtable is closed and must be maintained by the internal members. So with that, I started planning to refactor the registry system. 😱
+
+# Delivering the Package 📦
+
+Fortunately it only took me a day or two to work on this since I already have a basic idea on how to implement the module registry. So I spin up another project, create a `database` directory, and create a script where it iterates the 26 alphabets to check if the file exists on `database/[letter].json` file (`a.json`, `b.json`, and so on), which also if it has any contents, it validates and sorts the JSON contents alphabetically.
+
+![https://github.com/denoland-id/registry/tree/master/database](https://dev-to-uploads.s3.amazonaws.com/i/ppdhcjnhktd712zx1vgc.png)
+
+The next step is to design the module specification, and by design I mean defining a [type definition using TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) and a [JSON schema](https://json-schema.org/) for future usage. Since the current script only sorts the modules alphabetically, there's no way to validate if the properties are correct, or even validating if there are duplicate modules. So by creating the specification, it'll be useful for future development and other contributors. Which means that I have to learn how JSON schema works and how to write one. Definitely worth it.
+
+With the specs finished, I update the JSON database files to have a `$schema` field with the defined schema I previously made so editors and validators can pick up the schema definitions. So if you're using [Visual Studio Code](https://code.visualstudio.com/), the editor will fetch the schema from the field and type-hint the current file.
+
+![VS Code type-hinting the database file.](https://dev-to-uploads.s3.amazonaws.com/i/dx1zw98ixa2ycffcv6lu.png)
+
+After all of that, now it's time to deploy the registry so it can be accessed for the module explorer website and also the API.
+
+The first iteration was using Vercel serverless functions which captured `/[a-z].json` routes to import the specified JSON letter database. And for those wondering "why did you use functions when you can just serve the JSON files?", yes you are correct, and I realized that on the next day and I changed to just serve static files. This is why you shouldn't code until sunrise.
+
+Then I remember that the module explorer website needs to list all the packages from A to Z. So I added a build script where on deployment, it'll combine all the JSON files to a single `all.json` file so the website can fetch the list easily without needing to parse from A to Z again. As for the module resolving API, it checks the first letter of the module and only fetch from that letter database, so if you're fetching `airtable`, the API will fetch the `a.json` registry file and not the whole list.
+
+And with the registry finished, I refactored the website and module resolver API to fetch from the new registry. 😎
+
+# Party Time 🥳
+
+Since I'm developing for Deno Land Indonesia, I use the `denoland.id` domain for all the deployment. Which means the proxy is `denoland.id`, the main website is `web.denoland.id`, and the registry is `registry.denoland.id`. Whereas the staging domains are `staging.denoland.id` and `web-staging.denoland.id`.
+
+The proxy is live, the website is up and ready, the API is loading properly and `curl`-ing actually returns the module contents, it's time to test if Deno can actually use the routes. I opened up a terminal, `vim`-ing a `deps.ts` file with `export * from 'https://denoland.id/x/airtable/mod.ts`, and run `deno cache deps.ts`:
+
+![https://twitter.com/griko_nibras/status/1268092150232702984](/images/denoland-id-cli.jpg)
+
+Sweet mother of Deno this actually works.
+
+---
+
+And that concludes this adventure log on how I made a Deno module registry using Next.js, Vercel, and GitHub. And a little bit of Airtable. You can view the repository for the [website](https://github.com/denoland-id/denoland.id), [proxy](https://github.com/denoland-id/proxy), and [registry](https://github.com/denoland-id/registry) on [Deno Land Indonesia's GitHub](https://github.com/denoland-id).
+
+_This is also posted on [Medium](https://medium.com/@griko/i-made-a-deno-module-registry-using-next-js-vercel-and-github-6954d308e1e2) and [dev.to](https://dev.to/grikomsn/i-made-a-deno-module-registry-using-next-js-vercel-and-github-3a73)._

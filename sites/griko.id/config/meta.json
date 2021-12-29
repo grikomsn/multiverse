@@ -1,0 +1,27 @@
+{
+  "name": "Griko Nibras",
+  "fullName": "Griko Muhammad Sultan Nibras",
+  "description": "Software engineer specialized in frontend development and Jamstack-based ecosystems",
+  "email": "hello@griko.id",
+
+  "domain": "griko.id",
+  "url": "https://griko.id",
+
+  "fathom": {
+    "id": "HKQBXHGN",
+    "dashboard": "https://app.usefathom.com/share/hkqbxhgn/griko.id",
+    "referral": "https://usefathom.com/ref/QHAJTL",
+    "scriptUrl": "https://eyeballs.griko.id/script.js"
+  },
+
+  "links": {
+    "Email": "mailto:hello@griko.id",
+    "GitHub": "https://github.com/grikomsn",
+    "Polywork": "https://polywork.griko.id",
+    "Twitter": "https://twitter.com/griko_nibras"
+  },
+
+  "twitter": {
+    "username": "@griko_nibras"
+  }
+}

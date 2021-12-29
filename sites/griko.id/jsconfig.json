@@ -1,0 +1,11 @@
+{
+  "extends": "@packages/tsconfig/next.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["**/*.js", "**/*.jsx"]
+}
