@@ -58,6 +58,11 @@ export function DefaultAppSeo() {
         images: [{ url: `${getAbsoluteUrl().origin}/social.png` }],
       }}
       titleTemplate={`%s - ${meta.name}`}
+      twitter={{
+        cardType: "summary_large_image",
+        handle: meta.twitter.username,
+        site: meta.twitter.username,
+      }}
     />
   );
 }
