@@ -23,6 +23,10 @@ const csp = dedent`
  * @see https://nextjs.org/docs/api-reference/next.config.js/introduction
  */
 let nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: Boolean(process.env.VERCEL),
+  },
+
   experimental: {
     optimizeCss: true,
     optimizeImages: true,
@@ -118,6 +122,10 @@ let nextConfig = {
         destination: "/api/opengraph/main",
       },
     ];
+  },
+
+  typescript: {
+    ignoreBuildErrors: Boolean(process.env.VERCEL),
   },
 
   webpack(config, { defaultLoaders, dev, isServer }) {
