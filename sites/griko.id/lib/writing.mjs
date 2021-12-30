@@ -29,7 +29,7 @@ export async function loadPostFrontmatterEntries() {
 
   const postEntries = await Promise.all(
     paths.map((path) =>
-      import(`@/content/posts/${path}.mdx`).then(
+      import(`../content/posts/${path}.mdx`).then(
         /** @returns {import("./remark/types").FrontmatterEntry} */
         function mapper(mod) {
           return [path, getFrontmatter(mod)];
