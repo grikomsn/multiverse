@@ -4,8 +4,7 @@ import { NextApiRequest } from "next";
 
 export default function getAbsoluteUrl(req?: NextApiRequest, localhostAddress = "localhost:3000") {
   let host =
-    (req?.headers ? req.headers.host : typeof window == "undefined" ? undefined : window.location.host) ??
-    process.env.NODE_ENV == "development"
+    (req?.headers ? req.headers.host : typeof window == "undefined" ? undefined : window.location.host) ?? __DEV__
       ? localhostAddress
       : meta.domain;
 

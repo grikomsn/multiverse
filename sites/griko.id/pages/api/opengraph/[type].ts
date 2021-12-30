@@ -22,7 +22,7 @@ const handler: NextApiHandler = async (req, res) => {
         args: chrome.args,
         defaultViewport: chrome.defaultViewport,
         executablePath: await chrome.executablePath,
-        headless: process.env.NODE_ENV == "development" ? true : chrome.headless,
+        headless: __DEV__ ? true : chrome.headless,
         ignoreHTTPSErrors: true,
       });
     }

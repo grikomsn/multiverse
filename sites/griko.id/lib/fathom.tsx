@@ -13,7 +13,7 @@ export function RegisterFathom() {
   const router = useRouter();
 
   React.useEffect(() => {
-    if (process.env.NODE_ENV != "development") {
+    if (__PROD__) {
       Fathom.load(meta.fathom.id, {
         includedDomains: [meta.domain],
         url: meta.fathom.scriptUrl,

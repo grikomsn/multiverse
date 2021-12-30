@@ -128,11 +128,18 @@ let nextConfig = {
     ignoreBuildErrors: Boolean(process.env.VERCEL),
   },
 
-  webpack(config, { defaultLoaders, dev, isServer }) {
+  webpack(config, { defaultLoaders, dev, isServer, webpack }) {
     config.module.rules.push({
       test: /\.mdx?$/,
       use: [defaultLoaders.babel, WebpackMdxLoader],
     });
+
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        __DEV__: dev,
+        __PROD__: !dev,
+      }),
+    );
 
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
