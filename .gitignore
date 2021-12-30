@@ -5,6 +5,7 @@
 .env*
 .eslintcache
 .next/
+.turbo/
 .vercel/
 out/
 package-lock.json
