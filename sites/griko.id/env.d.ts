@@ -1,3 +1,5 @@
+/// <reference types="@packages/types/vercel" />
+
 declare interface Window {
   mediumZoom: import("medium-zoom").Zoom;
 }

@@ -1,3 +1,5 @@
+/// <reference types="@packages/types/vercel" />
+
 /* eslint-disable import/no-mutable-exports */
 
 import meta from "./config/meta.cjs";
