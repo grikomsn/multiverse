@@ -38,18 +38,5 @@ export async function loadPostFrontmatterEntries() {
     ),
   );
 
-  return postEntries.sort(sortPostFrontmatterFn);
-}
-
-export async function loadPostFrontmatterRecord() {
-  const postEntries = await loadPostFrontmatterEntries();
-  return Object.fromEntries(postEntries);
-}
-
-/**
- * @param {import("./remark/types").FrontmatterEntry} a
- * @param {import("./remark/types").FrontmatterEntry} b
- */
-export function sortPostFrontmatterFn([, a], [, b]) {
-  return b.date.getTime() - a.date.getTime();
+  return postEntries.sort(([, a], [, b]) => b.date.getTime() - a.date.getTime());
 }

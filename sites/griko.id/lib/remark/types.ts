@@ -5,5 +5,3 @@ export type Frontmatter = {
 };
 
 export type FrontmatterEntry = readonly [string, Frontmatter];
-
-export type FrontmatterRecord = Record<string, Frontmatter>;
