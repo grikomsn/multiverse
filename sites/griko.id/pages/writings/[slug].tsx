@@ -5,7 +5,7 @@ import { RegisterMediumZoom } from "@/lib/medium-zoom";
 import { createQueryParams } from "@/lib/opengraph";
 import { Frontmatter, FrontmatterEntry } from "@/lib/remark/types";
 import { createTwitterIntent } from "@/lib/twitter";
-import { loadPostFilenames, loadPostFrontmatterEntries } from "@/lib/writing";
+import { loadPostFilenames, loadPostFrontmatterEntries } from "@/lib/writing.mjs";
 import Anchor, { A } from "@/ui/core/anchor";
 import Prose from "@/ui/core/prose";
 import { renderToString } from "@/ui/markdown/ssr";
