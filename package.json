@@ -22,8 +22,7 @@
     "pipeline": {
       "build": {
         "dependsOn": [
-          "^build",
-          "generate"
+          "^build"
         ],
         "outputs": [
           ".next/**"
@@ -31,12 +30,6 @@
       },
       "clean": {
         "cache": false
-      },
-      "generate": {
-        "outputs": [
-          "assets/**",
-          "generated/**"
-        ]
       },
       "git:pre-commit": {
         "cache": false
