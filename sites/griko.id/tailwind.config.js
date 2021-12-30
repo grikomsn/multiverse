@@ -8,11 +8,11 @@ const plugin = require("tailwindcss/plugin");
  */
 const tailwindConfig = {
   content: [
+    "./content/**/*.mdx",
     "./layouts/**/*.tsx",
     "./lib/**/*.{js,cjs,mjs,ts,tsx}",
     "./pages/**/*.{mdx,tsx}",
-    "./posts/**/*.mdx",
-    "./ui/**/*.{mdx,tsx}",
+    "./ui/**/*.{ts,tsx}",
   ],
 
   plugins: [
