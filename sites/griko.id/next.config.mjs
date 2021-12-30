@@ -16,7 +16,7 @@ const csp = dedent`
   font-src 'self';
   img-src * blob: data:;
   media-src 'none';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.usefathom.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.griko.id;
   style-src 'self' 'unsafe-inline';
 `;
 
