@@ -1,0 +1,22 @@
+{
+  "name": "@packages/types",
+  "version": "0.0.0",
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "**/*.ts": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  }
+}
