@@ -13,11 +13,14 @@ import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
 
+const DEFAULT_OPENGRAPH_IMAGE_URL = `${getAbsoluteUrl().origin}/social.png`;
+
 export default function DefaultLayout({ children }: React.PropsWithChildren<{}>) {
   return (
     <>
       <Head>
         <meta content="minimum-scale=1, initial-scale=1, width=device-width" name="viewport" />
+        <link href={DEFAULT_OPENGRAPH_IMAGE_URL} rel="preload" />
       </Head>
 
       <DefaultAppSeo />
@@ -55,7 +58,7 @@ export function DefaultAppSeo() {
         description: meta.description,
         type: "website",
         site_name: meta.name,
-        images: [{ url: `${getAbsoluteUrl().origin}/social.png` }],
+        images: [{ url: DEFAULT_OPENGRAPH_IMAGE_URL }],
       }}
       titleTemplate={`%s - ${meta.name}`}
       twitter={{
