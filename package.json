@@ -15,6 +15,7 @@
     "validate": "turbo run validate",
     "# scope commands": "----------------------------------------------------",
     "griko.id": "yarn workspace griko.id",
+    "build:griko.id": "turbo run build --scope=griko.id --include-dependencies --no-deps",
     "#": "-------------------------------------------------------------------"
   },
   "turbo": {

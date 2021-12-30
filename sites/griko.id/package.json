@@ -9,7 +9,7 @@
     "git:pre-commit": "lint-staged",
     "scripts:favicons": "node scripts/favicons.mjs",
     "validate": "next lint --fix --no-cache && tsc --noEmit --pretty",
-    "vercel-build": "cd ../.. && turbo run build --scope=griko.id",
+    "vercel-build": "cd ../.. && yarn build:griko.id",
     "#": "-------------------------------------------------------------------"
   },
   "dependencies": {
