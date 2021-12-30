@@ -3,7 +3,7 @@
 /* eslint-disable import/no-mutable-exports */
 
 import meta from "./config/meta.cjs";
-import { WebpackMdxLoader } from "./lib/remark/loader.mjs";
+import { WebpackMdxLoader } from "./lib/mdx/webpack-loader.mjs";
 
 import { withSuperjson } from "next-superjson";
 import withTranspileModules from "next-transpile-modules";

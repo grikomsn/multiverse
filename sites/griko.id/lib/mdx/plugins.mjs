@@ -1,5 +1,5 @@
-import remarkPrettyCode from "./pretty-code.mjs";
-import remarkTwemoji from "./twemoji.mjs";
+import remarkPrettyCode from "../remark/pretty-code.mjs";
+import remarkTwemoji from "../remark/twemoji.mjs";
 
 import { nodeTypes } from "@mdx-js/mdx";
 import rehypeRaw from "rehype-raw";
@@ -26,15 +26,3 @@ export const remarkPlugins = [
   remarkTwemoji,
   //
 ];
-
-export const WebpackMdxLoader = {
-  loader: "@mdx-js/loader",
-  /** @type {import('@mdx-js/loader').Options} */
-  options: {
-    jsx: true,
-    providerImportSource: "@mdx-js/react",
-    rehypePlugins,
-    remarkPlugins,
-    useDynamicImport: true,
-  },
-};
