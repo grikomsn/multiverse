@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn turbo run git:pre-commit --concurrency=1
+yarn turbo run git:pre-commit --concurrency=1 --no-cache
