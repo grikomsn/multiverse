@@ -20,6 +20,9 @@
   },
   "turbo": {
     "baseBranch": "origin/main",
+    "globalDependencies": [
+      "yarn.lock"
+    ],
     "pipeline": {
       "build": {
         "dependsOn": [
