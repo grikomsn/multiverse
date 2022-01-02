@@ -48,6 +48,7 @@
     "puppeteer-core": "^13",
     "react": "^17",
     "react-dom": "^17",
+    "react-hook-form": "^7",
     "react-hot-toast": "^2",
     "react-rough-notation": "^1",
     "rehype-raw": "^6",
