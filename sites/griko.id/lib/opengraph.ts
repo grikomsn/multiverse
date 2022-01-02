@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+
 import meta from "@/config/meta.json";
+
+export const MODIFIERS = ["normal", "larger"] as const;
+export const TYPES = ["main"] as const;
 
 export type MainOpengraphQuery = {
   title?: string;
@@ -8,20 +13,19 @@ export type MainOpengraphQuery = {
   image?: string;
 };
 
-export type Modifier = "normal" | "larger";
+export type Modifier = typeof MODIFIERS[number];
+export type Type = typeof TYPES[number];
 
 export function createQueryParams(query: MainOpengraphQuery) {
   return new URLSearchParams(query);
 }
 
-export function getQuery({
-  title = meta.name,
-  description = meta.description,
-  path = "",
-  modifier = "larger",
-  image,
-}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any): MainOpengraphQuery {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  return { title, description, path, modifier, image };
+export function getQuery({ title, description, path, modifier, image }: MainOpengraphQuery): MainOpengraphQuery {
+  return {
+    title: title || meta.name,
+    description: description || meta.description,
+    path,
+    modifier: modifier || "larger",
+    image,
+  };
 }
