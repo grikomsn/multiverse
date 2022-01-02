@@ -16,7 +16,7 @@ export default function Footer() {
         <Excerpt />
       </span>
       <div className="flex items-center">
-        <button className="hidden md:block p-4 transition-colors hover:text-orange-500" onClick={kbar.query.toggle}>
+        <button className="p-4 transition-colors hover:text-orange-500" onClick={kbar.query.toggle}>
           <Command size={18} />
         </button>
         <a className="p-4 transition-colors hover:text-lime-500" href={meta.links.Email}>
