@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - packages/**
-      - website/**
+      - sites/**
 
 jobs:
   validate:
