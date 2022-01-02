@@ -20,7 +20,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
     <>
       <Head>
         <meta content="minimum-scale=1, initial-scale=1, width=device-width" name="viewport" />
-        <link href={DEFAULT_OPENGRAPH_IMAGE_URL} rel="preload" />
+        <link as="image" href={DEFAULT_OPENGRAPH_IMAGE_URL} rel="preload" />
       </Head>
 
       <DefaultAppSeo />
