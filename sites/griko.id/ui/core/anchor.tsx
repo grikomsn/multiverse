@@ -8,7 +8,8 @@ const RedirectRegEx = /^\/(github|polywork|timeline|twitter)/;
 export type AnchorProps<T = HTMLAnchorElement> = React.DetailedHTMLProps<React.AnchorHTMLAttributes<T>, T>;
 
 export default function Anchor({ children, ...rest }: AnchorProps) {
-  const isRelative = rest.href?.startsWith("/") ?? false;
+  const isApi = rest.href?.startsWith("/api") ?? false;
+  const isRelative = (rest.href?.startsWith("/") && !isApi) ?? false;
   const isRedirect = rest.href && RedirectRegEx.test(rest.href);
 
   const Wrap = (isRelative ? Link : React.Fragment) as React.ComponentType;
