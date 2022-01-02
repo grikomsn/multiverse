@@ -26,13 +26,13 @@ function MainOpengraphPage({ title, description, path, modifier, image }: MainOp
     <>
       <section className="relative" id="frame">
         <div className="absolute inset-x-0 bg-gradient-to-r via-green-500 opacity-30 blur-2xl from-sky-500 top-[-64px] h-[128px] to-fuchsia-500" />
-        <div className="flex absolute inset-0 justify-center items-center py-8 px-16 space-x-8">
+        <div className="flex absolute inset-0 justify-center items-center p-24 space-x-8">
           {(hasNoImage || !disableImage) && (
             <div className="overflow-hidden rounded-full w-[192px] h-[192px] min-w-[192px] min-h-[192px]">
               <Image priority src={MyImage} />
             </div>
           )}
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-4 w-full">
             <h1
               className={clsx("font-bold tracking-tighter", {
                 "text-7xl": isLarge,
