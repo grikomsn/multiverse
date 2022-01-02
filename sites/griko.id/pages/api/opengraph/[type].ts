@@ -2,11 +2,10 @@ import getAbsoluteUrl from "@/utils/api";
 
 import chrome from "chrome-aws-lambda";
 import { NextApiHandler } from "next";
-import { Browser, Page } from "puppeteer-core";
+import { Browser } from "puppeteer-core";
 import { URLSearchParams } from "url";
 
 let browser: Browser;
-let page: Page;
 
 const handler: NextApiHandler = async (req, res) => {
   try {
@@ -27,9 +26,7 @@ const handler: NextApiHandler = async (req, res) => {
       });
     }
 
-    if (!page) {
-      page = await browser.newPage();
-    }
+    const page = await browser.newPage();
 
     await page.setViewport({
       width: 1024,
@@ -44,6 +41,8 @@ const handler: NextApiHandler = async (req, res) => {
     const screenshot = await page.screenshot({
       encoding: "binary",
     });
+
+    void page.close();
 
     res.setHeader("content-type", "image/png");
     res.setHeader("cache-control", "public, max-age=604800");
