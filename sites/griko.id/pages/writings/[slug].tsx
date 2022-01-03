@@ -84,7 +84,10 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
       <Prose className="text-center">
         <h1>{frontmatter.title}</h1>
         <p className="lead">{frontmatter.description}</p>
-        <p className="text-sm text-neutral-500">Posted on {format(frontmatter.date, "PPP")}</p>
+        <p className="text-sm text-neutral-500">
+          Posted on {format(frontmatter.date, "PPP")}
+          {frontmatter.lastUpdate ? <> / Last updated on {format(frontmatter.lastUpdate, "PPP")}</> : null}
+        </p>
         <br />
         <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm not-prose">
           <A
