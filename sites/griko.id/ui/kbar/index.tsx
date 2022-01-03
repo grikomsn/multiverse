@@ -1,10 +1,13 @@
 import * as React from "react";
 
-import SearchResults from "./search-results";
-import WindowControls from "./window-controls";
+import Loading from "@/ui/utils/loading";
 
 import { useFocusTrap } from "@mantine/hooks";
 import { KBarAnimator, KBarPortal, KBarPositioner, KBarSearch } from "kbar";
+import dynamic from "next/dynamic";
+
+const SearchResults = dynamic(() => import("./search-results"), { loading: Loading });
+const WindowControls = dynamic(() => import("./window-controls"));
 
 export default function KBar() {
   const trap = useFocusTrap();

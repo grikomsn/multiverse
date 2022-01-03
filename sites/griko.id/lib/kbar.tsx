@@ -1,13 +1,15 @@
 import * as React from "react";
 
 import meta from "@/config/meta.json";
-import KBar from "@/ui/kbar";
 
 import trimHttp from "@packages/utils/trim-http.cjs";
 import { KBarProvider, useKBar, useRegisterActions, VisualState } from "kbar";
 import * as Lucide from "lucide-react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import tinykeys from "tinykeys";
+
+const KBar = dynamic(() => import("@/ui/kbar"));
 
 const ICON_SIZE = 16;
 

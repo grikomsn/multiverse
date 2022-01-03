@@ -5,13 +5,15 @@ import { RegisterFathom } from "@/lib/fathom";
 import { KBarAppProvider } from "@/lib/kbar";
 import Footer from "@/ui/footer";
 import Header from "@/ui/header";
-import MobileNavigator from "@/ui/mobile-navigator";
 import getAbsoluteUrl from "@/utils/api";
 
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
+
+const MobileNavigator = dynamic(() => import("@/ui/mobile-navigator"));
 
 const DEFAULT_OPENGRAPH_IMAGE_URL = `${getAbsoluteUrl().origin}/social.png`;
 
