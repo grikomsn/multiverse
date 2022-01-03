@@ -15,8 +15,8 @@ export async function loadPostFilenames() {
   const filenames = await fs.readdir(cwd("/content/posts"));
 
   const paths = filenames.reduce((/** @type {string[]} */ acc, val) => {
-    if (val.endsWith(".mdx")) {
-      acc.push(val.split(".mdx")[0]);
+    if (val.endsWith(".mdx") && !val.startsWith("DRAFT-")) {
+      acc.push(val.replace(/(^DRAFT)|(\.mdx$)/, ""));
     }
     return acc;
   }, []);
