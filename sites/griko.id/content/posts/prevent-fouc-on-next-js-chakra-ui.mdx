@@ -2,9 +2,20 @@
 title: Prevent FOUC on Next.js + Chakra UI
 description: TL;DR, use @emotion/cache and @emotion/server to prevent initial unstyled content
 date: 2021-08-13
+lastUpdate: 2022-01-04
 ---
 
-If you're using [Chakra UI](https://chakra-ui.com/) with [Next.js](https://nextjs.org/), chances are that you'll encounter an initial white flash or some parts still unstyled before the full content loads. This is known as [FOUC (flash of unstyled content)](https://en.wikipedia.org/wiki/Flash_of_unstyled_content). Here's an example of this website with the FOUC issue: https://v7-git-test-without-emotion-cache-grikomsn.vercel.app
+**January 2022 Update**: Previously, the demo for this post was using my previous iteration of my personal website. But since my website has been updated, I had to either publish the previous version just for this post or create a separate repo for demonstrating the [FOUC (flash of unstyled content)](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) (I chose the latter).
+
+**For some reason I cannot replicate the flashing issue.**
+
+Maybe it has been fixed for the latest Next.js or Chakra UI. [Maybe I am using Next.js experimental configurations](https://github.com/grikomsn/next-chakra-fouc/blob/with-cache/next.config.mjs#L10-L14). I haven't pinpoint the actual reason why. Both the [site with cache](https://next-chakra-fouc-with-cache.vercel.app) and [site without cache](https://next-chakra-fouc-without-cache.vercel.app) has the same behavior. Only the flashing when changing the last known theme occurs, which is known by the Chakra UI team.
+
+So that means this post is somewhat invalid for my initial issue, but maybe it'll be useful for some cases. I'll keep this post for archival purposes and also update all references to the new repository and website.
+
+---
+
+If you're using [Chakra UI](https://chakra-ui.com/) with [Next.js](https://nextjs.org/), chances are that you'll encounter an initial white flash or some parts still unstyled before the full content loads. This is known as [FOUC (flash of unstyled content)](https://en.wikipedia.org/wiki/Flash_of_unstyled_content). Here's an example of this website with the FOUC issue:
 
 ![Preview of flash of unstyled content for this website](/images/fouc-before.gif)
 
@@ -18,7 +29,7 @@ yarn add @emotion/cache @emotion/server
 npm install @emotion/cache @emotion/server
 ```
 
-After adding those dependencies, first make the Emotion cache instance, preferably on a separate source file, e.g. `lib/emotion-cache.ts` ([example source file for this website](https://github.com/grikomsn/griko.id-v7/blob/main/packages/v7/lib/emotion-cache.ts)):
+After adding those dependencies, first make the Emotion cache instance, preferably on a separate source file, e.g. `lib/emotion-cache.ts` ([example source file for this website](https://github.com/grikomsn/next-chakra-fouc/blob/with-cache/lib/emotion-cache.ts)):
 
 ```typescript
 import createCache from "@emotion/cache";
@@ -28,12 +39,12 @@ export default createCache({
 });
 ```
 
-Then, render the stylesheets in `pages/_document.tsx` via `Document.getInitialProps` and use the previously made cache instance with `@emotion/server`'s `extractCritical` ([example source file for this website](https://github.com/grikomsn/griko.id-v7/blob/main/packages/v7/pages/_document.tsx)):
+Then, render the stylesheets in `pages/_document.tsx` via `Document.getInitialProps` and use the previously made cache instance with `@emotion/server`'s `extractCritical` ([example source file for this website](https://github.com/grikomsn/next-chakra-fouc/blob/with-cache/pages/_document.tsx)):
 
 ```tsx {9,14,19-23}
 import * as React from "react";
 
-import emotionCache from "~lib/emotion-cache";
+import emotionCache from "@/lib/emotion-cache";
 
 import { ColorModeScript } from "@chakra-ui/react";
 import createEmotionServer from "@emotion/server/create-instance";
@@ -77,11 +88,11 @@ export default class CustomDocument extends Document {
 }
 ```
 
-With that, the page should now render the stylesheets both server-side and client-side. Here's an example of this website after adding the solution: https://v7-git-test-with-emotion-cache-grikomsn.vercel.app
+With that, the page should now render the stylesheets both server-side and client-side. Here's an example of this website after adding the solution:
 
 ![Preview of cached stylings for this website](/images/fouc-after.gif)
 
-TL;DR, use `@emotion/cache` and `@emotion/server` to prevent initial unstyled content. Theoretically this should also work on Next.js static exports if you're using `next export`. You can [see the full project for this website on GitHub](https://github.com/grikomsn/griko.id-v7/tree/main/packages/v7).
+TL;DR, use `@emotion/cache` and `@emotion/server` to prevent initial unstyled content. Theoretically this should also work on Next.js static exports if you're using `next export`. You can [see the full project for this website on GitHub](https://github.com/grikomsn/next-chakra-fouc).
 
 Hope this helps! 🙌🏻
 
