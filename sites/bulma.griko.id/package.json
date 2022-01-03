@@ -1,9 +1,9 @@
 {
-  "name": "griko.dev",
+  "name": "bulma.griko.id",
   "version": "0.0.0",
   "scripts": {
     "# general commands": "--------------------------------------------------",
-    "vercel-build": "cd ../.. && yarn build:griko.dev",
+    "vercel-build": "cd ../.. && yarn build:bulma.griko.id",
     "#": "-------------------------------------------------------------------"
   },
   "dependencies": {},
