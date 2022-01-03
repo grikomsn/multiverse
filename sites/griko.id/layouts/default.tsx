@@ -3,6 +3,7 @@ import * as React from "react";
 import meta from "@/config/meta.json";
 import { RegisterFathom } from "@/lib/fathom";
 import { KBarAppProvider } from "@/lib/kbar";
+import { CheckReferrer } from "@/lib/referrer";
 import Footer from "@/ui/footer";
 import Header from "@/ui/header";
 import getAbsoluteUrl from "@/utils/api";
@@ -25,6 +26,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
         <link as="image" href={DEFAULT_OPENGRAPH_IMAGE_URL} rel="preload" />
       </Head>
 
+      <CheckReferrer />
       <DefaultAppSeo />
       <RegisterFathom />
       <Toaster position="bottom-right" />
