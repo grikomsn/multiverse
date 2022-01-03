@@ -29,13 +29,6 @@ let nextConfig = {
     ignoreDuringBuilds: Boolean(process.env.VERCEL),
   },
 
-  experimental: {
-    optimizeCss: true,
-    optimizeImages: true,
-    sharedPool: true,
-    workerThreads: true,
-  },
-
   images: {
     domains: [
       "twemoji-cdn.griko.id",

@@ -29,7 +29,6 @@
     "@tailwindcss/typography": "^0",
     "autoprefixer": "^10",
     "chrome-aws-lambda": "^10",
-    "critters": "^0",
     "cssnano": "^5",
     "date-fns": "^2",
     "fathom-client": "^3",
