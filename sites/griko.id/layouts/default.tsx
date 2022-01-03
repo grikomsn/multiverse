@@ -27,7 +27,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
 
       <DefaultAppSeo />
       <RegisterFathom />
-      <Toaster position="bottom-center" />
+      <Toaster position="bottom-right" />
 
       <HeaderGradient />
       <KBarAppProvider>
