@@ -98,6 +98,16 @@ let nextConfig = {
         permanent: true,
       },
       {
+        source: "/resume",
+        destination: "https://resume.io/r/TAzO1zFvr",
+        permanent: true,
+      },
+      {
+        source: "/polywork",
+        destination: meta.links.Polywork,
+        permanent: true,
+      },
+      {
         source: "/timeline",
         destination: meta.links.Polywork,
         permanent: false,
