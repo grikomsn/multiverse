@@ -93,13 +93,18 @@ let nextConfig = {
         permanent: true,
       },
       {
+        source: "/linkedin",
+        destination: meta.links.LinkedIn,
+        permanent: true,
+      },
+      {
         source: "/polywork",
         destination: meta.links.Polywork,
         permanent: true,
       },
       {
         source: "/resume",
-        destination: "https://resume.io/r/TAzO1zFvr",
+        destination: meta.links.Resume,
         permanent: true,
       },
       {
