@@ -3,24 +3,73 @@
   "version": "0.0.0",
   "scripts": {
     "# general commands": "--------------------------------------------------",
+    "build": "next build",
+    "clean": "shx rm -rf .next/",
+    "dev": "next",
+    "git:pre-commit": "lint-staged",
+    "validate": "next lint --fix --no-cache && tsc --noEmit --pretty",
     "vercel-build": "cd ../.. && yarn build:bulma.griko.id",
     "#": "-------------------------------------------------------------------"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@packages/assets": "*",
+    "@packages/hooks": "*",
+    "@packages/utils": "*",
+    "@sindresorhus/class-names": "^2",
+    "bulma": "^0",
+    "lucide-react": "^0",
+    "next": "^12",
+    "next-seo": "^4",
+    "next-sitemap": "^1",
+    "next-superjson": "^0",
+    "next-transpile-modules": "^9",
+    "preact": "^10",
+    "react": "^17",
+    "react-dom": "^17",
+    "superjson": "^1",
+    "ts-dedent": "^2",
+    "typescript": "^4"
+  },
   "devDependencies": {
     "@packages/tsconfig": "*",
     "@types/node": "^14",
+    "@types/react": "^17",
+    "@types/react-dom": "^17",
     "eslint": "^7",
     "eslint-config-kdnj": "^1"
   },
   "eslintConfig": {
     "extends": [
-      "eslint-config-kdnj"
+      "eslint-config-kdnj/react"
     ],
     "ignorePatterns": [
+      ".next",
       "node_modules"
     ],
+    "rules": {
+      "import/extensions": [
+        "off"
+      ],
+      "jsx-a11y/anchor-is-valid": [
+        "off"
+      ]
+    },
     "root": true
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ],
+    "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
   },
   "license": "MIT"
 }
