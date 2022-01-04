@@ -26,8 +26,6 @@ export default function CustomPage({ frontmatter, slug, __ssr, __opengraph }: Pa
     loading: () => <div dangerouslySetInnerHTML={{ __html: __ssr }} suppressHydrationWarning />,
   });
 
-  console.log({ frontmatter });
-
   return (
     <>
       <Head>

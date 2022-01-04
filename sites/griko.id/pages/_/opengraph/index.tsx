@@ -121,14 +121,7 @@ export default function OpenGraphPlaygroundPage({ initialQuery }: OpenGraphPlayg
           <div className="space-y-2">
             <span>Image Result (click image to zoom)</span>
             {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-            <img
-              alt={query.title}
-              className="rounded"
-              onChange={console.log}
-              // onLoad={() => setLoaded(true)}
-              ref={attach}
-              src={debouncedImageUrl}
-            />
+            <img alt={query.title} className="rounded" ref={attach} src={debouncedImageUrl} />
           </div>
 
           <div className="space-y-2">
