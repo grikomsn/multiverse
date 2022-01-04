@@ -138,6 +138,13 @@ function KBarActions() {
       icon: <Lucide.HandMetal size={ICON_SIZE} />,
       parent: "extras",
     },
+    {
+      id: "navigate-uses",
+      name: "/uses",
+      perform: () => router.push("/uses"),
+      icon: <Lucide.HelpCircle size={ICON_SIZE} />,
+      parent: "extras",
+    },
   ]);
 
   return null;
