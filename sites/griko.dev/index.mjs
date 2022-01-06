@@ -1,11 +1,7 @@
-// @ts-check
-/// <reference types="@cloudflare/workers-types" />
-/// <reference path="./env.d.ts" />
-
-// @ts-ignore
-/** @type {Cache} */ const cache = caches.default;
-
 /* global AIRTABLE_BASE, AIRTABLE_KEY */
+
+// @ts-check
+/// <reference path="./env.d.ts" />
 
 addEventListener("fetch", async (/** @type {FetchEvent} */ event) => {
   event.respondWith(tableflare(event));
@@ -14,6 +10,7 @@ addEventListener("fetch", async (/** @type {FetchEvent} */ event) => {
 async function tableflare(/** @type {FetchEvent} */ event) {
   const url = new URL(event.request.url);
 
+  const cache = caches.default;
   const cacheKey = new Request(url.toString(), event.request);
   const cachedResponse = await cache.match(cacheKey);
   if (cachedResponse) return cachedResponse;
