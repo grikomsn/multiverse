@@ -8,7 +8,7 @@ export const prettyCodeOptions = {
     }
   },
   onVisitHighlightedLine(node) {
-    node.properties.classList.add("highlight-line");
+    node.properties.className.push("highlight-line");
   },
   onVisitHighlightedWord(node) {
     node.properties.className = "highlight-word";
