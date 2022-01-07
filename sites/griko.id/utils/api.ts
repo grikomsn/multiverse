@@ -2,7 +2,7 @@ import meta from "@/config/meta.json";
 
 import { NextApiRequest } from "next";
 
-export default function getAbsoluteUrl(req?: NextApiRequest, localhostAddress = "localhost:3000") {
+export function getAbsoluteUrl(req?: NextApiRequest, localhostAddress = "localhost:3000") {
   let host =
     (req?.headers ? req.headers.host : typeof window == "undefined" ? undefined : window.location.host) ?? __DEV__
       ? localhostAddress

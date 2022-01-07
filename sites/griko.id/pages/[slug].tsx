@@ -6,7 +6,7 @@ import { Frontmatter } from "@/lib/mdx/types";
 import { createQueryParams } from "@/lib/opengraph";
 import Prose from "@/ui/core/prose";
 import { renderToString } from "@/ui/markdown/ssr";
-import getAbsoluteUrl from "@/utils/api";
+import { getAbsoluteUrl } from "@/utils/api";
 
 import { MDXContent } from "mdx/types";
 import { GetStaticPaths, GetStaticProps } from "next";

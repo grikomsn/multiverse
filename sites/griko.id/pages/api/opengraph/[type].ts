@@ -1,4 +1,4 @@
-import getAbsoluteUrl from "@/utils/api";
+import { getAbsoluteUrl } from "@/utils/api";
 
 import { withSentry } from "@sentry/nextjs";
 import chrome from "chrome-aws-lambda";

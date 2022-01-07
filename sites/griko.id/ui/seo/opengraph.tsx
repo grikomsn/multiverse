@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { createQueryParams, MainOpengraphQuery, Type } from "@/lib/opengraph";
-import getAbsoluteUrl from "@/utils/api";
+import { getAbsoluteUrl } from "@/utils/api";
 
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";

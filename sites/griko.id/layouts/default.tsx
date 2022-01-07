@@ -6,7 +6,7 @@ import { KBarAppProvider } from "@/lib/kbar";
 import { CheckReferrer } from "@/lib/referrer";
 import Footer from "@/ui/footer";
 import Header from "@/ui/header";
-import getAbsoluteUrl from "@/utils/api";
+import { getAbsoluteUrl } from "@/utils/api";
 
 import dynamic from "next/dynamic";
 import Head from "next/head";

@@ -9,7 +9,7 @@ import { loadPostFilenames, loadPostFrontmatterEntries } from "@/lib/writing.mjs
 import Anchor, { A } from "@/ui/core/anchor";
 import Prose from "@/ui/core/prose";
 import { renderToString } from "@/ui/markdown/ssr";
-import getAbsoluteUrl from "@/utils/api";
+import { getAbsoluteUrl } from "@/utils/api";
 import { copy } from "@/utils/clipboard";
 import { NavigatorWrap } from "@/utils/navigator";
 
