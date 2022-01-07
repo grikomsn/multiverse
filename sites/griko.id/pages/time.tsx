@@ -21,6 +21,7 @@ export default function TimePage() {
 
       <div className="space-y-8">
         <Zone tz="Asia/Jakarta" />
+        <Zone tz="CET" />
         <Zone tz="EST" />
         <Zone tz="CST6CDT" />
         <Zone tz="PST8PDT" />
