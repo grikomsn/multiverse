@@ -29,6 +29,7 @@
     "autoprefixer": "^10",
     "chrome-aws-lambda": "^10",
     "date-fns": "^2",
+    "date-fns-tz": "^1",
     "fathom-client": "^3",
     "favicons": "^6",
     "feed": "^4",
