@@ -91,7 +91,7 @@ let nextConfig = {
       },
       {
         source: "/commit/:sha",
-        destination: `${repository}/:sha`,
+        destination: `${repository}/commit/:sha`,
         permanent: false,
       },
       {
