@@ -30,7 +30,6 @@
     "@tailwindcss/line-clamp": "^0",
     "@tailwindcss/typography": "^0",
     "autoprefixer": "^10",
-    "chrome-aws-lambda": "^10",
     "date-fns": "^2",
     "date-fns-tz": "^1",
     "fathom-client": "^3",
@@ -76,8 +75,7 @@
     "@types/tailwindcss": "^2",
     "eslint": "^7",
     "eslint-config-kdnj": "^1",
-    "eslint-plugin-tailwindcss": "^1",
-    "puppeteer": "^13"
+    "eslint-plugin-tailwindcss": "^1"
   },
   "eslintConfig": {
     "extends": [

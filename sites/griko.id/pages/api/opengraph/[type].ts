@@ -1,9 +1,8 @@
 import { getAbsoluteUrl } from "@/utils/api";
 
 import { withSentry } from "@sentry/nextjs";
-import chrome from "chrome-aws-lambda";
 import { NextApiHandler } from "next";
-import { Browser } from "puppeteer-core";
+import puppeteer, { Browser } from "puppeteer-core";
 import { URLSearchParams } from "url";
 
 let browser: Browser;
@@ -15,15 +14,9 @@ const handler: NextApiHandler = async (req, res) => {
     const { origin } = getAbsoluteUrl(req);
     const url = `${origin}/_/opengraph/${type as ""}?${pageQuery}`;
 
-    await chrome.font("https://raw.githack.com/googlei18n/noto-emoji/master/fonts/NotoColorEmoji.ttf");
-
     if (!browser) {
-      browser = await chrome.puppeteer.launch({
-        args: chrome.args,
-        defaultViewport: chrome.defaultViewport,
-        executablePath: await chrome.executablePath,
-        headless: __DEV__ ? true : chrome.headless,
-        ignoreHTTPSErrors: true,
+      browser = await puppeteer.connect({
+        browserWSEndpoint: `wss://chrome.browserless.io?token=${process.env.BROWSERLESS_TOKEN}`,
       });
     }
 
@@ -46,10 +39,12 @@ const handler: NextApiHandler = async (req, res) => {
     void page.close();
 
     res.setHeader("content-type", "image/png");
-    res.setHeader("cache-control", "public, max-age=604800");
+    res.setHeader("cache-control", "public, s-maxage=604800, immutable");
     res.send(screenshot);
   } catch (error: unknown) {
     res.status(500).json({ error });
+  } finally {
+    await browser?.close();
   }
 };
 
