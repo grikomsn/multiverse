@@ -5,7 +5,7 @@ import fs from "fs/promises";
 
 /**
  * @param {any} obj
- * @returns {import("../remark/types").Frontmatter}
+ * @returns {import("./types").Frontmatter}
  */
 export function getFrontmatter(obj) {
   return obj.frontmatter;

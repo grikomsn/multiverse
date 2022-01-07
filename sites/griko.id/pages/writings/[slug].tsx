@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import meta from "@/config/meta.json";
+import { Frontmatter, FrontmatterEntry } from "@/lib/mdx/types";
 import { RegisterMediumZoom } from "@/lib/medium-zoom";
 import { createQueryParams } from "@/lib/opengraph";
-import { Frontmatter, FrontmatterEntry } from "@/lib/remark/types";
 import { createTwitterIntent } from "@/lib/twitter";
 import { loadPostFilenames, loadPostFrontmatterEntries } from "@/lib/writing.mjs";
 import Anchor, { A } from "@/ui/core/anchor";

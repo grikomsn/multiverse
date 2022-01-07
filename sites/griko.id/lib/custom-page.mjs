@@ -12,7 +12,7 @@ export async function loadPageFrontmatterEntries() {
   const pageEntries = await Promise.all(
     paths.map((path) =>
       import(`../content/pages/${path}.mdx`).then(
-        /** @returns {import("./remark/types").FrontmatterEntry} */
+        /** @returns {import("./mdx/types").FrontmatterEntry} */
         function mapper(mod) {
           return [path, getFrontmatter(mod)];
         },

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FrontmatterEntry } from "@/lib/remark/types";
+import { FrontmatterEntry } from "@/lib/mdx/types";
 import { loadPostFrontmatterEntries } from "@/lib/writing.mjs";
 import Anchor from "@/ui/core/anchor";
 import Prose from "@/ui/core/prose";

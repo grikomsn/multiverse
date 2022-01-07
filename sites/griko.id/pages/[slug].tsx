@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { loadPageFilenames } from "@/lib/custom-page.mjs";
 import { getFrontmatter } from "@/lib/mdx/loader.mjs";
+import { Frontmatter } from "@/lib/mdx/types";
 import { createQueryParams } from "@/lib/opengraph";
-import { Frontmatter } from "@/lib/remark/types";
 import Prose from "@/ui/core/prose";
 import { renderToString } from "@/ui/markdown/ssr";
 import getAbsoluteUrl from "@/utils/api";
