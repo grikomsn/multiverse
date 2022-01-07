@@ -44,7 +44,7 @@ const handler: NextApiHandler = async (req, res) => {
   } catch (error: unknown) {
     res.status(500).json({ error });
   } finally {
-    await browser?.close();
+    // await browser?.close();
   }
 };
 
