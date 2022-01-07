@@ -7,7 +7,6 @@ import { KBarProvider, useKBar, useRegisterActions, VisualState } from "kbar";
 import * as Lucide from "lucide-react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import tinykeys from "tinykeys";
 
 const KBar = dynamic(() => import("@/ui/kbar"));
 
@@ -154,22 +153,10 @@ function KBarSubscriptions() {
   const kbar = useKBar((state) => state);
 
   React.useEffect(() => {
-    function handleKeyboard(event: KeyboardEvent) {
-      event.preventDefault();
-      kbar.query.toggle();
-    }
-
     if (kbar.visualState == VisualState.showing) {
       // trackCommandBar();
     }
-
-    if (kbar.visualState == VisualState.hidden || kbar.visualState == VisualState.animatingIn) {
-      return tinykeys(window, {
-        "Shift+?": handleKeyboard,
-        "Shift Shift": handleKeyboard,
-      });
-    }
-  }, [kbar.query, kbar.visualState]);
+  }, [kbar.visualState]);
 
   return null;
 }
