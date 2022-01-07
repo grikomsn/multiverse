@@ -1,5 +1,6 @@
 import getAbsoluteUrl from "@/utils/api";
 
+import { withSentry } from "@sentry/nextjs";
 import chrome from "chrome-aws-lambda";
 import { NextApiHandler } from "next";
 import { Browser } from "puppeteer-core";
@@ -52,4 +53,4 @@ const handler: NextApiHandler = async (req, res) => {
   }
 };
 
-export default handler;
+export default withSentry(handler);

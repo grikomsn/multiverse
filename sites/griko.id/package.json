@@ -23,6 +23,7 @@
     "@packages/assets": "*",
     "@packages/hooks": "*",
     "@packages/utils": "*",
+    "@sentry/nextjs": "^6",
     "@sindresorhus/class-names": "^2",
     "@sindresorhus/slugify": "^2",
     "@tailwindcss/forms": "^0",
@@ -95,6 +96,9 @@
         "off"
       ],
       "jsx-a11y/anchor-is-valid": [
+        "off"
+      ],
+      "react/jsx-filename-extension": [
         "off"
       ],
       "tailwindcss/classnames-order": [

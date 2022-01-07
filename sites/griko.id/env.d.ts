@@ -1,3 +1,4 @@
+/// <reference types="@packages/types/sentry" />
 /// <reference types="@packages/types/vercel" />
 
 declare interface Window {

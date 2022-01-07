@@ -5,6 +5,7 @@
 import meta from "./config/meta.cjs";
 import { WebpackMdxLoader } from "./lib/mdx/webpack-loader.mjs";
 
+import { withSentryConfig } from "@sentry/nextjs";
 import { withSuperjson } from "next-superjson";
 import withTranspileModules from "next-transpile-modules";
 import { dedent } from "ts-dedent";
@@ -169,5 +170,8 @@ nextConfig = withTranspileModules([
   "@packages/utils",
   //
 ])(nextConfig);
+nextConfig = withSentryConfig(nextConfig, {
+  silent: true,
+});
 
 export default nextConfig;

@@ -5,10 +5,12 @@
 .env*
 .eslintcache
 .next/
+.sentryclirc
 .turbo/
 .vercel/
 out/
 package-lock.json
+sentry.properties
 tsconfig.tsbuildinfo
 
 # allowed directories/files
