@@ -13,7 +13,6 @@
     "#": "-------------------------------------------------------------------"
   },
   "dependencies": {
-    "@atomiks/mdx-pretty-code": "^0",
     "@fontsource/jetbrains-mono": "^4",
     "@fontsource/lexend": "^4",
     "@mantine/hooks": "^3",
@@ -49,6 +48,7 @@
     "react-hook-form": "^7",
     "react-hot-toast": "^2",
     "react-rough-notation": "^1",
+    "rehype-pretty-code": "^0",
     "rehype-raw": "^6",
     "rehype-slug": "^5",
     "remark-frontmatter": "^4",
