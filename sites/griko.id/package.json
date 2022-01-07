@@ -43,7 +43,6 @@
     "next-superjson": "^0",
     "next-transpile-modules": "^9",
     "postcss": "^8",
-    "preact": "^10",
     "puppeteer-core": "^13",
     "react": "^17",
     "react-dom": "^17",

@@ -23,7 +23,6 @@
     "next-sitemap": "^1",
     "next-superjson": "^0",
     "next-transpile-modules": "^9",
-    "preact": "^10",
     "react": "^17",
     "react-dom": "^17",
     "superjson": "^1",

@@ -145,7 +145,7 @@ let nextConfig = {
     ignoreBuildErrors: Boolean(process.env.VERCEL),
   },
 
-  webpack(config, { defaultLoaders, dev, isServer, webpack }) {
+  webpack(config, { defaultLoaders, dev, webpack }) {
     config.module.rules.push({
       test: /\.mdx?$/,
       use: [defaultLoaders.babel, WebpackMdxLoader],
@@ -157,14 +157,6 @@ let nextConfig = {
         __PROD__: !dev,
       }),
     );
-
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        react: "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat",
-      });
-    }
 
     return config;
   },

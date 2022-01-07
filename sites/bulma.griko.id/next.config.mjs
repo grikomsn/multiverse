@@ -83,21 +83,13 @@ let nextConfig = {
     ignoreBuildErrors: Boolean(process.env.VERCEL),
   },
 
-  webpack(config, { dev, isServer, webpack }) {
+  webpack(config, { dev, webpack }) {
     config.plugins.push(
       new webpack.DefinePlugin({
         __DEV__: dev,
         __PROD__: !dev,
       }),
     );
-
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        react: "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat",
-      });
-    }
 
     return config;
   },
