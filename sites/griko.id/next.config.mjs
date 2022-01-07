@@ -9,6 +9,8 @@ import { withSuperjson } from "next-superjson";
 import withTranspileModules from "next-transpile-modules";
 import { dedent } from "ts-dedent";
 
+const repository = "https://github.com/grikomsn/personal-websites";
+
 const csp = dedent`
   child-src *.twitter.com;
   connect-src *;
@@ -86,6 +88,11 @@ let nextConfig = {
         source: "/blog/:match*",
         destination: "/writings/:match*",
         permanent: true,
+      },
+      {
+        source: "/commit/:sha",
+        destination: `${repository}/:sha`,
+        permanent: false,
       },
       {
         source: "/github",
