@@ -11,7 +11,6 @@ import getAbsoluteUrl from "@/utils/api";
 import { MDXContent } from "mdx/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
-import Head from "next/head";
 import { NextSeo } from "next-seo";
 
 type PageProps = {
@@ -28,10 +27,6 @@ export default function CustomPage({ frontmatter, slug, __ssr, __opengraph }: Pa
 
   return (
     <>
-      <Head>
-        <link href={__opengraph} rel="preload" />
-      </Head>
-
       <NextSeo
         description={frontmatter.description}
         openGraph={{

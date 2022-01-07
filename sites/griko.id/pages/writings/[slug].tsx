@@ -18,7 +18,6 @@ import { ArrowLeft, ArrowRight, Link, Share, Twitter } from "lucide-react";
 import { MDXContent } from "mdx/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
-import Head from "next/head";
 import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
 
 type PostPageProps = {
@@ -38,10 +37,6 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
   return (
     <>
       <RegisterMediumZoom />
-
-      <Head>
-        <link href={__opengraph} rel="preload" />
-      </Head>
 
       <NextSeo
         description={frontmatter.description}
