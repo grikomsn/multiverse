@@ -138,6 +138,13 @@ function KBarActions() {
       parent: "extras",
     },
     {
+      id: "navigate-time",
+      name: "Time",
+      perform: () => router.push("/time"),
+      icon: <Lucide.Clock size={ICON_SIZE} />,
+      parent: "extras",
+    },
+    {
       id: "navigate-uses",
       name: "/uses",
       perform: () => router.push("/uses"),
