@@ -4,6 +4,10 @@ import OpenGraph from "@/ui/seo/opengraph";
 import { useSeo } from "@/utils/seo";
 import { useCurrentTime } from "@/utils/time";
 
+import { useHash } from "@mantine/hooks";
+import clsx from "@sindresorhus/class-names";
+import slugify from "@sindresorhus/slugify";
+
 export default function TimePage() {
   const { Seo, title, description } = useSeo({
     title: "Time",
@@ -15,7 +19,7 @@ export default function TimePage() {
       <Seo />
       <OpenGraph query={{ title, description, path: "/time" }} />
 
-      <div className="space-y-16">
+      <div className="space-y-8">
         <Zone tz="Asia/Jakarta" />
         <Zone tz="EST" />
         <Zone tz="PST8PDT" />
@@ -25,13 +29,28 @@ export default function TimePage() {
 }
 
 function Zone({ tz }: { tz: string }) {
+  const id = slugify(tz);
+  const [hash] = useHash();
+
+  const hasHash = typeof hash == "string" && hash.length > 0;
+  const isCurrentHash = hash == `#${id}`;
+
   return (
-    <div className="space-y-2 md:space-y-4">
-      <h1 className="text-lg md:text-2xl text-neutral-500">Time in {tz} is</h1>
-      <p className="text-2xl md:text-4xl font-bold" id="my-date">
+    <div
+      className={clsx(
+        "py-8 space-y-2 md:space-y-4 transition",
+        "rounded border-2 border-transparent target:border-neutral-500",
+        { "opacity-50": hasHash && !isCurrentHash },
+      )}
+      id={id}
+    >
+      <a className="text-lg md:text-2xl hover:underline text-neutral-500" href={`#${id}`}>
+        Time in {tz} is
+      </a>
+      <p className="text-2xl md:text-4xl font-bold" id={`date-${id}`} suppressHydrationWarning>
         {useCurrentTime("PPPP", tz)}
       </p>
-      <p className="font-mono text-2xl md:text-4xl font-bold" id="my-time">
+      <p className="font-mono text-2xl md:text-4xl font-bold" id={`time-${id}`} suppressHydrationWarning>
         {useCurrentTime("HH:mm:ss zzz", tz)}
       </p>
     </div>
