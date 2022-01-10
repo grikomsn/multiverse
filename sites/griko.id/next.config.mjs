@@ -1,3 +1,4 @@
+/// <reference types="@packages/types/sentry" />
 /// <reference types="@packages/types/vercel" />
 
 /* eslint-disable import/no-mutable-exports */
@@ -137,7 +138,11 @@ let nextConfig = {
     return [
       {
         source: "/social.png",
-        destination: "/api/opengraph/main",
+        destination: "https://opengraph.griko.id/main",
+      },
+      {
+        source: "/api/opengraph/:match*",
+        destination: "https://opengraph.griko.id/:match*",
       },
     ];
   },
@@ -163,15 +168,22 @@ let nextConfig = {
   },
 };
 
+// include superjson plugin
 nextConfig = withSuperjson()(nextConfig);
+
+// include local modules
 nextConfig = withTranspileModules([
   "@packages/assets",
   "@packages/hooks",
   "@packages/utils",
   //
 ])(nextConfig);
-nextConfig = withSentryConfig(nextConfig, {
-  silent: true,
-});
+
+// include sentry plugin, if environment variable exists
+if (process.env.NEXT_PUBLIC_SENTRY_DSN?.includes("ingest.sentry.io")) {
+  nextConfig = withSentryConfig(nextConfig, {
+    silent: true,
+  });
+}
 
 export default nextConfig;
