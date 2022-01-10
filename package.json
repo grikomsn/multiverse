@@ -17,6 +17,7 @@
     "bulma.griko.id": "yarn workspace bulma.griko.id",
     "griko.dev": "yarn workspace griko.dev",
     "griko.id": "yarn workspace griko.id",
+    "opengraph.griko.id": "yarn workspace opengraph.griko.id",
     "build:bulma.griko.id": "turbo run build --scope=bulma.griko.id --include-dependencies --no-deps",
     "build:griko.dev": "turbo run build --scope=griko.dev --include-dependencies --no-deps",
     "build:griko.id": "turbo run build --scope=griko.id --include-dependencies --no-deps",

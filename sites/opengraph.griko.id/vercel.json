@@ -1,0 +1,18 @@
+{
+  "github": {
+    "autoJobCancelation": true,
+    "silent": true
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://griko.id"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:type",
+      "destination": "/api/handler"
+    }
+  ]
+}
