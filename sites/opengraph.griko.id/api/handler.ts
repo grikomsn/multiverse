@@ -15,7 +15,7 @@ const handler: VercelApiHandler = async (req, res) => {
     const origin = isVercel ? "https://griko.id" : "http://localhost:3000";
     const url = `${origin}/_/opengraph/${type as ""}?${pageQuery}`;
 
-    await chrome.font("/var/task/fonts/NotoColorEmoji.ttf");
+    await chrome.font("https://noto-emoji-cdn.griko.id/fonts/NotoColorEmoji.ttf");
 
     if (!browser) {
       browser = await chrome.puppeteer.launch({
