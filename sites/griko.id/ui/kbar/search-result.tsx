@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import clsx from "@sindresorhus/class-names";
+import clsx from "classnames";
 import { ActionImpl } from "kbar/lib/action";
 
 interface SearchResultProps {
@@ -29,7 +29,7 @@ export default function SearchResult({ active, item }: SearchResultProps) {
         {item.icon && <div className="flex flex-col justify-center items-center">{item.icon}</div>}
         <div className="flex flex-col flex-grow">
           <h4>{item.name}</h4>
-          {item.subtitle && <p className="text-xs truncate text-neutral-400">{item.subtitle}</p>}
+          {item.subtitle && <p className="text-xs text-neutral-400 truncate">{item.subtitle}</p>}
         </div>
         {item.shortcut && (
           <div className="flex items-center space-x-1 font-mono text-xs text-gray-500 uppercase">

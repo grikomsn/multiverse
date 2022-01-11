@@ -3,7 +3,7 @@ import * as React from "react";
 import meta from "@/config/meta.json";
 import A from "@/ui/core/anchor";
 
-import clsx from "@sindresorhus/class-names";
+import clsx from "classnames";
 import { Activity, Icon as IconType, Navigation, Pencil } from "lucide-react";
 import { useRouter } from "next/router";
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import clsx from "@sindresorhus/class-names";
+import clsx from "classnames";
 import { AlertTriangle } from "lucide-react";
 
 export type WipProps<T = HTMLDivElement> = Omit<React.DetailedHTMLProps<React.HTMLAttributes<T>, T>, "children">;
@@ -9,7 +9,7 @@ export default function Wip({ className, ...rest }: WipProps) {
   return (
     <div
       className={clsx(
-        "flex flex-col sm:flex-row items-center p-4 space-y-2 sm:space-y-0 sm:space-x-4 text-center sm:text-left bg-opacity-50 rounded-md bg-amber-500",
+        "flex flex-col sm:flex-row items-center p-4 space-y-2 sm:space-y-0 sm:space-x-4 text-center sm:text-left bg-amber-500 bg-opacity-50 rounded-md",
         className,
       )}
       {...rest}

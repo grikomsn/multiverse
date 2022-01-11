@@ -5,8 +5,8 @@ import { useSeo } from "@/utils/seo";
 import { useCurrentTime } from "@/utils/time";
 
 import { useHash } from "@mantine/hooks";
-import clsx from "@sindresorhus/class-names";
 import slugify from "@sindresorhus/slugify";
+import clsx from "classnames";
 
 export default function TimePage() {
   const { Seo, title, description } = useSeo({
@@ -46,7 +46,7 @@ function Zone({ tz }: { tz: string }) {
       )}
       id={id}
     >
-      <a className="text-lg md:text-2xl hover:underline text-neutral-500" href={`#${id}`}>
+      <a className="text-lg md:text-2xl text-neutral-500 hover:underline" href={`#${id}`}>
         Time in {tz} is
       </a>
       <p className="text-2xl md:text-4xl font-bold" id={`date-${id}`} suppressHydrationWarning>
