@@ -8,7 +8,7 @@
     "dev": "next",
     "git:pre-commit": "lint-staged",
     "scripts:favicons": "node scripts/favicons.mjs",
-    "validate": "next lint --fix --no-cache && tsc --noEmit --pretty",
+    "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,ts,tsx}\" && tsc --noEmit --pretty",
     "vercel-build": "cd ../.. && yarn build:griko.id",
     "#": "-------------------------------------------------------------------"
   },

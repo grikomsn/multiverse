@@ -9,10 +9,10 @@
     "# general commands": "--------------------------------------------------",
     "clean": "turbo run clean",
     "deduplicate": "npx yarn-deduplicate && yarn install",
+    "lint": "turbo run lint",
     "postinstall": "patch-package",
     "prepare": "husky install $PWD/.husky",
     "purge": "shx rm -rf node_modules/.cache/ packages/**/.turbo/ website/.turbo/",
-    "validate": "turbo run validate",
     "# scope commands": "----------------------------------------------------",
     "bulma.griko.id": "yarn workspace bulma.griko.id",
     "griko.dev": "yarn workspace griko.dev",
@@ -43,9 +43,9 @@
       "git:pre-commit": {
         "cache": false
       },
-      "validate": {
+      "lint": {
         "dependsOn": [
-          "^validate"
+          "^lint"
         ]
       }
     }

@@ -7,7 +7,7 @@
     "clean": "shx rm -rf .next/",
     "dev": "next",
     "git:pre-commit": "lint-staged",
-    "validate": "next lint --fix --no-cache && tsc --noEmit --pretty",
+    "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,ts,tsx}\" && tsc --noEmit --pretty",
     "vercel-build": "cd ../.. && yarn build:bulma.griko.id",
     "#": "-------------------------------------------------------------------"
   },

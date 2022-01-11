@@ -1,4 +1,4 @@
-name: Validate
+name: Lint
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    name: Validate
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,4 +17,4 @@ jobs:
           node-version: "14"
           cache: "yarn"
       - run: yarn install
-      - run: yarn validate
+      - run: yarn lint

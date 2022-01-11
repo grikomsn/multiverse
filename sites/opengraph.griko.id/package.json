@@ -4,7 +4,7 @@
   "scripts": {
     "# general commands": "--------------------------------------------------",
     "git:pre-commit": "lint-staged",
-    "validate": "eslint --fix --no-cache && tsc --noEmit --pretty",
+    "lint": "eslint --fix \"api/**/*.{js,ts}\" && tsc --noEmit --pretty",
     "#": "-------------------------------------------------------------------"
   },
   "dependencies": {

@@ -14,7 +14,7 @@ export default function KBar() {
   return (
     <KBarPortal>
       <KBarPositioner className="z-50 bg-black bg-opacity-50 backdrop-blur-sm nightwind-prevent">
-        <KBarAnimator className="overflow-hidden w-screen max-w-md rounded-lg shadow-xl bg-neutral-900">
+        <KBarAnimator className="overflow-hidden w-screen max-w-md bg-neutral-900 rounded-lg shadow-xl">
           <WindowControls />
           <div className="p-4" ref={trap}>
             <KBarSearch
