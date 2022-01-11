@@ -5,6 +5,7 @@
 
 import meta from "./config/meta.cjs";
 import { WebpackMdxLoader } from "./lib/mdx/webpack-loader.mjs";
+import packageJson from "./package.json.cjs";
 
 import { withSentryConfig } from "@sentry/nextjs";
 import { withSuperjson } from "next-superjson";
@@ -172,13 +173,18 @@ let nextConfig = {
 nextConfig = withSuperjson()(nextConfig);
 
 // include local modules
-nextConfig = withTranspileModules([
-  "@packages/assets",
-  "@packages/hooks",
-  "@packages/rough-notation",
-  "@packages/utils",
-  //
-])(nextConfig);
+const localModules = Object.keys(packageJson.dependencies).filter((dep) => {
+  return dep.startsWith("@packages/");
+});
+nextConfig = withTranspileModules(
+  [
+    ...localModules,
+    //
+  ],
+  {
+    debug: Boolean(process.env.DEBUG),
+  },
+)(nextConfig);
 
 // include sentry plugin, if environment variable exists
 if (process.env.NEXT_PUBLIC_SENTRY_DSN?.includes("ingest.sentry.io")) {
