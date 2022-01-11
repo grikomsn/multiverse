@@ -1,8 +1,8 @@
 import * as React from "react";
 
 import { ToggleWrap } from "@packages/hooks/toggle";
+import { RoughNotationGroup } from "@packages/rough-notation";
 import clsx from "classnames";
-import { RoughNotationGroup } from "react-rough-notation";
 
 export type ProseProps<T = HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
 

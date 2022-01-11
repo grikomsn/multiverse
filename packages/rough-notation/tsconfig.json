@@ -1,0 +1,9 @@
+{
+  "extends": "@packages/tsconfig/next.json",
+  "compilerOptions": {
+    "strict": false,
+    "strictNullChecks": false
+  },
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx"]
+}

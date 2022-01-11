@@ -175,6 +175,7 @@ nextConfig = withSuperjson()(nextConfig);
 nextConfig = withTranspileModules([
   "@packages/assets",
   "@packages/hooks",
+  "@packages/rough-notation",
   "@packages/utils",
   //
 ])(nextConfig);

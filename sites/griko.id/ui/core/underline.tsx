@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { RoughNotation, RoughNotationProps } from "react-rough-notation";
+import { RoughNotation, RoughNotationProps } from "@packages/rough-notation";
 
 export type UnderlineProps = Omit<RoughNotationProps, "type">;
 
