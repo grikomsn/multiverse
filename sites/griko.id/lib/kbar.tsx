@@ -69,7 +69,7 @@ function KBarActions() {
       shortcut: "gt".split(""),
       keywords: "timeline",
       section: sections.navigation,
-      perform: () => window.open("/timeline", "_blank"),
+      perform: () => window.open(meta.links.Polywork, "_blank"),
       icon: <Lucide.Activity size={ICON_SIZE} />,
     },
   ]);

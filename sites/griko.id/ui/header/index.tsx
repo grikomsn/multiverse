@@ -11,7 +11,7 @@ export const HEADER_ROUTES: [string, React.ReactNode, IconType][] = [
   ["/about", "About", Navigation],
   // ["/projects", "Projects", Axe],
   ["/writings", "Writings", Pencil],
-  ["/timeline", "Timeline", Activity],
+  [meta.links.Polywork, "Timeline", Activity],
   //
 ];
 
