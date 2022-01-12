@@ -44,6 +44,7 @@
     "next-sitemap": "^1",
     "next-superjson": "^0",
     "next-transpile-modules": "^9",
+    "path-browserify": "^1",
     "postcss": "^8",
     "react": "^17",
     "react-dom": "^17",
