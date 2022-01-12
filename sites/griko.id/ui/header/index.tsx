@@ -3,7 +3,8 @@ import * as React from "react";
 import meta from "@/config/meta.json";
 import A from "@/ui/core/anchor";
 
-import clsx from "classnames";
+import Nav from "./nav";
+
 import { Activity, Icon as IconType, Navigation, Pencil } from "lucide-react";
 import { useRouter } from "next/router";
 
@@ -11,7 +12,6 @@ export const HEADER_ROUTES: [string, React.ReactNode, IconType][] = [
   ["/about", "About", Navigation],
   // ["/projects", "Projects", Axe],
   ["/writings", "Writings", Pencil],
-  [meta.links.Polywork, "Timeline", Activity],
   //
 ];
 
@@ -29,17 +29,9 @@ export default function Header() {
         )}
         <div className="flex-grow" />
         {HEADER_ROUTES.map(([href, content, Icon]) => (
-          <A
-            key={href}
-            className={clsx("flex items-center p-4 space-x-2 hover:text-primary transition-colors", {
-              "text-primary": router.route.startsWith(href),
-            })}
-            href={href}
-          >
-            <Icon size={16} />
-            <span>{content}</span>
-          </A>
+          <Nav key={href} Icon={Icon} content={content} href={href} />
         ))}
+        <Nav Icon={Activity} content="Timeline" href={meta.links.Polywork} />
       </div>
 
       {/* mobile header */}
