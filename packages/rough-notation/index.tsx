@@ -28,7 +28,7 @@ export const RoughNotation: React.FunctionComponent<RoughNotationProps> = ({
   type = "underline",
   ...rest
 }) => {
-  const element = React.useRef<HTMLElement>(null);
+  const element = React.useRef<HTMLElement>();
   const annotation = React.useRef<Annotation>();
   const innerVars = React.useRef<{
     playing: boolean;
@@ -56,7 +56,7 @@ export const RoughNotation: React.FunctionComponent<RoughNotationProps> = ({
     const options = initialOptions.current;
     const { getAnnotationObject } = options;
 
-    annotation.current = annotate(element.current, options);
+    annotation.current = annotate(element.current as HTMLElement, options);
 
     if (getAnnotationObject) {
       getAnnotationObject(annotation.current);

@@ -28,7 +28,9 @@ function reducer(state: State, { type, payload }: Action) {
           };
 
           if (typeof annotation.order === "number") {
-            newAnnotations.withOrder = [...newAnnotations.withOrder, annotation].sort((a, b) => a.order - b.order);
+            newAnnotations.withOrder = [...newAnnotations.withOrder, annotation].sort(
+              (a, b) => (a.order as 0) - (b.order as 0),
+            );
           } else {
             newAnnotations.withoutOrder = [...newAnnotations.withoutOrder, annotation];
           }
@@ -36,8 +38,8 @@ function reducer(state: State, { type, payload }: Action) {
           return newAnnotations;
         },
         {
-          withOrder: [],
-          withoutOrder: [],
+          withOrder: [] as Payload[],
+          withoutOrder: [] as Payload[],
         },
       );
 
@@ -55,7 +57,7 @@ export const RoughNotationGroup: React.FunctionComponent<RoughNotationGroupProps
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   React.useEffect(() => {
-    const group = annotationGroup(state.annotations.map(({ annotation }): Annotation => annotation.current));
+    const group = annotationGroup(state.annotations.map(({ annotation }) => annotation.current as Annotation));
 
     if (show) {
       group.show();
