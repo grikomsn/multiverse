@@ -66,6 +66,21 @@ const tailwindConfig = {
           },
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            "blockquote[data-reference]": {
+              fontStyle: "normal",
+            },
+            "p:first-of-type::before blockquote[data-reference]": {
+              content: "none",
+            },
+            "p:last-of-type::after blockquote[data-reference]": {
+              content: "none",
+            },
+          },
+        },
+      },
     },
   },
 };
