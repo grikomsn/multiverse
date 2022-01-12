@@ -42,7 +42,7 @@ export default function HomeFrame({ children }: { children: React.ReactNode }) {
             </div>
           </button>
           <A className="group relative rounded-full" href={meta.links.Twitter}>
-            <div className="absolute inset-0 bg-current rounded-full group-hover:ring-2 ring-current group-hover:ring-offset-4 ring-offset-body transition text-sky-600" />
+            <div className="absolute inset-0 text-sky-600 bg-current rounded-full group-hover:ring-2 ring-current group-hover:ring-offset-4 ring-offset-body transition" />
             <div className="flex relative items-center py-2 px-8 space-x-2">
               <Twitter size={18} /> <span>{meta.twitter.username}</span>
             </div>

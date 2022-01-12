@@ -96,7 +96,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
             <Twitter size={18} /> <span>Share on Twitter</span>
           </A>
           <button
-            className="flex items-center space-x-2 transition hover:text-neutral-500"
+            className="flex items-center space-x-2 hover:text-neutral-500 transition"
             onClick={() => copy(document.URL)}
           >
             <Link size={18} /> <span>Copy link</span>
@@ -104,7 +104,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
           <NavigatorWrap has="share">
             {({ navigator }) => (
               <button
-                className="flex items-center space-x-2 transition hover:text-teal-500"
+                className="flex items-center space-x-2 hover:text-teal-500 transition"
                 onClick={() => navigator.share({ title: frontmatter.title, url: document.URL }).catch(console.error)}
               >
                 <Share size={18} /> <span>Share post</span>
@@ -125,7 +125,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
         <div className="flex flex-col sm:flex-row items-center sm:items-start not-prose">
           {next && (
             <Anchor
-              className="group flex flex-col items-center sm:items-start p-4 sm:-m-4 space-y-1 max-w-sm text-center sm:text-left bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:hover:-translate-y-1 bg-neutral-500"
+              className="group flex flex-col items-center sm:items-start p-4 space-y-1 max-w-sm text-center sm:text-left bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:-m-4 sm:hover:-translate-y-1"
               href={`/writings/${next[0]}`}
             >
               <span className="flex justify-start items-center space-x-1 text-sm opacity-50">
@@ -137,7 +137,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
           <div className="flex-grow" />
           {prev && (
             <Anchor
-              className="group flex flex-col items-center sm:items-end p-4 sm:-m-4 space-y-1 max-w-sm text-center sm:text-right bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:hover:-translate-y-1 bg-neutral-500"
+              className="group flex flex-col items-center sm:items-end p-4 space-y-1 max-w-sm text-center sm:text-right bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:-m-4 sm:hover:-translate-y-1"
               href={`/writings/${prev[0]}`}
             >
               <span className="flex justify-end items-center space-x-1 text-sm opacity-50">

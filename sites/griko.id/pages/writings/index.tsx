@@ -32,7 +32,7 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
         {posts.map(([slug, post]) => (
           <li
             key={slug}
-            className="relative p-4 -mx-4 space-y-2 bg-opacity-0 md:hover:bg-opacity-10 rounded md:hover:shadow-lg md:transition md:hover:-translate-y-1 bg-neutral-500"
+            className="relative p-4 space-y-2 bg-neutral-500 bg-opacity-0 md:hover:bg-opacity-10 rounded md:hover:shadow-lg md:transition -mx-4 md:hover:-translate-y-1"
           >
             <span className="float-right mb-2 ml-2 text-sm text-right text-neutral-500">
               {format(post.date, "PPP")}
@@ -40,7 +40,7 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
             <Anchor className="before:absolute before:inset-0" href={`/writings/${slug}`}>
               <h3 className="max-w-xl text-2xl font-bold tracking-tighter">{post.title}</h3>
             </Anchor>{" "}
-            <p className="max-w-xl line-clamp-3 text-neutral-400">{post.description}</p>
+            <p className="max-w-xl text-neutral-400 line-clamp-3">{post.description}</p>
           </li>
         ))}
       </ul>

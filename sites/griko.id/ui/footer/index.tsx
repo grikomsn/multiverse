@@ -16,13 +16,13 @@ export default function Footer() {
         <Excerpt />
       </span>
       <div className="flex items-center">
-        <button className="p-4 transition-colors hover:text-orange-500" onClick={kbar.query.toggle}>
+        <button className="p-4 hover:text-orange-500 transition-colors" onClick={kbar.query.toggle}>
           <Command size={18} />
         </button>
-        <a className="p-4 transition-colors hover:text-lime-500" href={meta.links.Email}>
+        <a className="p-4 hover:text-lime-500 transition-colors" href={meta.links.Email}>
           <Mail size={18} />
         </a>
-        <A className="p-4 transition-colors hover:text-neutral-500" href={meta.links.GitHub}>
+        <A className="p-4 hover:text-neutral-500 transition-colors" href={meta.links.GitHub}>
           <Github size={18} />
         </A>
         <A className="p-4 hover:text-primary transition-colors" href={meta.links.Twitter}>
