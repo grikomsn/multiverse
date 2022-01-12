@@ -28,7 +28,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
       <CheckReferrer />
       <DefaultAppSeo />
       <RegisterFathom />
-      <Toaster position="bottom-right" />
+      <Toaster position="top-center" />
 
       <HeaderGradient />
       <KBarAppProvider>
