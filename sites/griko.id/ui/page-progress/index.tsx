@@ -12,7 +12,6 @@ function showToast() {
 
 export default function PageProgress() {
   const router = useRouter();
-  console.log(router);
 
   const timeout = React.useRef<NodeJS.Timeout>();
   React.useEffect(() => {
