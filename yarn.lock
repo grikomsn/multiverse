@@ -669,9 +669,9 @@
     regenerator-runtime "^0.13.3"
 
 "@mantine/hooks@^3":
-  version "3.5.5"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.5.5.tgz#65a4cf470678766c33384e54e77ab24f339c9c9d"
-  integrity sha512-8GCPDdLSo+ineBB/FrHmC6WG9mhKTDdrkq55pR6zPlZU233+yK89CeU7WYbc2jzCNN2bShV0Ku7DxzhHQdoyzA==
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.0.tgz#994a3f1b85d65ff15487c70c35388550ed1543d8"
+  integrity sha512-wm/9ny7WFehRXbF2RFr9oj4OZq7ckGR3WFPdgz/sCrnsQjM0+35SnVMqG1dmHZQ8r1Eyf1PhSSPxgbK4ChU0Fw==
 
 "@mdx-js/loader@2.0.0-rc.2":
   version "2.0.0-rc.2"
@@ -6480,9 +6480,9 @@ wrappy@1:
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
 ws@8.2.3, ws@^8, ws@^8.2.3:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.4.0.tgz#f05e982a0a88c604080e8581576e2a063802bed6"
-  integrity sha512-IHVsKe2pjajSUIl4KYMQOdlyliovpEPquKkqbwswulszzI7r0SfQrxnXdWAEqOlDCLrVSJzo+O1hAwdog2sKSQ==
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.4.1.tgz#ce1a17e553d2b794e017fa94887808db5c67f614"
+  integrity sha512-6eqQ4yN2y2xv8b+BgbkUzPPyfo/PDl3VOWb06ZE0jIFYwuHMsMQN6F7o84yxJYCblfCRAxzpU59We4Rr4w0Luw==
 
 xhr@^2.0.1:
   version "2.6.0"
