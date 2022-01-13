@@ -7,7 +7,10 @@ import Prose from "@/ui/core/prose";
 import { useSeo } from "@/utils/seo";
 
 import format from "date-fns/format";
+import { useKBar, useRegisterActions } from "kbar";
+import { Search } from "lucide-react";
 import { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 
 type WritingsPageProps = {
   posts: FrontmatterEntry[];
@@ -19,6 +22,24 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
     description: "My blog posts covering web development, personal thoughts, and various things",
   });
 
+  const router = useRouter();
+  useRegisterActions([
+    {
+      id: "search-posts",
+      name: "Search Posts",
+      icon: <Search size={16} />,
+    },
+  ]);
+  useRegisterActions(
+    posts.map(([slug, fm]) => ({
+      id: `post-${slug}`,
+      name: fm.title,
+      subtitle: fm.description.length > 60 ? `${fm.description.slice(0, 60)}...` : fm.description,
+      perform: () => router.push(`/writings/${slug}`),
+      parent: "search-posts",
+    })),
+  );
+
   return (
     <section>
       <Seo />
@@ -27,6 +48,10 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
         <h1>{title}</h1>
         <p className="lead">{description}</p>
       </Prose>
+
+      <div className="flex justify-center md:justify-end p-4">
+        <SearchButton />
+      </div>
 
       <ul className="p-4 space-y-4">
         {posts.map(([slug, post]) => (
@@ -56,3 +81,24 @@ export const getStaticProps: GetStaticProps<WritingsPageProps> = async () => {
     },
   };
 };
+
+function SearchButton() {
+  const kbar = useKBar();
+
+  const handleSearch = React.useCallback(() => {
+    kbar.query.setCurrentRootAction("search-posts");
+    kbar.query.toggle();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <button
+      className="flex items-center py-2 px-3 space-x-3 w-full max-w-xs text-neutral-400 bg-neutral-500 bg-opacity-20 hover:bg-opacity-30 rounded transition"
+      onClick={handleSearch}
+    >
+      <Search size={20} />
+      <span>Search posts</span>
+    </button>
+  );
+}
