@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
 
-const MobileNavigator = dynamic(() => import("@/ui/mobile-navigator"));
+const MobileMenuBar = dynamic(() => import("@/ui/mobile-menu-bar"));
 
 const DEFAULT_OPENGRAPH_IMAGE_URL = `${getAbsoluteUrl().origin}/social.png`;
 
@@ -42,7 +42,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
             {/*  */}
           </main>
           <Footer />
-          <MobileNavigator />
+          <MobileMenuBar />
         </div>
       </KBarAppProvider>
       <FooterGradient />
