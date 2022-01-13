@@ -29,7 +29,7 @@ import { performance } from "perf_hooks";
       return fs.writeFile(cwd("./public/assets", name), contents);
     }),
     fs.writeFile(
-      cwd("./generated/favicon-meta-tags.jsx"),
+      cwd("./__generated__/favicon-meta-tags.jsx"),
       `export default function FaviconMetaTags() { return <>${html.map((h) => h.replace(/>$/, " />")).join(" ")}</>; }`,
     ),
   ]);

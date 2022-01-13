@@ -84,7 +84,7 @@
     ],
     "ignorePatterns": [
       ".next",
-      "generated",
+      "__generated__",
       "node_modules"
     ],
     "rules": {

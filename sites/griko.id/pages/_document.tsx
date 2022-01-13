@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import FaviconMetaTags from "@/generated/favicon-meta-tags";
+import FaviconMetaTags from "@/__generated__/favicon-meta-tags";
 
 import NextDocument, { Head, Html, Main, NextScript } from "next/document";
 
