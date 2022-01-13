@@ -4,9 +4,8 @@
 
 import { withSuperjson } from "next-superjson";
 import withTranspileModules from "next-transpile-modules";
-import { dedent } from "ts-dedent";
 
-const csp = dedent`
+const csp = `
   child-src *.twitter.com;
   connect-src *;
   default-src 'self';
@@ -15,7 +14,9 @@ const csp = dedent`
   media-src 'none';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' *.griko.id;
   style-src 'self' 'unsafe-inline';
-`;
+`
+  .replace(/^\s+/, "")
+  .trim();
 
 /**
  * @type {import("next").NextConfig}
