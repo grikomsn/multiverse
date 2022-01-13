@@ -6,6 +6,7 @@ import { KBarAppProvider } from "@/lib/kbar";
 import { CheckReferrer } from "@/lib/referrer";
 import Footer from "@/ui/footer";
 import Header from "@/ui/header";
+import PageProgress from "@/ui/page-progress";
 import { getAbsoluteUrl } from "@/utils/api";
 
 import dynamic from "next/dynamic";
@@ -30,6 +31,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
       <RegisterFathom />
       <Toaster position="top-center" />
 
+      <PageProgress />
       <HeaderGradient />
       <KBarAppProvider>
         <div className="container flex flex-col mx-auto max-w-4xl min-h-screen">
