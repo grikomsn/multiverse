@@ -72,10 +72,10 @@ const tailwindConfig = {
             "blockquote[data-reference]": {
               fontStyle: "normal",
             },
-            "p:first-of-type::before blockquote[data-reference]": {
+            "blockquote[data-reference] p:first-of-type::before": {
               content: "none",
             },
-            "p:last-of-type::after blockquote[data-reference]": {
+            "blockquote[data-reference] p:last-of-type::after": {
               content: "none",
             },
           },
