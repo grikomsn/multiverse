@@ -7,7 +7,7 @@ import Prose from "@/ui/core/prose";
 import { useSeo } from "@/utils/seo";
 
 import format from "date-fns/format";
-import { useKBar, useRegisterActions } from "kbar";
+import { useKBar } from "kbar";
 import { Search } from "lucide-react";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
@@ -22,27 +22,10 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
     description: "My blog posts covering web development, personal thoughts, and various things",
   });
 
-  const router = useRouter();
-  useRegisterActions([
-    {
-      id: "search-posts",
-      name: "Search Posts",
-      icon: <Search size={16} />,
-    },
-  ]);
-  useRegisterActions(
-    posts.map(([slug, fm]) => ({
-      id: `post-${slug}`,
-      name: fm.title,
-      subtitle: fm.description.length > 60 ? `${fm.description.slice(0, 60)}...` : fm.description,
-      perform: () => router.push(`/writings/${slug}`),
-      parent: "search-posts",
-    })),
-  );
-
   return (
     <section>
       <Seo />
+      <RegisterSearchAction posts={posts} />
 
       <Prose>
         <h1>{title}</h1>
@@ -81,6 +64,32 @@ export const getStaticProps: GetStaticProps<WritingsPageProps> = async () => {
     },
   };
 };
+
+function RegisterSearchAction({ posts }: { posts: FrontmatterEntry[] }) {
+  const kbar = useKBar();
+  const router = useRouter();
+
+  React.useEffect(() => {
+    kbar.query.registerActions([
+      {
+        id: "search-posts",
+        name: "Search Posts",
+        icon: <Search size={16} />,
+      },
+      ...posts.map(([slug, fm]) => ({
+        id: `post-${slug}`,
+        name: fm.title,
+        subtitle: fm.description.length > 60 ? `${fm.description.slice(0, 60)}...` : fm.description,
+        perform: () => router.push(`/writings/${slug}`),
+        parent: "search-posts",
+      })),
+    ]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return null;
+}
 
 function SearchButton() {
   const kbar = useKBar();
