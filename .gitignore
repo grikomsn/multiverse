@@ -8,6 +8,7 @@
 .sentryclirc
 .turbo/
 .vercel/
+/trace-lockfile.json
 out/
 package-lock.json
 sentry.properties

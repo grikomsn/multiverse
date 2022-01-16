@@ -13,6 +13,7 @@
     "postinstall": "patch-package",
     "prepare": "husky install $PWD/.husky",
     "purge": "shx rm -rf node_modules/.cache/ packages/**/.turbo/ website/.turbo/",
+    "trace-lockfile": "node scripts/trace-lockfile.mjs",
     "# scope commands": "----------------------------------------------------",
     "bulma.griko.id": "yarn workspace bulma.griko.id",
     "griko.dev": "yarn workspace griko.dev",
@@ -51,6 +52,7 @@
     }
   },
   "devDependencies": {
+    "@yarnpkg/lockfile": "^1",
     "husky": "^7",
     "lint-staged": "^12",
     "patch-package": "^6",
