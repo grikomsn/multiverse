@@ -583,9 +583,9 @@
     regenerator-runtime "^0.13.3"
 
 "@mantine/hooks@^3":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.0.tgz#994a3f1b85d65ff15487c70c35388550ed1543d8"
-  integrity sha512-wm/9ny7WFehRXbF2RFr9oj4OZq7ckGR3WFPdgz/sCrnsQjM0+35SnVMqG1dmHZQ8r1Eyf1PhSSPxgbK4ChU0Fw==
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.1.tgz#79a5cca348d715fddbfbc09cbaf4768f5002c6f3"
+  integrity sha512-3V1ITFjx9gswvxPGk14l0uP5VFGrUdSNtE+2Rn0N33/0tOqd7RaJ0pLTUKDwqYE/cDJZqWuDrYiRC06oOLYRYw==
 
 "@mdx-js/loader@2.0.0-rc.2":
   version "2.0.0-rc.2"
