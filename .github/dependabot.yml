@@ -10,4 +10,5 @@ updates:
       interval: daily
     versioning-strategy: lockfile-only
     labels:
+      - "automerge"
       - "dependencies"

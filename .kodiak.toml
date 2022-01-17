@@ -1,0 +1,15 @@
+version = 1
+
+[approve]
+auto_approve_usernames = ["dependabot"]
+
+[merge]
+prioritize_ready_to_merge = true
+
+[merge.automerge_dependencies]
+usernames = ["dependabot"]
+versions = ["minor", "patch"]
+
+[update]
+always = true
+ignored_usernames = ["dependabot"]
