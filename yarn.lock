@@ -4961,12 +4961,12 @@ punycode@1.3.2, punycode@^2, punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 puppeteer-core@^13:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-13.0.1.tgz#4e3ff98ece963b4cf5587158892bf0226a388215"
-  integrity sha512-aKTN7Rtu7zJuhadihaxXnbC4fRPe/Q6VR8u6krJk3dnmTL7am01hl3XG1x9nNCkxi5fA4+e4ba9QmTvFiqGxSA==
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-13.1.0.tgz#2e7872950f44dba350ec6ccfe766a5609ebbdaa8"
+  integrity sha512-Eh3nH1OzfySYZGuzbhpZt7feB8rrOEoTbw7iMI/HAamFmsBg2a1nVKhqhQFEvaeXcPqqMiY3oO7M2Ba/l1vN8g==
   dependencies:
     debug "4.3.2"
-    devtools-protocol "0.0.937139"
+    devtools-protocol "0.0.948846"
     extract-zip "2.0.1"
     https-proxy-agent "5.0.0"
     node-fetch "2.6.5"
