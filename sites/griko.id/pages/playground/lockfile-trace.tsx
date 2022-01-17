@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import OpenGraph from "@/ui/seo/opengraph";
 import { withLayoutType } from "@/utils/layout";
 import { useSeo } from "@/utils/seo";
 
@@ -10,7 +11,7 @@ import toast from "react-hot-toast";
 function LockfileTracePage() {
   const { ref, height, width } = useElementSize();
 
-  const { Seo } = useSeo({
+  const { Seo, title, description } = useSeo({
     title: "Lockfile Trace",
     description: "Visualize my monorepo yarn.lock dependencies",
   });
@@ -35,6 +36,7 @@ function LockfileTracePage() {
   return (
     <section className="absolute inset-0" ref={ref}>
       <Seo />
+      <OpenGraph query={{ title, description, path: "/playground/lockfile-trace" }} />
 
       <div style={{ height, width }}>
         <ReactFlow elements={elements} nodesConnectable={false} onlyRenderVisibleElements>
