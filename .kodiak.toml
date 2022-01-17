@@ -10,6 +10,13 @@ prioritize_ready_to_merge = true
 usernames = ["dependabot"]
 versions = ["minor", "patch"]
 
+[merge.message]
+body = "pull_request_body"
+body_type = "markdown"
+include_pr_number = true
+strip_html_comments = true
+title = "pull_request_title"
+
 [update]
 always = true
 ignored_usernames = ["dependabot"]
