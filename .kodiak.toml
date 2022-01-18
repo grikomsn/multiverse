@@ -4,6 +4,7 @@ version = 1
 auto_approve_usernames = ["dependabot"]
 
 [merge]
+method = ["rebase_fast_forward", "rebase", "merge"]
 prioritize_ready_to_merge = true
 
 [merge.automerge_dependencies]
