@@ -42,9 +42,6 @@
       "clean": {
         "cache": false
       },
-      "git:pre-commit": {
-        "cache": false
-      },
       "lint": {
         "dependsOn": [
           "^lint"
@@ -145,6 +142,11 @@
       "node_modules"
     ],
     "root": true
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   },
   "prettier": {
     "endOfLine": "auto",

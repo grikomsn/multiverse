@@ -6,7 +6,6 @@
     "build": "next build",
     "clean": "shx rm -rf .next/",
     "dev": "next",
-    "git:pre-commit": "lint-staged",
     "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,ts,tsx}\" && tsc --noEmit --pretty",
     "vercel-build": "cd ../.. && yarn build:bulma.griko.id",
     "#": "-------------------------------------------------------------------"

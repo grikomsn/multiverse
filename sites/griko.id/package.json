@@ -6,7 +6,6 @@
     "build": "next build && next-sitemap --config config/sitemap.cjs",
     "clean": "shx rm -rf .next/",
     "dev": "next",
-    "git:pre-commit": "lint-staged",
     "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,ts,tsx}\" && tsc --noEmit --pretty",
     "scripts:favicons": "node scripts/favicons.mjs",
     "vercel-build": "cd ../.. && yarn build:griko.id",
