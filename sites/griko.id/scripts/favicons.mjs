@@ -1,4 +1,4 @@
-// @ts-check
+/* eslint-disable */
 
 import meta from "../config/meta.cjs";
 

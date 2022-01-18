@@ -7,7 +7,6 @@
     "clean": "shx rm -rf .next/",
     "dev": "next",
     "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,ts,tsx}\" && tsc --noEmit --pretty",
-    "scripts:favicons": "node scripts/favicons.mjs",
     "vercel-build": "cd ../.. && yarn build:griko.id",
     "#": "-------------------------------------------------------------------"
   },
@@ -35,7 +34,6 @@
     "date-fns": "^2",
     "date-fns-tz": "^1",
     "fathom-client": "^3",
-    "favicons": "^6",
     "feed": "^4",
     "kbar": "0.1.0-beta.27",
     "lucide-react": "^0",
