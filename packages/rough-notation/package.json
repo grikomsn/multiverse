@@ -24,7 +24,7 @@
   },
   "lint-staged": {
     "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
-      "eslint --fix"
+      "yarn workspace @packages/rough-notation eslint --fix"
     ]
   },
   "prettier": {

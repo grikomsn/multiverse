@@ -33,7 +33,7 @@
   },
   "lint-staged": {
     "**/*.{js,cjs,mjs}": [
-      "eslint --fix"
+      "yarn workspace @packages/lockfile-trace  eslint --fix"
     ]
   },
   "prettier": {

@@ -12,7 +12,7 @@
   },
   "lint-staged": {
     "**/*.{js,cjs,mjs,ts}": [
-      "eslint --fix"
+      "yarn workspace @packages/utils eslint --fix"
     ]
   },
   "prettier": {

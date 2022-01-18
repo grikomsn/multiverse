@@ -9,7 +9,7 @@
   },
   "lint-staged": {
     "**/*.ts": [
-      "eslint --fix"
+      "yarn workspace @packages/types eslint --fix"
     ]
   },
   "prettier": {

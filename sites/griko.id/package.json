@@ -102,10 +102,10 @@
   },
   "lint-staged": {
     "*.{json,md}": [
-      "prettier --write"
+      "yarn workspace griko.id prettier --write"
     ],
     "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
-      "eslint --fix"
+      "yarn workspace griko.id eslint --fix"
     ]
   },
   "prettier": {

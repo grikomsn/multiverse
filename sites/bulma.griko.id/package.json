@@ -52,10 +52,10 @@
   },
   "lint-staged": {
     "*.{json,md}": [
-      "prettier --write"
+      "yarn workspace bulma.griko.id prettier --write"
     ],
     "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
-      "eslint --fix"
+      "yarn workspace bulma.griko.id eslint --fix"
     ]
   },
   "prettier": {
