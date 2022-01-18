@@ -68,6 +68,7 @@
     "zustand": "^3"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^12",
     "@packages/tsconfig": "*",
     "@types/dagre": "^0",
     "@types/node": "^14",
@@ -80,7 +81,8 @@
   },
   "eslintConfig": {
     "extends": [
-      "eslint-config-kdnj/react"
+      "eslint-config-kdnj/react",
+      "plugin:@next/next/recommended"
     ],
     "plugins": [
       "tailwindcss"
