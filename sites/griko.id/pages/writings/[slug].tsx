@@ -164,7 +164,6 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
       redirect: {
         destination: frontmatter.redirect,
         permanent: false,
-        statusCode: 307,
       },
     };
   }
