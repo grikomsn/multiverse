@@ -14,10 +14,12 @@ import { copy } from "@/utils/clipboard";
 import { NavigatorWrap } from "@/utils/navigator";
 
 import format from "date-fns/format";
-import { ArrowLeft, ArrowRight, Link, Share, Twitter } from "lucide-react";
+import { ArrowLeft, ArrowRight, Link, Loader2, Share, Twitter } from "lucide-react";
 import { MDXContent } from "mdx/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { BlogJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
 
 type PostPageProps = {
@@ -30,6 +32,28 @@ type PostPageProps = {
 };
 
 export default function PostPage({ frontmatter, slug, prev, next, __ssr, __opengraph }: PostPageProps) {
+  const router = useRouter();
+
+  if (!slug || router.isFallback) {
+    return (
+      <Loading>
+        <span>Loading...</span>
+      </Loading>
+    );
+  }
+  if (frontmatter?.redirect) {
+    return (
+      <Loading>
+        <Head>
+          <meta content={`3;url=${frontmatter.redirect}`} httpEquiv="refresh" />
+        </Head>
+        <span>
+          Redirecting to <Anchor className="text-primary underline" href={frontmatter.redirect} /> ...
+        </span>
+      </Loading>
+    );
+  }
+
   const Content = dynamic(() => import(`@/content/posts/${slug}.mdx`), {
     loading: () => <div dangerouslySetInnerHTML={{ __html: __ssr }} suppressHydrationWarning />,
   });
@@ -159,20 +183,11 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
   const postIndex = frontmatters.findIndex(([path]) => path == slug);
   const [, frontmatter] = frontmatters[postIndex];
 
-  if (frontmatter.redirect) {
+  if (postIndex < 0) {
     return {
-      redirect: {
-        destination: frontmatter.redirect,
-        permanent: false,
-      },
+      notFound: true,
     };
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const Content = await import(`@/content/posts/${slug}.mdx`).then((mod) => mod.default as MDXContent);
-
-  const next = postIndex == 0 ? null : frontmatters[postIndex - 1];
-  const prev = postIndex == frontmatters.length - 1 ? null : frontmatters[postIndex + 1];
 
   const imageQuery = createQueryParams({
     title: frontmatter.title,
@@ -180,6 +195,13 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     modifier: "normal",
     path: `/writings/${slug}`,
   });
+  const __opengraph = `${getAbsoluteUrl().origin}/api/opengraph/main?${imageQuery.toString()}`;
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const Content = await import(`@/content/posts/${slug}.mdx`).then((mod) => mod.default as MDXContent);
+
+  const next = postIndex == 0 ? null : frontmatters[postIndex - 1];
+  const prev = postIndex == frontmatters.length - 1 ? null : frontmatters[postIndex + 1];
 
   return {
     props: {
@@ -188,7 +210,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
       next,
       prev,
       __ssr: renderToString(<Content />),
-      __opengraph: `${getAbsoluteUrl().origin}/api/opengraph/main?${imageQuery.toString()}`,
+      __opengraph,
     },
   };
 };
@@ -200,3 +222,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
+
+function Loading({ children }: { children: React.ReactNode }) {
+  return (
+    <section className="flex absolute inset-0 flex-col justify-center items-center space-y-2 text-center">
+      <Loader2 className="animate-spin" size={32} />
+      {children}
+    </section>
+  );
+}

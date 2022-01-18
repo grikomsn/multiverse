@@ -37,7 +37,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
         <div className="container flex flex-col mx-auto max-w-4xl min-h-screen">
           <Header />
 
-          <main className="flex-grow">
+          <main className="relative flex-grow">
             {children}
             {/*  */}
           </main>
