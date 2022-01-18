@@ -4,6 +4,7 @@ export type Frontmatter = {
   date: Date;
   header?: boolean;
   lastUpdate?: Date;
+  redirect?: string;
   [key: string]: unknown;
 };
 

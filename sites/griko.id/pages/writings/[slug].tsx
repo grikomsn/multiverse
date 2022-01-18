@@ -159,6 +159,16 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
   const postIndex = frontmatters.findIndex(([path]) => path == slug);
   const [, frontmatter] = frontmatters[postIndex];
 
+  if (frontmatter.redirect) {
+    return {
+      redirect: {
+        destination: frontmatter.redirect,
+        permanent: false,
+        statusCode: 307,
+      },
+    };
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const Content = await import(`@/content/posts/${slug}.mdx`).then((mod) => mod.default as MDXContent);
 
