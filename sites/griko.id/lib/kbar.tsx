@@ -124,6 +124,14 @@ function KBarActions() {
         parent: "extras",
       },
       {
+        id: "navigate-lockfile-trace",
+        name: "Lockfile Trace",
+        keywords: "yarn lock",
+        perform: () => router.push("/playground/lockfile-trace"),
+        icon: <Lucide.GitBranch size={ICON_SIZE} />,
+        parent: "extras",
+      },
+      {
         id: "navigate-og-playground",
         name: "OpenGraph Playground",
         keywords: "open graph playground",
