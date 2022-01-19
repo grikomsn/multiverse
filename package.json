@@ -22,6 +22,7 @@
     "build:griko.dev": "turbo run build --scope=griko.dev --include-dependencies --no-deps",
     "build:griko.id": "turbo run build --scope=griko.id --include-dependencies --no-deps",
     "build:lockfile-trace": "turbo run build --scope=@packages/lockfile-trace --include-dependencies --no-deps",
+    "export:griko.id": "turbo run export --scope=griko.id --include-dependencies --no-deps",
     "#": "-------------------------------------------------------------------"
   },
   "turbo": {
@@ -42,6 +43,14 @@
       },
       "clean": {
         "cache": false
+      },
+      "export": {
+        "dependsOn": [
+          "build"
+        ],
+        "outputs": [
+          "out/**"
+        ]
       },
       "lint": {
         "dependsOn": [
