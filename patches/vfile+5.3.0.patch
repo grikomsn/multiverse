@@ -5,3 +5,10 @@ index 80824cc..8d54f3c 100644
 @@ -1 +1 @@
 -export {default as path} from 'path'
 +export {default as path} from 'path-browserify'
+diff --git a/node_modules/vfile/lib/minproc.js b/node_modules/vfile/lib/minproc.js
+index c0d1d27..fb00626 100644
+--- a/node_modules/vfile/lib/minproc.js
++++ b/node_modules/vfile/lib/minproc.js
+@@ -1 +1 @@
+-export {default as proc} from 'process'
++export { proc } from './minproc.browser.js'
