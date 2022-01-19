@@ -27,6 +27,7 @@
   "turbo": {
     "baseBranch": "origin/main",
     "globalDependencies": [
+      "patches/**",
       "yarn.lock"
     ],
     "pipeline": {
