@@ -46,7 +46,7 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
             <span className="float-right mb-2 ml-4 text-sm text-right text-neutral-500">
               {format(post.date, "PPP")}
             </span>
-            <Anchor className="before:absolute before:inset-0" href={post.redirect ?? `/writings/${slug}`}>
+            <Anchor className="before:absolute before:inset-0" href={post.redirect ?? `/blog/${slug}`}>
               <h3 className="max-w-xl text-2xl font-bold tracking-tighter line-clamp-2">{post.title}</h3>
             </Anchor>{" "}
             <p className="max-w-xl text-neutral-400 line-clamp-2">{post.description}</p>
@@ -56,7 +56,7 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
               })}
             >
               {post.redirect ? <Lucide.ExternalLink size={16} /> : <Lucide.Link size={16} />}
-              <span className="line-clamp-1">{post.redirect ?? `/writings/${slug}`}</span>
+              <span className="line-clamp-1">{post.redirect ?? `/blog/${slug}`}</span>
             </div>
           </li>
         ))}
@@ -89,7 +89,7 @@ function RegisterSearchAction({ posts }: { posts: FrontmatterEntry[] }) {
         id: `post-${slug}`,
         name: fm.title,
         subtitle: fm.description.length > 60 ? `${fm.description.slice(0, 60)}...` : fm.description,
-        perform: () => router.push(`/writings/${slug}`),
+        perform: () => router.push(`/blog/${slug}`),
         parent: "search-posts",
       })),
     ]);

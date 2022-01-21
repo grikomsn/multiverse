@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 export const HEADER_ROUTES: [string, React.ReactNode, IconType][] = [
   ["/about", "About", Navigation],
   // ["/projects", "Projects", Axe],
-  ["/writings", "Writings", Pencil],
+  ["/blog", "Writings", Pencil],
   //
 ];
 

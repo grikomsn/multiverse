@@ -99,7 +99,7 @@ export default function OpenGraphPlaygroundPage({ initialQuery }: OpenGraphPlayg
             <span>Path</span>
             <input
               className="block w-full bg-transparent rounded"
-              placeholder="/writings/hello-world"
+              placeholder="/blog/hello-world"
               {...register("path")}
               type="text"
             />

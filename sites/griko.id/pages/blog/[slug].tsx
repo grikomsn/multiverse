@@ -82,7 +82,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
         description={frontmatter.description}
         images={__opengraph ? [__opengraph] : []}
         title={frontmatter.title}
-        url={`${meta.url}/writings/${slug}`}
+        url={`${meta.url}/blog/${slug}`}
       />
 
       <BreadcrumbJsonLd
@@ -90,12 +90,12 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
           {
             position: 1,
             name: "Writings",
-            item: `${meta.url}/writings`,
+            item: `${meta.url}/blog`,
           },
           {
             position: 2,
             name: frontmatter.title,
-            item: `${meta.url}/writings/${slug}`,
+            item: `${meta.url}/blog/${slug}`,
           },
         ]}
       />
@@ -114,7 +114,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
             href={createTwitterIntent({
               text: `${frontmatter.title}`,
               via: meta.twitter.username.replace("@", ""),
-              url: `${meta.url}/writings/${slug}`,
+              url: `${meta.url}/blog/${slug}`,
             })}
           >
             <Twitter size={18} /> <span>Share on Twitter</span>
@@ -150,7 +150,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
           {next && (
             <Anchor
               className="group flex flex-col items-center sm:items-start p-4 space-y-1 max-w-sm text-center sm:text-left bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:-m-4 sm:hover:-translate-y-1"
-              href={`/writings/${next[0]}`}
+              href={`/blog/${next[0]}`}
             >
               <span className="flex justify-start items-center space-x-1 text-sm opacity-50">
                 <ArrowLeft size={12} /> <span>Latest post</span>
@@ -162,7 +162,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
           {prev && (
             <Anchor
               className="group flex flex-col items-center sm:items-end p-4 space-y-1 max-w-sm text-center sm:text-right bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:-m-4 sm:hover:-translate-y-1"
-              href={`/writings/${prev[0]}`}
+              href={`/blog/${prev[0]}`}
             >
               <span className="flex justify-end items-center space-x-1 text-sm opacity-50">
                 <span>Previous post</span> <ArrowRight size={12} />
@@ -193,7 +193,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     title: frontmatter.title,
     description: frontmatter.description,
     modifier: "normal",
-    path: `/writings/${slug}`,
+    path: `/blog/${slug}`,
   });
   const __opengraph = `${getAbsoluteUrl().origin}/api/opengraph/main?${imageQuery.toString()}`;
 

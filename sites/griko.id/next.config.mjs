@@ -89,8 +89,8 @@ let nextConfig = {
   async redirects() {
     return [
       {
-        source: "/blog/:match*",
-        destination: "/writings/:match*",
+        source: "/writings/:match*",
+        destination: "/blog/:match*",
         permanent: true,
       },
       {
