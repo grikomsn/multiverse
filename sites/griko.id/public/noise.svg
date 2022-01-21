@@ -1,12 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 700 700" width="700" height="700" opacity="1">
-  <defs>
-    <filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.168" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"></feTurbulence>
-      <feSpecularLighting surfaceScale="19" specularConstant="1.3" specularExponent="20" lighting-color="#404040" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting">
-        <feDistantLight azimuth="3" elevation="94"></feDistantLight>
-      </feSpecularLighting>
-
-    </filter>
-  </defs>
-  <rect width="700" height="700" fill="#404040" filter="url(#nnnoise-filter)"></rect>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:svgjs="http://svgjs.dev/svgjs" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="700" opacity="1" version="1.1" viewBox="0 0 700 700"><defs><filter id="nnnoise-filter" width="140%" height="140%" x="-20%" y="-20%" color-interpolation-filters="linearRGB" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse"><feTurbulence width="100%" height="100%" x="0%" y="0%" baseFrequency=".168" numOctaves="4" result="turbulence" seed="15" stitchTiles="stitch" type="fractalNoise"/><feSpecularLighting width="100%" height="100%" x="0%" y="0%" in="turbulence" lighting-color="#404040" result="specularLighting" specularConstant="1.3" specularExponent="20" surfaceScale="19"><feDistantLight azimuth="3" elevation="94"/></feSpecularLighting></filter></defs><rect width="700" height="700" fill="#404040" filter="url(#nnnoise-filter)"/></svg>
