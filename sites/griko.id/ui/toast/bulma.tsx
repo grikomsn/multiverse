@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import meta from "@/config/meta.cjs";
 import { A } from "@/ui/core/anchor";
 
 import { X } from "lucide-react";
@@ -13,8 +14,14 @@ export default function BulmaToast({ id }: Toast) {
       </button>
       <h4 className="text-lg font-bold tracking-tighter">Coming from Bulma?</h4>
       <p className="text-sm">
-        Head over to <A className="font-medium text-primary underline" href="https://bulma.griko.id" /> to see the
-        featured page. Thank you for visiting! 👋
+        This website was made using Next.js and Bulma on 2018, but now it is using Tailwind CSS and other libraries.
+      </p>
+      <p className="text-sm">
+        Bulma version will be republished soon, but you can see the{" "}
+        <A className="font-medium text-primary underline" href={meta.multiverse.v2}>
+          source code here on GitHub
+        </A>
+        .
       </p>
     </div>
   );
