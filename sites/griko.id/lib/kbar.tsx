@@ -14,6 +14,7 @@ const ICON_SIZE = 16;
 
 const parents = {
   extras: "extras",
+  multiverse: "multiverse",
 };
 
 const sections = {
@@ -57,12 +58,12 @@ function KBarActions() {
       //   icon: <Lucide.Axe size={ICON_SIZE} />,
       // },
       {
-        id: "navigate-writings",
+        id: "navigate-blog",
         name: "Writings",
         shortcut: "gw".split(""),
-        keywords: "blog posts writings",
+        keywords: "blog posts blog",
         section: sections.navigation,
-        perform: () => router.push("/writings"),
+        perform: () => router.push("/blog"),
         icon: <Lucide.Pencil size={ICON_SIZE} />,
       },
       {
@@ -132,6 +133,12 @@ function KBarActions() {
         parent: "extras",
       },
       {
+        id: parents.multiverse,
+        name: "Multiverse",
+        icon: <Lucide.Globe size={ICON_SIZE} />,
+        parent: parents.extras,
+      },
+      {
         id: "navigate-og-playground",
         name: "OpenGraph Playground",
         keywords: "open graph playground",
@@ -162,6 +169,17 @@ function KBarActions() {
         parent: "extras",
       },
     ]);
+
+    // multiverse actions
+    kbar.query.registerActions(
+      Object.entries(meta.multiverse).map(([k, v]) => ({
+        id: `multiverse-${k}`,
+        name: `Multiverse ${k}`,
+        perform: () => window.open(v, "_blank"),
+        icon: <Lucide.Globe size={ICON_SIZE} />,
+        parent: "multiverse",
+      })),
+    );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
