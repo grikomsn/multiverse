@@ -1,13 +1,13 @@
 import * as React from "react";
 
 import f from "date-fns-tz/formatInTimeZone";
+import create from "zustand";
 
-export function useCurrentTime(): Date;
-export function useCurrentTime(format: string, tz?: string): string;
+const useTimeStore = create(() => ({ time: new Date() }));
+const setTime = (time: Date) => useTimeStore.setState({ time });
 
-export function useCurrentTime(format?: string, tz: string = "Asia/Jakarta") {
+export function TickTime() {
   const raf = React.useRef<number>();
-  const [time, setTime] = React.useState(() => new Date());
 
   function tick() {
     try {
@@ -28,6 +28,15 @@ export function useCurrentTime(format?: string, tz: string = "Asia/Jakarta") {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  return null;
+}
+
+export function useCurrentTime(): Date;
+export function useCurrentTime(format: string, tz?: string): string;
+
+export function useCurrentTime(format?: string, tz: string = "Asia/Jakarta") {
+  const { time } = useTimeStore();
 
   const memoized = React.useMemo(() => {
     if (typeof format == "string") {

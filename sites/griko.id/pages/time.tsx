@@ -2,7 +2,7 @@ import * as React from "react";
 
 import OpenGraph from "@/ui/seo/opengraph";
 import { useSeo } from "@/utils/seo";
-import { useCurrentTime } from "@/utils/time";
+import { TickTime, useCurrentTime } from "@/utils/time";
 
 import { useHash } from "@mantine/hooks";
 import slugify from "@sindresorhus/slugify";
@@ -18,6 +18,7 @@ export default function TimePage() {
     <section className="p-4 text-center">
       <Seo />
       <OpenGraph query={{ title, description, path: "/time" }} />
+      <TickTime />
 
       <div className="space-y-8">
         <Zone tz="Asia/Jakarta" />
