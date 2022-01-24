@@ -1757,9 +1757,9 @@ escodegen@^2.0.0:
     source-map "~0.6.1"
 
 eslint-config-kdnj@^2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-kdnj/-/eslint-config-kdnj-2.0.3.tgz#85964c5f4c2121b8803bc4ccdbf9e90e1354d209"
-  integrity sha512-Fd7eMeB5v9pAfsjaJeStWuGKKIT2DgBsLaWr3Chm5AIxdFkAJ5/BNoOLieXRWk7Q03aJA+BAzYrYXG9O6AK/kw==
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-config-kdnj/-/eslint-config-kdnj-2.0.4.tgz#2085b452edcdf5d186010a3fef91f37ee2a825d6"
+  integrity sha512-oN91VEsckio7O5rNyYJL8vVWhRPrqVVxclNdfXqoNLV9FCxYAhPLHkCpY0EmUOpWQK1yZEt193P7Z1b34Dz/PA==
   dependencies:
     eslint-config-kentcdodds "^20"
     eslint-config-prettier "^8"
