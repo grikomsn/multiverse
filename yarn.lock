@@ -2692,7 +2692,7 @@ is-ci@^2.0.0:
   dependencies:
     ci-info "^2.0.0"
 
-is-core-module@^2.8.0:
+is-core-module@^2.8.0, is-core-module@^2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.8.1.tgz#f59fdfca701d5879d0a6b100a40aa1560ce27211"
   integrity sha512-SdNCUs284hr40hFTFP6l0IfZ/RSrMXF3qgoRHd3/79unUTvrFO/JoXwkGm+5J/Oe3E/b5GsnG330uUNgRpu1PA==
@@ -4328,9 +4328,9 @@ react-flow-renderer@^9:
     redux "^4.1.2"
 
 react-hook-form@^7:
-  version "7.24.2"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.24.2.tgz#c90735079886573ee3ada948ccf8bd45042298ac"
-  integrity sha512-Ora2l2A4ts8xLxP9QOKEAObTMNZNdR7gt3UpWb9alFJx/AFAQcYAi/joLNo6PoC0AE/Vyq4pnCYb9jUufWoVNw==
+  version "7.25.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.25.0.tgz#ffba58e5e14c8eeb81e2c43b741667552f11ae29"
+  integrity sha512-MyF4YXegIT/vfyZloTm98mpJwLUPfULdX37yPzXeijT1hePCkV8DN1IAnEufxgtqCpc7aFGRinegQwisUGZCnA==
 
 react-hot-toast@^2:
   version "2.2.0"
@@ -4547,11 +4547,11 @@ resolve-from@^4.0.0:
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
 resolve@^1, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.20.0, resolve@^1.21.0, resolve@^2.0.0-next.3:
-  version "1.21.0"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.21.0.tgz#b51adc97f3472e6a5cf4444d34bc9d6b9037591f"
-  integrity sha512-3wCbTpk5WJlyE4mSOtDLhqQmGFi0/TD9VPwmiolnk8U0wRgMEktqCXd3vy5buTO3tljvalNvKrjHEfrd2WpEKA==
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.0.tgz#5e0b8c67c15df57a89bdbabe603a002f21731198"
+  integrity sha512-Hhtrw0nLeSrFQ7phPp4OOcVjLPIeMnRlr5mcnVuMe7M/7eBn98A3hmFRLoFo3DLZkivSYwhRUJTyPyWAk56WLw==
   dependencies:
-    is-core-module "^2.8.0"
+    is-core-module "^2.8.1"
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
 
