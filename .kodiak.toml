@@ -1,0 +1,23 @@
+version = 1
+
+[approve]
+auto_approve_usernames = ["dependabot"]
+
+[merge]
+method = "rebase_fast_forward"
+prioritize_ready_to_merge = true
+
+[merge.automerge_dependencies]
+usernames = ["dependabot"]
+versions = ["minor", "patch"]
+
+[merge.message]
+body = "pull_request_body"
+body_type = "markdown"
+include_pr_number = true
+strip_html_comments = true
+title = "pull_request_title"
+
+[update]
+always = true
+ignored_usernames = ["dependabot"]

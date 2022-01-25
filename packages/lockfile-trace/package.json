@@ -1,0 +1,46 @@
+{
+  "name": "@packages/lockfile-trace",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "module": "./index.mjs",
+      "import": "./index.mjs",
+      "default": "./index.js"
+    },
+    "./flow": {
+      "types": "./flow.d.ts",
+      "module": "./flow.mjs",
+      "import": "./flow.mjs",
+      "default": "./flow.js"
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "**/*.{js,cjs,mjs}": [
+      "yarn workspace @packages/lockfile-trace  eslint --fix"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  }
+}

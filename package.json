@@ -1,0 +1,152 @@
+{
+  "name": "personal-websites",
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*",
+    "sites/*"
+  ],
+  "scripts": {
+    "# general commands": "--------------------------------------------------",
+    "clean": "turbo run clean",
+    "deduplicate": "npx yarn-deduplicate && yarn install",
+    "lint": "turbo run lint",
+    "postinstall": "patch-package",
+    "prepare": "husky install",
+    "purge": "shx rm -rf node_modules/.cache/ packages/**/.turbo/ sites/**/.turbo/",
+    "# scope commands": "----------------------------------------------------",
+    "griko.dev": "yarn workspace griko.dev",
+    "griko.id": "yarn workspace griko.id",
+    "lockfile-trace": "yarn workspace @packages/lockfile-trace",
+    "build:griko.dev": "turbo run build --scope=griko.dev --include-dependencies --no-deps",
+    "build:griko.id": "turbo run build --scope=griko.id --include-dependencies --no-deps",
+    "build:lockfile-trace": "turbo run build --scope=@packages/lockfile-trace --include-dependencies --no-deps",
+    "export:griko.id": "turbo run export --scope=griko.id --include-dependencies --no-deps",
+    "#": "-------------------------------------------------------------------"
+  },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "globalDependencies": [
+      "patches/**",
+      "yarn.lock"
+    ],
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          ".next/**",
+          "dist/**"
+        ]
+      },
+      "clean": {
+        "cache": false
+      },
+      "export": {
+        "dependsOn": [
+          "build"
+        ],
+        "outputs": [
+          "out/**"
+        ]
+      },
+      "lint": {
+        "dependsOn": [
+          "^lint"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "husky": "^7",
+    "lint-staged": "^12",
+    "patch-package": "^6",
+    "postinstall-postinstall": "^2",
+    "shx": "^0",
+    "turbo": "^1"
+  },
+  "resolutions": {
+    "@types/node": "^14",
+    "arg": "^5",
+    "argparse": "^2",
+    "browserslist": "^4",
+    "chokidar": "^3",
+    "cli-truncate": "^2",
+    "color-convert": "^2",
+    "color-name": "^1",
+    "convert-source-map": "^1",
+    "cross-spawn": "^7",
+    "cssom": "^0",
+    "debug": "^4",
+    "diff": "^5",
+    "doctrine": "^3",
+    "emojis-list": "^3",
+    "eslint-visitor-keys": "^3",
+    "estraverse": "^5",
+    "extsprintf": "^1",
+    "find-up": "^4",
+    "fs-extra": "^10",
+    "get-stream": "^6",
+    "glob": "^7",
+    "glob-parent": "^6",
+    "globals": "^13",
+    "iconv-lite": "^0",
+    "ignore": "^5",
+    "is-arrayish": "^0",
+    "js-yaml": "^4",
+    "json-schema-traverse": "^1",
+    "json5": "^2",
+    "loader-utils": "^1",
+    "ms": "^2",
+    "node-fetch": "^2",
+    "optionator": "^0",
+    "p-limit": "^3",
+    "p-locate": "^5",
+    "postcss": "^8",
+    "prelude-ls": "^1",
+    "punycode": "^2",
+    "react-is": "^17",
+    "readable-stream": "^3",
+    "regenerator-runtime": "^0",
+    "resolve": "^1",
+    "rimraf": "^3",
+    "safe-buffer": "^5",
+    "semver": "^7",
+    "shebang-command": "^2",
+    "slash": "^3",
+    "slice-ansi": "^4",
+    "source-map": "^0",
+    "string-width": "^4",
+    "strip-ansi": "^6",
+    "strip-json-comments": "^3",
+    "supports-color": "^8",
+    "tailwindcss": "^3",
+    "tslib": "^2",
+    "type-fest": "^0",
+    "typescript": "^4",
+    "universalify": "^2",
+    "wrap-ansi": "^7"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  },
+  "private": true
+}

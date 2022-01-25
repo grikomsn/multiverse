@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://griko.id
+
+# Sitemaps
+Sitemap: https://griko.id/sitemap.xml

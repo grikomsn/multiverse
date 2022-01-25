@@ -1,0 +1,49 @@
+/* tailwind styles */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .focus-ring {
+    @apply absolute inset-0 bg-current rounded-full group-hover:ring-2 ring-current group-hover:ring-offset-4 transition ring-offset-body;
+  }
+}
+
+/* base styles */
+
+html {
+  cursor: default;
+  text-rendering: optimizeLegibility;
+  @apply font-sans antialiased selection:bg-opacity-50 selection:bg-primary text-text bg-body underline-offset-2;
+}
+
+/* prose overrides */
+
+.prose pre {
+  @apply shadow-2xl relative;
+}
+.prose pre > code {
+  @apply grid;
+}
+.prose pre > code .line {
+  min-height: 1.5em;
+}
+.prose .highlight-line {
+  @apply bg-primary bg-opacity-20 pl-[13px] pr-[16px] -mx-[16px] border-l-[3px] border-l-primary;
+}
+.prose .highlight-word {
+  @apply bg-primary bg-opacity-20 p-[3px] -m-[3px] transition-colors;
+}
+
+/* vendor styles */
+
+.medium-zoom-overlay {
+  @apply bg-black bg-opacity-75 backdrop-blur-sm;
+}
+.medium-zoom-image--opened {
+  @apply max-w-none;
+}
+.twemoji {
+  @apply inline w-[1.25em] h-[1.25em] m-0 mb-1;
+}

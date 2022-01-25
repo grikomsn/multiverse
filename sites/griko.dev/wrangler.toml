@@ -1,0 +1,9 @@
+account_id = "e02a25d4d8f0bacceba5cb29bcaa74de"
+zone_id = "221bb07dca31508211c49645fa2aa061"
+
+name = "redirect"
+route = "griko.dev/*"
+type = "javascript"
+workers_dev = true
+
+compatibility_date = "2022-01-06"

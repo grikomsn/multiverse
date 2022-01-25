@@ -1,0 +1,38 @@
+{
+  "name": "Griko Nibras",
+  "fullName": "Griko Muhammad Sultan Nibras",
+  "description": "Software engineer specialized in frontend development and Jamstack-based ecosystems",
+  "email": "hello@griko.id",
+
+  "domain": "griko.id",
+  "url": "https://griko.id",
+
+  "fathom": {
+    "id": "HKQBXHGN",
+    "dashboard": "https://app.usefathom.com/share/hkqbxhgn/griko.id",
+    "referral": "https://usefathom.com/ref/QHAJTL",
+    "scriptUrl": "https://eyeballs.griko.id/script.js"
+  },
+
+  "links": {
+    "Email": "mailto:hello@griko.id",
+    "GitHub": "https://github.com/grikomsn",
+    "LinkedIn": "https://www.linkedin.com/in/griko",
+    "Polywork": "https://www.polywork.com/griko",
+    "Resume": "https://resume.io/r/TAzO1zFvr",
+    "Twitter": "https://twitter.com/griko_nibras"
+  },
+
+  "multiverse": {
+    "v2": "https://github.com/grikomsn/personal-websites/commits/106baefac869ba1049b3100a1cab6313efaaa5cd",
+    "v4": "https://github.com/grikomsn/personal-websites/commits/e4c856f44bb90b88f7ba8de16643dd0db0477a46",
+    "v4b": "https://github.com/grikomsn/personal-websites/commits/1c43f7819656ac8a73259cc163b627af7dc1816f",
+    "v5": "https://github.com/grikomsn/personal-websites/commits/8bd406afadb20fec9bba8d8cdb8cafd1b65c30f2",
+    "v6": "https://github.com/grikomsn/personal-websites/commits/5b85058dea5ce4b8d73d6d3c95460e74dd6c039b",
+    "v7": "https://github.com/grikomsn/personal-websites/commits/d2f2d849931f5965c75b4f47571387a2b84900f2"
+  },
+
+  "twitter": {
+    "username": "@griko_nibras"
+  }
+}
