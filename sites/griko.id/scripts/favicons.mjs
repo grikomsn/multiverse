@@ -1,9 +1,7 @@
-/* eslint-disable */
-
 import meta from "../config/meta.cjs";
 
 import cwd from "@packages/utils/cwd.cjs";
-import favicons from "favicons";
+import favicons from "favicons-compiled";
 import fs from "fs/promises";
 import log from "next/dist/build/output/log.js";
 import { performance } from "perf_hooks";
