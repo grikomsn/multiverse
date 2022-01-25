@@ -5,7 +5,7 @@
  * @param {T & import('http').IncomingMessage} req
  * @param {string} defaultHost
  */
-export function getAbsoluteUrl(req, defaultHost = "localhost:3000") {
+function getAbsoluteUrl(req, defaultHost = "localhost:3000") {
   let host = defaultHost;
 
   if (req?.headers?.host) {
@@ -30,3 +30,5 @@ export function getAbsoluteUrl(req, defaultHost = "localhost:3000") {
     origin: `${protocol}//${host}`,
   };
 }
+
+module.exports = getAbsoluteUrl;

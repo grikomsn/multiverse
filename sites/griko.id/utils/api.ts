@@ -1,6 +1,6 @@
 import meta from "@/config/meta.cjs";
 
-import { getAbsoluteUrl as _getAbsoluteUrl } from "@packages/utils/absolute-url";
+import _getAbsoluteUrl from "@packages/utils/absolute-url.cjs";
 
 export function getAbsoluteUrl<T>(req?: T & import("http").IncomingMessage) {
   if (__PROD__) {
