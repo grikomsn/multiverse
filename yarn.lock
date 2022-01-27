@@ -2189,9 +2189,9 @@ fastq@^1.6.0:
     reusify "^1.0.4"
 
 fathom-client@^3:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/fathom-client/-/fathom-client-3.3.1.tgz#af90151f40304456c4e29de303fd77afc371a919"
-  integrity sha512-eDRVKZ6JTs/IY7cRAYhj7tfnQTKk8HIFBxdlyzbg9m5Pmz6lNLJ7BfSfA1i2LEMbOx2yHUudu0ux4sOiWz1O0A==
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/fathom-client/-/fathom-client-3.4.0.tgz#424b6732d035b68fa1139f0317d10fd4106dc75f"
+  integrity sha512-9ZgVLSP5GLXrIOLqY2ipar2Pw2/Dw6YNsqix9SbbrK9XpFA318VYf0GeKUBqZQQM+z7fbyDTWkBjl+UMe+eQwA==
 
 fault@^2.0.0:
   version "2.0.1"
