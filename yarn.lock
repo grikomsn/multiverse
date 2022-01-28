@@ -254,9 +254,9 @@
     strip-json-comments "^3.1.1"
 
 "@fontsource/jetbrains-mono@^4":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/jetbrains-mono/-/jetbrains-mono-4.5.0.tgz#4cf4014ad1538b1441afb2794097109d8515b7e9"
-  integrity sha512-gxUlpdCLoIrEQ6+1hkPbFHuQz8E5bPZ/iERU+13zEKb8rD/h21v3uHuAT7dTD+Co9nbSlgk6fyVkFwF5edUMog==
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/jetbrains-mono/-/jetbrains-mono-4.5.1.tgz#8ceec4a0b8794a714a99abd150cc814ea6a2a5fa"
+  integrity sha512-tRjx21UoIjRBt5WHcb0tCknx64c9F2/8Hk05jivpzL7kc7HF4AHdit0Brc/4S6F4Z4nE/SVeLHWrWx9MD9gSDQ==
 
 "@fontsource/lexend@^4":
   version "4.5.2"
