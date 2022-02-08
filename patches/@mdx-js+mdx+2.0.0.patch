@@ -3,6 +3,6 @@ index 5bf0a44..158c216 100644
 --- a/node_modules/@mdx-js/mdx/lib/condition.js
 +++ b/node_modules/@mdx-js/mdx/lib/condition.js
 @@ -1,3 +1 @@
--import process from 'node:process'
+-import process from 'process'
 -
  export const development = process.env.NODE_ENV === 'development'
