@@ -775,10 +775,10 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
-"@types/tailwindcss@^2":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@types/tailwindcss/-/tailwindcss-2.2.4.tgz#c3bca7d265e608ffc50a6d1a4932b5b53be14553"
-  integrity sha512-8mIk+0BoReKiaBI4e3hjaz9YDQto+rdZ2eEExHf6AfS38FZcALQ6s8mTd+74N8BtBaLnTzLdNe5GbkzObWlSXw==
+"@types/tailwindcss@^3":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@types/tailwindcss/-/tailwindcss-3.0.7.tgz#28ba83255d9f6371c1e9ee9e98ba3c6daf62588f"
+  integrity sha512-M3DEErH+kbqRPcYg3CFhf0UFJwD1xgOjm9GxJcUZJGO/DZwu1fBknt4ajXCU6BI2wvTeLq9pSam78fcbjDOsCQ==
 
 "@types/unist@*", "@types/unist@^2.0.0":
   version "2.0.6"
@@ -1945,14 +1945,14 @@ eslint-plugin-simple-import-sort@^7:
   resolved "https://registry.yarnpkg.com/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-7.0.0.tgz#a1dad262f46d2184a90095a60c66fef74727f0f8"
   integrity sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==
 
-eslint-plugin-tailwindcss@^1:
-  version "1.17.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-1.17.2.tgz#974303fdeb99894501b3a7d8eb88cb57034c5a89"
-  integrity sha512-cQWP7bSdJHcnBIv/eCXqerMYiwn7qfpyRvqzCiGhttWBhjr+h5q6XsAgg967mdUeJzzQr+68ETXNHLkCK7KJQA==
+eslint-plugin-tailwindcss@^3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.4.3.tgz#a409d47b92a6f0e721091eeb543be927f1490bc3"
+  integrity sha512-HagKvnHDBlVk3ErlPiiamVnNY3510DTXQTNc9h2KDVOuIdvgQc7X+08gLWvNAVQYPoKhbw/CzSHe/SSpMN8dig==
   dependencies:
     fast-glob "^3.2.5"
-    postcss "^8.3.0"
-    tailwindcss "^2.1.2"
+    postcss "^8.4.4"
+    tailwindcss "^3.0.7"
 
 eslint-plugin-testing-library@^5.0.1:
   version "5.0.3"
@@ -4294,7 +4294,7 @@ postcss-value-parser@^4.2.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz#723c09920836ba6d3e5af019f92bc0971c02e514"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@8.4.5, postcss@^8, postcss@^8.3.0, postcss@^8.3.11:
+postcss@8.4.5, postcss@^8, postcss@^8.3.11, postcss@^8.4.4:
   version "8.4.6"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.6.tgz#c5ff3c3c457a23864f32cb45ac9b741498a09ae1"
   integrity sha512-OovjwIzs9Te46vlEx7+uXB0PLijpwjXGKXjVGGPIGubGpq7uh5Xgf6D6FiJ/SzJMBosHDp6a2hiXOS97iBXcaA==
@@ -5048,7 +5048,7 @@ symbol-tree@^3.2.4:
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
   integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
 
-tailwindcss@^2.1.2, tailwindcss@^3:
+tailwindcss@^3, tailwindcss@^3.0.7:
   version "3.0.19"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.0.19.tgz#cd789953e6762af2e80c5a3e5d6da3a975ee8215"
   integrity sha512-rjsdfz/qZya5xQ0OVynEMETgWq1CacmftgMYeXXh6bRM5vxsNwRSbMJsCCIjq/w67om9VP/AFMolOwiE+5VKig==

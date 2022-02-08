@@ -120,7 +120,6 @@
     "strip-ansi": "^6",
     "strip-json-comments": "^3",
     "supports-color": "^8",
-    "tailwindcss": "^3",
     "tslib": "^2",
     "type-fest": "^0",
     "typescript": "^4",

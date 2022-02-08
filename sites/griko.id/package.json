@@ -75,10 +75,10 @@
     "@types/node": "^14",
     "@types/react": "^17",
     "@types/react-dom": "^17",
-    "@types/tailwindcss": "^2",
+    "@types/tailwindcss": "^3",
     "eslint": "^8",
     "eslint-config-kdnj": "^2",
-    "eslint-plugin-tailwindcss": "^1"
+    "eslint-plugin-tailwindcss": "^3"
   },
   "eslintConfig": {
     "extends": [
