@@ -4438,9 +4438,9 @@ react-draggable@^4.4.4:
     prop-types "^15.6.0"
 
 react-flow-renderer@^9:
-  version "9.7.3"
-  resolved "https://registry.yarnpkg.com/react-flow-renderer/-/react-flow-renderer-9.7.3.tgz#56779ef5f4590edfabca380dd90e62bd37375a83"
-  integrity sha512-yMSGdZ2mtpiNsi7fGgkmMC6/q/a2LI+G4Par9zcIBWDVP5ZsujSeBpehXprPEXKtUjZTi3ToNLq0EQ5Z7/EU4Q==
+  version "9.7.4"
+  resolved "https://registry.yarnpkg.com/react-flow-renderer/-/react-flow-renderer-9.7.4.tgz#11394c05ca953b650e2017d056c075fd3df9075c"
+  integrity sha512-GxHBXzkn8Y+TEG8pul7h6Fjo4cKrT0kW9UQ34OAGZqAnSBLbBsx9W++TF8GiULBbTn3O8o7HtHxux685Op10mQ==
   dependencies:
     "@babel/runtime" "^7.16.7"
     classcat "^5.0.3"
