@@ -23,40 +23,6 @@
     "export:griko.id": "turbo run export --scope=griko.id --include-dependencies --no-deps",
     "#": "-------------------------------------------------------------------"
   },
-  "turbo": {
-    "baseBranch": "origin/main",
-    "globalDependencies": [
-      "patches/**",
-      "yarn.lock"
-    ],
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          ".next/**",
-          "dist/**"
-        ]
-      },
-      "clean": {
-        "cache": false
-      },
-      "export": {
-        "dependsOn": [
-          "build"
-        ],
-        "outputs": [
-          "out/**"
-        ]
-      },
-      "lint": {
-        "dependsOn": [
-          "^lint"
-        ]
-      }
-    }
-  },
   "devDependencies": {
     "husky": "^7",
     "lint-staged": "^12",
