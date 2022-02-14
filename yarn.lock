@@ -259,9 +259,9 @@
   integrity sha512-qjxgC4d4ghgxfcvauRzm+/lXes3Awgb3TfWSrK5U0/nCtOsLgz3XrmfMewP5ztBkBYa0YDNs+avbF0vNeS6R6w==
 
 "@fontsource/lexend@^4":
-  version "4.5.4"
-  resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.5.4.tgz#75f4e910717ae49209e1f3a033c79dcdd6a34519"
-  integrity sha512-fkUI4X4Kt0RL6yPZtmlvuNK7MUVN7dpsj86IG527/FrbcM7PB4VUxv2tH48/BsToC6b7SQfhvPx9hCkn6dRiZg==
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.5.5.tgz#53b6b6dedb5bcb2d634e33eb31e48f8d1bb24df8"
+  integrity sha512-FUIPeK1aB85elx62/gwxsQGODSychVNt/5ark1HhVKhewRJHDX4BrzFsQ/H8A7jxWQeVjycoNyVCtdCsIygbzw==
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.2"
