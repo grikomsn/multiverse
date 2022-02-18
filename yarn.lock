@@ -278,9 +278,9 @@
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
 "@mantine/hooks@^3":
-  version "3.6.8"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.8.tgz#354d87801cb3c68f929e5f81919a2e18baa999e4"
-  integrity sha512-wuvlZepiQi51ZteEKKD812xEO+u/uQcJZlUpdfIShR0IjIcJUrnzD8sAN1+fzRh8CxXWO2oRQyy/ysONh4Qb4w==
+  version "3.6.9"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.9.tgz#af0af815b5c0fc91c42cbd76530a2ff4a1d8f87b"
+  integrity sha512-F3nwbph3nOrv6/zigSYqrsSdqavA5SR+8IxatGdoLjNe7w9XJxO7d557mh6/1kr9o69GY8+cUWyDJ5XYIrotYA==
 
 "@mdx-js/loader@^2":
   version "2.0.0"
