@@ -9,7 +9,7 @@ export default function Wip({ className, ...rest }: WipProps) {
   return (
     <div
       className={clsx(
-        "flex flex-col sm:flex-row items-center p-4 space-y-2 sm:space-y-0 sm:space-x-4 text-center sm:text-left bg-amber-500 bg-opacity-50 rounded-md",
+        "flex flex-col items-center p-4 space-y-2 text-center bg-amber-500 bg-opacity-50 rounded-md sm:flex-row sm:space-y-0 sm:space-x-4 sm:text-left",
         className,
       )}
       {...rest}

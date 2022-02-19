@@ -11,7 +11,7 @@ import { Command, Github, Mail, Twitter } from "lucide-react";
 export default function Footer() {
   const kbar = useKBar();
   return (
-    <footer className="flex flex-col md:flex-row items-center py-16 px-4 space-y-4 md:space-y-0 text-center md:text-left">
+    <footer className="flex flex-col items-center py-16 px-4 space-y-4 text-center md:flex-row md:space-y-0 md:text-left">
       <span className="flex-grow max-w-none prose-p:text-xs prose-p:leading-relaxed opacity-80 prose prose-invert prose-sky">
         <Excerpt />
       </span>

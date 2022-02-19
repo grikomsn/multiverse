@@ -62,7 +62,7 @@ export default function OpenGraphPlaygroundPage({ initialQuery }: OpenGraphPlayg
         <p className="lead">{description}</p>
       </Prose>
 
-      <form className="grid md:grid-cols-2 grid-rows-2 md:grid-rows-1" onSubmit={handleSubmit(() => {})}>
+      <form className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1" onSubmit={handleSubmit(() => {})}>
         <div className="p-4 space-y-4">
           <label className="block space-y-2">
             <span>Type</span>

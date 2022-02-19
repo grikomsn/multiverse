@@ -25,10 +25,10 @@ function MainOpengraphPage({ title, description, path, modifier, image }: MainOp
   return (
     <>
       <section className="relative" id="frame">
-        <div className="absolute inset-x-0 bg-gradient-to-r from-sky-500 via-green-500 to-fuchsia-500 opacity-30 blur-2xl top-[-64px] h-[128px]" />
+        <div className="absolute inset-x-0 top-[-64px] h-[128px] bg-gradient-to-r from-sky-500 via-green-500 to-fuchsia-500 opacity-30 blur-2xl" />
         <div className="flex absolute inset-0 justify-center items-center p-24 space-x-8">
           {(hasNoImage || !disableImage) && (
-            <div className="overflow-hidden rounded-full w-[192px] h-[192px] min-w-[192px] min-h-[192px]">
+            <div className="overflow-hidden w-[192px] min-w-[192px] h-[192px] min-h-[192px] rounded-full">
               <Image priority src={MyImage} />
             </div>
           )}
@@ -56,7 +56,7 @@ function MainOpengraphPage({ title, description, path, modifier, image }: MainOp
             </span>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-r from-amber-500 via-indigo-500 to-emerald-500 rounded-t-full opacity-20 blur-2xl h-[64px]" />
+        <div className="absolute inset-x-0 bottom-0 h-[64px] bg-gradient-to-r from-amber-500 via-indigo-500 to-emerald-500 rounded-t-full opacity-20 blur-2xl" />
       </section>
 
       <style jsx>{`

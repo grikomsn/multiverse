@@ -108,7 +108,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
           {frontmatter.lastUpdate ? <> / Last updated on {format(frontmatter.lastUpdate, "PPP")}</> : null}
         </p>
         <br />
-        <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm not-prose">
+        <div className="flex flex-col justify-center items-center space-y-4 text-sm sm:flex-row sm:space-y-0 sm:space-x-8 not-prose">
           <A
             className="flex items-center space-x-2 hover:text-primary transition"
             href={createTwitterIntent({
@@ -146,10 +146,10 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
 
         <div className="h-16" />
 
-        <div className="flex flex-col sm:flex-row items-center sm:items-start not-prose">
+        <div className="flex flex-col items-center sm:flex-row sm:items-start not-prose">
           {next && (
             <Anchor
-              className="group flex flex-col items-center sm:items-start p-4 space-y-1 max-w-sm text-center sm:text-left bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:-m-4 sm:hover:-translate-y-1"
+              className="group flex flex-col items-center p-4 space-y-1 max-w-sm text-center bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:items-start sm:-m-4 sm:text-left sm:hover:-translate-y-1"
               href={`/blog/${next[0]}`}
             >
               <span className="flex justify-start items-center space-x-1 text-sm opacity-50">
@@ -161,7 +161,7 @@ export default function PostPage({ frontmatter, slug, prev, next, __ssr, __openg
           <div className="flex-grow" />
           {prev && (
             <Anchor
-              className="group flex flex-col items-center sm:items-end p-4 space-y-1 max-w-sm text-center sm:text-right bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:-m-4 sm:hover:-translate-y-1"
+              className="group flex flex-col items-center p-4 space-y-1 max-w-sm text-center bg-neutral-500 bg-opacity-0 hover:bg-opacity-10 rounded hover:shadow-lg transition sm:items-end sm:-m-4 sm:text-right sm:hover:-translate-y-1"
               href={`/blog/${prev[0]}`}
             >
               <span className="flex justify-end items-center space-x-1 text-sm opacity-50">

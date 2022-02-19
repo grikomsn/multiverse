@@ -21,7 +21,7 @@ export default function Header() {
   return (
     <nav>
       {/* desktop header */}
-      <div className="hidden md:flex justify-end items-center py-4">
+      <div className="hidden justify-end items-center py-4 md:flex">
         {router.route != "/" && (
           <A className="py-2 px-4 text-xl font-bold tracking-tighter hover:text-primary transition-colors" href="/">
             {meta.name}
@@ -36,7 +36,7 @@ export default function Header() {
 
       {/* mobile header */}
       {router.route != "/" && (
-        <div className="flex md:hidden justify-center items-center p-4">
+        <div className="flex justify-center items-center p-4 md:hidden">
           <A className="text-xl font-bold tracking-tighter hover:text-primary transition-colors" href="/">
             {meta.name}
           </A>

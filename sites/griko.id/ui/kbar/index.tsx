@@ -18,7 +18,7 @@ export default function KBar() {
           <WindowControls />
           <div className="p-4" ref={trap}>
             <KBarSearch
-              className="py-2 px-4 w-full bg-transparent rounded focus:border-primary transition outline-none"
+              className="py-2 px-4 w-full bg-transparent rounded focus:border-primary outline-none transition"
               type="text"
             />
           </div>

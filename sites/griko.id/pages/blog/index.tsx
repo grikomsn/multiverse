@@ -33,7 +33,7 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
         <p className="lead">{description}</p>
       </Prose>
 
-      <div className="flex justify-center md:justify-end p-4">
+      <div className="flex justify-center p-4 md:justify-end">
         <SearchButton />
       </div>
 
@@ -41,7 +41,7 @@ export default function WritingsPage({ posts }: WritingsPageProps) {
         {posts.map(([slug, post]) => (
           <li
             key={slug}
-            className="relative p-4 space-y-2 bg-neutral-500 bg-opacity-0 md:hover:bg-opacity-10 rounded md:hover:shadow-lg md:transition -mx-4 md:hover:-translate-y-1"
+            className="relative p-4 -mx-4 space-y-2 bg-neutral-500 bg-opacity-0 rounded md:hover:bg-opacity-10 md:hover:shadow-lg md:transition md:hover:-translate-y-1"
           >
             <span className="float-right mb-2 ml-4 text-sm text-right text-neutral-500">
               {format(post.date, "PPP")}

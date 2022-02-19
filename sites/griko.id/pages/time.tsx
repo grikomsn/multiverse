@@ -41,19 +41,19 @@ function Zone({ tz }: { tz: string }) {
   return (
     <div
       className={clsx(
-        "py-8 space-y-2 md:space-y-4 transition",
+        "py-8 space-y-2 transition md:space-y-4",
         "rounded border-2 border-transparent target:border-neutral-500",
         { "opacity-50": hasHash && !isCurrentHash },
       )}
       id={id}
     >
-      <a className="text-lg md:text-2xl text-neutral-500 hover:underline" href={`#${id}`}>
+      <a className="text-lg text-neutral-500 hover:underline md:text-2xl" href={`#${id}`}>
         Time in {tz} is
       </a>
-      <p className="text-2xl md:text-4xl font-bold" id={`date-${id}`} suppressHydrationWarning>
+      <p className="text-2xl font-bold md:text-4xl" id={`date-${id}`} suppressHydrationWarning>
         {useCurrentTime("PPPP", tz)}
       </p>
-      <p className="font-mono text-2xl md:text-4xl font-bold" id={`time-${id}`} suppressHydrationWarning>
+      <p className="font-mono text-2xl font-bold md:text-4xl" id={`time-${id}`} suppressHydrationWarning>
         {useCurrentTime("HH:mm:ss zzz", tz)}
       </p>
     </div>

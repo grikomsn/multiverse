@@ -36,7 +36,7 @@ export default function SearchResult({ active, item }: SearchResultProps) {
             {item.shortcut.map((key, i) => (
               <span
                 key={`${item.id}-shortcut-key-${i}`}
-                className="rounded border border-gray-500 border-opacity-50 py-[2px] px-[4px]"
+                className="py-[2px] px-[4px] rounded border border-gray-500 border-opacity-50"
               >
                 {key}
               </span>
