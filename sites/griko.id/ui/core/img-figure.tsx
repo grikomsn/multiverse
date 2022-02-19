@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { useMediumZoom } from "@/lib/medium-zoom";
 
-import clsx from "classnames";
+import clsx from "clsx";
 
 export type ImgFigureProps<T = HTMLImageElement> = React.DetailedHTMLProps<React.ImgHTMLAttributes<T>, T>;
 

@@ -6,7 +6,7 @@ import Anchor from "@/ui/core/anchor";
 import Prose from "@/ui/core/prose";
 import { useSeo } from "@/utils/seo";
 
-import clsx from "classnames";
+import clsx from "clsx";
 import format from "date-fns/format";
 import { useKBar } from "kbar";
 import * as Lucide from "lucide-react";

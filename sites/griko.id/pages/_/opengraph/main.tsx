@@ -5,7 +5,7 @@ import { getQuery, MainOpengraphQuery } from "@/lib/opengraph";
 import { withLayoutType } from "@/utils/layout";
 
 import MyImage from "@packages/assets/me-casual.jpg";
-import clsx from "classnames";
+import clsx from "clsx";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 

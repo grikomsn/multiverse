@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import clsx from "classnames";
+import clsx from "clsx";
 import { ActionImpl } from "kbar/lib/action";
 
 interface SearchResultProps {

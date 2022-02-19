@@ -3,7 +3,7 @@ import * as React from "react";
 import Prose from "@/ui/core/prose";
 import { useSeo } from "@/utils/seo";
 
-import clsx from "classnames";
+import clsx from "clsx";
 
 const EXAMPLE_SEATS = [
   [-1, 0, 0, 2, 2, 2, 0, 0],

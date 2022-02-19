@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import clsx from "classnames";
+import clsx from "clsx";
 import { AlertTriangle } from "lucide-react";
 
 export type WipProps<T = HTMLDivElement> = Omit<React.DetailedHTMLProps<React.HTMLAttributes<T>, T>, "children">;

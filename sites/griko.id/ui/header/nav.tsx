@@ -2,7 +2,7 @@ import * as React from "react";
 
 import A from "@/ui/core/anchor";
 
-import clsx from "classnames";
+import clsx from "clsx";
 import { Icon as IconType } from "lucide-react";
 import { useRouter } from "next/router";
 

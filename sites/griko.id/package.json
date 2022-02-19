@@ -31,7 +31,7 @@
     "@tailwindcss/line-clamp": "^0",
     "@tailwindcss/typography": "^0",
     "autoprefixer": "^10",
-    "classnames": "^2",
+    "clsx": "^1",
     "dagre": "^0",
     "date-fns": "^2",
     "date-fns-tz": "^1",

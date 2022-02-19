@@ -6,7 +6,7 @@ import { TickTime, useCurrentTime } from "@/utils/time";
 
 import { useHash } from "@mantine/hooks";
 import slugify from "@sindresorhus/slugify";
-import clsx from "classnames";
+import clsx from "clsx";
 
 export default function TimePage() {
   const { Seo, title, description } = useSeo({
