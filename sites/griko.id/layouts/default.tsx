@@ -32,7 +32,6 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
       <Toaster position="top-center" />
 
       <PageProgress />
-      <HeaderGradient />
       <KBarAppProvider>
         <div className="container flex flex-col mx-auto max-w-4xl min-h-screen">
           <Header />
@@ -45,7 +44,6 @@ export default function DefaultLayout({ children }: React.PropsWithChildren<{}>)
           <MobileMenuBar />
         </div>
       </KBarAppProvider>
-      <FooterGradient />
     </>
   );
 }
@@ -72,21 +70,5 @@ export function DefaultAppSeo() {
         site: meta.twitter.username,
       }}
     />
-  );
-}
-
-function HeaderGradient() {
-  return (
-    <div className="relative z-[-2] mx-auto max-w-6xl motion-safe:animate-rotate-colors pointer-events-none">
-      <div className="absolute inset-x-0 top-[-64px] h-[128px] bg-gradient-to-r from-sky-500 via-green-500 to-fuchsia-500 opacity-30 blur-2xl" />
-    </div>
-  );
-}
-
-function FooterGradient() {
-  return (
-    <div className="relative z-[-1] mx-auto max-w-6xl motion-safe:animate-rotate-colors pointer-events-none">
-      <div className="absolute inset-x-0 bottom-0 h-[32px] bg-gradient-to-r from-amber-500 via-indigo-500 to-emerald-500 rounded-t-full opacity-20 blur-2xl" />
-    </div>
   );
 }
