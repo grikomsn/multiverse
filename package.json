@@ -1,6 +1,7 @@
 {
   "name": "personal-websites",
   "version": "0.0.0",
+  "packageManager": "yarn@1.22.17",
   "workspaces": [
     "packages/*",
     "sites/*"
