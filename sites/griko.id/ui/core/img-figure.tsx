@@ -20,7 +20,7 @@ export default function ImgFigure({ className, ...rest }: ImgFigureProps) {
   return (
     <figure className="text-center">
       <img {...rest} className={clsx("z-10 mx-auto w-full max-w-2xl", className)} ref={attach} />
-      {rest.alt && <figcaption>{rest.alt}</figcaption>}
+      {rest.alt && <figcaption className="break-words">{rest.alt}</figcaption>}
     </figure>
   );
 }
