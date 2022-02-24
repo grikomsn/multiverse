@@ -8,7 +8,6 @@
 
 - [@packages/assets](./packages/assets)
 - [@packages/hooks](./packages/hooks)
-- [@packages/lockfile-trace](./packages/lockfile-trace)
 - [@packages/rough-notation](./packages/rough-notation)
 - [@packages/tsconfig](./packages/tsconfig)
 - [@packages/types](./packages/types)

@@ -22,7 +22,6 @@
     "@mdx-js/react": "^2",
     "@packages/assets": "*",
     "@packages/hooks": "*",
-    "@packages/lockfile-trace": "*",
     "@packages/rough-notation": "*",
     "@packages/utils": "*",
     "@sentry/nextjs": "^6",
