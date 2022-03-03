@@ -2317,9 +2317,9 @@ fault@^2.0.0:
     format "^0.2.0"
 
 favicons-compiled@^0:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/favicons-compiled/-/favicons-compiled-0.0.1.tgz#d52031a0130906411ec3fb941fc8cdada4931b54"
-  integrity sha512-pNayeJHTcaOtPIJRzy8hooNMQ5DI8px3NEb2LKpYoimrwCoMjNCgzC0r7dwPFExIPPaK+LvQiVmDww0nN6oKJA==
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/favicons-compiled/-/favicons-compiled-0.0.3.tgz#ab8f3568cddb678809de9b9a1005490b155a98c4"
+  integrity sha512-LDsdOscjUQudlss6uTXwl/da6KR8VB0SJdSVcVB9L8SoSejZCE8OO7Fa39Hm9CmtHv9I8cB3YX4n2bJHq36V1Q==
   dependencies:
     sharp "^0"
 
