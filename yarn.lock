@@ -303,9 +303,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@mantine/hooks@^3":
-  version "3.6.12"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.12.tgz#4bfc4e30799137b76cdc3ee12979c3c5dc6189a5"
-  integrity sha512-sgLyg8cQS8bFcKRPDf0gJmWcQozS+6djWP9d81NLwpnhOZF7+QydaHA1xnfq1D3mO2jFdIhHWC/OehwqBFeEYQ==
+  version "3.6.13"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.13.tgz#68e7e15c441d6304321657f84a40c226a05e6bce"
+  integrity sha512-olHvJIlWKaKKZqQMnQqoyb3R6QEa81DL3dwSKAbE8zIOP9wM4yIABUy48sw02puuFYHWIBq2fp9GFnMVG3m9Og==
 
 "@mdx-js/loader@^2":
   version "2.0.0"
