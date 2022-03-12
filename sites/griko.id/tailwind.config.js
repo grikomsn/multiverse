@@ -19,7 +19,7 @@ const tailwindConfig = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/typography"),
-    plugin(({ addUtilities, matchUtilities, theme }) => {
+    plugin(({ addUtilities }) => {
       addUtilities({
         ".safari-transform-fix": {
           WebkitMaskImage: "-webkit-radial-gradient(white, black)",
@@ -29,24 +29,11 @@ const tailwindConfig = {
           WebkitTransform: "translate3d(0, 0, 0)",
         },
       });
-
-      matchUtilities(
-        {
-          "p-inline-start": (value) => ({ paddingInlineStart: value }),
-          "p-inline-end": (value) => ({ paddingInlineEnd: value }),
-        },
-        {
-          values: theme("spacing"),
-        },
-      );
     }),
   ],
 
   theme: {
     extend: {
-      animation: {
-        "rotate-colors": "rotate-colors-keyframes 60s infinite",
-      },
       colors: {
         body: colors.neutral[900],
         primary: colors.sky[500],
@@ -55,16 +42,6 @@ const tailwindConfig = {
       fontFamily: {
         mono: ['"Berkeley Mono"', ...defaultTheme.fontFamily.mono],
         sans: ["Lexend", ...defaultTheme.fontFamily.sans],
-      },
-      keyframes: {
-        "rotate-colors-keyframes": {
-          "0%, 100%": {
-            filter: "hue-rotate(0deg)",
-          },
-          "50%": {
-            filter: "hue-rotate(360deg)",
-          },
-        },
       },
       typography: {
         DEFAULT: {
