@@ -4,7 +4,7 @@ import meta from "@/config/meta.json";
 import A from "@/ui/core/anchor";
 import { copy } from "@/utils/clipboard";
 
-import MyImage from "@packages/assets/me-casual.jpg";
+import MyImage from "@packages/assets/me-alt-1.jpg";
 import { Mail, Twitter } from "lucide-react";
 import Image from "next/image";
 
