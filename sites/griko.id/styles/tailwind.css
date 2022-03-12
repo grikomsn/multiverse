@@ -18,6 +18,11 @@ html {
   @apply font-sans antialiased selection:bg-opacity-50 selection:bg-primary text-text bg-body underline-offset-2;
 }
 
+code,
+pre {
+  @apply subpixel-antialiased;
+}
+
 /* prose overrides */
 
 .prose pre {
