@@ -53,7 +53,7 @@ const tailwindConfig = {
         text: colors.neutral[200],
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
+        mono: ['"Berkeley Mono"', ...defaultTheme.fontFamily.mono],
         sans: ["Lexend", ...defaultTheme.fontFamily.sans],
       },
       keyframes: {

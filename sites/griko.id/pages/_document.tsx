@@ -11,6 +11,8 @@ export default class CustomDocument extends NextDocument {
         <Head>
           <meta charSet="UTF-8" />
           <meta content="ie=edge" httpEquiv="X-UA-Compatible" />
+          <link crossOrigin="" href="https://berkeley-mono.griko.id" rel="preconnect" />
+          <link href="https://berkeley-mono.griko.id/index.css" rel="stylesheet" />
           <FaviconMetaTags />
         </Head>
 
