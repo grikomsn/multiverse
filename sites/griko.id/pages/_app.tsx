@@ -1,4 +1,3 @@
-import "@fontsource/jetbrains-mono/latin.css";
 import "@fontsource/lexend/latin.css";
 import "@/styles/tailwind.css";
 

@@ -260,11 +260,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fontsource/jetbrains-mono@^4":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@fontsource/jetbrains-mono/-/jetbrains-mono-4.5.3.tgz#2e909e7d831398f2cdd7c1c2be72b1b29fa80357"
-  integrity sha512-R+dpCzt9b7O6ldKFXLvjZNQ2F+5i2/ctRgauRGvEj/3zBQVmnrjPeqPndYsZ1vz6Jg0K8TOS9JeMQavjoBHPwA==
-
 "@fontsource/lexend@^4":
   version "4.5.5"
   resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.5.5.tgz#53b6b6dedb5bcb2d634e33eb31e48f8d1bb24df8"

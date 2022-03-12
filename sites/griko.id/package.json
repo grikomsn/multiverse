@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@atomiks/mdx-pretty-code": "^0",
-    "@fontsource/jetbrains-mono": "^4",
     "@fontsource/lexend": "^4",
     "@mantine/hooks": "^3",
     "@mdx-js/loader": "^2",
