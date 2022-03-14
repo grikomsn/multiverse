@@ -17,11 +17,11 @@ const csp = `
   child-src *.twitter.com;
   connect-src *;
   default-src 'self';
-  font-src 'self';
+  font-src 'self' *.griko.id;
   img-src * blob: data:;
   media-src 'none';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' *.griko.id;
-  style-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' *.griko.id;
 `
   .replace(/^\s+/, "")
   .trim();
