@@ -3394,9 +3394,9 @@ lru_map@^0.3.3:
   integrity sha1-tcg1G5Rky9dQM1p5ZQoOwOVhGN0=
 
 lucide-react@^0:
-  version "0.17.9"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.17.9.tgz#9e764747d9e2e2a5b5b5e59f58a10bd5aaeb4083"
-  integrity sha512-nzXHVWFp4zbKFv2m3VPKlHi+M4fYHh/coN1rXHAbeGN/z4nE0bfX9lRODwdaGbuOWPb8WEx98haqIT6ded82gg==
+  version "0.17.11"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.17.11.tgz#11974a6311f3812477dcfa1b200c6555110fd4fa"
+  integrity sha512-CbuE5OR2rkQl3mJjuRny8Uve6Mrz/qE5DCPIDEMIcRTNkk3tgOFgs0n1mR+/q548z7UM4hhy1YOeVkDnc3nM2g==
 
 lz-string@^1.4.4:
   version "1.4.4"
