@@ -1,0 +1,41 @@
+{
+  "name": "griko.dev",
+  "version": "0.0.0",
+  "main": "index.mjs",
+  "scripts": {
+    "# general commands": "--------------------------------------------------",
+    "dev": "wrangler dev",
+    "publish": "wrangler publish",
+    "#": "-------------------------------------------------------------------"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3",
+    "eslint": "^8",
+    "eslint-config-kdnj": "^2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "yarn workspace griko.dev prettier --write"
+    ],
+    "**/*.{js,cjs,mjs,ts}": [
+      "yarn workspace griko.dev eslint --fix"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  },
+  "license": "MIT"
+}

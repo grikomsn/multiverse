@@ -1,0 +1,60 @@
+import CoverImage from "@packages/assets/cover.jpg";
+import meta from "@/config/meta.json";
+import Image from "next/image";
+
+<Seo title="About Me" />
+
+<Prose>
+
+<Image
+  alt="cover image"
+  className="transition-all duration-1000 ease-in-out"
+  layout="responsive"
+  placeholder="blur"
+  src={CoverImage}
+/>
+
+Hey there! My name is <Underline> **{meta.fullName}**</Underline>,
+and <Underline> **{meta.name}**</Underline> in short. 👋
+
+## About Me
+
+I am a software engineer specialized in frontend development, creating web
+based applications from landing pages and company profiles, to internal
+dashboards and information systems.
+
+Born and raised in 🇮🇩 Surabaya, Indonesia. Currently based on Cikarang,
+Indonesia. Majored my bachelor's degree on Informatics at
+[Institut Teknologi Adhi Tama Surabaya](https://itats.ac.id) on 2021. Currently
+doing open source projects as myself and on
+[Koding Ninja](https://koding.ninja). Previously organized
+[SurabayaJS](https://surabayajs.org) meetups and a short time initialized and
+maintained [Deno Land Indonesia](https://github.com/denoland-id) and
+[Frontend Indonesia](https://github.com/frontend-id).
+
+Started programming on backend development creating an internal content
+management system for my campus practicum management using
+[Laravel](https://laravel.com) and [Voyager](https://voyager.devdojo.com).
+After a year or two I changed course on doing frontend development, which then
+took interest on the 🍞 [Jamstack](https://jamstack.org) ecosystem and continue
+develop and experiment with until present day.
+
+Reach out via email at ✉️ <A href={meta.links.Email}>{meta.email}</A>,
+or via Twitter at 🐤 <A href={meta.links.Twitter}>{meta.twitter.username}</A>.
+
+View my resume in [PDF format](/resume.pdf) or online via <A href={meta.links.Resume}>resume.io</A>.
+
+## Work Experience
+
+- Frontend Developer at [Strangelove Ventures](https://www.strangelove.ventures) (February 2022 - present)
+- Software Engineer at Undisclosed Company (May 2020 - present)
+
+## Community Experience
+
+- Mentor at [DILo x Cilsy: #DILoDevelopersClass](https://dilo.id/surabaya/event/detail/551) (November 2019)
+- Mentor at [DSC PENS Campus Roadshow](https://jobhun.id/developer-student-club-campus-roadshow) (March 2019)
+- Core Organizer at [SurabayaJS](https://surabayajs.org) (December 2018-2020)
+
+Read more about my experiences at my [timeline page on Polywork](/timeline).
+
+</Prose>

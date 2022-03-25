@@ -1,0 +1,26 @@
+diff --git a/node_modules/rehype-pretty-code/dist/rehype-pretty-code.cjs b/node_modules/rehype-pretty-code/dist/rehype-pretty-code.cjs
+index f2bee84..2eb1830 100644
+--- a/node_modules/rehype-pretty-code/dist/rehype-pretty-code.cjs
++++ b/node_modules/rehype-pretty-code/dist/rehype-pretty-code.cjs
+@@ -4,7 +4,7 @@ var rangeParser = require('parse-numeric-range');
+ var shiki = require('shiki');
+ var proc = require('process');
+ var url = require('url');
+-var path = require('path');
++var path = require('path-browserify');
+ 
+ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+ 
+diff --git a/node_modules/rehype-pretty-code/dist/rehype-pretty-code.js b/node_modules/rehype-pretty-code/dist/rehype-pretty-code.js
+index 0f2c181..51ffbeb 100644
+--- a/node_modules/rehype-pretty-code/dist/rehype-pretty-code.js
++++ b/node_modules/rehype-pretty-code/dist/rehype-pretty-code.js
+@@ -2,7 +2,7 @@ import rangeParser from 'parse-numeric-range';
+ import shiki from 'shiki';
+ import proc from 'process';
+ import { fileURLToPath } from 'url';
+-import path from 'path';
++import path from 'path-browserify';
+ 
+ /**
+  * @typedef {import('unist').Node} Node

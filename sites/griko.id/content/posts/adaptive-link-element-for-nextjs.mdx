@@ -1,0 +1,153 @@
+---
+title: Adaptive Link Component for Next.js
+description: Here's how to create an anchor/link component that can be used for both relative Next.js pages and external links
+date: 2022-01-22
+---
+
+Say that you're creating a custom anchor component/element on [Next.js](https://nextjs.org) which handles both
+relative navigation and opening external links. To navigate between relative pages, you use the
+`<Link />{:jsx}` component ([read more on Next.js docs](https://nextjs.org/docs/api-reference/next/link))
+and wrap an anchor element which will navigate and rehydrate client-side without reloading the page:
+
+```jsx
+// Link must wrap an anchor element, href will be passed to anchor if using `passHref`
+<Link href="/about" passHref>
+  <a>About page</a>
+</Link>
+
+// ...or you can manually pass it depending on your use case
+<Link href="/about">
+  <a href="/about">About page</a>
+</Link>
+```
+
+If you want to open an external page in a new tab, normally you would use a normal anchor with
+`target="_blank"{:js}` attribute ([read more on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target)):
+
+```jsx
+<a href="/about" target="_blank">
+  About page
+</a>
+```
+
+But with the `<Link />{:jsx}` component, if you're attempting to open an external link, the router will attempt
+to navigate and it'll confuse itself and just open the link as a normal anchor element (reloads the page):
+
+```jsx
+<Link href="https://example.com" passHref>
+  <a>Example external link</a>
+</Link>
+```
+
+## Wrap Check
+
+The quick solution for the custom component is to check `href` if it's a relative page, return a wrapped anchor
+with the `<Link />{:jsx}` component, and if anything else, return a regular anchor with `target="_blank"{:js}`:
+
+```jsx
+function CustomLink(props) {
+  const isRelative = props.href?.startsWith("/") ?? false;
+
+  if (isRelative) {
+    return (
+      // we do not need to `passHref` since href is already spread below
+      <Link href={props.href}>
+        <a {...props} />
+      </Link>
+    );
+  }
+
+  // adding target="_blank" will open the link in a new tab
+  return <a {...props} target="_blank" />;
+}
+```
+
+This approach is simple and easy to understand, one small caveat is that you need to pass
+the anchor props twice if you're trying to have the same properties:
+
+```jsx {7,12}
+function CustomLink(props) {
+  const isRelative = props.href?.startsWith("/") ?? false;
+
+  if (isRelative) {
+    return (
+      <Link href={props.href}>
+        <a {...props} />
+      </Link>
+    );
+  }
+
+  return <a {...props} target="_blank" />;
+}
+```
+
+## Wrapper Check
+
+Another approach is to wrap the anchor element with `<React.Fragment />{:jsx}` if it's a external anchor.
+This approach allows you to wrap and declare the anchor only once:
+
+```jsx
+function CustomLink(props) {
+  const isRelative = props.href?.startsWith("/") ?? false;
+  const Wrap = isRelative ? Link : React.Fragment;
+
+  // if it's a relative link, we need to pass href so it can navigate client-side
+  const wrapProps = isRelative ? { href: props.href } : {};
+
+  // if it's an external link, passing the target="_blank" prop will open externally
+  const linkProps = !isRelative ? { target: "_blank" } : {};
+
+  return (
+    <Wrap {...wrapProps}>
+      {/* since we're handling both cases, we need to spread both normal props and external props */}
+      <a {...props} {...linkProps} />
+    </Wrap>
+  );
+}
+```
+
+This approach is definitely verbose compared to the first approach, but in some cases this will allow
+customizations for various edge cases.
+
+## Going Overboard
+
+Here's my adaptive anchor implementation for my website [(view source)](https://github.com/grikomsn/personal-websites/blob/main/sites/griko.id/ui/core/anchor.tsx):
+
+```jsx
+const RedirectRegEx = /^\/(github|polywork|timeline|twitter)/;
+
+function trimHttp(str) {
+  str.replace(/https?:\/\//, "");
+}
+
+function CustomLink({ children, ...props }) {
+  const isApi = props.href?.startsWith("/api") ?? false;
+  const isRelative = (props.href?.startsWith("/") && !isApi) ?? false;
+  const isRedirect = props.href && RedirectRegEx.test(props.href);
+
+  const Wrap = isRelative ? Link : React.Fragment;
+  const wrapProps = isRelative ? { href: props.href } : {};
+  const linkProps = isRedirect || !isRelative ? { target: "_blank" } : {};
+
+  return (
+    <Wrap {...wrapProps}>
+      <a {...props} {...linkProps}>
+        {children ?? (props.href ? trimHttp(props.href) : null)}
+      </a>
+    </Wrap>
+  );
+}
+```
+
+This approach handles these cases that I can think of:
+
+- External links, API links, and custom redirect links will open in a new tab
+- Relative links keeps the same behavior using Next.js `<Link />{:jsx}` component
+- Empty children will render the `href` with trimmed protocol (no http or https)
+
+Some edge cases that I did not handle is passing extra props to the `<Link />{:jsx}` component
+(e.g. if you need to do [shallow navigation using `shallow` props](https://nextjs.org/docs/routing/shallow-routing))
+and [current page hash anchors](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/hash)
+(e.g. jumping to a page section).
+But for basic routing, this custom anchor component can be used anywhere without needing to wrap relative links
+with `<Link />{:jsx}` again.

@@ -1,0 +1,37 @@
+{
+  "name": "@packages/rough-notation",
+  "version": "0.0.0",
+  "homepage": "https://github.com/linkstrifer/react-rough-notation/tree/f22a17bc415137405a50f016cd61750d501a0b01",
+  "dependencies": {
+    "rough-notation": "^0"
+  },
+  "devDependencies": {
+    "react": "^17",
+    "@types/node": "^14",
+    "@types/react": "^17"
+  },
+  "peerDependencies": {
+    "react": "^17"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj/react"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
+      "yarn workspace @packages/rough-notation eslint --fix"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  }
+}

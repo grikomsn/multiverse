@@ -1,0 +1,57 @@
+{
+  "name": "personal-websites",
+  "version": "0.0.0",
+  "packageManager": "yarn@1.22.17",
+  "workspaces": [
+    "packages/*",
+    "sites/*"
+  ],
+  "scripts": {
+    "# general commands": "--------------------------------------------------",
+    "clean": "turbo run clean",
+    "deduplicate": "npx yarn-deduplicate && yarn install",
+    "lint": "turbo run lint",
+    "postinstall": "patch-package",
+    "prepare": "husky install",
+    "purge": "shx rm -rf node_modules/.cache/ packages/**/.turbo/ sites/**/.turbo/",
+    "# scope commands": "----------------------------------------------------",
+    "griko.dev": "yarn workspace griko.dev",
+    "griko.id": "yarn workspace griko.id",
+    "lockfile-trace": "yarn workspace @packages/lockfile-trace",
+    "build:griko.dev": "turbo run build --scope=griko.dev --include-dependencies --no-deps",
+    "build:griko.id": "turbo run build --scope=griko.id --include-dependencies --no-deps",
+    "build:lockfile-trace": "turbo run build --scope=@packages/lockfile-trace --include-dependencies --no-deps",
+    "export:griko.id": "turbo run export --scope=griko.id --include-dependencies --no-deps",
+    "#": "-------------------------------------------------------------------"
+  },
+  "devDependencies": {
+    "husky": "^7",
+    "lint-staged": "^12",
+    "patch-package": "^6",
+    "postinstall-postinstall": "^2",
+    "shx": "^0",
+    "turbo": "^1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-kdnj"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  },
+  "private": true
+}

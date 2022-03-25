@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - directory: /
+    assignees:
+      - "grikomsn"
+    open-pull-requests-limit: 5
+    package-ecosystem: npm
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    versioning-strategy: lockfile-only
+    labels:
+      - "automerge"
+      - "dependencies"
