@@ -236,9 +236,9 @@
     to-fast-properties "^2.0.0"
 
 "@cloudflare/workers-types@^3":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.4.0.tgz#80311e14df2f7f8c2cfcdce945b4f4ad8f9b03b1"
-  integrity sha512-i/3czUrt6YqbOWl44OtIqd0cSZvEVXp/1oD/DZylC4PHZL3q/BhbamdEVeVhc/HPk4iD/7MZ2HGaIMO4Z4b12A==
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.5.0.tgz#f7841b4ea177acd2e92ab6630d505a52817a87cc"
+  integrity sha512-/cRnJCUzdQqLyZn/7L8vSwork+6tBuhgrPAWQnZvbAVNlhzDJhyYROSwO5kuETHIOo5XQOhBASsayrJmqfcm9A==
 
 "@corex/deepmerge@^2.6.148":
   version "2.6.148"
