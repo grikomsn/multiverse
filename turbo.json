@@ -4,12 +4,10 @@
   "globalDependencies": ["yarn.lock"],
   "pipeline": {
     "build": {
-      "cache": false,
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**"]
     },
     "export": {
-      "cache": false,
       "dependsOn": ["build"],
       "outputs": ["out/**"]
     },
