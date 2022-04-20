@@ -55,6 +55,7 @@ const tailwindConfig = {
             },
             a: {
               color: theme("colors.primary"),
+              overflowWrap: "break-word",
               "&:hover": {
                 color: theme("colors.primary-focus"),
               },
