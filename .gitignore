@@ -4,6 +4,8 @@
 .DS_Store
 .env*
 .next/
+.turbo/
+.vercel/
 .vercel/
 dist/
 out/
