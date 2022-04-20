@@ -8,7 +8,8 @@
     "favicons": "npx favicons-compiled-cli -i public/icon.png -c config/favicons.json -o public/assets/",
     "graphql": "env-cmd yarn graphql-codegen",
     "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,graphql,gql,ts,tsx}\" && tsc --noEmit --pretty",
-    "start": "next start"
+    "start": "next start",
+    "vercel-build": "cd .. && yarn build"
   },
   "dependencies": {
     "@fontsource/plus-jakarta-sans": "^4",
