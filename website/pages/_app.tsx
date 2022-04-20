@@ -1,4 +1,5 @@
 import "@fontsource/plus-jakarta-sans/latin.css";
+import "@griko/private-fonts/berkeley-mono/index.css";
 import "styles/index.css";
 
 import { TooltipProvider } from "@radix-ui/react-tooltip";
