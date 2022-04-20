@@ -1,0 +1,44 @@
+{
+  "name": "griko.id",
+  "version": "0.0.0",
+  "packageManager": "yarn@1.22.18",
+  "workspaces": [
+    "packages/*",
+    "website"
+  ],
+  "scripts": {
+    "build": "yarn workspace website next build",
+    "deduplicate": "npx yarn-deduplicate && yarn install",
+    "dev": "yarn workspace website next dev",
+    "export": "yarn workspace website next export",
+    "lint": "turbo run lint",
+    "prepare": "husky install",
+    "start": "yarn workspace website next start",
+    "website": "yarn workspace website"
+  },
+  "devDependencies": {
+    "env-cmd": "^10",
+    "husky": "^7",
+    "lint-staged": "^12",
+    "postinstall-postinstall": "^2",
+    "shx": "^0",
+    "turbo": "^1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@project/eslint-config"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": "@project/prettier-config",
+  "private": true,
+  "license": "MIT"
+}

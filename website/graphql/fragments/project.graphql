@@ -1,0 +1,10 @@
+fragment ProjectFields on ProjectRecord {
+  id
+  title
+  description
+  url
+  image {
+    blurUpThumb
+    url
+  }
+}

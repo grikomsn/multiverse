@@ -1,0 +1,17 @@
+fragment PostFields on PostRecord {
+  id
+  createdAt
+  updatedAt
+  cover {
+    url
+  }
+  title
+  description
+  slug
+  redirect
+}
+
+fragment PostFieldsWithContent on PostRecord {
+  ...PostFields
+  content
+}

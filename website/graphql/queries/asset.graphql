@@ -1,0 +1,5 @@
+query getResumeUrl {
+  upload(filter: { filename: { matches: { pattern: "resume\\.pdf" } } }) {
+    url
+  }
+}

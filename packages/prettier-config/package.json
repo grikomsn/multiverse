@@ -1,0 +1,26 @@
+{
+  "name": "@project/prettier-config",
+  "version": "0.0.0",
+  "dependencies": {
+    "prettier": "^2"
+  },
+  "devDependencies": {
+    "@types/prettier": "^2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@project/eslint-config"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": "./index.js",
+  "license": "MIT"
+}

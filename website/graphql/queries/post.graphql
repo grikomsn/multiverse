@@ -1,0 +1,23 @@
+query getBlogPosts {
+  allPosts(orderBy: createdAt_DESC) {
+    ...PostFields
+  }
+}
+
+query getBlogPost($slug: String!) {
+  post(filter: { slug: { eq: $slug } }) {
+    ...PostFieldsWithContent
+  }
+}
+
+query getBlogPostSlugs {
+  allPosts {
+    slug
+  }
+}
+
+query getSlugRedirect($slug: String!) {
+  post(filter: { slug: { eq: $slug } }) {
+    redirect
+  }
+}

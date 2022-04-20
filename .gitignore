@@ -1,0 +1,12 @@
+**/node_modules/
+*.log
+.DS_Store
+.env*
+.next/
+.vercel/
+dist/
+out/
+robots.txt
+
+!.env.example
+!.gitkeep

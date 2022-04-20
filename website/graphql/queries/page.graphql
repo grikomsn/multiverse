@@ -1,0 +1,23 @@
+query getCustomPage($slug: String!) {
+  page(filter: { slug: { eq: $slug } }) {
+    ...CustomPageFields
+  }
+}
+
+query getCustomPageSlugs {
+  allPages {
+    slug
+  }
+}
+
+query getHomePage {
+  homePage {
+    excerpt
+  }
+  allProjects(first: 4) {
+    ...ProjectFields
+  }
+  allPosts(first: 4, orderBy: createdAt_DESC) {
+    ...PostFields
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "@vercel/style-guide/typescript",
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "target": "es5"
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "env.d.ts", "**/*.ts", "**/*.tsx"]
+}

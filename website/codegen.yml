@@ -1,0 +1,52 @@
+overwrite: true
+
+documents:
+  - "./graphql/**/*.graphql"
+
+schema:
+  "${GRAPHQL_ENDPOINT}":
+    headers:
+      Authorization: "Bearer ${GRAPHQL_TOKEN}"
+
+hooks:
+  afterOneFileWrite:
+    - yarn prettier --write
+
+generates:
+  "./schema.graphql":
+    plugins:
+      - schema-ast
+    hooks:
+      afterAllFileWrite:
+        - yarn prettier --write
+  "./__generated__/graphql.ts":
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-query"
+      - "add":
+          content: "// @ts-nocheck\n/* eslint-disable */"
+      - "add":
+          content: 'import { fetchOptions } from "lib/graphql";'
+      - "add":
+          content: 'import { JsonValue } from "type-fest";'
+    config:
+      avoidOptionals: true
+      dedupeFragments: true
+      dedupeOperationSuffix: true
+      exposeDocument: true
+      exposeFetcher: true
+      exposeQueryKeys: true
+      fetcher:
+        endpoint: process.env.GRAPHQL_ENDPOINT
+        fetchParams: fetchOptions
+      maybeValue: "T"
+      pureMagicComment: true
+      scalars:
+        {
+          DateTime: string,
+          IntType: number,
+          ItemId: string,
+          JsonField: JsonValue,
+        }
+      skipTypename: true

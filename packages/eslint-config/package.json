@@ -1,0 +1,33 @@
+{
+  "name": "@project/eslint-config",
+  "version": "0.0.0",
+  "dependencies": {
+    "@babel/core": "^7",
+    "@graphql-eslint/eslint-plugin": "^3",
+    "@vercel/style-guide": "^3",
+    "eslint": "^8",
+    "eslint-plugin-prettier": "^4",
+    "eslint-plugin-simple-import-sort": "^7",
+    "eslint-plugin-tailwindcss": "^3",
+    "eslint-plugin-unused-imports": "^2",
+    "graphql": "^16",
+    "prettier": "^2",
+    "typescript": "^4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./index.js"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ],
+    "root": true
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": "@project/prettier-config",
+  "license": "MIT"
+}

@@ -1,0 +1,10 @@
+fragment CustomPageFields on PageRecord {
+  cover {
+    url
+  }
+  title
+  description
+  slug
+  content
+  showHeader
+}
