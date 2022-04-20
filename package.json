@@ -7,13 +7,13 @@
     "website"
   ],
   "scripts": {
-    "build": "turbo run build --filter=\"website\"",
+    "build": "turbo run build --filter=\"website\" --no-cache",
     "deduplicate": "npx yarn-deduplicate && yarn install",
     "dev": "yarn workspace website next dev",
-    "export": "turbo run export --filter=\"website\"",
+    "export": "turbo run export --filter=\"website\" --no-cache",
     "lint": "turbo run lint",
     "prepare": "husky install",
-    "start": "turbo run start --filter=\"website\"",
+    "start": "turbo run start --filter=\"website\" --no-cache",
     "website": "yarn workspace website"
   },
   "devDependencies": {
