@@ -1,3 +1,4 @@
+import { useFathom } from "lib/fathom";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
@@ -48,6 +49,8 @@ export function CentralProvider({ children }: CentralProviderProps) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useFathom();
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;

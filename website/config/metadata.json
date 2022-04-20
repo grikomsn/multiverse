@@ -5,5 +5,11 @@
   "url": "https://griko.id",
   "twitter": {
     "username": "@griko_nibras"
+  },
+  "fathom": {
+    "id": "HKQBXHGN",
+    "dashboard": "https://app.usefathom.com/share/hkqbxhgn/griko.id",
+    "referral": "https://usefathom.com/ref/QHAJTL",
+    "scriptUrl": "https://eyeballs.griko.id/script.js"
   }
 }
