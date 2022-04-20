@@ -9,7 +9,7 @@ export async function middleware(req: NextRequest, _ev: NextFetchEvent) {
   const slug = req.page.params.slug;
   if (!record) {
     const query = await useGetRedirectsQuery.fetcher()();
-    record = query.redirect.entries as typeof record;
+    record = query.route.redirects as typeof record;
   }
   const dest = record[slug];
   if (dest) {

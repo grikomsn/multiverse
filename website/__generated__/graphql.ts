@@ -1924,7 +1924,7 @@ export type Query = {
   /** Returns a specific record */
   project: Maybe<ProjectRecord>;
   /** Returns the single instance record */
-  redirect: Maybe<RedirectRecord>;
+  route: Maybe<RouteRecord>;
   /** Returns a specific asset */
   upload: Maybe<FileField>;
 };
@@ -2033,7 +2033,7 @@ export type QueryProjectArgs = {
 };
 
 /** The query root for this schema */
-export type QueryRedirectArgs = {
+export type QueryRouteArgs = {
   fallbackLocales: InputMaybe<Array<SiteLocale>>;
   locale: InputMaybe<SiteLocale>;
 };
@@ -2044,30 +2044,6 @@ export type QueryUploadArgs = {
   filter: InputMaybe<UploadFilter>;
   locale: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
-};
-
-/** Record of type Redirect (redirect) */
-export type RedirectRecord = {
-  _createdAt: Scalars["DateTime"];
-  _firstPublishedAt: Maybe<Scalars["DateTime"]>;
-  _isValid: Scalars["BooleanType"];
-  _modelApiKey: Scalars["String"];
-  _publicationScheduledAt: Maybe<Scalars["DateTime"]>;
-  _publishedAt: Maybe<Scalars["DateTime"]>;
-  /** SEO meta tags */
-  _seoMetaTags: Array<Tag>;
-  _status: ItemStatus;
-  _unpublishingScheduledAt: Maybe<Scalars["DateTime"]>;
-  _updatedAt: Scalars["DateTime"];
-  createdAt: Scalars["DateTime"];
-  entries: Maybe<Scalars["JsonField"]>;
-  id: Scalars["ItemId"];
-  updatedAt: Scalars["DateTime"];
-};
-
-/** Record of type Redirect (redirect) */
-export type RedirectRecord_SeoMetaTagsArgs = {
-  locale: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter by upload type */
@@ -2101,6 +2077,31 @@ export type ResponsiveImage = {
   title: Maybe<Scalars["String"]>;
   webpSrcSet: Scalars["String"];
   width: Scalars["IntType"];
+};
+
+/** Record of type Route (route) */
+export type RouteRecord = {
+  _createdAt: Scalars["DateTime"];
+  _firstPublishedAt: Maybe<Scalars["DateTime"]>;
+  _isValid: Scalars["BooleanType"];
+  _modelApiKey: Scalars["String"];
+  _publicationScheduledAt: Maybe<Scalars["DateTime"]>;
+  _publishedAt: Maybe<Scalars["DateTime"]>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt: Maybe<Scalars["DateTime"]>;
+  _updatedAt: Scalars["DateTime"];
+  createdAt: Scalars["DateTime"];
+  id: Scalars["ItemId"];
+  redirects: Maybe<Scalars["JsonField"]>;
+  rewrites: Maybe<Scalars["JsonField"]>;
+  updatedAt: Scalars["DateTime"];
+};
+
+/** Record of type Route (route) */
+export type RouteRecord_SeoMetaTagsArgs = {
+  locale: InputMaybe<SiteLocale>;
 };
 
 export type SeoField = {
@@ -2701,7 +2702,11 @@ export type GetProjectsQuery = {
 
 export type GetRedirectsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetRedirectsQuery = { redirect: { entries: JsonValue } };
+export type GetRedirectsQuery = { route: { redirects: JsonValue } };
+
+export type GetRewritesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetRewritesQuery = { route: { rewrites: JsonValue } };
 
 export const CustomPageFieldsFragmentDoc = /*#__PURE__*/ `
     fragment CustomPageFields on PageRecord {
@@ -2952,8 +2957,8 @@ useGetProjectsQuery.fetcher = (variables?: GetProjectsQueryVariables) =>
   fetcher<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, variables);
 export const GetRedirectsDocument = /*#__PURE__*/ `
     query getRedirects {
-  redirect {
-    entries
+  route {
+    redirects
   }
 }
     `;
@@ -2972,3 +2977,25 @@ useGetRedirectsQuery.getKey = (variables?: GetRedirectsQueryVariables) =>
   variables === undefined ? ["getRedirects"] : ["getRedirects", variables];
 useGetRedirectsQuery.fetcher = (variables?: GetRedirectsQueryVariables) =>
   fetcher<GetRedirectsQuery, GetRedirectsQueryVariables>(GetRedirectsDocument, variables);
+export const GetRewritesDocument = /*#__PURE__*/ `
+    query getRewrites {
+  route {
+    rewrites
+  }
+}
+    `;
+export const useGetRewritesQuery = <TData = GetRewritesQuery, TError = unknown>(
+  variables?: GetRewritesQueryVariables,
+  options?: UseQueryOptions<GetRewritesQuery, TError, TData>,
+) =>
+  useQuery<GetRewritesQuery, TError, TData>(
+    variables === undefined ? ["getRewrites"] : ["getRewrites", variables],
+    fetcher<GetRewritesQuery, GetRewritesQueryVariables>(GetRewritesDocument, variables),
+    options,
+  );
+useGetRewritesQuery.document = GetRewritesDocument;
+
+useGetRewritesQuery.getKey = (variables?: GetRewritesQueryVariables) =>
+  variables === undefined ? ["getRewrites"] : ["getRewrites", variables];
+useGetRewritesQuery.fetcher = (variables?: GetRewritesQueryVariables) =>
+  fetcher<GetRewritesQuery, GetRewritesQueryVariables>(GetRewritesDocument, variables);

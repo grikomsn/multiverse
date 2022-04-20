@@ -2428,7 +2428,7 @@ type Query {
   """
   Returns the single instance record
   """
-  redirect(
+  route(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
@@ -2438,7 +2438,7 @@ type Query {
     The locale to use to fetch the field's content
     """
     locale: SiteLocale
-  ): RedirectRecord
+  ): RouteRecord
 
   """
   Returns a specific asset
@@ -2456,35 +2456,6 @@ type Query {
     locale: SiteLocale
     orderBy: [UploadOrderBy] = [_createdAt_DESC]
   ): FileField
-}
-
-"""
-Record of type Redirect (redirect)
-"""
-type RedirectRecord {
-  _createdAt: DateTime!
-  _firstPublishedAt: DateTime
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
-
-  """
-  SEO meta tags
-  """
-  _seoMetaTags(
-    """
-    The locale to use to fetch the field's content
-    """
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  createdAt: DateTime!
-  entries: JsonField
-  id: ItemId!
-  updatedAt: DateTime!
 }
 
 """
@@ -2531,6 +2502,36 @@ type ResponsiveImage {
   title: String
   webpSrcSet: String!
   width: IntType!
+}
+
+"""
+Record of type Route (route)
+"""
+type RouteRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  createdAt: DateTime!
+  id: ItemId!
+  redirects: JsonField
+  rewrites: JsonField
+  updatedAt: DateTime!
 }
 
 type SeoField {

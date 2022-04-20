@@ -1,0 +1,11 @@
+query getRedirects {
+  route {
+    redirects
+  }
+}
+
+query getRewrites {
+  route {
+    rewrites
+  }
+}
