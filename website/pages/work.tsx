@@ -5,7 +5,6 @@ import type { GetStaticProps } from "next";
 import { Anchor } from "ui/core/anchor";
 import { PageHeader } from "ui/page/header";
 import { WorkImage } from "ui/project/image";
-import { DURATION_FIVE_MINUTES } from "utils/constants";
 
 export interface WorkPageProps {
   query: GetProjectsQuery;
@@ -16,7 +15,6 @@ export const getStaticProps: GetStaticProps<WorkPageProps> = async () => {
     props: {
       query: await useGetProjectsQuery.fetcher()(),
     },
-    revalidate: DURATION_FIVE_MINUTES,
   };
 };
 

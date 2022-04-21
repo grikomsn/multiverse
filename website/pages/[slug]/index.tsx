@@ -10,7 +10,6 @@ import { NextSeo } from "next-seo";
 import type { ParsedUrlQuery } from "querystring";
 import { CoverImage } from "ui/page/cover-image";
 import { PageHeader } from "ui/page/header";
-import { DURATION_FIVE_MINUTES } from "utils/constants";
 
 export interface CustomPageProps {
   query: GetCustomPageQuery;
@@ -26,7 +25,6 @@ export const getStaticProps: GetStaticProps<CustomPageProps, CustomPageParams> =
   if (!query.page) {
     return {
       notFound: true,
-      revalidate: DURATION_FIVE_MINUTES,
     };
   }
   const compiledContent = await serialize(query.page.content, {
@@ -37,7 +35,6 @@ export const getStaticProps: GetStaticProps<CustomPageProps, CustomPageParams> =
       query,
       compiledContent,
     },
-    revalidate: DURATION_FIVE_MINUTES,
   };
 };
 

@@ -13,7 +13,6 @@ import type { ParsedUrlQuery } from "querystring";
 import type { SocialButtonsProps } from "ui/blog/social-buttons";
 import { CoverImage } from "ui/page/cover-image";
 import { PageHeader } from "ui/page/header";
-import { DURATION_FIVE_MINUTES } from "utils/constants";
 import { parseIsoToMdy } from "utils/date";
 
 const SocialButtons = dynamic<SocialButtonsProps>(
@@ -35,7 +34,6 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps, BlogPostPageParam
   if (!query.post) {
     return {
       notFound: true,
-      revalidate: DURATION_FIVE_MINUTES,
     };
   }
   const compiledContent = await serialize(query.post.content, {
@@ -46,7 +44,6 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps, BlogPostPageParam
       query,
       compiledContent,
     },
-    revalidate: DURATION_FIVE_MINUTES,
   };
 };
 

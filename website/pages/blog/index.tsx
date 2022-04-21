@@ -4,7 +4,6 @@ import { useSeo } from "hooks/use-seo";
 import type { GetStaticProps } from "next";
 import { PostItem } from "ui/blog/post-item";
 import { PageHeader } from "ui/page/header";
-import { DURATION_FIVE_MINUTES } from "utils/constants";
 
 export interface BlogPageProps {
   query: GetBlogPostsQuery;
@@ -16,7 +15,6 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
     props: {
       query,
     },
-    revalidate: DURATION_FIVE_MINUTES,
   };
 };
 

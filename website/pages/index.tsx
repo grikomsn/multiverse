@@ -7,7 +7,6 @@ import { serialize } from "next-mdx-remote/serialize";
 import { PostItem } from "ui/blog/post-item";
 import { Anchor } from "ui/core/anchor";
 import { WorkImage } from "ui/project/image";
-import { DURATION_FIVE_MINUTES } from "utils/constants";
 
 export interface HomePageProps {
   query: GetHomePageQuery;
@@ -22,7 +21,6 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
       query,
       compiledExcerpt,
     },
-    revalidate: DURATION_FIVE_MINUTES,
   };
 };
 
