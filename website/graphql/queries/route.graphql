@@ -9,3 +9,10 @@ query getRewrites {
     rewrites
   }
 }
+
+query getRoutes {
+  route {
+    redirects
+    rewrites
+  }
+}

@@ -2708,6 +2708,10 @@ export type GetRewritesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetRewritesQuery = { route: { rewrites: JsonValue } };
 
+export type GetRoutesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetRoutesQuery = { route: { redirects: JsonValue; rewrites: JsonValue } };
+
 export const CustomPageFieldsFragmentDoc = /*#__PURE__*/ `
     fragment CustomPageFields on PageRecord {
   cover {
@@ -2999,3 +3003,26 @@ useGetRewritesQuery.getKey = (variables?: GetRewritesQueryVariables) =>
   variables === undefined ? ["getRewrites"] : ["getRewrites", variables];
 useGetRewritesQuery.fetcher = (variables?: GetRewritesQueryVariables) =>
   fetcher<GetRewritesQuery, GetRewritesQueryVariables>(GetRewritesDocument, variables);
+export const GetRoutesDocument = /*#__PURE__*/ `
+    query getRoutes {
+  route {
+    redirects
+    rewrites
+  }
+}
+    `;
+export const useGetRoutesQuery = <TData = GetRoutesQuery, TError = unknown>(
+  variables?: GetRoutesQueryVariables,
+  options?: UseQueryOptions<GetRoutesQuery, TError, TData>,
+) =>
+  useQuery<GetRoutesQuery, TError, TData>(
+    variables === undefined ? ["getRoutes"] : ["getRoutes", variables],
+    fetcher<GetRoutesQuery, GetRoutesQueryVariables>(GetRoutesDocument, variables),
+    options,
+  );
+useGetRoutesQuery.document = GetRoutesDocument;
+
+useGetRoutesQuery.getKey = (variables?: GetRoutesQueryVariables) =>
+  variables === undefined ? ["getRoutes"] : ["getRoutes", variables];
+useGetRoutesQuery.fetcher = (variables?: GetRoutesQueryVariables) =>
+  fetcher<GetRoutesQuery, GetRoutesQueryVariables>(GetRoutesDocument, variables);
