@@ -9,7 +9,7 @@
   "scripts": {
     "build": "yarn workspace website build",
     "deduplicate": "npx yarn-deduplicate && yarn install",
-    "dev": "yarn workspace website next dev",
+    "dev": "yarn workspace website dev",
     "export": "yarn workspace website export",
     "lint": "turbo run lint",
     "prepare": "husky install",

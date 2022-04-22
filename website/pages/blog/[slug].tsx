@@ -5,6 +5,7 @@ import metadataJson from "config/metadata";
 import { defaultMdxOptions } from "lib/markdown";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
@@ -58,6 +59,11 @@ export const getStaticPaths: GetStaticPaths<BlogPostPageParams> = async () => {
 export default function BlogPostPage({ query, compiledContent }: BlogPostPageProps) {
   return (
     <section className="space-y-8">
+      {query.post.redirect && (
+        <Head>
+          <meta content={`0; url=${query.post.redirect}`} httpEquiv="refresh" />
+        </Head>
+      )}
       <NextSeo
         description={query.post.description}
         openGraph={{
