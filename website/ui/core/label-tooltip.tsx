@@ -1,4 +1,5 @@
 import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
+import clsx from "clsx";
 import type { ReactNode } from "react";
 
 export interface LabelTooltipProps {
@@ -11,7 +12,11 @@ export function LabelTooltip({ label, children }: LabelTooltipProps) {
     <Tooltip>
       <TooltipTrigger asChild>{children}</TooltipTrigger>
       <TooltipContent
-        className="py-2 px-4 text-xs text-center bg-neutral-800 rounded shadow-lg animate-slide-up-fade"
+        className={clsx(
+          "py-2 px-4 text-xs text-center",
+          "bg-neutral-800 rounded shadow-lg animate-slide-up-fade",
+          "invisible sm:visible",
+        )}
         sideOffset={8}
       >
         <span>{label}</span>
