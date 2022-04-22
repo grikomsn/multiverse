@@ -18,11 +18,11 @@ export function SocialButtons({ post, className, ...rest }: SocialButtonsProps) 
   const url = `${metadataJson.url}/blog/${post.slug}`;
 
   async function handleShare(navigator: Navigator) {
-    try {
-      await navigator.share({ title: post.title, url });
-    } catch (err) {
-      toast.error(String(err));
-    }
+    await toast.promise(navigator.share({ title: post.title, url }), {
+      loading: "Sharing post...",
+      success: "Shared post!",
+      error: "Something went wrong!",
+    });
   }
 
   const intentLink = createTwitterIntent({
@@ -33,8 +33,11 @@ export function SocialButtons({ post, className, ...rest }: SocialButtonsProps) 
 
   async function handleClipboard(event: MouseEvent) {
     if (navigator.clipboard) event.preventDefault();
-    await navigator.clipboard.writeText(url);
-    toast.success("Copied to clipboard!");
+    await toast.promise(navigator.clipboard.writeText(url), {
+      loading: "Copying post link...",
+      success: "Copied post link to clipboard!",
+      error: "Something went wrong!",
+    });
   }
 
   return (
