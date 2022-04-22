@@ -26,7 +26,7 @@ export default function WorkPage({ query }: WorkPageProps) {
   return (
     <section className="space-y-8">
       <Seo />
-      <PageHeader className="pt-[5rem] md:pt-[10rem]" description={description} title={title} />
+      <PageHeader className="pt-[10vh] md:pt-[20vh]" description={description} title={title} />
       <ul className="grid grid-flow-row space-y-16">
         {query.allProjects.map((item) => (
           <li key={`work-${item.id}`} className="group grid relative grid-cols-1 gap-4 sm:grid-cols-2">

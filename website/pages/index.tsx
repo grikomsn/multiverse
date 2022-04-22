@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 export default function HomePage({ query, compiledExcerpt }: HomePageProps) {
   return (
     <section className="space-y-8">
-      <div className="py-[5rem] prose prose-invert md:py-[10rem]">
+      <div className="py-[10vh] prose prose-invert md:py-[20vh]">
         <MDXRemote {...compiledExcerpt} />
       </div>
       <h3 className="text-lg text-gray-400">Recent projects</h3>

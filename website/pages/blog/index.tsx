@@ -26,7 +26,7 @@ export default function BlogPage({ query }: BlogPageProps) {
   return (
     <section className="space-y-8">
       <Seo />
-      <PageHeader className="pt-[5rem] md:pt-[10rem]" description={description} title={title} />
+      <PageHeader className="pt-[10vh] md:pt-[20vh]" description={description} title={title} />
       <ul className="-mx-4 space-y-4">
         {query.allPosts.map((item) => (
           <PostItem key={`recent-post-${item.id}`} data={item} />

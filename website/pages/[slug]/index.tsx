@@ -53,7 +53,7 @@ export default function CustomPage({ query, compiledContent }: CustomPageProps) 
       {query.page.cover && <CoverImage src={query.page.cover.url} />}
       {query.page.showHeader && (
         <PageHeader
-          className={clsx({ "pt-[5rem] md:pt-[10rem]": !query.page.cover })}
+          className={clsx({ "pt-[10vh] md:pt-[20vh]": !query.page.cover })}
           description={query.page.description}
           title={query.page.title}
         />

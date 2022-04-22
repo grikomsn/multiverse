@@ -93,7 +93,7 @@ export default function BlogPostPage({ query, compiledContent }: BlogPostPagePro
       />
       {query.post.cover && <CoverImage src={query.post.cover.url} />}
       <PageHeader
-        className={clsx({ "pt-[5rem] md:pt-[10rem]": !query.post.cover })}
+        className={clsx({ "pt-[10vh] md:pt-[20vh]": !query.post.cover })}
         description={query.post.description}
         title={query.post.title}
       />
