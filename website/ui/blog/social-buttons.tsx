@@ -54,7 +54,7 @@ export function SocialButtons({ post, className, ...rest }: SocialButtonsProps) 
         </Anchor>
       </LabelTooltip>
       <LabelTooltip label="Copy post link to clipboard">
-        <Anchor href={`/blog/${post.slug}`} onClick={(event) => void handleClipboard(event)} type="button">
+        <Anchor href={`/blog/${post.slug}`} onClick={(event) => void handleClipboard(event)}>
           <LinkIcon className="w-5 h-5 hover:text-neutral-300" />
         </Anchor>
       </LabelTooltip>
