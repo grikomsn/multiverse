@@ -22,10 +22,6 @@ const cspHeader = `
 
 /** @type {import("next").NextConfig} */
 let nextConfig = {
-  env: {
-    GRAPHQL_ENDPOINT: process.env.GRAPHQL_ENDPOINT,
-    GRAPHQL_TOKEN: process.env.GRAPHQL_TOKEN,
-  },
   eslint: {
     dirs: ["config", "hooks", "lib", "pages", "store", "ui", "utils"],
     ignoreDuringBuilds: Boolean(process.env.VERCEL),
