@@ -1,0 +1,12 @@
+query getSeoData {
+  _site {
+    favicon {
+      url
+    }
+    faviconMetaTags {
+      tag
+      attributes
+      content
+    }
+  }
+}

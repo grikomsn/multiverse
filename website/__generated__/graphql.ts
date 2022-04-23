@@ -2712,6 +2712,12 @@ export type GetRoutesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetRoutesQuery = { route: { redirects: JsonValue; rewrites: JsonValue } };
 
+export type GetSeoDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetSeoDataQuery = {
+  _site: { favicon: { url: string }; faviconMetaTags: Array<{ tag: string; attributes: any; content: string }> };
+};
+
 export const CustomPageFieldsFragmentDoc = /*#__PURE__*/ `
     fragment CustomPageFields on PageRecord {
   cover {
@@ -3026,3 +3032,32 @@ useGetRoutesQuery.getKey = (variables?: GetRoutesQueryVariables) =>
   variables === undefined ? ["getRoutes"] : ["getRoutes", variables];
 useGetRoutesQuery.fetcher = (variables?: GetRoutesQueryVariables) =>
   fetcher<GetRoutesQuery, GetRoutesQueryVariables>(GetRoutesDocument, variables);
+export const GetSeoDataDocument = /*#__PURE__*/ `
+    query getSeoData {
+  _site {
+    favicon {
+      url
+    }
+    faviconMetaTags {
+      tag
+      attributes
+      content
+    }
+  }
+}
+    `;
+export const useGetSeoDataQuery = <TData = GetSeoDataQuery, TError = unknown>(
+  variables?: GetSeoDataQueryVariables,
+  options?: UseQueryOptions<GetSeoDataQuery, TError, TData>,
+) =>
+  useQuery<GetSeoDataQuery, TError, TData>(
+    variables === undefined ? ["getSeoData"] : ["getSeoData", variables],
+    fetcher<GetSeoDataQuery, GetSeoDataQueryVariables>(GetSeoDataDocument, variables),
+    options,
+  );
+useGetSeoDataQuery.document = GetSeoDataDocument;
+
+useGetSeoDataQuery.getKey = (variables?: GetSeoDataQueryVariables) =>
+  variables === undefined ? ["getSeoData"] : ["getSeoData", variables];
+useGetSeoDataQuery.fetcher = (variables?: GetSeoDataQueryVariables) =>
+  fetcher<GetSeoDataQuery, GetSeoDataQueryVariables>(GetSeoDataDocument, variables);
