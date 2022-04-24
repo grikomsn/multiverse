@@ -55,6 +55,7 @@ let nextConfig = {
     ...redirectsJson,
   ],
   rewrites: async () => [...rewritesJson],
+  swcMinify: true,
   typescript: {
     ignoreBuildErrors: Boolean(process.env.VERCEL),
   },
