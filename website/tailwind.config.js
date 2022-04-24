@@ -69,7 +69,7 @@ const tailwindConfig = {
             img: {
               marginLeft: "auto",
               marginRight: "auto",
-              maxWidth: theme("maxWidth.3xl"),
+              maxWidth: `min(100%, ${theme("maxWidth.3xl")})`,
             },
           },
         },
