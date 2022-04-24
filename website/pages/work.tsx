@@ -4,7 +4,7 @@ import { useSeo } from "hooks/use-seo";
 import type { GetStaticProps } from "next";
 import { Anchor } from "ui/core/anchor";
 import { PageHeader } from "ui/page/header";
-import { WorkImage } from "ui/project/image";
+import { ProjectImage } from "ui/project/image";
 
 export interface WorkPageProps {
   query: GetProjectsQuery;
@@ -30,14 +30,11 @@ export default function WorkPage({ query }: WorkPageProps) {
       <ul className="grid grid-flow-row space-y-16">
         {query.allProjects.map((item) => (
           <li key={`work-${item.id}`} className="group grid relative grid-cols-1 gap-4 sm:grid-cols-2">
-            <WorkImage alt={item.title} className="sm:order-last" src={item.image.url} />
+            <ProjectImage alt={item.title} className="sm:order-last" src={item.image.url} />
             <div>
               <h3 className="mb-2 text-xl font-bold">{item.title}</h3>
               <p className="mb-4 leading-relaxed text-neutral-400">{item.description}</p>
-              <Anchor
-                className="before:absolute before:inset-0 before:z-10 text-primary hover:underline before:content-['']"
-                href={item.url}
-              >
+              <Anchor className="before:inset-0 text-primary hover:underline sm:before:absolute" href={item.url}>
                 Visit website &nbsp; →
               </Anchor>
             </div>
