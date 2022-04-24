@@ -15,7 +15,7 @@ html {
   font-feature-settings: "ss01" 0, "ss02" 0, "ss03" 0;
   line-height: 1.7142857;
   text-rendering: optimizeLegibility;
-  @apply subpixel-antialiased bg-body font-sans selection:bg-opacity-50 selection:bg-primary text-text underline-offset-2;
+  @apply subpixel-antialiased bg-body font-sans overflow-x-hidden selection:bg-opacity-50 selection:bg-primary text-text underline-offset-2;
 }
 
 [data-rehype-pretty-code-fragment] > pre {
