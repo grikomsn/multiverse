@@ -11,8 +11,17 @@ const tailwindConfig = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/typography"),
-    plugin(({ addVariant }) => {
+    plugin(({ addVariant, matchUtilities, theme }) => {
       addVariant("children", "& > *");
+      matchUtilities(
+        {
+          "m-inline-start": (value) => ({ marginInlineStart: value }),
+          "m-inline-end": (value) => ({ marginInlineEnd: value }),
+          "p-inline-start": (value) => ({ paddingInlineStart: value }),
+          "p-inline-end": (value) => ({ paddingInlineEnd: value }),
+        },
+        { values: theme("spacing") },
+      );
     }),
   ],
   presets: [require("@project/tailwind-animations")],
