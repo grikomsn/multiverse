@@ -27,6 +27,7 @@
     "date-fns": "^2",
     "date-fns-tz": "^1",
     "fathom-client": "^3",
+    "feed": "^4",
     "graphql": "^16",
     "graphql-tag": "^2",
     "graphql-web-lite": "^16",
