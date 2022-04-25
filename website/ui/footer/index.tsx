@@ -21,10 +21,10 @@ export function Footer() {
       <br />
       <br />
       <div className="flex items-center space-x-6">
-        <Anchor href="/github">
+        <Anchor href="https://github.com/grikomsn">
           <Github className="w-5 h-5 hover:text-neutral-300" />
         </Anchor>
-        <Anchor href="/twitter">
+        <Anchor href="https://twitter.com/griko_nibras">
           <Twitter className="w-5 h-5 hover:text-neutral-300" />
         </Anchor>
       </div>
