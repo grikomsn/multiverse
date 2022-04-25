@@ -2,17 +2,20 @@ import Link from "next/link";
 import type { ComponentProps, ComponentType } from "react";
 import { forwardRef, Fragment } from "react";
 
-export type AnchorProps = ComponentProps<"a">;
+export type AnchorProps = ComponentProps<"a"> & {
+  external?: boolean;
+};
 
 export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
   //
-  function Anchor({ children, href = "", ...rest }, ref) {
+  function Anchor({ children, external = false, href = "", ...rest }, ref) {
     const isApi = href.startsWith("/api");
-    const isRelative = href.startsWith("/") && !isApi;
+    const isRelative = href.startsWith("/");
+    const isExternal = external ? true : isApi || !isRelative;
 
-    const Wrap = (isRelative ? Link : Fragment) as ComponentType<any>;
-    const wrapProps = isRelative ? { href } : {};
-    const linkProps = !isRelative ? { target: "_blank", rel: "noopener noreferrer" } : {};
+    const Wrap = (isExternal ? Fragment : Link) as ComponentType<any>;
+    const wrapProps = isExternal ? {} : { href };
+    const linkProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
     return (
       <Wrap {...wrapProps}>
