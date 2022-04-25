@@ -1,2 +1,5 @@
 /__generated__/redirects.json
 /__generated__/rewrites.json
+/public/blog/atom.xml
+/public/blog/feed.json
+/public/blog/rss.xml
