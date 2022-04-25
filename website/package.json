@@ -9,7 +9,7 @@
     "graphql": "env-cmd yarn graphql-codegen",
     "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,graphql,gql,ts,tsx}\" && tsc --noEmit --pretty",
     "postbuild": "next-sitemap --config config/sitemap.js",
-    "prebuild": "node scripts/get-remote-routes.js",
+    "prebuild": "node scripts/prebuild.js",
     "start": "next start"
   },
   "dependencies": {

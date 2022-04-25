@@ -23,7 +23,6 @@ function cwd(...args) {
 }
 
 async function getRemoteRoutes() {
-  /** @type {{route:{redirects:Record<string,string>;rewrites:Record<string,string>}}} */
   const { route } = await rawRequest(gql`
     {
       route {
@@ -32,7 +31,6 @@ async function getRemoteRoutes() {
       }
     }
   `);
-
   const redirectsJsonPath = cwd("__generated__/redirects.json");
   const rewritesJsonPath = cwd("__generated__/rewrites.json");
   await Promise.all([
