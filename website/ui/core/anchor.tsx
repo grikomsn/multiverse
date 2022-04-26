@@ -8,10 +8,10 @@ export type AnchorProps = ComponentProps<"a"> & {
 
 export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
   //
-  function Anchor({ children, external = false, href = "", ...rest }, ref) {
+  function Anchor({ children, external, href = "", ...rest }, ref) {
     const isApi = href.startsWith("/api");
     const isRelative = href.startsWith("/");
-    const isExternal = external ? true : isApi || !isRelative;
+    const isExternal = typeof external === "boolean" ? external : isApi || !isRelative;
 
     const Wrap = (isExternal ? Fragment : Link) as ComponentType<any>;
     const wrapProps = isExternal ? {} : { href };
