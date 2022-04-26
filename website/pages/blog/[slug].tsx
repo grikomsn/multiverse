@@ -58,7 +58,7 @@ export const getStaticPaths: GetStaticPaths<BlogPostPageParams> = async () => {
 
 export default function BlogPostPage({ query, compiledContent }: BlogPostPageProps) {
   return (
-    <section className="space-y-8">
+    <section className="space-y-16">
       {query.post.redirect && (
         <Head>
           <meta content={`0; url=${query.post.redirect}`} httpEquiv="refresh" />
@@ -91,18 +91,20 @@ export default function BlogPostPage({ query, compiledContent }: BlogPostPagePro
           { position: 2, name: query.post.title, item: `${metadataJson.url}/blog/${query.post.slug}` },
         ]}
       />
-      {query.post.cover && <CoverImage src={query.post.cover.url} />}
-      <PageHeader
-        className={clsx({ "pt-[10vh] md:pt-[20vh]": !query.post.cover })}
-        description={query.post.description}
-        title={query.post.title}
-      />
-      <div className="flex justify-between items-center">
-        <span className="text-xs">Posted on {parseIsoToMdy(query.post.createdAt)}</span>
-        <SocialButtons className="animate-fade-in" post={query.post} />
+      <div className="space-y-8">
+        {query.post.cover && <CoverImage src={query.post.cover.url} />}
+        <PageHeader
+          className={clsx({ "pt-[10vh] md:pt-[20vh]": !query.post.cover })}
+          description={query.post.description}
+          title={query.post.title}
+        />
+        <div className="flex justify-between items-center">
+          <span className="text-xs">Posted on {parseIsoToMdy(query.post.createdAt)}</span>
+          <SocialButtons className="animate-fade-in" post={query.post} />
+        </div>
       </div>
+      <hr className="flex-grow border-neutral-500/50" />
       <article className="cursor-auto prose prose-invert">
-        <hr />
         <MDXRemote {...compiledContent} />
       </article>
     </section>
