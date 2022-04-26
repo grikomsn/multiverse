@@ -1,0 +1,5 @@
+Canonical: https://griko.id/security.txt
+Contact: mailto:security@griko.id
+Encryption: https://griko.id/pgp.txt
+Expires: 2029-12-31T17:00:00.000Z
+Preferred-Languages: en,id
