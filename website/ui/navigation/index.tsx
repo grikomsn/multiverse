@@ -9,14 +9,14 @@ export function Navigation() {
   return (
     <div
       className={clsx(
-        "flex fixed inset-x-4 bottom-0 z-10 justify-center py-4",
+        "flex fixed inset-x-4 bottom-0 z-10 justify-center",
         "motion-safe:animate-slide-up-fade pointer-events-none",
         "bg-gradient-to-t from-neutral-900/50 to-transparent",
       )}
     >
       <nav
         className={clsx(
-          "container flex relative items-stretch p-1 max-w-xl",
+          "container flex relative items-stretch p-1 m-4 max-w-xl",
           "bg-neutral-800/80 rounded-xl shadow-lg shadow-black/50",
           "backdrop-blur-sm pointer-events-auto",
         )}
