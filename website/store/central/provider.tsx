@@ -1,4 +1,4 @@
-import { useFathom } from "lib/fathom";
+import { useFathom } from "hooks/use-fathom";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
