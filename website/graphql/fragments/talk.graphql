@@ -1,0 +1,7 @@
+fragment TalkFields on TalkRecord {
+  id
+  title
+  description
+  date
+  url
+}

@@ -38,6 +38,8 @@ export type Scalars = {
   /** Represents `true` or `false` values. */
   BooleanType: any;
   CustomData: any;
+  /** A ISO 8601 compliant date value */
+  Date: any;
   /** A ISO 8601 compliant datetime value */
   DateTime: string;
   /** Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). */
@@ -99,6 +101,24 @@ export type CreatedAtFilter = {
   lte: InputMaybe<Scalars["DateTime"]>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
   neq: InputMaybe<Scalars["DateTime"]>;
+};
+
+/** Specifies how to filter Date fields */
+export type DateFilter = {
+  /** Search for records with an exact match */
+  eq: InputMaybe<Scalars["Date"]>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists: InputMaybe<Scalars["BooleanType"]>;
+  /** Filter records with a value that's strictly greater than the one specified */
+  gt: InputMaybe<Scalars["Date"]>;
+  /** Filter records with a value that's greater than or equal to the one specified */
+  gte: InputMaybe<Scalars["Date"]>;
+  /** Filter records with a value that's less than the one specified */
+  lt: InputMaybe<Scalars["Date"]>;
+  /** Filter records with a value that's less or equal than the one specified */
+  lte: InputMaybe<Scalars["Date"]>;
+  /** Exclude records with an exact match */
+  neq: InputMaybe<Scalars["Date"]>;
 };
 
 export enum FaviconType {
@@ -1903,6 +1923,8 @@ export type Query = {
   _allPostsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allProjectsMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allTalksMeta: CollectionMetadata;
   /** Returns meta information regarding an assets collection */
   _allUploadsMeta: Maybe<CollectionMetadata>;
   /** Returns the single instance record */
@@ -1913,6 +1935,8 @@ export type Query = {
   allPosts: Array<PostRecord>;
   /** Returns a collection of records */
   allProjects: Array<ProjectRecord>;
+  /** Returns a collection of records */
+  allTalks: Array<TalkRecord>;
   /** Returns a collection of assets */
   allUploads: Array<FileField>;
   /** Returns the single instance record */
@@ -1925,6 +1949,8 @@ export type Query = {
   project: Maybe<ProjectRecord>;
   /** Returns the single instance record */
   route: Maybe<RouteRecord>;
+  /** Returns a specific record */
+  talk: Maybe<TalkRecord>;
   /** Returns a specific asset */
   upload: Maybe<FileField>;
 };
@@ -1947,6 +1973,13 @@ export type Query_AllPostsMetaArgs = {
 export type Query_AllProjectsMetaArgs = {
   fallbackLocales: InputMaybe<Array<SiteLocale>>;
   filter: InputMaybe<ProjectModelFilter>;
+  locale: InputMaybe<SiteLocale>;
+};
+
+/** The query root for this schema */
+export type Query_AllTalksMetaArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  filter: InputMaybe<TalkModelFilter>;
   locale: InputMaybe<SiteLocale>;
 };
 
@@ -1989,6 +2022,16 @@ export type QueryAllProjectsArgs = {
   first?: InputMaybe<Scalars["IntType"]>;
   locale: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProjectModelOrderBy>>>;
+  skip: InputMaybe<Scalars["IntType"]>;
+};
+
+/** The query root for this schema */
+export type QueryAllTalksArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  filter: InputMaybe<TalkModelFilter>;
+  first?: InputMaybe<Scalars["IntType"]>;
+  locale: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TalkModelOrderBy>>>;
   skip: InputMaybe<Scalars["IntType"]>;
 };
 
@@ -2036,6 +2079,14 @@ export type QueryProjectArgs = {
 export type QueryRouteArgs = {
   fallbackLocales: InputMaybe<Array<SiteLocale>>;
   locale: InputMaybe<SiteLocale>;
+};
+
+/** The query root for this schema */
+export type QueryTalkArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  filter: InputMaybe<TalkModelFilter>;
+  locale: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TalkModelOrderBy>>>;
 };
 
 /** The query root for this schema */
@@ -2185,6 +2236,85 @@ export type Tag = {
   attributes: Maybe<Scalars["MetaTagAttributes"]>;
   content: Maybe<Scalars["String"]>;
   tag: Scalars["String"];
+};
+
+export type TalkModelFilter = {
+  OR: InputMaybe<Array<InputMaybe<TalkModelFilter>>>;
+  _createdAt: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt: InputMaybe<PublishedAtFilter>;
+  _isValid: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt: InputMaybe<PublishedAtFilter>;
+  _publishedAt: InputMaybe<PublishedAtFilter>;
+  _status: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt: InputMaybe<PublishedAtFilter>;
+  _updatedAt: InputMaybe<UpdatedAtFilter>;
+  createdAt: InputMaybe<CreatedAtFilter>;
+  date: InputMaybe<DateFilter>;
+  description: InputMaybe<StringFilter>;
+  id: InputMaybe<ItemIdFilter>;
+  title: InputMaybe<StringFilter>;
+  updatedAt: InputMaybe<UpdatedAtFilter>;
+  url: InputMaybe<StringFilter>;
+};
+
+export enum TalkModelOrderBy {
+  CreatedAtAsc = "_createdAt_ASC",
+  CreatedAtDesc = "_createdAt_DESC",
+  FirstPublishedAtAsc = "_firstPublishedAt_ASC",
+  FirstPublishedAtDesc = "_firstPublishedAt_DESC",
+  IsValidAsc = "_isValid_ASC",
+  IsValidDesc = "_isValid_DESC",
+  PublicationScheduledAtAsc = "_publicationScheduledAt_ASC",
+  PublicationScheduledAtDesc = "_publicationScheduledAt_DESC",
+  PublishedAtAsc = "_publishedAt_ASC",
+  PublishedAtDesc = "_publishedAt_DESC",
+  StatusAsc = "_status_ASC",
+  StatusDesc = "_status_DESC",
+  UnpublishingScheduledAtAsc = "_unpublishingScheduledAt_ASC",
+  UnpublishingScheduledAtDesc = "_unpublishingScheduledAt_DESC",
+  UpdatedAtAsc = "_updatedAt_ASC",
+  UpdatedAtDesc = "_updatedAt_DESC",
+  CreatedAtAsc = "createdAt_ASC",
+  CreatedAtDesc = "createdAt_DESC",
+  DateAsc = "date_ASC",
+  DateDesc = "date_DESC",
+  DescriptionAsc = "description_ASC",
+  DescriptionDesc = "description_DESC",
+  IdAsc = "id_ASC",
+  IdDesc = "id_DESC",
+  TitleAsc = "title_ASC",
+  TitleDesc = "title_DESC",
+  UpdatedAtAsc = "updatedAt_ASC",
+  UpdatedAtDesc = "updatedAt_DESC",
+  UrlAsc = "url_ASC",
+  UrlDesc = "url_DESC",
+}
+
+/** Record of type Talk (talk) */
+export type TalkRecord = {
+  _createdAt: Scalars["DateTime"];
+  _firstPublishedAt: Maybe<Scalars["DateTime"]>;
+  _isValid: Scalars["BooleanType"];
+  _modelApiKey: Scalars["String"];
+  _publicationScheduledAt: Maybe<Scalars["DateTime"]>;
+  _publishedAt: Maybe<Scalars["DateTime"]>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt: Maybe<Scalars["DateTime"]>;
+  _updatedAt: Scalars["DateTime"];
+  createdAt: Scalars["DateTime"];
+  date: Maybe<Scalars["Date"]>;
+  description: Maybe<Scalars["String"]>;
+  id: Scalars["ItemId"];
+  title: Maybe<Scalars["String"]>;
+  updatedAt: Scalars["DateTime"];
+  url: Maybe<Scalars["String"]>;
+};
+
+/** Record of type Talk (talk) */
+export type TalkRecord_SeoMetaTagsArgs = {
+  locale: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter text fields */
@@ -2606,6 +2736,8 @@ export type ProjectFieldsFragment = {
   image: { blurUpThumb: string; url: string };
 };
 
+export type TalkFieldsFragment = { id: string; title: string; description: string; date: any; url: string };
+
 export type GetResumeUrlQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetResumeUrlQuery = { upload: { url: string } };
@@ -2633,6 +2765,7 @@ export type GetHomePageQuery = {
     url: string;
     image: { blurUpThumb: string; url: string };
   }>;
+  allTalks: Array<{ id: string; title: string; description: string; date: any; url: string }>;
   allPosts: Array<{
     id: string;
     createdAt: string;
@@ -2718,6 +2851,12 @@ export type GetSeoDataQuery = {
   _site: { favicon: { url: string }; faviconMetaTags: Array<{ tag: string; attributes: any; content: string }> };
 };
 
+export type GetTalksQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetTalksQuery = {
+  allTalks: Array<{ id: string; title: string; description: string; date: any; url: string }>;
+};
+
 export const CustomPageFieldsFragmentDoc = /*#__PURE__*/ `
     fragment CustomPageFields on PageRecord {
   cover {
@@ -2760,6 +2899,15 @@ export const ProjectFieldsFragmentDoc = /*#__PURE__*/ `
     blurUpThumb
     url
   }
+}
+    `;
+export const TalkFieldsFragmentDoc = /*#__PURE__*/ `
+    fragment TalkFields on TalkRecord {
+  id
+  title
+  description
+  date
+  url
 }
     `;
 export const GetResumeUrlDocument = /*#__PURE__*/ `
@@ -2835,11 +2983,15 @@ export const GetHomePageDocument = /*#__PURE__*/ `
   allProjects(first: 4) {
     ...ProjectFields
   }
+  allTalks(first: 4, orderBy: date_DESC) {
+    ...TalkFields
+  }
   allPosts(first: 4, orderBy: createdAt_DESC) {
     ...PostFields
   }
 }
     ${ProjectFieldsFragmentDoc}
+${TalkFieldsFragmentDoc}
 ${PostFieldsFragmentDoc}`;
 export const useGetHomePageQuery = <TData = GetHomePageQuery, TError = unknown>(
   variables?: GetHomePageQueryVariables,
@@ -3061,3 +3213,25 @@ useGetSeoDataQuery.getKey = (variables?: GetSeoDataQueryVariables) =>
   variables === undefined ? ["getSeoData"] : ["getSeoData", variables];
 useGetSeoDataQuery.fetcher = (variables?: GetSeoDataQueryVariables) =>
   fetcher<GetSeoDataQuery, GetSeoDataQueryVariables>(GetSeoDataDocument, variables);
+export const GetTalksDocument = /*#__PURE__*/ `
+    query getTalks {
+  allTalks(orderBy: date_DESC) {
+    ...TalkFields
+  }
+}
+    ${TalkFieldsFragmentDoc}`;
+export const useGetTalksQuery = <TData = GetTalksQuery, TError = unknown>(
+  variables?: GetTalksQueryVariables,
+  options?: UseQueryOptions<GetTalksQuery, TError, TData>,
+) =>
+  useQuery<GetTalksQuery, TError, TData>(
+    variables === undefined ? ["getTalks"] : ["getTalks", variables],
+    fetcher<GetTalksQuery, GetTalksQueryVariables>(GetTalksDocument, variables),
+    options,
+  );
+useGetTalksQuery.document = GetTalksDocument;
+
+useGetTalksQuery.getKey = (variables?: GetTalksQueryVariables) =>
+  variables === undefined ? ["getTalks"] : ["getTalks", variables];
+useGetTalksQuery.fetcher = (variables?: GetTalksQueryVariables) =>
+  fetcher<GetTalksQuery, GetTalksQueryVariables>(GetTalksDocument, variables);

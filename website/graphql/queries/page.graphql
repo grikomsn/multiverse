@@ -17,6 +17,9 @@ query getHomePage {
   allProjects(first: 4) {
     ...ProjectFields
   }
+  allTalks(first: 4, orderBy: date_DESC) {
+    ...TalkFields
+  }
   allPosts(first: 4, orderBy: createdAt_DESC) {
     ...PostFields
   }
