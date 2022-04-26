@@ -24,9 +24,10 @@ export default function WorkPage({ query }: WorkPageProps) {
     description: "Curated handcrafted projects I have made in the past",
   });
   return (
-    <section className="space-y-8">
+    <section className="space-y-16">
       <Seo />
       <PageHeader className="pt-[10vh] md:pt-[20vh]" description={description} title={title} />
+      <hr className="border-neutral-500/50" />
       <ul className="grid grid-flow-row space-y-16">
         {query.allProjects.map((item) => (
           <li key={`work-${item.id}`} className="group grid relative grid-cols-1 gap-4 sm:grid-cols-2">

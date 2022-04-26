@@ -48,15 +48,18 @@ export const getStaticPaths: GetStaticPaths<CustomPageParams> = async () => {
 
 export default function CustomPage({ query, compiledContent }: CustomPageProps) {
   return (
-    <section className="space-y-8">
+    <section className="space-y-16">
       <NextSeo description={query.page.description} title={query.page.title} />
       {query.page.cover && <CoverImage src={query.page.cover.url} />}
       {query.page.showHeader && (
-        <PageHeader
-          className={clsx({ "pt-[10vh] md:pt-[20vh]": !query.page.cover })}
-          description={query.page.description}
-          title={query.page.title}
-        />
+        <>
+          <PageHeader
+            className={clsx({ "pt-[10vh] md:pt-[20vh]": !query.page.cover })}
+            description={query.page.description}
+            title={query.page.title}
+          />
+          <hr className="flex-grow border-neutral-500/50" />
+        </>
       )}
       <article className="prose prose-invert">
         <MDXRemote {...compiledContent} />
