@@ -1,9 +1,11 @@
 import { useFathom } from "hooks/use-fathom";
+import { Fathom, SPOTLIGHT_OPEN_GOAL } from "lib/fathom";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { useIsFetching } from "react-query";
+import tinykeys from "tinykeys";
 import { ROUTE_LOADING_TIMEOUT, ROUTE_LOADING_TOAST_ID } from "utils/constants";
 
 export interface CentralProviderProps {
@@ -48,6 +50,15 @@ export function CentralProvider({ children }: CentralProviderProps) {
       router.events.off("routeChangeComplete", end);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    return tinykeys(window, {
+      "$mod+k": () => {
+        toast(<span className="text-xs">Spotlight (formerly kbar) is under construction!</span>);
+        if (__PROD__) Fathom.trackGoal(SPOTLIGHT_OPEN_GOAL, 0);
+      },
+    });
   }, []);
 
   useFathom();
