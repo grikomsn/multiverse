@@ -83,6 +83,51 @@ input CreatedAtFilter {
 scalar CustomData
 
 """
+A ISO 8601 compliant date value
+"""
+scalar Date
+
+"""
+Specifies how to filter Date fields
+"""
+input DateFilter {
+  """
+  Search for records with an exact match
+  """
+  eq: Date
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: Date
+
+  """
+  Filter records with a value that's greater than or equal to the one specified
+  """
+  gte: Date
+
+  """
+  Filter records with a value that's less than the one specified
+  """
+  lt: Date
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: Date
+
+  """
+  Exclude records with an exact match
+  """
+  neq: Date
+}
+
+"""
 A ISO 8601 compliant datetime value
 """
 scalar DateTime
@@ -2225,6 +2270,22 @@ type Query {
   ): CollectionMetadata!
 
   """
+  Returns meta information regarding a record collection
+  """
+  _allTalksMeta(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: TalkModelFilter
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): CollectionMetadata!
+
+  """
   Returns meta information regarding an assets collection
   """
   _allUploadsMeta(
@@ -2333,6 +2394,33 @@ type Query {
   ): [ProjectRecord!]!
 
   """
+  Returns a collection of records
+  """
+  allTalks(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: TalkModelFilter
+
+    """
+    Limit the number of results
+    """
+    first: IntType = 20
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    orderBy: [TalkModelOrderBy] = [_updatedAt_DESC]
+
+    """
+    Skip the first results
+    """
+    skip: IntType
+  ): [TalkRecord!]!
+
+  """
   Returns a collection of assets
   """
   allUploads(
@@ -2439,6 +2527,23 @@ type Query {
     """
     locale: SiteLocale
   ): RouteRecord
+
+  """
+  Returns a specific record
+  """
+  talk(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: TalkModelFilter
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+    orderBy: [TalkModelOrderBy] = [_updatedAt_DESC]
+  ): TalkRecord
 
   """
   Returns a specific asset
@@ -2672,6 +2777,90 @@ type Tag {
   attributes: MetaTagAttributes
   content: String
   tag: String!
+}
+
+input TalkModelFilter {
+  OR: [TalkModelFilter]
+  _createdAt: CreatedAtFilter
+  _firstPublishedAt: PublishedAtFilter
+  _isValid: BooleanFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _updatedAt: UpdatedAtFilter
+  createdAt: CreatedAtFilter
+  date: DateFilter
+  description: StringFilter
+  id: ItemIdFilter
+  title: StringFilter
+  updatedAt: UpdatedAtFilter
+  url: StringFilter
+}
+
+enum TalkModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  date_ASC
+  date_DESC
+  description_ASC
+  description_DESC
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  url_ASC
+  url_DESC
+}
+
+"""
+Record of type Talk (talk)
+"""
+type TalkRecord {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  createdAt: DateTime!
+  date: Date
+  description: String
+  id: ItemId!
+  title: String
+  updatedAt: DateTime!
+  url: String
 }
 
 """
