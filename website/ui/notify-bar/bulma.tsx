@@ -4,7 +4,7 @@ import { Anchor } from "ui/core/anchor";
 import { NotifyBar } from ".";
 
 export function BulmaNotifyBar() {
-  const [show, setShow] = useState(() => __DEV__);
+  const [show, setShow] = useState(() => false);
   useEffect(() => {
     if (__PROD__) setShow(document.referrer.includes("bulma.io"));
   }, []);
