@@ -29,8 +29,7 @@ export default function BlogPage({ query }: BlogPageProps) {
       <Seo />
       <PageHeader className="pt-[10vh] md:pt-[20vh]" description={description} title={title} />
       <div className="flex items-center space-x-2 text-xs sm:space-x-4">
-        <hr className="flex-grow border-neutral-500" />
-        <div>Follow feed updates:</div>
+        <hr className="flex-grow border-neutral-500/50" />
         <Anchor className="text-primary hover:underline" external href="/blog/atom.xml">
           atom.xml
         </Anchor>
