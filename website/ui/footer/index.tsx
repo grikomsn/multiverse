@@ -1,5 +1,6 @@
 import { Github, Twitter } from "lucide-react";
 import { Anchor } from "ui/core/anchor";
+import { Mastodon } from "ui/icon/mastodon";
 
 export function Footer() {
   return (
@@ -21,10 +22,13 @@ export function Footer() {
       <br />
       <br />
       <div className="flex items-center space-x-6">
-        <Anchor href="https://github.com/grikomsn">
+        <Anchor href="https://github.com/grikomsn" rel="me">
           <Github className="w-5 h-5 hover:text-neutral-300" />
         </Anchor>
-        <Anchor href="https://twitter.com/griko_nibras">
+        <Anchor href="https://mastodon.social/@griko" rel="me">
+          <Mastodon className="w-5 h-5 hover:text-neutral-300" />
+        </Anchor>
+        <Anchor href="https://twitter.com/griko_nibras" rel="me">
           <Twitter className="w-5 h-5 hover:text-neutral-300" />
         </Anchor>
       </div>
