@@ -45,7 +45,7 @@ let nextConfig = {
       ],
     },
   ],
-  reactStrictMode: false, // TODO: enable after headless and radix has been updated for react 18
+  reactStrictMode: true,
   redirects: async () => [
     { source: "/writings", destination: "/blog", permanent: true },
     { source: "/writings/:match*", destination: "/blog/:match*", permanent: true },
