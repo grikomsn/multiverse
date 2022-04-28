@@ -8,14 +8,14 @@ export type AnchorProps = ComponentProps<"a"> & {
 
 export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
   //
-  function Anchor({ children, external, href = "", ...rest }, ref) {
+  function Anchor({ children, external, href = "", rel = "", ...rest }, ref) {
     const isApi = href.startsWith("/api");
     const isRelative = href.startsWith("/");
     const isExternal = typeof external === "boolean" ? external : isApi || !isRelative;
 
     const Wrap = (isExternal ? Fragment : Link) as ComponentType<any>;
     const wrapProps = isExternal ? {} : { href };
-    const linkProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
+    const linkProps = isExternal ? { target: "_blank", rel: `noopener noreferrer ${rel}` } : { rel };
 
     return (
       <Wrap {...wrapProps}>
