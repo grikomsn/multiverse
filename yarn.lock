@@ -510,9 +510,9 @@
     strip-json-comments "^3.1.1"
 
 "@fontsource/plus-jakarta-sans@^4":
-  version "4.5.6"
-  resolved "https://registry.yarnpkg.com/@fontsource/plus-jakarta-sans/-/plus-jakarta-sans-4.5.6.tgz#53911b5510a4ac1961e78a5cf349c40436ee4476"
-  integrity sha512-R8a1s6y/Tha4oH7D8OWwEAZnOrwX1Qvc7EMKljs9ZxFiDDIBHc+qFP9b8VKlHblAb4ns4e4oJiQdP6xOW8yAVA==
+  version "4.5.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/plus-jakarta-sans/-/plus-jakarta-sans-4.5.8.tgz#8ad38f95953a8a8b23a68c4532a856779f1c8e0f"
+  integrity sha512-rkNIWw6q9M3cVpMxIN85IMG/MxePHl7dTSEvr6xngjvvc8FPudZpJF8R7OsFAGhxdOKXZnO3kFnqXni4Jd5Nog==
 
 "@graphql-codegen/add@^3":
   version "3.1.1"
