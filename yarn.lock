@@ -6586,9 +6586,9 @@ styled-jsx@5.0.1:
   integrity sha512-+PIZ/6Uk40mphiQJJI1202b+/dYeTVd9ZnMPR80pgiWbjIwvN2zIp4r9et0BgqBuShh48I0gttPlAXA7WVvBxw==
 
 superjson@^1:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/superjson/-/superjson-1.9.0.tgz#9e9aa29ab3ffd4459b160bcf7bd1b11e79b86d4e"
-  integrity sha512-QINRsBDH2qiLUKEjTfZTP2xH7s9CvzyFrv8b/XclCnmC6W7J7Y1vk8ApKtmSgWz+IzWvp5JbZJhc0uGR++kdyw==
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/superjson/-/superjson-1.9.1.tgz#e23bd2e8cf0f4ade131d6d769754cac7eaa8ab34"
+  integrity sha512-oT3HA2nPKlU1+5taFgz/HDy+GEaY+CWEbLzaRJVD4gZ7zMVVC4GDNFdgvAZt6/VuIk6D2R7RtPAiCHwmdzlMmg==
   dependencies:
     copy-anything "^3.0.2"
 
