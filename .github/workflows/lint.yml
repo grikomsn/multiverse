@@ -16,7 +16,7 @@ jobs:
         with:
           cache: "yarn"
           node-version: "14"
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://npm.pkg.github.com"
       - run: yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
