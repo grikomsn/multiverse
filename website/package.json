@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@fontsource/plus-jakarta-sans": "^4",
-    "@griko/private-fonts": "*",
+    "@grikomsn/private-fonts": "*",
     "@headlessui/react": "^1",
     "@project/tailwind-animations": "*",
     "@radix-ui/react-tooltip": "next",
