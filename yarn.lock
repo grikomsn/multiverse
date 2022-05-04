@@ -881,10 +881,10 @@
     tslib "~2.3.0"
     value-or-promise "1.0.11"
 
-"@griko/private-fonts@*":
+"@grikomsn/private-fonts@*":
   version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@griko/private-fonts/-/private-fonts-0.0.1.tgz#93a957246b524160e200b9a78569caf921ccf497"
-  integrity sha512-dv/4BO7CVRdaHKotYmOult5rLPtDR0bu907k3QqDJjC/wkAcdWWdtj6e4nBZbSiLEVaWtQMQcU3ylDzhQ5PEGw==
+  resolved "https://npm.pkg.github.com/download/@grikomsn/private-fonts/0.0.1/009791250553ae7030b715d88b36fe0e90883b8eb4da89d64af8942e360843e8#0a202683f8efbb944cbf5783d05c4cdecc8c5e65"
+  integrity sha512-Fa+f684JDi2pBcOiv2pU0966ZUJ+5LjwTXyrojfBUeajZbAhuURkJnEbHBbqfuwer575fk2OAENRdyQm6PNc2Q==
 
 "@headlessui/react@^1":
   version "1.6.1"
@@ -1309,9 +1309,9 @@
   integrity sha512-WJu0I4PpqNPuutpaA9zDUq2JXR+lorZ7PbLcKNLmb6GL9/HLfC7w3CRsMhJF4BbYd/lkY6CfXOvkYpuGnZfkpQ==
 
 "@tailwindcss/forms@^0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.0.tgz#d4bea2560a10aac642573e72d3b4d62a88960449"
-  integrity sha512-KzWugryEBFkmoaYcBE18rs6gthWCFHHO7cAZm2/hv3hwD67AzwP7udSCa22E7R1+CEJL/FfhYsJWrc0b1aeSzw==
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.1.tgz#7fe86b9b67e6d91cb902e2d3f4ebe561cc057a13"
+  integrity sha512-QSwsFORnC2BAP0lRzQkz1pw+EzIiiPdk4e27vGQjyXkwJPeC7iLIRVndJzf9CJVbcrrIcirb/TfxF3gRTyFEVA==
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
