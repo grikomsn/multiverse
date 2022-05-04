@@ -600,15 +600,15 @@
     tslib "~2.3.0"
 
 "@graphql-codegen/typescript-operations@^2":
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-2.3.5.tgz#1e77b96da0949f9e0ecd6054eb28b582936e35e8"
-  integrity sha512-GCZQW+O+cIF62ioPkQMoSJGzjJhtr7ttZGJOAoN/Q/oolG8ph9jNFePKO67tSQ/POAs5HLqfat4kAlCK8OPV3Q==
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-2.3.6.tgz#f5de1fb6585dfe2b43a3a3dd77b86dedb6729dcd"
+  integrity sha512-hb56WkuidVoMztGeDz5Y2mjc6wdwPT+g6/YGwokbrMHl5yAuS7JtM4r3eOHaWUUYGfFhY2R5Dbq/KrG8P/syug==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.4.0"
-    "@graphql-codegen/typescript" "^2.4.8"
-    "@graphql-codegen/visitor-plugin-common" "2.7.4"
+    "@graphql-codegen/typescript" "^2.4.9"
+    "@graphql-codegen/visitor-plugin-common" "2.7.5"
     auto-bind "~4.0.0"
-    tslib "~2.3.0"
+    tslib "~2.4.0"
 
 "@graphql-codegen/typescript-react-query@^3":
   version "3.5.10"
@@ -621,7 +621,7 @@
     change-case-all "1.0.14"
     tslib "~2.4.0"
 
-"@graphql-codegen/typescript@^2", "@graphql-codegen/typescript@^2.4.8":
+"@graphql-codegen/typescript@^2", "@graphql-codegen/typescript@^2.4.9":
   version "2.4.9"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript/-/typescript-2.4.9.tgz#ab3eeaa5773cf78df7ddc2ffbb0447ee2920728c"
   integrity sha512-7l2qw3j8aC9CAW/Tm4x1kkIpDt34xqv8zTwRpmVaVwooZd6usvydkaEwJUMId8Aj0F1SDIzAlYNiG523SRu+Ng==
@@ -631,22 +631,6 @@
     "@graphql-codegen/visitor-plugin-common" "2.7.5"
     auto-bind "~4.0.0"
     tslib "~2.4.0"
-
-"@graphql-codegen/visitor-plugin-common@2.7.4":
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-2.7.4.tgz#fbc8aec9df0035b8f29fa64a6356cbb02062da5d"
-  integrity sha512-aaDoEudDD+B7DK/UwDSL2Fzej75N9hNJ3N8FQuTIeDyw6FNGWUxmkjVBLQGlzfnYfK8IYkdfYkrPn3Skq0pVxA==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^2.4.0"
-    "@graphql-tools/optimize" "^1.0.1"
-    "@graphql-tools/relay-operation-optimizer" "^6.3.7"
-    "@graphql-tools/utils" "^8.3.0"
-    auto-bind "~4.0.0"
-    change-case-all "1.0.14"
-    dependency-graph "^0.11.0"
-    graphql-tag "^2.11.0"
-    parse-filepath "^1.0.2"
-    tslib "~2.3.0"
 
 "@graphql-codegen/visitor-plugin-common@2.7.5":
   version "2.7.5"
