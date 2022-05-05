@@ -1,0 +1,24 @@
+name: Lockfile
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+
+jobs:
+  validate:
+    name: Rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+          node-version: "14"
+          registry-url: "https://npm.pkg.github.com"
+      - run: rm -rf yarn.lock **/node_modules/
+      - run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: "chore(deps): scheduled lockfile rebuild"
