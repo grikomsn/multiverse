@@ -23,9 +23,14 @@ export const rehypePrettyCodeOptions: Partial<Options> = {
   theme: "github-dark",
 };
 
-export const defaultMdxOptions: SerializeOptions["mdxOptions"] = {
+export interface GetMdxOptionsArgs {
+  toc?: boolean;
+}
+
+export const getMdxOptions = (args: GetMdxOptionsArgs = {}): SerializeOptions["mdxOptions"] => ({
   rehypePlugins: [
     rehypeSlug,
+    args.toc ? {} : {}, // TODO
     [
       rehypeAutolinkHeadings,
       {
@@ -37,6 +42,6 @@ export const defaultMdxOptions: SerializeOptions["mdxOptions"] = {
     [rehypePrettyCode, rehypePrettyCodeOptions],
   ],
   remarkPlugins: [remarkGfm],
-};
+});
 
 /* eslint-enable @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access */
