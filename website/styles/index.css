@@ -18,6 +18,20 @@ html {
   @apply subpixel-antialiased bg-body font-sans overflow-x-hidden selection:bg-opacity-50 selection:bg-primary text-text underline-offset-2;
 }
 
+[data-heading-link] {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  left: -2ch;
+  opacity: 0%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+[data-heading-link]:hover {
+  opacity: 100%;
+}
+
 [data-rehype-pretty-code-fragment] > pre {
   padding: 0;
 }
