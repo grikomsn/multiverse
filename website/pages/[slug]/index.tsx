@@ -1,7 +1,7 @@
 import type { GetCustomPageQuery } from "__generated__/graphql";
 import { useGetCustomPageQuery, useGetCustomPageSlugsQuery } from "__generated__/graphql";
 import clsx from "clsx";
-import { defaultMdxOptions } from "lib/markdown";
+import { getMdxOptions } from "lib/markdown";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { MDXRemote } from "next-mdx-remote";
@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<CustomPageProps, CustomPageParams> =
     };
   }
   const compiledContent = await serialize(query.page.content, {
-    mdxOptions: defaultMdxOptions,
+    mdxOptions: getMdxOptions(),
   });
   return {
     props: {

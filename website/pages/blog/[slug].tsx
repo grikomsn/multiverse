@@ -2,7 +2,7 @@ import type { GetBlogPostQuery } from "__generated__/graphql";
 import { useGetBlogPostQuery, useGetBlogPostSlugsQuery } from "__generated__/graphql";
 import clsx from "clsx";
 import metadataJson from "config/metadata";
-import { defaultMdxOptions } from "lib/markdown";
+import { getMdxOptions } from "lib/markdown";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps, BlogPostPageParam
     };
   }
   const compiledContent = await serialize(query.post.content, {
-    mdxOptions: defaultMdxOptions,
+    mdxOptions: getMdxOptions({ toc: true }),
   });
   return {
     props: {
@@ -104,7 +104,7 @@ export default function BlogPostPage({ query, compiledContent }: BlogPostPagePro
         </div>
       </div>
       <hr className="flex-grow border-neutral-500/50" />
-      <article className="cursor-auto prose prose-invert">
+      <article className="relative cursor-auto prose prose-invert">
         <MDXRemote {...compiledContent} />
       </article>
     </section>
