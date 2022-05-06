@@ -44,6 +44,8 @@
     "react-hot-toast": "^2",
     "react-query": "^3",
     "rehype-pretty-code": "^0",
+    "rehype-autolink-headings": "^6",
+    "rehype-slug": "^5",
     "remark-gfm": "^3",
     "shiki": "^0",
     "superjson": "^1",
