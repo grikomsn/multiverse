@@ -622,13 +622,13 @@
     tslib "~2.4.0"
 
 "@graphql-codegen/typescript@^2", "@graphql-codegen/typescript@^2.4.9":
-  version "2.4.9"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript/-/typescript-2.4.9.tgz#ab3eeaa5773cf78df7ddc2ffbb0447ee2920728c"
-  integrity sha512-7l2qw3j8aC9CAW/Tm4x1kkIpDt34xqv8zTwRpmVaVwooZd6usvydkaEwJUMId8Aj0F1SDIzAlYNiG523SRu+Ng==
+  version "2.4.10"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript/-/typescript-2.4.10.tgz#245512826fc0c6663756cca6359ac4d45719af5f"
+  integrity sha512-Wr/GzYrpY8d8I9+ZFSkNefOpYaMtBL2s2E79IoEOLAqXHUWxM0reBwkEk4oHtLw27AmaXgngajPFPaO5QAhotQ==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.4.0"
     "@graphql-codegen/schema-ast" "^2.4.1"
-    "@graphql-codegen/visitor-plugin-common" "2.7.5"
+    "@graphql-codegen/visitor-plugin-common" "2.7.6"
     auto-bind "~4.0.0"
     tslib "~2.4.0"
 
@@ -636,6 +636,22 @@
   version "2.7.5"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-2.7.5.tgz#930fea2c084042b604bead6665b7a0d1542c445b"
   integrity sha512-k4adLokuudmhEO4l8PncoQdQl20BpwAOdSWzuYEjezb7KJvYgImkNCk0GghyRSg0rHh+0yFN4CjtpBR4nZX7Aw==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^2.4.0"
+    "@graphql-tools/optimize" "^1.0.1"
+    "@graphql-tools/relay-operation-optimizer" "^6.3.7"
+    "@graphql-tools/utils" "^8.3.0"
+    auto-bind "~4.0.0"
+    change-case-all "1.0.14"
+    dependency-graph "^0.11.0"
+    graphql-tag "^2.11.0"
+    parse-filepath "^1.0.2"
+    tslib "~2.4.0"
+
+"@graphql-codegen/visitor-plugin-common@2.7.6":
+  version "2.7.6"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-2.7.6.tgz#70be729551fedc090d69fe4f16272bccf5222d28"
+  integrity sha512-XHeopd8z5UE2alv8nn2LrF+qpfRpldeqHOwrmLmlzyCWcuz5vMiZ08CgtE03micQNQJg5s8Z9m72S3FrvBUoAA==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.4.0"
     "@graphql-tools/optimize" "^1.0.1"
@@ -3438,6 +3454,11 @@ get-symbol-description@^1.0.0:
     call-bind "^1.0.2"
     get-intrinsic "^1.1.1"
 
+github-slugger@^1.1.1:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/github-slugger/-/github-slugger-1.4.0.tgz#206eb96cdb22ee56fdc53a28d5a302338463444e"
+  integrity sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==
+
 glob-parent@^5.1.2, glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
@@ -3635,6 +3656,26 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hast-util-has-property@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hast-util-has-property/-/hast-util-has-property-2.0.0.tgz#c15cd6180f3e535540739fcc9787bcffb5708cae"
+  integrity sha512-4Qf++8o5v14us4Muv3HRj+Er6wTNGA/N9uCaZMty4JWvyFKLdhULrv4KE1b65AthsSO9TXSZnjuxS8ecIyhb0w==
+
+hast-util-heading-rank@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/hast-util-heading-rank/-/hast-util-heading-rank-2.1.0.tgz#c39f34fa8330ebfec03a08b5d5019ed56122029c"
+  integrity sha512-w+Rw20Q/iWp2Bcnr6uTrYU6/ftZLbHKhvc8nM26VIWpDqDMlku2iXUVTeOlsdoih/UKQhY7PHQ+vZ0Aqq8bxtQ==
+  dependencies:
+    "@types/hast" "^2.0.0"
+
+hast-util-is-element@^2.0.0:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/hast-util-is-element/-/hast-util-is-element-2.1.2.tgz#fc0b0dc7cef3895e839b8d66979d57b0338c68f3"
+  integrity sha512-thjnlGAnwP8ef/GSO1Q8BfVk2gundnc2peGQqEg2kUt/IqesiGg/5mSwN2fE7nLzy61pg88NG6xV+UrGOrx9EA==
+  dependencies:
+    "@types/hast" "^2.0.0"
+    "@types/unist" "^2.0.0"
+
 hast-util-to-estree@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/hast-util-to-estree/-/hast-util-to-estree-2.0.2.tgz#79c5bf588915610b3f0d47ca83a74dc0269c7dc2"
@@ -3654,6 +3695,13 @@ hast-util-to-estree@^2.0.0:
     style-to-object "^0.3.0"
     unist-util-position "^4.0.0"
     zwitch "^2.0.0"
+
+hast-util-to-string@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hast-util-to-string/-/hast-util-to-string-2.0.0.tgz#b008b0a4ea472bf34dd390b7eea1018726ae152a"
+  integrity sha512-02AQ3vLhuH3FisaMM+i/9sm4OXGSq1UhOOCpTLLQtHdL3tZt7qil69r8M8iDkZYyC0HCFylcYoP+8IO7ddta1A==
+  dependencies:
+    "@types/hast" "^2.0.0"
 
 hast-util-whitespace@^2.0.0:
   version "2.0.0"
@@ -5971,12 +6019,38 @@ registry-url@^5.0.0:
   dependencies:
     rc "^1.2.8"
 
+rehype-autolink-headings@^6:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/rehype-autolink-headings/-/rehype-autolink-headings-6.1.1.tgz#0cb874a56f3de6ead1c2268d7f0fc5006f244db5"
+  integrity sha512-NMYzZIsHM3sA14nC5rAFuUPIOfg+DFmf9EY1YMhaNlB7+3kK/ZlE6kqPfuxr1tsJ1XWkTrMtMoyHosU70d35mA==
+  dependencies:
+    "@types/hast" "^2.0.0"
+    extend "^3.0.0"
+    hast-util-has-property "^2.0.0"
+    hast-util-heading-rank "^2.0.0"
+    hast-util-is-element "^2.0.0"
+    unified "^10.0.0"
+    unist-util-visit "^4.0.0"
+
 rehype-pretty-code@^0:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/rehype-pretty-code/-/rehype-pretty-code-0.3.1.tgz#5ebee90351e3f1075297282e9851996303e339ff"
   integrity sha512-okpBgOHHkAfDKQA6H3hw+By/45MBFN0TI/ATfG8QLW0Y2R8GqBcSOnhE23qOCqrp7P5BiDdIUorJDNDi7VpUpQ==
   dependencies:
     parse-numeric-range "^1.3.0"
+
+rehype-slug@^5:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/rehype-slug/-/rehype-slug-5.0.1.tgz#6e732d0c55b3b1e34187e74b7363fb53229e5f52"
+  integrity sha512-X5v3wV/meuOX9NFcGhJvUpEjIvQl2gDvjg3z40RVprYFt7q3th4qMmYLULiu3gXvbNX1ppx+oaa6JyY1W67pTA==
+  dependencies:
+    "@types/hast" "^2.0.0"
+    github-slugger "^1.1.1"
+    hast-util-has-property "^2.0.0"
+    hast-util-heading-rank "^2.0.0"
+    hast-util-to-string "^2.0.0"
+    unified "^10.0.0"
+    unist-util-visit "^4.0.0"
 
 relay-compiler@12.0.0:
   version "12.0.0"
