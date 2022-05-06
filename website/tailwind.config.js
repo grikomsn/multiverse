@@ -61,6 +61,7 @@ const tailwindConfig = {
             "h1,h2,h3,h4,h5,h6": {
               color: theme("colors.neutral.200"),
               fontWeight: "bold",
+              position: "relative",
             },
             a: {
               color: theme("colors.primary"),

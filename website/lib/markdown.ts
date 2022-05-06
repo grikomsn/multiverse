@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access */
 
 import type { SerializeOptions } from "next-mdx-remote/dist/types";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import type { Options } from "rehype-pretty-code";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 export const rehypePrettyCodeOptions: Partial<Options> = {
@@ -21,7 +23,23 @@ export const rehypePrettyCodeOptions: Partial<Options> = {
 };
 
 export const defaultMdxOptions: SerializeOptions["mdxOptions"] = {
-  rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+  rehypePlugins: [
+    rehypeSlug,
+    [
+      rehypeAutolinkHeadings,
+      {
+        content: (_node) => [
+          {
+            type: "element",
+            tagName: "span",
+            properties: { className: "absolute left-[-2ch]" },
+            children: [{ type: "text", value: "🔗" }],
+          },
+        ],
+      },
+    ],
+    [rehypePrettyCode, rehypePrettyCodeOptions],
+  ],
   remarkPlugins: [remarkGfm],
 };
 
