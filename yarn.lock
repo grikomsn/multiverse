@@ -611,12 +611,12 @@
     tslib "~2.4.0"
 
 "@graphql-codegen/typescript-react-query@^3":
-  version "3.5.11"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-react-query/-/typescript-react-query-3.5.11.tgz#c366452079ece32b17bf4bf6197fb4633931afab"
-  integrity sha512-g51xnip/de3DjymJqGtyH30DC7tuX692Qoybohn934c3gSOajEz5RiBqpWCr4cu95F4BegunXF47/cs0rC6c7Q==
+  version "3.5.12"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-react-query/-/typescript-react-query-3.5.12.tgz#57f452eeb3fc669c85420d855c60223ba804be91"
+  integrity sha512-XuBbfMbgO3BVav+hF9VnZSbgkmCkLn6IY75Pi3UobkCz7LTsi1HwHyycuMtErk2K9pisM6Iuw+NfBDJq2/Ys0Q==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.4.0"
-    "@graphql-codegen/visitor-plugin-common" "2.7.6"
+    "@graphql-codegen/visitor-plugin-common" "2.8.0"
     auto-bind "~4.0.0"
     change-case-all "1.0.14"
     tslib "~2.4.0"
@@ -636,6 +636,22 @@
   version "2.7.6"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-2.7.6.tgz#70be729551fedc090d69fe4f16272bccf5222d28"
   integrity sha512-XHeopd8z5UE2alv8nn2LrF+qpfRpldeqHOwrmLmlzyCWcuz5vMiZ08CgtE03micQNQJg5s8Z9m72S3FrvBUoAA==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^2.4.0"
+    "@graphql-tools/optimize" "^1.0.1"
+    "@graphql-tools/relay-operation-optimizer" "^6.3.7"
+    "@graphql-tools/utils" "^8.3.0"
+    auto-bind "~4.0.0"
+    change-case-all "1.0.14"
+    dependency-graph "^0.11.0"
+    graphql-tag "^2.11.0"
+    parse-filepath "^1.0.2"
+    tslib "~2.4.0"
+
+"@graphql-codegen/visitor-plugin-common@2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-2.8.0.tgz#f1de3bd5ee123e6f72c06423912a3a83a6044938"
+  integrity sha512-29MOaxBog7qaEhmeCzJn2mONSbcA+slCTzHN4nJ3aZl4KrC9V32rXlQpG5x0qHbFQ1LaG1f5gPO83xbiAeMBIw==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.4.0"
     "@graphql-tools/optimize" "^1.0.1"
