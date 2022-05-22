@@ -61,10 +61,10 @@ const tailwindConfig = {
               position: "relative",
             },
             a: {
-              color: theme("colors.primary"),
+              color: theme("colors.primary.500"),
               overflowWrap: "break-word",
               "&:hover": {
-                color: theme("colors.primary-focus"),
+                color: theme("colors.primary.600"),
               },
             },
             blockquote: {
