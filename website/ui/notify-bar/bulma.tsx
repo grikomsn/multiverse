@@ -15,7 +15,7 @@ export function BulmaNotifyBar() {
         <br />
         This website is now made using Tailwind CSS. View the previous Bulma version on{" "}
         <Anchor
-          className="text-primary hover:underline"
+          className="text-yellow-500 hover:underline"
           href="https://web.archive.org/web/20181123052514/https://griko.id/"
         >
           archive.org

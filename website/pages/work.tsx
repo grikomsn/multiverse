@@ -35,7 +35,7 @@ export default function WorkPage({ query }: WorkPageProps) {
             <div>
               <h3 className="mb-2 text-xl font-bold">{item.title}</h3>
               <p className="mb-4 leading-relaxed text-neutral-400">{item.description}</p>
-              <Anchor className="before:inset-0 text-primary hover:underline sm:before:absolute" href={item.url}>
+              <Anchor className="before:inset-0 text-yellow-500 hover:underline sm:before:absolute" href={item.url}>
                 Visit website &nbsp; →
               </Anchor>
             </div>
