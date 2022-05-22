@@ -19,7 +19,7 @@ export function NotifyBar({ children, className, type = "info", ...rest }: Notif
         {
           "bg-blue-800/80 hover:bg-blue-800": type === "info",
           "bg-green-800/80 hover:bg-green-800": type === "success",
-          "bg-yellow-800/80 hover:bg-yellow-800": type === "warning",
+          "bg-primary-800/80 hover:bg-primary-800": type === "warning",
           "bg-red-800/80 hover:bg-red-800": type === "error",
         },
         className,

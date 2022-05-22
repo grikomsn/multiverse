@@ -38,14 +38,14 @@ export default function HomePage({ query, compiledExcerpt }: HomePageProps) {
             <ProjectImage alt={item.title} className="mb-4" src={item.image.url} />
             <h4 className="mb-2 text-lg font-bold">{item.title}</h4>
             <p className="flex-grow mb-4 text-neutral-400">{item.description}</p>
-            <Anchor className="text-yellow-500 hover:underline sm:before:absolute sm:before:inset-0" href={item.url}>
+            <Anchor className="text-primary-500 hover:underline sm:before:absolute sm:before:inset-0" href={item.url}>
               Visit website &nbsp; →
             </Anchor>
           </li>
         ))}
       </ul>
       <div className="!mb-24 text-right">
-        <Anchor className="text-neutral-400 hover:text-yellow-500 hover:underline" href="/work">
+        <Anchor className="text-neutral-400 hover:text-primary-500 hover:underline" href="/work">
           View all projects &nbsp; →
         </Anchor>
       </div>
@@ -56,7 +56,7 @@ export default function HomePage({ query, compiledExcerpt }: HomePageProps) {
         ))}
       </ul>
       <div className="!mb-24 text-right">
-        <Anchor className="text-neutral-400 hover:text-yellow-500 hover:underline" href="/talk">
+        <Anchor className="text-neutral-400 hover:text-primary-500 hover:underline" href="/talk">
           View all talks &nbsp; →
         </Anchor>
       </div>
@@ -67,7 +67,7 @@ export default function HomePage({ query, compiledExcerpt }: HomePageProps) {
         ))}
       </ul>
       <div className="text-right">
-        <Anchor className="text-neutral-400 hover:text-yellow-500 hover:underline" href="/blog">
+        <Anchor className="text-neutral-400 hover:text-primary-500 hover:underline" href="/blog">
           View all posts &nbsp; →
         </Anchor>
       </div>

@@ -21,9 +21,9 @@ export function NavigationLink({ children, href }: NavigationLinkProps) {
           "before:absolute before:inset-x-2 before:rounded-t-full before:border-b before:pointer-events-none",
           "before:shadow motion-safe:before:transition-all",
           isActive ? "before:bottom-[-4px]" : "before:bottom-[-8px] hover:before:bottom-[-4px]",
-          isActive ? "before:shadow-yellow-500" : "hover:before:shadow-neutral-400",
+          isActive ? "before:shadow-primary-500" : "hover:before:shadow-neutral-400",
           isActive
-            ? "text-yellow-500 before:border-yellow-500 before:border-opacity-100"
+            ? "text-primary-500 before:border-primary-500 before:border-opacity-100"
             : "before:border-neutral-400 before:border-opacity-0 hover:before:border-opacity-100",
         )}
         data-navigation-link=""

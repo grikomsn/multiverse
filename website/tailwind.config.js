@@ -1,3 +1,4 @@
+const colors = require("tailwindcss/colors");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import("tailwindcss/plugin").TailwindPluginCreator} */
@@ -26,6 +27,9 @@ const tailwindConfig = {
   presets: [require("@project/tailwind-animations")],
   theme: {
     extend: {
+      colors: {
+        primary: colors.yellow,
+      },
       fontFamily: {
         mono: ['"Berkeley Mono"', ...defaultTheme.fontFamily.mono],
         sans: ['"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
