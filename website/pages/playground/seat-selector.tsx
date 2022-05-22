@@ -50,7 +50,7 @@ function Seat({ id, state }: SeatProps) {
           "hover:bg-neutral-500 hover:bg-opacity-50": state === 0,
           "border-none": state > 0,
           "bg-neutral-500": state === 1,
-          "bg-yellow-700": state === 2,
+          "bg-primary-700": state === 2,
         },
       )}
       disabled={state > 0}

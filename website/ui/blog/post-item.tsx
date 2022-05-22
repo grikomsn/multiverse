@@ -28,7 +28,7 @@ export function PostItem({ data }: PostItemProps) {
         <span
           className={clsx(
             "text-xs hover:underline line-clamp-1 sm:group-hover:underline",
-            data.redirect ? "text-blue-400" : "text-yellow-500",
+            data.redirect ? "text-blue-400" : "text-primary-500",
           )}
         >
           {data.redirect ? data.redirect : `/blog/${data.slug}`}

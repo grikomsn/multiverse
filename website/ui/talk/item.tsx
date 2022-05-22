@@ -23,7 +23,7 @@ export function TalkItem({ data }: TalkItemProps) {
         href={data.url}
       >
         <ExternalLink className="w-3 h-3 text-neutral-400" />
-        <span className="text-xs text-yellow-500 hover:underline line-clamp-1 sm:group-hover:underline">
+        <span className="text-xs text-primary-500 hover:underline line-clamp-1 sm:group-hover:underline">
           {data.url}
         </span>
       </Anchor>

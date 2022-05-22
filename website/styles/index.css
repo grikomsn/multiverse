@@ -15,7 +15,7 @@ html {
   font-feature-settings: "ss01" 0, "ss02" 0, "ss03" 0;
   line-height: 1.7142857;
   text-rendering: optimizeLegibility;
-  @apply subpixel-antialiased bg-neutral-900 font-sans overflow-x-hidden selection:bg-opacity-50 selection:bg-yellow-500 text-neutral-300 underline-offset-2;
+  @apply subpixel-antialiased bg-neutral-900 font-sans overflow-x-hidden selection:bg-opacity-50 selection:bg-primary-500 text-neutral-300 underline-offset-2;
 }
 
 [data-heading-link] {
@@ -43,7 +43,7 @@ html {
   @apply px-4;
 }
 [data-rehype-pretty-code-fragment] > pre > code span.line.highlighted {
-  @apply bg-yellow-500/20;
+  @apply bg-primary-500/20;
 }
 [data-rehype-pretty-code-fragment] > pre > code span.line .word {
   @apply -m-1 p-1;

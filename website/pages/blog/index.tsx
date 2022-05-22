@@ -30,13 +30,13 @@ export default function BlogPage({ query }: BlogPageProps) {
       <PageHeader className="pt-[10vh] md:pt-[20vh]" description={description} title={title} />
       <div className="flex items-center space-x-2 text-xs sm:space-x-4">
         <hr className="flex-grow border-neutral-500/50" />
-        <Anchor className="text-yellow-500 hover:underline" external href="/blog/atom.xml">
+        <Anchor className="text-primary-500 hover:underline" external href="/blog/atom.xml">
           atom.xml
         </Anchor>
-        <Anchor className="text-yellow-500 hover:underline" external href="/blog/feed.json">
+        <Anchor className="text-primary-500 hover:underline" external href="/blog/feed.json">
           feed.json
         </Anchor>
-        <Anchor className="text-yellow-500 hover:underline" external href="/blog/rss.xml">
+        <Anchor className="text-primary-500 hover:underline" external href="/blog/rss.xml">
           rss.xml
         </Anchor>
       </div>
