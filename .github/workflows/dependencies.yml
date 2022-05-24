@@ -21,4 +21,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       - uses: EndBug/add-and-commit@v9
         with:
-          message: "chore(deps): scheduled lockfile rebuild"
+          message: "chore(deps): upgrade versions"
