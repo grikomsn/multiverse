@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access */
-
+import type { Element } from "hast";
 import type { SerializeOptions } from "next-mdx-remote/dist/types";
+import type { Options as RehypeAutolinkHeadingsOptions } from "rehype-autolink-headings";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import type { Options } from "rehype-pretty-code";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -8,14 +8,29 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { LinkIconHast } from "ui/icon/link";
 
+export const rehypeAutolinkHeadingsOptions: RehypeAutolinkHeadingsOptions = {
+  content: () => [
+    {
+      type: "element",
+      tagName: "span",
+      properties: { "data-heading-link": "" },
+      children: [LinkIconHast],
+    },
+  ],
+};
+
 export const rehypePrettyCodeOptions: Partial<Options> = {
-  onVisitHighlightedLine(node) {
-    node.properties.className.push("highlighted");
+  onVisitHighlightedLine<T extends Element>(node: T) {
+    if (node.properties && Array.isArray(node.properties.className)) {
+      node.properties.className.push("highlighted");
+    }
   },
-  onVisitHighlightedWord(node) {
-    node.properties.className = ["word"];
+  onVisitHighlightedWord<T extends Element>(node: T) {
+    if (node.properties) {
+      node.properties.className = ["word"];
+    }
   },
-  onVisitLine(node) {
+  onVisitLine<T extends Element>(node: T) {
     if (node.children.length === 0) {
       node.children = [{ type: "text", value: " " }];
     }
@@ -31,17 +46,8 @@ export const getMdxOptions = (args: GetMdxOptionsArgs = {}): SerializeOptions["m
   rehypePlugins: [
     rehypeSlug,
     args.toc ? {} : {}, // TODO
-    [
-      rehypeAutolinkHeadings,
-      {
-        content: (_node) => [
-          { type: "element", tagName: "span", properties: { "data-heading-link": "" }, children: [LinkIconHast] },
-        ],
-      },
-    ],
+    [rehypeAutolinkHeadings, rehypeAutolinkHeadingsOptions],
     [rehypePrettyCode, rehypePrettyCodeOptions],
   ],
   remarkPlugins: [remarkGfm],
 });
-
-/* eslint-enable @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access */
