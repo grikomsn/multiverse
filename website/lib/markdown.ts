@@ -1,9 +1,11 @@
+import { nodeTypes } from "@mdx-js/mdx";
 import type { Element } from "hast";
 import type { SerializeOptions } from "next-mdx-remote/dist/types";
 import type { Options as RehypeAutolinkHeadingsOptions } from "rehype-autolink-headings";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import type { Options } from "rehype-pretty-code";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { LinkIconHast } from "ui/icon/link";
@@ -44,6 +46,7 @@ export interface GetMdxOptionsArgs {
 
 export const getMdxOptions = (args: GetMdxOptionsArgs = {}): SerializeOptions["mdxOptions"] => ({
   rehypePlugins: [
+    [rehypeRaw, { passThrough: nodeTypes }],
     rehypeSlug,
     args.toc ? {} : {}, // TODO
     [rehypeAutolinkHeadings, rehypeAutolinkHeadingsOptions],
