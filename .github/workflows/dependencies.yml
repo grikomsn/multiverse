@@ -1,19 +1,19 @@
-name: Lockfile
+name: Dependencies
 
 on:
   schedule:
     - cron: "0 12 * * 1"
 
 jobs:
-  validate:
-    name: Rebuild
+  upgrade:
+    name: Upgrade dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           cache: "yarn"
-          node-version: "14"
+          node-version-file: ".nvmrc"
           registry-url: "https://npm.pkg.github.com"
       - run: rm -rf yarn.lock **/node_modules/
       - run: yarn install

@@ -7,7 +7,7 @@ on:
       - website/**
 
 jobs:
-  validate:
+  lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: "yarn"
-          node-version: "14"
+          node-version-file: ".nvmrc"
           registry-url: "https://npm.pkg.github.com"
       - run: yarn install
         env:
