@@ -19,7 +19,7 @@ jobs:
       - run: yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-      - run: yarn website graphql
+      - run: yarn website graphql-codegen
         env:
           GRAPHQL_TOKEN: ${{ secrets.GRAPHQL_TOKEN }}
       - uses: EndBug/add-and-commit@v9
