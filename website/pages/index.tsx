@@ -1,5 +1,7 @@
 import type { GetHomePageQuery } from "__generated__/graphql";
 import { useGetHomePageQuery } from "__generated__/graphql";
+import clsx from "clsx";
+import { Calendar } from "lucide-react";
 import type { GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote/dist/types";
@@ -30,6 +32,20 @@ export default function HomePage({ query, compiledExcerpt }: HomePageProps) {
     <section className="space-y-8">
       <div className="py-[10vh] prose prose-invert md:py-[20vh]">
         <MDXRemote {...compiledExcerpt} />
+        <div className="pt-4 not-prose">
+          <Anchor
+            className={clsx(
+              "inline-flex items-center py-2 px-4 space-x-3",
+              "font-medium bg-neutral-800/80 rounded-lg shadow-sm",
+              "hover:bg-neutral-700/80 transition-all hover:translate-y-[-1px]",
+            )}
+            external
+            href="/schedule"
+          >
+            <Calendar className="w-5 h-5" />
+            <span>Schedule Meeting</span>
+          </Anchor>
+        </div>
       </div>
       <h3 className="text-lg text-gray-400">Recent projects</h3>
       <ul className="grid grid-cols-1 -mx-4 md:grid-cols-2 not-prose">
