@@ -24,6 +24,9 @@
     "shx": "^0",
     "turbo": "^1"
   },
+  "resolutions": {
+    "node-fetch": "npm:node-fetch-native@latest"
+  },
   "eslintConfig": {
     "extends": [
       "@project/eslint-config"
