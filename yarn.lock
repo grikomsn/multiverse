@@ -4645,9 +4645,9 @@ lru-cache@^6.0.0:
     yallist "^4.0.0"
 
 lucide-react@^0:
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.59.0.tgz#564f77ffb8867a8f4ebf557e8fef59eb4dd9dda9"
-  integrity sha512-IalgqsrxszLhsB3Rg+XtJaU41G+ocVohyknkxFNAq+5CcjRpH0HNsPNfw9l9oVZoGDSNVERjyxWJqRJDRWpmUA==
+  version "0.61.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.61.0.tgz#a189db8f43046aaaa1f0b44b04446df56845e384"
+  integrity sha512-HLSII6yNuCxFU/e5i/1nGj6cp1hfBGtAVcqUyb7sL/C22j8BBkQ6UyZROFXozhRue+uXiLDOg1UP/3Hw8Q/Tiw==
 
 make-dir@^3.0.2, make-dir@^3.1.0:
   version "3.1.0"
