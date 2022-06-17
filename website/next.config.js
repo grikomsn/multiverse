@@ -13,7 +13,7 @@ const cspHeader = `
   child-src *.twitter.com;
   connect-src *;
   default-src 'self';
-  font-src 'self' *.${metadataJson.domain};
+  font-src data: 'self' *.${metadataJson.domain};
   img-src * blob: data:;
   media-src 'none';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' *.${metadataJson.domain};
