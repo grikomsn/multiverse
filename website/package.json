@@ -62,7 +62,7 @@
     "@graphql-codegen/typescript": "^2",
     "@graphql-codegen/typescript-operations": "^2",
     "@graphql-codegen/typescript-react-query": "^3",
-    "@types/node": "^14",
+    "@types/node": "^16",
     "@types/react": "^18",
     "@types/tailwindcss": "^3"
   },

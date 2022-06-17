@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "env-cmd": "^10",
-    "husky": "^7",
-    "lint-staged": "^12",
+    "husky": "^8",
+    "lint-staged": "^13",
     "postinstall-postinstall": "^2",
     "shx": "^0",
     "turbo": "^1"
