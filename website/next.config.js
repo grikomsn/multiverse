@@ -28,9 +28,6 @@ let nextConfig = {
     dirs: ["config", "hooks", "lib", "pages", "store", "ui", "utils"],
     ignoreDuringBuilds: Boolean(process.env.VERCEL),
   },
-  experimental: {
-    runtime: "edge",
-  },
   headers: async () => [
     {
       source: "/(.*)",
@@ -58,7 +55,6 @@ let nextConfig = {
     ...redirectsJson,
   ],
   rewrites: async () => [...rewritesJson],
-  swcMinify: true,
   typescript: {
     ignoreBuildErrors: Boolean(process.env.VERCEL),
   },
