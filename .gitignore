@@ -6,10 +6,8 @@
 .next/
 .turbo/
 .vercel/
-.vercel/
 dist/
 out/
-robots.txt
 
 !.env.example
 !.gitkeep
