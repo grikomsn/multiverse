@@ -21,6 +21,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       - run: yarn website graphql-codegen
         env:
+          GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
           GRAPHQL_TOKEN: ${{ secrets.GRAPHQL_TOKEN }}
       - uses: EndBug/add-and-commit@v9
         with:
