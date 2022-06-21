@@ -78,11 +78,11 @@ export enum ColorBucketType {
 }
 
 export type ColorField = {
-  alpha: Maybe<Scalars["IntType"]>;
-  blue: Maybe<Scalars["IntType"]>;
-  green: Maybe<Scalars["IntType"]>;
-  hex: Maybe<Scalars["String"]>;
-  red: Maybe<Scalars["IntType"]>;
+  alpha: Scalars["IntType"];
+  blue: Scalars["IntType"];
+  green: Scalars["IntType"];
+  hex: Scalars["String"];
+  red: Scalars["IntType"];
 };
 
 /** Specifies how to filter by creation datetime */
@@ -127,7 +127,7 @@ export enum FaviconType {
   MsApplication = "msApplication",
 }
 
-export type FileField = {
+export type FileField = FileFieldInterface & {
   _createdAt: Scalars["DateTime"];
   _updatedAt: Scalars["DateTime"];
   alt: Maybe<Scalars["String"]>;
@@ -135,10 +135,10 @@ export type FileField = {
   basename: Scalars["String"];
   blurUpThumb: Maybe<Scalars["String"]>;
   blurhash: Maybe<Scalars["String"]>;
-  colors: Array<Maybe<ColorField>>;
+  colors: Array<ColorField>;
   copyright: Maybe<Scalars["String"]>;
-  customData: Maybe<Scalars["CustomData"]>;
-  exifInfo: Maybe<Scalars["CustomData"]>;
+  customData: Scalars["CustomData"];
+  exifInfo: Scalars["CustomData"];
   filename: Scalars["String"];
   focalPoint: Maybe<FocalPoint>;
   format: Scalars["String"];
@@ -149,8 +149,8 @@ export type FileField = {
   notes: Maybe<Scalars["String"]>;
   responsiveImage: Maybe<ResponsiveImage>;
   size: Scalars["IntType"];
-  smartTags: Array<Maybe<Scalars["String"]>>;
-  tags: Array<Maybe<Scalars["String"]>>;
+  smartTags: Array<Scalars["String"]>;
+  tags: Array<Scalars["String"]>;
   title: Maybe<Scalars["String"]>;
   url: Scalars["String"];
   video: Maybe<UploadVideoField>;
@@ -195,6 +195,74 @@ export type FileFieldUrlArgs = {
   imgixParams: InputMaybe<ImgixParams>;
 };
 
+export type FileFieldInterface = {
+  _createdAt: Scalars["DateTime"];
+  _updatedAt: Scalars["DateTime"];
+  alt: Maybe<Scalars["String"]>;
+  author: Maybe<Scalars["String"]>;
+  basename: Scalars["String"];
+  blurUpThumb: Maybe<Scalars["String"]>;
+  blurhash: Maybe<Scalars["String"]>;
+  colors: Array<ColorField>;
+  copyright: Maybe<Scalars["String"]>;
+  customData: Scalars["CustomData"];
+  exifInfo: Scalars["CustomData"];
+  filename: Scalars["String"];
+  focalPoint: Maybe<FocalPoint>;
+  format: Scalars["String"];
+  height: Maybe<Scalars["IntType"]>;
+  id: Scalars["UploadId"];
+  md5: Scalars["String"];
+  mimeType: Scalars["String"];
+  notes: Maybe<Scalars["String"]>;
+  responsiveImage: Maybe<ResponsiveImage>;
+  size: Scalars["IntType"];
+  smartTags: Array<Scalars["String"]>;
+  tags: Array<Scalars["String"]>;
+  title: Maybe<Scalars["String"]>;
+  url: Scalars["String"];
+  video: Maybe<UploadVideoField>;
+  width: Maybe<Scalars["IntType"]>;
+};
+
+export type FileFieldInterfaceAltArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  locale: InputMaybe<SiteLocale>;
+};
+
+export type FileFieldInterfaceBlurUpThumbArgs = {
+  imgixParams: InputMaybe<ImgixParams>;
+  punch?: InputMaybe<Scalars["Float"]>;
+  quality?: InputMaybe<Scalars["Int"]>;
+  size?: InputMaybe<Scalars["Int"]>;
+};
+
+export type FileFieldInterfaceCustomDataArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  locale: InputMaybe<SiteLocale>;
+};
+
+export type FileFieldInterfaceFocalPointArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  locale: InputMaybe<SiteLocale>;
+};
+
+export type FileFieldInterfaceResponsiveImageArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  imgixParams: InputMaybe<ImgixParams>;
+  locale: InputMaybe<SiteLocale>;
+  sizes: InputMaybe<Scalars["String"]>;
+};
+
+export type FileFieldInterfaceTitleArgs = {
+  fallbackLocales: InputMaybe<Array<SiteLocale>>;
+  locale: InputMaybe<SiteLocale>;
+};
+
+export type FileFieldInterfaceUrlArgs = {
+  imgixParams: InputMaybe<ImgixParams>;
+};
+
 /** Specifies how to filter Single-file/image fields */
 export type FileFilter = {
   /** Search for records with an exact match. The specified value must be an Upload ID */
@@ -218,7 +286,7 @@ export type GlobalSeoField = {
 };
 
 /** Record of type Home Page (home_page) */
-export type HomePageRecord = {
+export type HomePageRecord = RecordInterface & {
   _createdAt: Scalars["DateTime"];
   _firstPublishedAt: Maybe<Scalars["DateTime"]>;
   _isValid: Scalars["BooleanType"];
@@ -1376,6 +1444,26 @@ export type ImgixParams = {
    */
   txtWidth: InputMaybe<Scalars["IntType"]>;
   /**
+   * Text X Position
+   *
+   * Sets the horizontal (x) position of the text in pixels relative to the left edge of the base image.
+   *
+   * Depends on: `txt`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-x)
+   */
+  txtX: InputMaybe<Scalars["IntType"]>;
+  /**
+   * Text Y Position
+   *
+   * Sets the vertical (y) position of the text in pixels relative to the top edge of the base image.
+   *
+   * Depends on: `txt`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-y)
+   */
+  txtY: InputMaybe<Scalars["IntType"]>;
+  /**
    * Unsharp Mask
    *
    * Sharpens the source image using an unsharp mask.
@@ -1681,7 +1769,7 @@ export enum PageModelOrderBy {
 }
 
 /** Record of type Page (page) */
-export type PageRecord = {
+export type PageRecord = RecordInterface & {
   _createdAt: Scalars["DateTime"];
   _firstPublishedAt: Maybe<Scalars["DateTime"]>;
   _isValid: Scalars["BooleanType"];
@@ -1783,7 +1871,7 @@ export enum PostModelOrderBy {
 }
 
 /** Record of type Post (post) */
-export type PostRecord = {
+export type PostRecord = RecordInterface & {
   _createdAt: Scalars["DateTime"];
   _firstPublishedAt: Maybe<Scalars["DateTime"]>;
   _isValid: Scalars["BooleanType"];
@@ -1828,6 +1916,7 @@ export type ProjectModelFilter = {
   _updatedAt: InputMaybe<UpdatedAtFilter>;
   createdAt: InputMaybe<CreatedAtFilter>;
   description: InputMaybe<StringFilter>;
+  featured: InputMaybe<BooleanFilter>;
   id: InputMaybe<ItemIdFilter>;
   image: InputMaybe<FileFilter>;
   position: InputMaybe<PositionFilter>;
@@ -1857,6 +1946,8 @@ export enum ProjectModelOrderBy {
   CreatedAtDesc = "createdAt_DESC",
   DescriptionAsc = "description_ASC",
   DescriptionDesc = "description_DESC",
+  FeaturedAsc = "featured_ASC",
+  FeaturedDesc = "featured_DESC",
   IdAsc = "id_ASC",
   IdDesc = "id_DESC",
   PositionAsc = "position_ASC",
@@ -1870,7 +1961,7 @@ export enum ProjectModelOrderBy {
 }
 
 /** Record of type Project (project) */
-export type ProjectRecord = {
+export type ProjectRecord = RecordInterface & {
   _createdAt: Scalars["DateTime"];
   _firstPublishedAt: Maybe<Scalars["DateTime"]>;
   _isValid: Scalars["BooleanType"];
@@ -1884,6 +1975,7 @@ export type ProjectRecord = {
   _updatedAt: Scalars["DateTime"];
   createdAt: Scalars["DateTime"];
   description: Maybe<Scalars["String"]>;
+  featured: Maybe<Scalars["BooleanType"]>;
   id: Scalars["ItemId"];
   image: Maybe<FileField>;
   position: Maybe<Scalars["IntType"]>;
@@ -2097,6 +2189,25 @@ export type QueryUploadArgs = {
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
 };
 
+export type RecordInterface = {
+  _createdAt: Scalars["DateTime"];
+  _firstPublishedAt: Maybe<Scalars["DateTime"]>;
+  _isValid: Scalars["BooleanType"];
+  _modelApiKey: Scalars["String"];
+  _publicationScheduledAt: Maybe<Scalars["DateTime"]>;
+  _publishedAt: Maybe<Scalars["DateTime"]>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt: Maybe<Scalars["DateTime"]>;
+  _updatedAt: Scalars["DateTime"];
+  id: Scalars["ItemId"];
+};
+
+export type RecordInterface_SeoMetaTagsArgs = {
+  locale: InputMaybe<SiteLocale>;
+};
+
 /** Specifies how to filter by upload type */
 export type ResolutionFilter = {
   /** Search uploads with the specified resolution */
@@ -2131,7 +2242,7 @@ export type ResponsiveImage = {
 };
 
 /** Record of type Route (route) */
-export type RouteRecord = {
+export type RouteRecord = RecordInterface & {
   _createdAt: Scalars["DateTime"];
   _firstPublishedAt: Maybe<Scalars["DateTime"]>;
   _isValid: Scalars["BooleanType"];
@@ -2291,7 +2402,7 @@ export enum TalkModelOrderBy {
 }
 
 /** Record of type Talk (talk) */
-export type TalkRecord = {
+export type TalkRecord = RecordInterface & {
   _createdAt: Scalars["DateTime"];
   _firstPublishedAt: Maybe<Scalars["DateTime"]>;
   _isValid: Scalars["BooleanType"];
@@ -2594,15 +2705,15 @@ export type UploadSizeFilter = {
 /** Specifies how to filter by tags */
 export type UploadTagsFilter = {
   /** Filter uploads linked to all of the specified tags */
-  allIn: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  allIn: InputMaybe<Array<Scalars["String"]>>;
   /** Filter uploads linked to at least one of the specified tags */
-  anyIn: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  anyIn: InputMaybe<Array<Scalars["String"]>>;
   /** Filter uploads linked to the specified tag */
   contains: InputMaybe<Scalars["String"]>;
   /** Search for uploads with an exact match */
-  eq: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  eq: InputMaybe<Array<Scalars["String"]>>;
   /** Filter uploads not linked to any of the specified tags */
-  notIn: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  notIn: InputMaybe<Array<Scalars["String"]>>;
 };
 
 /** Specifies how to filter by default title */
@@ -2651,8 +2762,8 @@ export type UploadUpdatedAtFilter = {
 };
 
 export type UploadVideoField = {
-  duration: Scalars["Int"];
-  framerate: Scalars["Int"];
+  duration: Maybe<Scalars["Int"]>;
+  framerate: Maybe<Scalars["Int"]>;
   mp4Url: Maybe<Scalars["String"]>;
   muxAssetId: Scalars["String"];
   muxPlaybackId: Scalars["String"];
@@ -2692,8 +2803,8 @@ export enum VideoMp4Res {
 }
 
 export type FocalPoint = {
-  x: Maybe<Scalars["FloatType"]>;
-  y: Maybe<Scalars["FloatType"]>;
+  x: Scalars["FloatType"];
+  y: Scalars["FloatType"];
 };
 
 export type CustomPageFieldsFragment = {

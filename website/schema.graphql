@@ -33,11 +33,11 @@ enum ColorBucketType {
 }
 
 type ColorField {
-  alpha: IntType
-  blue: IntType
-  green: IntType
-  hex: String
-  red: IntType
+  alpha: IntType!
+  blue: IntType!
+  green: IntType!
+  hex: String!
+  red: IntType!
 }
 
 """
@@ -138,7 +138,7 @@ enum FaviconType {
   msApplication
 }
 
-type FileField {
+type FileField implements FileFieldInterface {
   _createdAt: DateTime!
   _updatedAt: DateTime!
   alt(
@@ -176,7 +176,7 @@ type FileField {
     size: Int = 24
   ): String
   blurhash: String
-  colors: [ColorField]!
+  colors: [ColorField!]!
   copyright: String
   customData(
     """
@@ -188,8 +188,8 @@ type FileField {
     The locale to use to fetch the field's content
     """
     locale: SiteLocale
-  ): CustomData
-  exifInfo: CustomData
+  ): CustomData!
+  exifInfo: CustomData!
   filename: String!
   focalPoint(
     """
@@ -230,8 +230,123 @@ type FileField {
     sizes: String
   ): ResponsiveImage
   size: IntType!
-  smartTags: [String]!
-  tags: [String]!
+  smartTags: [String!]!
+  tags: [String!]!
+  title(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): String
+  url(
+    """
+    Imgix transformations to apply to the image
+    """
+    imgixParams: ImgixParams
+  ): String!
+  video: UploadVideoField
+  width: IntType
+}
+
+interface FileFieldInterface {
+  _createdAt: DateTime!
+  _updatedAt: DateTime!
+  alt(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): String
+  author: String
+  basename: String!
+  blurUpThumb(
+    """
+    Imgix transformations to apply to the image
+    """
+    imgixParams: ImgixParams
+
+    """
+    Controls the "punch" value (~contrast) of the blurhash decoding algorithm (defaults to 1.0)
+    """
+    punch: Float = 1
+
+    """
+    JPEG quality (defaults to 70%)
+    """
+    quality: Int = 70
+
+    """
+    Maximum image dimension (defaults to 24px)
+    """
+    size: Int = 24
+  ): String
+  blurhash: String
+  colors: [ColorField!]!
+  copyright: String
+  customData(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): CustomData!
+  exifInfo: CustomData!
+  filename: String!
+  focalPoint(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): focalPoint
+  format: String!
+  height: IntType
+  id: UploadId!
+  md5: String!
+  mimeType: String!
+  notes: String
+  responsiveImage(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """
+    Imgix transformations to apply to the image
+    """
+    imgixParams: ImgixParams
+
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+
+    """
+    Specify a custom `sizes` attribute for the image
+    """
+    sizes: String
+  ): ResponsiveImage
+  size: IntType!
+  smartTags: [String!]!
+  tags: [String!]!
   title(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -299,7 +414,7 @@ type GlobalSeoField {
 """
 Record of type Home Page (home_page)
 """
-type HomePageRecord {
+type HomePageRecord implements RecordInterface {
   _createdAt: DateTime!
   _firstPublishedAt: DateTime
   _isValid: BooleanType!
@@ -1584,6 +1699,28 @@ input ImgixParams {
   txtWidth: IntType
 
   """
+  Text X Position
+
+  Sets the horizontal (x) position of the text in pixels relative to the left edge of the base image.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-x)
+  """
+  txtX: IntType
+
+  """
+  Text Y Position
+
+  Sets the vertical (y) position of the text in pixels relative to the top edge of the base image.
+
+  Depends on: `txt`
+
+  [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-y)
+  """
+  txtY: IntType
+
+  """
   Unsharp Mask
 
   Sharpens the source image using an unsharp mask.
@@ -1929,7 +2066,7 @@ enum PageModelOrderBy {
 """
 Record of type Page (page)
 """
-type PageRecord {
+type PageRecord implements RecordInterface {
   _createdAt: DateTime!
   _firstPublishedAt: DateTime
   _isValid: BooleanType!
@@ -2055,7 +2192,7 @@ enum PostModelOrderBy {
 """
 Record of type Post (post)
 """
-type PostRecord {
+type PostRecord implements RecordInterface {
   _createdAt: DateTime!
   _firstPublishedAt: DateTime
   _isValid: BooleanType!
@@ -2103,6 +2240,7 @@ input ProjectModelFilter {
   _updatedAt: UpdatedAtFilter
   createdAt: CreatedAtFilter
   description: StringFilter
+  featured: BooleanFilter
   id: ItemIdFilter
   image: FileFilter
   position: PositionFilter
@@ -2132,6 +2270,8 @@ enum ProjectModelOrderBy {
   createdAt_DESC
   description_ASC
   description_DESC
+  featured_ASC
+  featured_DESC
   id_ASC
   id_DESC
   position_ASC
@@ -2147,7 +2287,7 @@ enum ProjectModelOrderBy {
 """
 Record of type Project (project)
 """
-type ProjectRecord {
+type ProjectRecord implements RecordInterface {
   _createdAt: DateTime!
   _firstPublishedAt: DateTime
   _isValid: BooleanType!
@@ -2169,6 +2309,7 @@ type ProjectRecord {
   _updatedAt: DateTime!
   createdAt: DateTime!
   description: String
+  featured: BooleanType
   id: ItemId!
   image: FileField
   position: IntType
@@ -2563,6 +2704,29 @@ type Query {
   ): FileField
 }
 
+interface RecordInterface {
+  _createdAt: DateTime!
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """
+  SEO meta tags
+  """
+  _seoMetaTags(
+    """
+    The locale to use to fetch the field's content
+    """
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+}
+
 """
 Specifies how to filter by upload type
 """
@@ -2612,7 +2776,7 @@ type ResponsiveImage {
 """
 Record of type Route (route)
 """
-type RouteRecord {
+type RouteRecord implements RecordInterface {
   _createdAt: DateTime!
   _firstPublishedAt: DateTime
   _isValid: BooleanType!
@@ -2834,7 +2998,7 @@ enum TalkModelOrderBy {
 """
 Record of type Talk (talk)
 """
-type TalkRecord {
+type TalkRecord implements RecordInterface {
   _createdAt: DateTime!
   _firstPublishedAt: DateTime
   _isValid: BooleanType!
@@ -3391,12 +3555,12 @@ input UploadTagsFilter {
   """
   Filter uploads linked to all of the specified tags
   """
-  allIn: [String]
+  allIn: [String!]
 
   """
   Filter uploads linked to at least one of the specified tags
   """
-  anyIn: [String]
+  anyIn: [String!]
 
   """
   Filter uploads linked to the specified tag
@@ -3406,12 +3570,12 @@ input UploadTagsFilter {
   """
   Search for uploads with an exact match
   """
-  eq: [String]
+  eq: [String!]
 
   """
   Filter uploads not linked to any of the specified tags
   """
-  notIn: [String]
+  notIn: [String!]
 }
 
 """
@@ -3501,8 +3665,8 @@ input UploadUpdatedAtFilter {
 }
 
 type UploadVideoField {
-  duration: Int!
-  framerate: Int!
+  duration: Int
+  framerate: Int
   mp4Url(
     """
     Pick the exact resolution quality specified in the argument
@@ -3567,6 +3731,6 @@ enum VideoMp4Res {
 }
 
 type focalPoint {
-  x: FloatType
-  y: FloatType
+  x: FloatType!
+  y: FloatType!
 }
