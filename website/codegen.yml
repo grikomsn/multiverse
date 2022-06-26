@@ -6,7 +6,7 @@ documents:
 schema:
   "${GRAPHQL_ENDPOINT}":
     headers:
-      Authorization: "Bearer ${GRAPHQL_TOKEN}"
+      Authorization: "${GRAPHQL_TOKEN}"
 
 hooks:
   afterOneFileWrite:
@@ -30,6 +30,8 @@ generates:
           content: 'import { fetchOptions } from "lib/graphql";'
       - "add":
           content: 'import { JsonValue } from "type-fest";'
+      - "add":
+          content: "export type Dictionary<T = unknown> = Record<string, T>;"
     config:
       avoidOptionals: true
       dedupeFragments: true
@@ -44,9 +46,15 @@ generates:
       pureMagicComment: true
       scalars:
         {
+          BooleanType: boolean,
+          CustomData: Dictionary<string>,
+          Date: string,
           DateTime: string,
+          FloatType: number,
           IntType: number,
           ItemId: string,
           JsonField: JsonValue,
+          MetaTagAttributes: Dictionary<string>,
+          UploadId: string,
         }
       skipTypename: true

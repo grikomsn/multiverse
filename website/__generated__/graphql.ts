@@ -8,6 +8,7 @@ export type InputMaybe<T> = T;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Dictionary<T = unknown> = Record<string, T>;
 
 function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
   return async (): Promise<TData> => {
@@ -35,21 +36,16 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Represents `true` or `false` values. */
-  BooleanType: any;
-  CustomData: any;
-  /** A ISO 8601 compliant date value */
-  Date: any;
-  /** A ISO 8601 compliant datetime value */
+  BooleanType: boolean;
+  CustomData: Dictionary<string>;
+  Date: string;
   DateTime: string;
-  /** Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). */
-  FloatType: any;
-  /** Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
+  FloatType: number;
   IntType: number;
   ItemId: string;
   JsonField: JsonValue;
-  MetaTagAttributes: any;
-  UploadId: any;
+  MetaTagAttributes: Dictionary<string>;
+  UploadId: string;
 };
 
 /** Specifies how to filter Boolean fields */
@@ -2812,7 +2808,7 @@ export type CustomPageFieldsFragment = {
   description: string;
   slug: string;
   content: string;
-  showHeader: any;
+  showHeader: boolean;
   cover: { url: string };
 };
 
@@ -2847,7 +2843,7 @@ export type ProjectFieldsFragment = {
   image: { blurUpThumb: string; url: string };
 };
 
-export type TalkFieldsFragment = { id: string; title: string; description: string; date: any; url: string };
+export type TalkFieldsFragment = { id: string; title: string; description: string; date: string; url: string };
 
 export type GetResumeUrlQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -2858,7 +2854,14 @@ export type GetCustomPageQueryVariables = Exact<{
 }>;
 
 export type GetCustomPageQuery = {
-  page: { title: string; description: string; slug: string; content: string; showHeader: any; cover: { url: string } };
+  page: {
+    title: string;
+    description: string;
+    slug: string;
+    content: string;
+    showHeader: boolean;
+    cover: { url: string };
+  };
 };
 
 export type GetCustomPageSlugsQueryVariables = Exact<{ [key: string]: never }>;
@@ -2876,7 +2879,7 @@ export type GetHomePageQuery = {
     url: string;
     image: { blurUpThumb: string; url: string };
   }>;
-  allTalks: Array<{ id: string; title: string; description: string; date: any; url: string }>;
+  allTalks: Array<{ id: string; title: string; description: string; date: string; url: string }>;
   allPosts: Array<{
     id: string;
     createdAt: string;
@@ -2959,13 +2962,16 @@ export type GetRoutesQuery = { route: { redirects: JsonValue; rewrites: JsonValu
 export type GetSeoDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetSeoDataQuery = {
-  _site: { favicon: { url: string }; faviconMetaTags: Array<{ tag: string; attributes: any; content: string }> };
+  _site: {
+    favicon: { url: string };
+    faviconMetaTags: Array<{ tag: string; attributes: Dictionary<string>; content: string }>;
+  };
 };
 
 export type GetTalksQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetTalksQuery = {
-  allTalks: Array<{ id: string; title: string; description: string; date: any; url: string }>;
+  allTalks: Array<{ id: string; title: string; description: string; date: string; url: string }>;
 };
 
 export const CustomPageFieldsFragmentDoc = /*#__PURE__*/ `

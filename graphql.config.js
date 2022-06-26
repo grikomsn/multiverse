@@ -10,7 +10,7 @@ const graphqlConfig = {
       default: {
         url: process.env.GRAPHQL_ENDPOINT,
         headers: {
-          Authorization: `Bearer ${process.env.GRAPHQL_TOKEN}`,
+          Authorization: process.env.GRAPHQL_TOKEN,
         },
       },
     },
