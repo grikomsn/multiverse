@@ -1,3 +1,4 @@
+import { useLenis } from "hooks/use-lenis";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -9,13 +10,13 @@ import { Navigation } from "ui/navigation";
 import { MetaTags } from "./meta-tags";
 
 const BulmaNotifyBar = dynamic(() => import("ui/notify-bar/bulma").then((mod) => mod.BulmaNotifyBar), { ssr: false });
-
 export interface LayoutProps {
   children: ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
   const router = useRouter();
+  useLenis();
   return (
     <>
       <Head>
