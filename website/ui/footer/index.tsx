@@ -1,4 +1,4 @@
-import { Github, Twitter } from "lucide-react";
+import { GitHub as Github, Twitter } from "iconoir-react";
 import { Anchor } from "ui/core/anchor";
 import { Mastodon } from "ui/icon/mastodon";
 
