@@ -440,7 +440,7 @@ type HomePageRecord implements RecordInterface {
     Process content as markdown
     """
     markdown: Boolean
-  ): String
+  ): String!
   id: ItemId!
   updatedAt: DateTime!
 }
@@ -2094,11 +2094,11 @@ type PageRecord implements RecordInterface {
   ): String
   cover: FileField
   createdAt: DateTime!
-  description: String
+  description: String!
   id: ItemId!
   showHeader: BooleanType
-  slug: String
-  title: String
+  slug: String!
+  title: String!
   updatedAt: DateTime!
 }
 
@@ -2220,11 +2220,11 @@ type PostRecord implements RecordInterface {
   ): String
   cover: FileField
   createdAt: DateTime!
-  description: String
+  description: String!
   id: ItemId!
   redirect: String
-  slug: String
-  title: String
+  slug: String!
+  title: String!
   updatedAt: DateTime!
 }
 
@@ -2308,12 +2308,12 @@ type ProjectRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   createdAt: DateTime!
-  description: String
+  description: String!
   featured: BooleanType
   id: ItemId!
-  image: FileField
+  image: FileField!
   position: IntType
-  title: String
+  title: String!
   updatedAt: DateTime!
   url: String
 }
@@ -3019,12 +3019,12 @@ type TalkRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   createdAt: DateTime!
-  date: Date
-  description: String
+  date: Date!
+  description: String!
   id: ItemId!
-  title: String
+  title: String!
   updatedAt: DateTime!
-  url: String
+  url: String!
 }
 
 """
