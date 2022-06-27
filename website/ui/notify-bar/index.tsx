@@ -1,6 +1,10 @@
 import clsx from "clsx";
-import type { LucideProps } from "lucide-react";
-import { AlertCircle, CheckCircle, Info, Slash } from "lucide-react";
+import {
+  CheckCircledOutline as CheckCircle,
+  InfoEmpty as Info,
+  Prohibition as Slash,
+  WarningCircledOutline as AlertCircle,
+} from "iconoir-react";
 import type { ComponentProps } from "react";
 
 export type NotifyBarType = "info" | "success" | "warning" | "error";
@@ -34,7 +38,7 @@ export function NotifyBar({ children, className, type = "info", ...rest }: Notif
   );
 }
 
-const ICON_MAP: Record<NotifyBarType, (props: LucideProps) => JSX.Element> = {
+const ICON_MAP = {
   info: Info,
   success: CheckCircle,
   warning: AlertCircle,

@@ -3865,6 +3865,11 @@ husky@^8:
   resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.1.tgz#511cb3e57de3e3190514ae49ed50f6bc3f50b3e9"
   integrity sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==
 
+iconoir-react@^5:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/iconoir-react/-/iconoir-react-5.0.0.tgz#e81341d0f2de6b5c2f2e0c9678618cdb59ea84d2"
+  integrity sha512-XqaQdFaeCoK9UukaPYnY11nzLz8GxdviGN+WR3xFyapnmKjaPEfQhpN0D7/HFFTVpJg5q7v21WXKQYeQdJejwg==
+
 iconv-lite@^0.4.24:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
@@ -4672,11 +4677,6 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
-
-lucide-react@^0:
-  version "0.70.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.70.0.tgz#074bcb8ea5ccc74d7538b10b546c179f29e288ec"
-  integrity sha512-5yGMi1HosWHeVwlZO2cYwzo1sHI7A+r6MV6aCFbzvbrea2tKpx0oAXtJU4DjEJ8NmKA6d/LO3Tg0dVrSP+SQxA==
 
 make-dir@^3.0.2, make-dir@^3.1.0:
   version "3.1.0"

@@ -1,5 +1,5 @@
 import type { TalkFieldsFragment } from "__generated__/graphql";
-import { Calendar, ExternalLink } from "lucide-react";
+import { Calendar, Internet as ExternalLink } from "iconoir-react";
 import { Anchor } from "ui/core/anchor";
 import { parseIsoToMdy } from "utils/date";
 

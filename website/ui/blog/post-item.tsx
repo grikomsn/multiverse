@@ -1,6 +1,6 @@
 import type { PostFieldsFragment } from "__generated__/graphql";
 import clsx from "clsx";
-import { Calendar as CalendarIcon, ExternalLink as ExternalIcon, Link as LinkIcon } from "lucide-react";
+import { Calendar as CalendarIcon, Internet as ExternalIcon, Link as LinkIcon } from "iconoir-react";
 import { Anchor } from "ui/core/anchor";
 import { parseIsoToMdy } from "utils/date";
 

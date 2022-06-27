@@ -1,8 +1,8 @@
 import type { PostFieldsFragment } from "__generated__/graphql";
 import clsx from "clsx";
 import metadataJson from "config/metadata";
+import { Link as LinkIcon, ShareIos as ShareIcon, Twitter as TwitterIcon } from "iconoir-react";
 import { createTwitterIntent } from "lib/twitter";
-import { Link as LinkIcon, Share as ShareIcon, Twitter as TwitterIcon } from "lucide-react";
 import type { ComponentProps, MouseEvent } from "react";
 import { toast } from "react-hot-toast";
 import { Anchor } from "ui/core/anchor";

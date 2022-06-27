@@ -32,7 +32,7 @@
     "graphql": "^16",
     "graphql-tag": "^2",
     "graphql-web-lite": "^16",
-    "lucide-react": "^0",
+    "iconoir-react": "^5",
     "next-mdx-remote": "4.0.1",
     "next": "^12",
     "next-seo": "^5",
