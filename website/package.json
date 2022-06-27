@@ -18,6 +18,7 @@
     "@headlessui/react": "^1",
     "@project/tailwind-animations": "*",
     "@radix-ui/react-tooltip": "next",
+    "@studio-freight/lenis": "^0",
     "@tailwindcss/aspect-ratio": "^0",
     "@tailwindcss/forms": "^0",
     "@tailwindcss/line-clamp": "^0",
