@@ -295,7 +295,7 @@ export type HomePageRecord = RecordInterface & {
   _unpublishingScheduledAt: Maybe<Scalars["DateTime"]>;
   _updatedAt: Scalars["DateTime"];
   createdAt: Scalars["DateTime"];
-  excerpt: Maybe<Scalars["String"]>;
+  excerpt: Scalars["String"];
   id: Scalars["ItemId"];
   updatedAt: Scalars["DateTime"];
 };
@@ -1780,11 +1780,11 @@ export type PageRecord = RecordInterface & {
   content: Maybe<Scalars["String"]>;
   cover: Maybe<FileField>;
   createdAt: Scalars["DateTime"];
-  description: Maybe<Scalars["String"]>;
+  description: Scalars["String"];
   id: Scalars["ItemId"];
   showHeader: Maybe<Scalars["BooleanType"]>;
-  slug: Maybe<Scalars["String"]>;
-  title: Maybe<Scalars["String"]>;
+  slug: Scalars["String"];
+  title: Scalars["String"];
   updatedAt: Scalars["DateTime"];
 };
 
@@ -1882,11 +1882,11 @@ export type PostRecord = RecordInterface & {
   content: Maybe<Scalars["String"]>;
   cover: Maybe<FileField>;
   createdAt: Scalars["DateTime"];
-  description: Maybe<Scalars["String"]>;
+  description: Scalars["String"];
   id: Scalars["ItemId"];
   redirect: Maybe<Scalars["String"]>;
-  slug: Maybe<Scalars["String"]>;
-  title: Maybe<Scalars["String"]>;
+  slug: Scalars["String"];
+  title: Scalars["String"];
   updatedAt: Scalars["DateTime"];
 };
 
@@ -1970,12 +1970,12 @@ export type ProjectRecord = RecordInterface & {
   _unpublishingScheduledAt: Maybe<Scalars["DateTime"]>;
   _updatedAt: Scalars["DateTime"];
   createdAt: Scalars["DateTime"];
-  description: Maybe<Scalars["String"]>;
+  description: Scalars["String"];
   featured: Maybe<Scalars["BooleanType"]>;
   id: Scalars["ItemId"];
-  image: Maybe<FileField>;
+  image: FileField;
   position: Maybe<Scalars["IntType"]>;
-  title: Maybe<Scalars["String"]>;
+  title: Scalars["String"];
   updatedAt: Scalars["DateTime"];
   url: Maybe<Scalars["String"]>;
 };
@@ -2411,12 +2411,12 @@ export type TalkRecord = RecordInterface & {
   _unpublishingScheduledAt: Maybe<Scalars["DateTime"]>;
   _updatedAt: Scalars["DateTime"];
   createdAt: Scalars["DateTime"];
-  date: Maybe<Scalars["Date"]>;
-  description: Maybe<Scalars["String"]>;
+  date: Scalars["Date"];
+  description: Scalars["String"];
   id: Scalars["ItemId"];
-  title: Maybe<Scalars["String"]>;
+  title: Scalars["String"];
   updatedAt: Scalars["DateTime"];
-  url: Maybe<Scalars["String"]>;
+  url: Scalars["String"];
 };
 
 /** Record of type Talk (talk) */

@@ -7,6 +7,7 @@ schema:
   "${GRAPHQL_ENDPOINT}":
     headers:
       Authorization: "${GRAPHQL_TOKEN}"
+      X-Exclude-Invalid: "true"
 
 hooks:
   afterOneFileWrite:
