@@ -1,22 +1,15 @@
 // tsc --allowJs -d --emitDeclarationOnly --removeComments lib/graphql.utils.js
 
-/**
- * @param {TemplateStringsArray} strs
- * @param  {any[]} args
- */
+/** @param {TemplateStringsArray} strs */
 function gql(strs, ...args) {
   return strs.map((t, i) => [t, String(args[i] ?? "")].join("")).join("");
 }
 
-/**
- * @param {string} query
- * @param {any|undefined} variables
- */
-async function rawRequest(query, variables) {
+async function rawRequest(query = "{}", variables = {}) {
   const res = await fetch(process.env.GRAPHQL_ENDPOINT, {
     body: JSON.stringify({ query, variables }),
     headers: {
-      Authorization: `Bearer ${process.env.GRAPHQL_TOKEN}`,
+      Authorization: process.env.GRAPHQL_TOKEN,
     },
     method: "POST",
   });
