@@ -3,13 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "build": "next build",
-    "dev": "yarn prebuild && next dev",
+    "dev": "next dev",
     "export": "next export",
     "favicons": "npx favicons-compiled-cli -i public/icon.png -c config/favicons.json -o public/assets/",
     "graphql": "env-cmd yarn graphql-codegen",
     "lint": "eslint --fix \"**/*.{js,cjs,mjs,jsx,graphql,gql,ts,tsx}\" && tsc --noEmit --pretty",
     "postbuild": "next-sitemap --config config/sitemap.js",
-    "prebuild": "node scripts/prebuild.js",
     "start": "next start"
   },
   "dependencies": {

@@ -6,8 +6,6 @@ const { withSuperjson } = require("next-superjson");
 const withTranspileModules = require("next-transpile-modules");
 const packageJson = require("./package.json");
 const metadataJson = require("./config/metadata.json");
-const redirectsJson = require("./__generated__/redirects.json");
-const rewritesJson = require("./__generated__/rewrites.json");
 
 const cspHeader = `
   child-src *.twitter.com;
@@ -52,9 +50,8 @@ let nextConfig = {
     { source: "/talks", destination: "/talk", permanent: true },
     { source: "/projects", destination: "/work", permanent: true },
     { source: "/works", destination: "/work", permanent: true },
-    ...redirectsJson,
   ],
-  rewrites: async () => [...rewritesJson],
+  rewrites: async () => [],
   typescript: {
     ignoreBuildErrors: Boolean(process.env.VERCEL),
   },
