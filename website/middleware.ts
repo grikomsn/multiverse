@@ -9,10 +9,10 @@ export const config = {
 };
 
 export async function middleware(request: NextRequest) {
-  const { nextUrl } = request;
-  const slug = String(nextUrl.pathname.split("/")[1]);
+  if (request.nextUrl.pathname.startsWith("/_next")) return;
 
   if (!data) data = (await rawRequest(query)) as DataType;
+  const slug = String(request.nextUrl.pathname.split("/")[1]);
 
   const redirect = data.route.redirects?.[slug];
   if (redirect) return NextResponse.redirect(redirect);
