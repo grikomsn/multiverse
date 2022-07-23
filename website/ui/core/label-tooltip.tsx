@@ -13,8 +13,8 @@ export function LabelTooltip({ label, children }: LabelTooltipProps) {
       <TooltipTrigger asChild>{children}</TooltipTrigger>
       <TooltipContent
         className={clsx(
-          "py-2 px-4 text-xs text-center",
-          "bg-neutral-800 rounded shadow-lg animate-slide-up-fade",
+          "py-2 px-4 text-center text-xs",
+          "animate-slide-up-fade rounded bg-neutral-800 shadow-lg",
           "invisible sm:visible",
         )}
         sideOffset={8}

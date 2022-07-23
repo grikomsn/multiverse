@@ -18,7 +18,7 @@ export function NotifyBar({ children, className, type = "info", ...rest }: Notif
   return (
     <div
       className={clsx(
-        "flex sticky inset-x-0 top-0 z-20 justify-center items-center p-4 space-x-4",
+        "sticky inset-x-0 top-0 z-20 flex items-center justify-center space-x-4 p-4",
         "shadow-neutral-900/90 backdrop-blur-sm transition-colors",
         {
           "bg-blue-800/80 hover:bg-blue-800": type === "info",
@@ -31,9 +31,9 @@ export function NotifyBar({ children, className, type = "info", ...rest }: Notif
       {...rest}
     >
       <div>
-        <Icon className="w-7 h-7" />
+        <Icon className="h-7 w-7" />
       </div>
-      <div className="flex-grow max-w-4xl">{children}</div>
+      <div className="max-w-4xl flex-grow">{children}</div>
     </div>
   );
 }

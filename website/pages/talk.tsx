@@ -27,7 +27,7 @@ export default function TalkPage({ query }: TalkPageProps) {
       <Seo />
       <PageHeader className="pt-[10vh] md:pt-[20vh]" description={description} title={title} />
       <hr className="border-neutral-500/50" />
-      <ul className="grid grid-cols-1 gap-4 items-start -mx-4 sm:grid-cols-2">
+      <ul className="-mx-4 grid grid-cols-1 items-start gap-4 sm:grid-cols-2">
         {query.allTalks.map((item) => (
           <TalkItem key={`talk-${item.id}`} data={item} />
         ))}

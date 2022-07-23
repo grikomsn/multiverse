@@ -30,30 +30,30 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 export default function HomePage({ query, compiledExcerpt }: HomePageProps) {
   return (
     <section className="space-y-8">
-      <div className="py-[10vh] prose prose-invert md:py-[20vh]">
+      <div className="prose prose-invert py-[10vh] md:py-[20vh]">
         <MDXRemote {...compiledExcerpt} />
-        <div className="pt-4 not-prose">
+        <div className="not-prose pt-4">
           <Anchor
             className={clsx(
-              "inline-flex items-center py-2 px-4 space-x-3",
-              "font-medium bg-neutral-800/80 rounded-lg shadow-sm",
-              "hover:bg-neutral-700/80 transition-all hover:translate-y-[-1px]",
+              "inline-flex items-center space-x-3 py-2 px-4",
+              "rounded-lg bg-neutral-800/80 font-medium shadow-sm",
+              "transition-all hover:translate-y-[-1px] hover:bg-neutral-700/80",
             )}
             external
             href="/schedule"
           >
-            <Calendar className="w-5 h-5" />
+            <Calendar className="h-5 w-5" />
             <span>Schedule Meeting</span>
           </Anchor>
         </div>
       </div>
       <h3 className="text-lg text-gray-400">Recent projects</h3>
-      <ul className="grid grid-cols-1 -mx-4 md:grid-cols-2 not-prose">
+      <ul className="not-prose -mx-4 grid grid-cols-1 md:grid-cols-2">
         {query.allProjects.map((item) => (
-          <li key={`recent-work-${item.id}`} className="group flex relative flex-col p-4 rounded">
+          <li key={`recent-work-${item.id}`} className="group relative flex flex-col rounded p-4">
             <ProjectImage alt={item.title} className="mb-4" src={item.image.url} />
             <h4 className="mb-2 text-lg font-bold">{item.title}</h4>
-            <p className="flex-grow mb-4 text-neutral-400">{item.description}</p>
+            <p className="mb-4 flex-grow text-neutral-400">{item.description}</p>
             <Anchor className="text-primary-500 hover:underline sm:before:absolute sm:before:inset-0" href={item.url}>
               Visit website &nbsp; →
             </Anchor>
@@ -66,7 +66,7 @@ export default function HomePage({ query, compiledExcerpt }: HomePageProps) {
         </Anchor>
       </div>
       <h3 className="text-lg text-gray-400">Recent appearances</h3>
-      <ul className="grid grid-cols-1 gap-4 items-start -mx-4 sm:grid-cols-2">
+      <ul className="-mx-4 grid grid-cols-1 items-start gap-4 sm:grid-cols-2">
         {query.allTalks.map((item) => (
           <TalkItem key={`recent-post-${item.id}`} data={item} />
         ))}

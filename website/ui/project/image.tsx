@@ -11,7 +11,7 @@ export function ProjectImage({ src, alt, className, ...rest }: ProjectImageProps
   return (
     <div
       className={clsx(
-        "overflow-hidden bg-neutral-800 rounded",
+        "overflow-hidden rounded bg-neutral-800",
         "transition-colors sm:group-hover:bg-neutral-700",
         className,
       )}
@@ -20,8 +20,8 @@ export function ProjectImage({ src, alt, className, ...rest }: ProjectImageProps
       <img
         alt={alt}
         className={clsx(
-          "aspect-video w-full h-full",
-          "transition-transform transform-gpu scale-110 translate-x-6 translate-y-6",
+          "aspect-video h-full w-full",
+          "translate-x-6 translate-y-6 scale-110 transform-gpu transition-transform",
           "sm:motion-safe:group-hover:translate-y-5",
         )}
         src={src}

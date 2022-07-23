@@ -9,21 +9,21 @@ export interface TalkItemProps {
 
 export function TalkItem({ data }: TalkItemProps) {
   return (
-    <li className="group flex relative flex-col p-4 sm:hover:bg-neutral-800 sm:rounded-xl">
+    <li className="group relative flex flex-col p-4 sm:rounded-xl sm:hover:bg-neutral-800">
       <h4 className="mb-2 text-lg font-bold line-clamp-3">{data.title}</h4>
       <p className="mb-4 max-w-2xl text-neutral-400 line-clamp-3">{data.description}</p>
-      <div className="flex items-center mb-2 space-x-2">
-        <Calendar className="w-3 h-3 text-neutral-400" />
+      <div className="mb-2 flex items-center space-x-2">
+        <Calendar className="h-3 w-3 text-neutral-400" />
         <span className="text-xs text-neutral-400" suppressHydrationWarning>
           {parseIsoToMdy(data.date)}
         </span>
       </div>
       <Anchor
-        className="flex before:inset-0 items-center space-x-2 before:content-[''] sm:before:absolute"
+        className="flex items-center space-x-2 before:inset-0 before:content-[''] sm:before:absolute"
         href={data.url}
       >
-        <ExternalLink className="w-3 h-3 text-neutral-400" />
-        <span className="text-xs text-primary-500 hover:underline line-clamp-1 sm:group-hover:underline">
+        <ExternalLink className="h-3 w-3 text-neutral-400" />
+        <span className="text-xs text-primary-500 line-clamp-1 hover:underline sm:group-hover:underline">
           {data.url}
         </span>
       </Anchor>

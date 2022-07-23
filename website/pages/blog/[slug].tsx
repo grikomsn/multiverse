@@ -98,13 +98,13 @@ export default function BlogPostPage({ query, compiledContent }: BlogPostPagePro
           description={query.post.description}
           title={query.post.title}
         />
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <span className="text-xs">Posted on {parseIsoToMdy(query.post.createdAt)}</span>
           <SocialButtons className="animate-fade-in" post={query.post} />
         </div>
       </div>
       <hr className="flex-grow border-neutral-500/50" />
-      <article className="relative cursor-auto prose prose-invert">
+      <article className="prose prose-invert relative cursor-auto">
         <MDXRemote {...compiledContent} />
       </article>
     </section>

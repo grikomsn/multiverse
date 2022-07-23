@@ -24,8 +24,8 @@ export function Layout({ children }: LayoutProps) {
       </Head>
       <MetaTags />
       <BulmaNotifyBar />
-      <div className="container flex flex-col p-4 mx-auto max-w-4xl motion-safe:animate-fade-in sm:p-8">
-        <main key={router.asPath} className="flex-grow mb-16 min-h-screen sm:motion-safe:animate-slide-down-fade">
+      <div className="container mx-auto flex max-w-4xl flex-col p-4 motion-safe:animate-fade-in sm:p-8">
+        <main key={router.asPath} className="mb-16 min-h-screen flex-grow sm:motion-safe:animate-slide-down-fade">
           {children}
         </main>
         <Footer />

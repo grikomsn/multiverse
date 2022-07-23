@@ -46,19 +46,19 @@ export function SocialButtons({ post, className, ...rest }: SocialButtonsProps) 
         {({ navigator }) => (
           <LabelTooltip label="Share this post">
             <button onClick={() => void handleShare(navigator)} type="button">
-              <ShareIcon className="w-5 h-5 hover:text-neutral-300" />
+              <ShareIcon className="h-5 w-5 hover:text-neutral-300" />
             </button>
           </LabelTooltip>
         )}
       </NavigatorWrap>
       <LabelTooltip label="Tweet this post">
         <Anchor href={intentLink}>
-          <TwitterIcon className="w-5 h-5 hover:text-neutral-300" />
+          <TwitterIcon className="h-5 w-5 hover:text-neutral-300" />
         </Anchor>
       </LabelTooltip>
       <LabelTooltip label="Copy post link to clipboard">
         <Anchor href={`/blog/${post.slug}`} onClick={(event) => void handleClipboard(event)}>
-          <LinkIcon className="w-5 h-5 hover:text-neutral-300" />
+          <LinkIcon className="h-5 w-5 hover:text-neutral-300" />
         </Anchor>
       </LabelTooltip>
     </div>

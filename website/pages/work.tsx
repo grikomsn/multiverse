@@ -30,12 +30,12 @@ export default function WorkPage({ query }: WorkPageProps) {
       <hr className="border-neutral-500/50" />
       <ul className="grid grid-flow-row space-y-16">
         {query.allProjects.map((item) => (
-          <li key={`work-${item.id}`} className="group grid relative grid-cols-1 gap-4 sm:grid-cols-2">
+          <li key={`work-${item.id}`} className="group relative grid grid-cols-1 gap-4 sm:grid-cols-2">
             <ProjectImage alt={item.title} className="sm:order-last" src={item.image.url} />
             <div>
               <h3 className="mb-2 text-xl font-bold">{item.title}</h3>
               <p className="mb-4 leading-relaxed text-neutral-400">{item.description}</p>
-              <Anchor className="before:inset-0 text-primary-500 hover:underline sm:before:absolute" href={item.url}>
+              <Anchor className="text-primary-500 before:inset-0 hover:underline sm:before:absolute" href={item.url}>
                 Visit website &nbsp; →
               </Anchor>
             </div>

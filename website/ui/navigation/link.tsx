@@ -17,8 +17,8 @@ export function NavigationLink({ children, href }: NavigationLinkProps) {
     <Link href={href} passHref>
       <Anchor
         className={clsx(
-          "flex relative justify-center items-center py-1 px-2 rounded-lg transition-colors snap-end md:px-4",
-          "before:absolute before:inset-x-2 before:rounded-t-full before:border-b before:pointer-events-none",
+          "relative flex snap-end items-center justify-center rounded-lg py-1 px-2 transition-colors md:px-4",
+          "before:pointer-events-none before:absolute before:inset-x-2 before:rounded-t-full before:border-b",
           "before:shadow motion-safe:before:transition-all",
           isActive ? "before:bottom-[-4px]" : "before:bottom-[-8px] hover:before:bottom-[-4px]",
           isActive ? "before:shadow-primary-500" : "hover:before:shadow-neutral-400",

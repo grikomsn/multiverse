@@ -23,7 +23,7 @@ export default function SeatSelectorPage() {
           row.map((state, seatIndex) => {
             const id = `${rowIndex}${seatIndex}`;
             return (
-              <div key={`seat-${id}`} className="flex justify-center items-center">
+              <div key={`seat-${id}`} className="flex items-center justify-center">
                 <Seat id={id} state={state} />
               </div>
             );
@@ -43,8 +43,8 @@ function Seat({ id, state }: SeatProps) {
   return (
     <button
       className={clsx(
-        "flex flex-col justify-center items-center w-8 h-8 text-xs rounded border border-neutral-500 transition",
-        "disabled:opacity-50 disabled:cursor-not-allowed",
+        "flex h-8 w-8 flex-col items-center justify-center rounded border border-neutral-500 text-xs transition",
+        "disabled:cursor-not-allowed disabled:opacity-50",
         {
           hidden: state === -1,
           "hover:bg-neutral-500 hover:bg-opacity-50": state === 0,
