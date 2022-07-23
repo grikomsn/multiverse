@@ -2474,9 +2474,9 @@ date-fns-tz@^1:
   integrity sha512-C8q7mErvG4INw1ZwAFmPlGjEo5Sv4udjKVbTc03zpP9cu6cp5AemFzKhz0V68LGcWEtX5mJudzzg3G04emIxLA==
 
 date-fns@^2:
-  version "2.29.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.0.tgz#0abb17a5f224d5d91cc1fe02e847ce80ab7372a5"
-  integrity sha512-itxguwZHwBR0ats0VpYAVyY65dq1DEsDsfsGxFG11Rrho+zQJTCcjKbxQ7LiU5M2omLJ272bnn63yYFk/YGuVw==
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.1.tgz#9667c2615525e552b5135a3116b95b1961456e60"
+  integrity sha512-dlLD5rKaKxpFdnjrs+5azHDFOPEu4ANy/LTh04A1DTzMM7qoajmKCBc8pkKRFT41CNzw+4gQh79X5C+Jq27HAw==
 
 debounce@^1.2.0:
   version "1.2.1"
