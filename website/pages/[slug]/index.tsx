@@ -8,7 +8,7 @@ import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import { NextSeo } from "next-seo";
 import type { ParsedUrlQuery } from "querystring";
-import { CoverImage } from "ui/page/cover-image";
+import { QueryImage } from "ui/core/query-image";
 import { PageHeader } from "ui/page/header";
 
 export interface CustomPageProps {
@@ -50,7 +50,7 @@ export default function CustomPage({ query, compiledContent }: CustomPageProps) 
   return (
     <section className="space-y-16">
       <NextSeo description={query.page.description} title={query.page.title} />
-      {query.page.cover && <CoverImage src={query.page.cover.url} />}
+      {query.page.cover && <QueryImage {...query.page.cover} alt="cover" />}
       {query.page.showHeader && (
         <>
           <PageHeader

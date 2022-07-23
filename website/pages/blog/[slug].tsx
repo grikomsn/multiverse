@@ -12,7 +12,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { ArticleJsonLd, BreadcrumbJsonLd, NextSeo } from "next-seo";
 import type { ParsedUrlQuery } from "querystring";
 import type { SocialButtonsProps } from "ui/blog/social-buttons";
-import { CoverImage } from "ui/page/cover-image";
+import { QueryImage } from "ui/core/query-image";
 import { PageHeader } from "ui/page/header";
 import { parseIsoToMdy } from "utils/date";
 
@@ -92,7 +92,7 @@ export default function BlogPostPage({ query, compiledContent }: BlogPostPagePro
         ]}
       />
       <div className="space-y-8">
-        {query.post.cover && <CoverImage src={query.post.cover.url} />}
+        {query.post.cover && <QueryImage alt="cover" {...query.post.cover} />}
         <PageHeader
           className={clsx({ "pt-[10vh] md:pt-[20vh]": !query.post.cover })}
           description={query.post.description}
