@@ -1,6 +1,6 @@
 fragment CustomPageFields on PageRecord {
   cover {
-    url
+    ...ImageFields
   }
   title
   description

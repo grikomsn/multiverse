@@ -2803,13 +2803,15 @@ export type FocalPoint = {
   y: Scalars["FloatType"];
 };
 
+export type ImageFieldsFragment = { blurUpThumb: string; height: number; url: string; width: number };
+
 export type CustomPageFieldsFragment = {
   title: string;
   description: string;
   slug: string;
   content: string;
   showHeader: boolean;
-  cover: { url: string };
+  cover: { blurUpThumb: string; height: number; url: string; width: number };
 };
 
 export type PostFieldsFragment = {
@@ -2820,7 +2822,7 @@ export type PostFieldsFragment = {
   description: string;
   slug: string;
   redirect: string;
-  cover: { url: string };
+  cover: { blurUpThumb: string; height: number; url: string; width: number };
 };
 
 export type PostFieldsWithContentFragment = {
@@ -2832,7 +2834,7 @@ export type PostFieldsWithContentFragment = {
   description: string;
   slug: string;
   redirect: string;
-  cover: { url: string };
+  cover: { blurUpThumb: string; height: number; url: string; width: number };
 };
 
 export type ProjectFieldsFragment = {
@@ -2840,7 +2842,7 @@ export type ProjectFieldsFragment = {
   title: string;
   description: string;
   url: string;
-  image: { blurUpThumb: string; url: string };
+  image: { blurUpThumb: string; height: number; url: string; width: number };
 };
 
 export type TalkFieldsFragment = { id: string; title: string; description: string; date: string; url: string };
@@ -2860,7 +2862,7 @@ export type GetCustomPageQuery = {
     slug: string;
     content: string;
     showHeader: boolean;
-    cover: { url: string };
+    cover: { blurUpThumb: string; height: number; url: string; width: number };
   };
 };
 
@@ -2877,7 +2879,7 @@ export type GetHomePageQuery = {
     title: string;
     description: string;
     url: string;
-    image: { blurUpThumb: string; url: string };
+    image: { blurUpThumb: string; height: number; url: string; width: number };
   }>;
   allTalks: Array<{ id: string; title: string; description: string; date: string; url: string }>;
   allPosts: Array<{
@@ -2888,7 +2890,7 @@ export type GetHomePageQuery = {
     description: string;
     slug: string;
     redirect: string;
-    cover: { url: string };
+    cover: { blurUpThumb: string; height: number; url: string; width: number };
   }>;
 };
 
@@ -2903,7 +2905,7 @@ export type GetBlogPostsQuery = {
     description: string;
     slug: string;
     redirect: string;
-    cover: { url: string };
+    cover: { blurUpThumb: string; height: number; url: string; width: number };
   }>;
 };
 
@@ -2921,7 +2923,7 @@ export type GetBlogPostQuery = {
     description: string;
     slug: string;
     redirect: string;
-    cover: { url: string };
+    cover: { blurUpThumb: string; height: number; url: string; width: number };
   };
 };
 
@@ -2943,7 +2945,7 @@ export type GetProjectsQuery = {
     title: string;
     description: string;
     url: string;
-    image: { blurUpThumb: string; url: string };
+    image: { blurUpThumb: string; height: number; url: string; width: number };
   }>;
 };
 
@@ -2974,10 +2976,18 @@ export type GetTalksQuery = {
   allTalks: Array<{ id: string; title: string; description: string; date: string; url: string }>;
 };
 
+export const ImageFieldsFragmentDoc = /*#__PURE__*/ `
+    fragment ImageFields on FileField {
+  blurUpThumb
+  height
+  url
+  width
+}
+    `;
 export const CustomPageFieldsFragmentDoc = /*#__PURE__*/ `
     fragment CustomPageFields on PageRecord {
   cover {
-    url
+    ...ImageFields
   }
   title
   description
@@ -2992,7 +3002,7 @@ export const PostFieldsFragmentDoc = /*#__PURE__*/ `
   createdAt
   updatedAt
   cover {
-    url
+    ...ImageFields
   }
   title
   description
@@ -3013,8 +3023,7 @@ export const ProjectFieldsFragmentDoc = /*#__PURE__*/ `
   description
   url
   image {
-    blurUpThumb
-    url
+    ...ImageFields
   }
 }
     `;
@@ -3055,7 +3064,8 @@ export const GetCustomPageDocument = /*#__PURE__*/ `
     ...CustomPageFields
   }
 }
-    ${CustomPageFieldsFragmentDoc}`;
+    ${CustomPageFieldsFragmentDoc}
+${ImageFieldsFragmentDoc}`;
 export const useGetCustomPageQuery = <TData = GetCustomPageQuery, TError = unknown>(
   variables: GetCustomPageQueryVariables,
   options?: UseQueryOptions<GetCustomPageQuery, TError, TData>,
@@ -3108,6 +3118,7 @@ export const GetHomePageDocument = /*#__PURE__*/ `
   }
 }
     ${ProjectFieldsFragmentDoc}
+${ImageFieldsFragmentDoc}
 ${TalkFieldsFragmentDoc}
 ${PostFieldsFragmentDoc}`;
 export const useGetHomePageQuery = <TData = GetHomePageQuery, TError = unknown>(
@@ -3131,7 +3142,8 @@ export const GetBlogPostsDocument = /*#__PURE__*/ `
     ...PostFields
   }
 }
-    ${PostFieldsFragmentDoc}`;
+    ${PostFieldsFragmentDoc}
+${ImageFieldsFragmentDoc}`;
 export const useGetBlogPostsQuery = <TData = GetBlogPostsQuery, TError = unknown>(
   variables?: GetBlogPostsQueryVariables,
   options?: UseQueryOptions<GetBlogPostsQuery, TError, TData>,
@@ -3154,7 +3166,8 @@ export const GetBlogPostDocument = /*#__PURE__*/ `
   }
 }
     ${PostFieldsWithContentFragmentDoc}
-${PostFieldsFragmentDoc}`;
+${PostFieldsFragmentDoc}
+${ImageFieldsFragmentDoc}`;
 export const useGetBlogPostQuery = <TData = GetBlogPostQuery, TError = unknown>(
   variables: GetBlogPostQueryVariables,
   options?: UseQueryOptions<GetBlogPostQuery, TError, TData>,
@@ -3218,7 +3231,8 @@ export const GetProjectsDocument = /*#__PURE__*/ `
     ...ProjectFields
   }
 }
-    ${ProjectFieldsFragmentDoc}`;
+    ${ProjectFieldsFragmentDoc}
+${ImageFieldsFragmentDoc}`;
 export const useGetProjectsQuery = <TData = GetProjectsQuery, TError = unknown>(
   variables?: GetProjectsQueryVariables,
   options?: UseQueryOptions<GetProjectsQuery, TError, TData>,

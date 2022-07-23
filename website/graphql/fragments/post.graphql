@@ -3,7 +3,7 @@ fragment PostFields on PostRecord {
   createdAt
   updatedAt
   cover {
-    url
+    ...ImageFields
   }
   title
   description

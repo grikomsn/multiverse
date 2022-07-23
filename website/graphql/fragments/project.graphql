@@ -4,7 +4,6 @@ fragment ProjectFields on ProjectRecord {
   description
   url
   image {
-    blurUpThumb
-    url
+    ...ImageFields
   }
 }

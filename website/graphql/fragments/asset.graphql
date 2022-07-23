@@ -1,0 +1,6 @@
+fragment ImageFields on FileField {
+  blurUpThumb
+  height
+  url
+  width
+}
