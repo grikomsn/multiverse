@@ -11,6 +11,7 @@ const graphqlConfig = {
         url: process.env.GRAPHQL_ENDPOINT,
         headers: {
           Authorization: process.env.GRAPHQL_TOKEN,
+          "X-Exclude-Invalid": "true",
         },
       },
     },
