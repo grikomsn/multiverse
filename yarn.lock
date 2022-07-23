@@ -1159,10 +1159,10 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@radix-ui/react-dismissable-layer@1.0.1-rc.1":
-  version "1.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.0.1-rc.1.tgz#01b29b55415ad85136e40a3b18bf75e062891a88"
-  integrity sha512-lRyRsRzFdVdvV/e3yIlyc79XPnL0ijn0EGAAZRuo39tAmJdvSsQasBInGpNDz8U0t/o1pcsSEfIdLjWnzWp6aQ==
+"@radix-ui/react-dismissable-layer@1.0.1-rc.2":
+  version "1.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.0.1-rc.2.tgz#0828b8acc64b4d3015b8ff1741dc9c05ab086a7a"
+  integrity sha512-W3BkcClvyYdC1Tn9rJdKl3BueXWCCamVqYtfFuyICwDr5xt32yZloRDrL7IskLrLT2Ybu6JpFtojC6NNQiC5Sg==
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@radix-ui/primitive" "1.0.0"
@@ -1229,15 +1229,15 @@
     "@radix-ui/react-compose-refs" "1.0.0"
 
 "@radix-ui/react-tooltip@next":
-  version "1.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-tooltip/-/react-tooltip-1.0.1-rc.1.tgz#a0e7efa6950a49a98177eadbc382ead3a79fa008"
-  integrity sha512-0OF9nwRH2LrSazqo2C0PlPIBJK8bOSEYF+Be/h5n36Q1fhpcr+o1gWf5vONN48Du1i0060BSz10TPYxsga8pNw==
+  version "1.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-tooltip/-/react-tooltip-1.0.1-rc.2.tgz#278fc2c9aee0a5901f85656702dc9e6fc970000b"
+  integrity sha512-OakjZEHkif0r6Kssxm5Qne6xBYGV70ctTVl49BQQaDSkq/UrPYD14jl8iX9sq72M3Gg+gpqWgaMLT7fRUEnqOg==
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@radix-ui/primitive" "1.0.0"
     "@radix-ui/react-compose-refs" "1.0.0"
     "@radix-ui/react-context" "1.0.0"
-    "@radix-ui/react-dismissable-layer" "1.0.1-rc.1"
+    "@radix-ui/react-dismissable-layer" "1.0.1-rc.2"
     "@radix-ui/react-id" "1.0.0"
     "@radix-ui/react-popper" "1.0.0"
     "@radix-ui/react-portal" "1.0.0"
