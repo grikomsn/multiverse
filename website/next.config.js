@@ -42,6 +42,9 @@ let nextConfig = {
       ],
     },
   ],
+  images: {
+    domains: ["www.datocms-assets.com"],
+  },
   reactStrictMode: true,
   redirects: async () => [
     { source: "/writings", destination: "/blog", permanent: true },
