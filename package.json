@@ -25,6 +25,7 @@
     "turbo": "^1"
   },
   "resolutions": {
+    "@next/eslint-plugin-next": "^12",
     "node-fetch": "npm:node-fetch-native@latest"
   },
   "eslintConfig": {

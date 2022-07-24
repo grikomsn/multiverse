@@ -21,6 +21,7 @@ const eslintConfig = {
     require.resolve("@vercel/style-guide/eslint/react"),
     require.resolve("@vercel/style-guide/eslint/next"),
     "plugin:prettier/recommended",
+    "plugin:@next/next/recommended",
   ],
   plugins: ["simple-import-sort", "tailwindcss", "unused-imports"],
   rules: {
