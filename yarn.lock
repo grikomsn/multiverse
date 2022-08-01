@@ -681,9 +681,9 @@
     tslib "~2.4.0"
 
 "@graphql-eslint/eslint-plugin@^3":
-  version "3.10.6"
-  resolved "https://registry.yarnpkg.com/@graphql-eslint/eslint-plugin/-/eslint-plugin-3.10.6.tgz#4d5748fade6c11d74aeff9a99d6e38d2ed8f6310"
-  integrity sha512-rxGSrKVsDHCuZRvP81ElgtCs0sikdhcHqQySiyhir4G+VhiNlPZ7SQJWrXm9JJEAeB0wQ50kabvse5NRk0hqog==
+  version "3.10.7"
+  resolved "https://registry.yarnpkg.com/@graphql-eslint/eslint-plugin/-/eslint-plugin-3.10.7.tgz#9a203e2084371eca933d88b73ce7a6bebbbb9872"
+  integrity sha512-Vp32LMsHTgRNc2q+OrXRNR1i2nlAbVfN0tMTlFHgnzJfnEJDV332cpjiUF9F82IKjNFSde/pF3cuYccu+UUR/g==
   dependencies:
     "@babel/code-frame" "^7.16.7"
     "@graphql-tools/code-file-loader" "^7.2.14"
