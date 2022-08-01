@@ -1,4 +1,4 @@
-import { GitHub as Github, Twitter } from "iconoir-react";
+import { GitHub as Github, Heart, Twitter } from "iconoir-react";
 import { Anchor } from "ui/core/anchor";
 import { Mastodon } from "ui/icon/mastodon";
 
@@ -30,6 +30,9 @@ export function Footer() {
         </Anchor>
         <Anchor href="https://twitter.com/griko_nibras" rel="me">
           <Twitter className="h-5 w-5 hover:text-neutral-300" />
+        </Anchor>
+        <Anchor href="/sponsors" rel="me">
+          <Heart className="h-5 w-5 hover:text-neutral-300" />
         </Anchor>
       </div>
     </footer>
