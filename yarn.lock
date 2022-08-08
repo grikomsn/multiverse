@@ -555,9 +555,9 @@
     use-isomorphic-layout-effect "^1.1.1"
 
 "@fontsource/plus-jakarta-sans@^4":
-  version "4.5.8"
-  resolved "https://registry.yarnpkg.com/@fontsource/plus-jakarta-sans/-/plus-jakarta-sans-4.5.8.tgz#8ad38f95953a8a8b23a68c4532a856779f1c8e0f"
-  integrity sha512-rkNIWw6q9M3cVpMxIN85IMG/MxePHl7dTSEvr6xngjvvc8FPudZpJF8R7OsFAGhxdOKXZnO3kFnqXni4Jd5Nog==
+  version "4.5.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/plus-jakarta-sans/-/plus-jakarta-sans-4.5.9.tgz#2dd784a847c15e7073d54eccc5301da9aaacdff9"
+  integrity sha512-6+o+aSPH1OVNYz1Cpti37SYe8BHHvgihnhcbScZrb7yKv+HSwku20XUDGdvXS0OC95UFvQBBuEDxdnH9zj1lBA==
 
 "@graphql-codegen/add@^3":
   version "3.2.0"
@@ -1054,9 +1054,9 @@
   integrity sha512-2lWKP5Xcvnor70NaaROZXBvU8z9mFReePCG8NhZw6NyNGnPvC+8s+Cre/63LAB1LKzWw/e9bZJnQUg0gYFRb2Q==
 
 "@next/eslint-plugin-next@12.1.2", "@next/eslint-plugin-next@^12":
-  version "12.2.3"
-  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-12.2.3.tgz#63726691aac6a7f01b64190a0323d590a0e8154d"
-  integrity sha512-B2e8Yg1MpuLsGxhCx4rU8/Tcnr5wFmCx1O2eyLXBPnaCcsFXfGCo067ujagtDLtWASL3GNgzg78U1SB0dbc38A==
+  version "12.2.4"
+  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-12.2.4.tgz#b7496cf11050577cfa815612c541195c1b4871eb"
+  integrity sha512-ChDkUIkJeYWKRx+FdF+EhUgvKtK1wF+Xew4Os7ef3iAjMch5GGBiezw2zGXTa/C0E6potz4j11EpX89mngffug==
   dependencies:
     glob "7.1.7"
 
