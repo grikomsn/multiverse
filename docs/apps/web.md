@@ -38,6 +38,35 @@ The MCP server (`src/worker/mcp.ts`) reads `/llms.json` from the deployed assets
 
 `tools/sync-bearblog.ts` copies posts and pages from Sanity to the Bear Blog that serves nibras.co until the cutover. It uses the [Bear Blog API](https://docs.bearblog.dev/api/). It sends only fields that differ and never deletes. It skips Bear drafts, cross-post stubs (Bear posts with a `canonical_url`), and `schedule` and `resume`. Without `--apply` it only shows the changes. With `--apply` it backs up every Bear item it changes to `tmp/bearblog/` first. Set `BEARBLOG_API_KEY` (Bear dashboard → Settings → API).
 
+## Performance
+
+Measured on 2026-11-22 with mobile Lighthouse 13.6.0: a slow 4G network and a slow phone, both simulated. The build was served from a local server with Brotli. 14 pages, three runs each, the middle value.
+
+| Measure                             | Before         | After          |
+| ----------------------------------- | -------------- | -------------- |
+| Performance score                   | 99 to 100      | 99 to 100      |
+| First paint                         | 0.96 to 1.11 s | 0.78 s         |
+| Largest paint, text pages           | 0.96 to 1.11 s | 0.78 s         |
+| Largest paint, About, Media, Uses   | 1.80 to 2.16 s | 1.84 to 1.99 s |
+| Accessibility on posts with code    | 96             | 100            |
+| Page weight, Blog                   | 71 KB          | 59 KB          |
+| Page weight, a post with two tweets | 425 KB         | 108 KB         |
+
+What made the difference:
+
+- The CSS is inside each page (`build.inlineStylesheets` in `astro.config.ts`). A page is about 9 KB larger, and the first paint does not wait for a style sheet.
+- The font keeps only the common OpenType features: 38 KB where it was 50 KB (`scripts/subset-fonts.sh`). It is the largest download on most pages.
+- The console greeting is a constant in the script that every page shares, not text in each page.
+- A frame from a different site loads only near the view (`components/portable/embed.astro`).
+- Two code colors were too faint and are now one step clearer (`components/portable/code-block.astro`).
+
+What was tried and left out:
+
+- Photos served from nibras.co in place of `cdn.sanity.io`: no gain. On a slow network the largest paint of a photo page depends on the bytes before the photo, not on the second connection.
+- One file for the five small scripts of a page, and Early Hints for the font: no change in any measure.
+
+The live site needs no work on delivery: Cloudflare answers in about 50 ms, with Brotli, and hashed files are cached for a year.
+
 ## Commands
 
 ```bash

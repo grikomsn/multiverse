@@ -4,11 +4,10 @@ import "../styles/global.css"
 import SiteFooter from "@multiverse/ui/site-footer.astro"
 import SiteHeader from "@multiverse/ui/site-header.astro"
 import ThemeHead from "@multiverse/ui/theme-head.astro"
-import { griFile } from "@multiverse/ui/gri"
 
 import { SITE_SHELL_QUERY } from "../lib/queries"
 import { sanity } from "../lib/sanity"
-import { MASCOT_ID, REPOSITORY_URL, platformLabel } from "@multiverse/sanity/constants"
+import { MASCOT_ID, platformLabel } from "@multiverse/sanity/constants"
 import { ARCHIVE_ORIGIN } from "../lib/archive"
 import { siteDescription, siteTitle as titleOf } from "../lib/site"
 
@@ -58,12 +57,6 @@ const profiles = (shell.profile?.socialLinks ?? [])
     url: link.url!,
     platform: link.platform,
   }))
-// A greeting in the browser console, with the mascot's wink. The console draws a picture only
-// from a data URL.
-const hello = {
-  face: `data:image/svg+xml,${encodeURIComponent(griFile("wink", { marks: false }))}`,
-  text: `Hi. You opened the console.\nThe code of this site is public: ${REPOSITORY_URL}`,
-}
 ---
 
 <!doctype html>
@@ -148,17 +141,20 @@ const hello = {
       archiveUrl={ARCHIVE_ORIGIN}
       wide={wide}
     />
-    <script is:inline define:vars={hello}>
-      console.log(
-        "%c ",
-        `padding: 28px; font-size: 1px; background: url("${face}") center / contain no-repeat`,
-      )
-      console.log(text)
-    </script>
     <script>
       import { startDevelop } from "../scripts/develop"
 
       startDevelop()
+
+      // A greeting for people who open the browser console: the mascot's wink, then the
+      // address of the code. The build puts the whole value at each place that names the
+      // constant, so name it once.
+      const hello = __CONSOLE_HELLO__
+      console.log(
+        "%c ",
+        `padding: 28px; font-size: 1px; background: url("${hello.face}") center / contain no-repeat`,
+      )
+      console.log(hello.text)
 
       // Cards with a pointer light: tell the card under the pointer where the pointer is.
       document.addEventListener(

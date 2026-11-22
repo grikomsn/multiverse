@@ -1,7 +1,9 @@
 import sitemap from "@astrojs/sitemap"
 import tailwindcss from "@tailwindcss/vite"
 import { createSanityClient } from "@multiverse/content/client"
+import { REPOSITORY_URL } from "@multiverse/sanity/constants"
 import { siteFont } from "@multiverse/ui/fonts"
+import { griFile } from "@multiverse/ui/gri"
 import { defineConfig } from "astro/config"
 
 import { UNLISTED_SLUGS_QUERY } from "./src/lib/queries"
@@ -29,7 +31,19 @@ export default defineConfig({
     }),
   ],
   fonts: [siteFont()],
+  // The CSS goes inside each page. A page is about 9 KB larger (Brotli), and the first paint does
+  // not wait for a style sheet: 0.78 s where it was 0.96 to 1.11 s (mobile Lighthouse, slow 4G).
+  build: { inlineStylesheets: "always" },
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      // The greeting in the browser console (`layouts/base.astro`): the mascot's wink as a data
+      // URL, because the console draws a picture only from one. It is a constant in the script
+      // that every page shares, so a page's HTML does not carry it.
+      __CONSOLE_HELLO__: JSON.stringify({
+        face: `data:image/svg+xml,${encodeURIComponent(griFile("wink", { marks: false }))}`,
+        text: `Hi. You opened the console.\nThe code of this site is public: ${REPOSITORY_URL}`,
+      }),
+    },
   },
 })

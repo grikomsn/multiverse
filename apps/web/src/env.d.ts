@@ -10,3 +10,6 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+/** The greeting for the browser console. `astro.config.ts` sets it at build time. */
+declare const __CONSOLE_HELLO__: { face: string; text: string }

@@ -3,6 +3,29 @@
 type Props = { node: { html?: string | null; url?: string | null; label?: string | null } }
 
 const { html, url, label } = Astro.props.node
+
+/**
+ * A frame from a different site loads only when it is near the view, and has a name for
+ * screen readers. Two tweets add 333 KB to a page that loads them at once.
+ */
+function prepareFrames(source: string) {
+  return source.replace(/<iframe\b([^>]*)>/gi, (tag, attributes: string) => {
+    let extra = ""
+    if (!/\bloading\s*=/i.test(attributes)) extra += ' loading="lazy"'
+    if (!/\btitle\s*=/i.test(attributes)) {
+      const host = attributes.match(/\bsrc\s*=\s*["']https?:\/\/([^/"']+)/i)?.[1] ?? ""
+      const from = /(^|\.)(twitter|x)\.com$/.test(host)
+        ? "Post on X"
+        : host && `Content from ${host}`
+      if (from) extra += ` title="${from}"`
+    }
+    return extra ? `<iframe${attributes}${extra}>` : tag
+  })
+}
 ---
 
-{html ? <div class="overflow-x-auto" set:html={html} /> : url && <a href={url}>{label ?? url}</a>}
+{html ? (
+  <div class="overflow-x-auto" set:html={prepareFrames(html)} />
+) : (
+  url && <a href={url}>{label ?? url}</a>
+)}

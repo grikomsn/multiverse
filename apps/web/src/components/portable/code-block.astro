@@ -1,5 +1,6 @@
 ---
 import { Code } from "astro:components"
+import type { ComponentProps } from "astro/types"
 
 type Props = { node: { code?: string; language?: string | null; filename?: string | null } }
 
@@ -11,6 +12,20 @@ const LANGS: Record<string, string> = {
   ts: "typescript",
 }
 const lang = language ? (LANGS[language] ?? language) : "text"
+
+// Two colors of the themes are too faint on their grounds: a contrast of 3.5 and 3.9, where
+// WCAG AA asks for 4.5. Each gets the next darker or lighter step of the same GitHub color.
+const CLEARER: [RegExp, string][] = [
+  [/--shiki-light:#E36209/gi, "--shiki-light:#BC4C00"],
+  [/--shiki-dark:#768390/gi, "--shiki-dark:#909DAB"],
+]
+const contrast: NonNullable<ComponentProps<typeof Code>["transformers"]>[number] = {
+  span(node) {
+    const style = node.properties.style
+    if (typeof style !== "string") return
+    node.properties.style = CLEARER.reduce((text, [from, to]) => text.replace(from, to), style)
+  },
+}
 ---
 
 <div>
@@ -20,5 +35,6 @@ const lang = language ? (LANGS[language] ?? language) : "text"
     lang={lang as never}
     themes={{ light: "github-light", dark: "github-dark-dimmed" }}
     defaultColor={false}
+    transformers={[contrast]}
   />
 </div>
