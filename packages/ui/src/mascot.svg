@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="13 11 174 174" width="1024" height="1024">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -14 230 230" width="1024" height="1024">
 <title>Griko Nibras</title>
-<rect width="200" height="200" fill="#eab308"/>
+<rect x="-15" y="-14" width="230" height="230" fill="#eab308"/>
 <g transform="translate(0 -2) rotate(-5 100 110)">
 <g fill="#fbfaf7" stroke="#18181b" stroke-width="6" stroke-linejoin="round">
 <circle cx="44" cy="120" r="10"/>
