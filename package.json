@@ -155,5 +155,9 @@
         "stylis": "4.2.0"
       }
     }
-  }
+  },
+  "trustedDependencies": [
+    "@fortawesome/fontawesome-common-types",
+    "core-js-pure"
+  ]
 }

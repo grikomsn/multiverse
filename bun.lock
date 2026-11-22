@@ -270,6 +270,10 @@
       },
     },
   },
+  "trustedDependencies": [
+    "@fortawesome/fontawesome-common-types",
+    "core-js-pure",
+  ],
   "catalog": {
     "@astrojs/check": "0.9.12",
     "@astrojs/cloudflare": "14.4.3",
