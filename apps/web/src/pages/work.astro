@@ -2,6 +2,7 @@
 import { formatRange, groupByOrganization, isoDate } from "@multiverse/content/format"
 import SectionHeading from "@multiverse/ui/section-heading.astro"
 
+import EntryRow from "../components/entry-row.astro"
 import ProjectTile from "../components/project-tile.astro"
 import ProjectStats from "../components/project-stats.astro"
 import Sparkline from "../components/sparkline.astro"
@@ -191,10 +192,7 @@ const TILES = [
                 <div>
                   <p class="flex flex-wrap items-baseline gap-x-2">
                     {href ? (
-                      <a
-                        class="link font-semibold decoration-transparent hover:decoration-accent"
-                        href={href}
-                      >
+                      <a class="title-link font-semibold" href={href}>
                         {project.name}
                       </a>
                     ) : (
@@ -225,28 +223,17 @@ const TILES = [
 
   <section id="community" class="scroll-mt-6 border-t border-line py-10" data-reveal>
     <SectionHeading title="Community" icon="users" />
-    <ul class="flex flex-col gap-4">
+    <ul class="flex flex-col">
       {involvement.map((item) => (
-        <li>
-          <p>
-            <span class="font-semibold">{item.role}</span>
-            <span class="text-soft">
-              {" "}
-              ·{" "}
-              {item.url ? (
-                <a class="link text-fg" href={item.url}>
-                  {item.organization?.name}
-                </a>
-              ) : (
-                item.organization?.name
-              )}
-            </span>
-          </p>
-          <p class="font-mono text-[0.8125rem] text-soft">
-            {item.endDate ? formatRange(item.startDate, item.endDate) : item.startDate?.slice(0, 4)}
-          </p>
-          {item.summary && <p class="mt-1 text-[0.9375rem] text-soft">{item.summary}</p>}
-        </li>
+        <EntryRow
+          title={item.organization?.name ?? ""}
+          href={item.url}
+          detail={item.role}
+          date={
+            item.endDate ? formatRange(item.startDate, item.endDate) : item.startDate?.slice(0, 4)
+          }
+          summary={item.summary}
+        />
       ))}
     </ul>
   </section>
@@ -255,27 +242,14 @@ const TILES = [
     <SectionHeading title="Talks" icon="mic" />
     <ul class="flex flex-col">
       {talks.map((talk) => (
-        <li class="grid gap-x-5 py-2.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline">
-          <time class="font-mono text-[0.8125rem] text-soft" datetime={talk.date}>
-            {isoDate(talk.date)}
-          </time>
-          <div>
-            <p>
-              {talk.slidesUrl || talk.recordingUrl ? (
-                <a
-                  class="link font-semibold decoration-transparent hover:decoration-accent"
-                  href={talk.slidesUrl ?? talk.recordingUrl ?? undefined}
-                >
-                  {talk.title}
-                </a>
-              ) : (
-                <span class="font-semibold">{talk.title}</span>
-              )}
-              {talk.event && <span class="text-soft"> · {talk.event}</span>}
-            </p>
-            {talk.summary && <p class="mt-0.5 text-[0.9375rem] text-soft">{talk.summary}</p>}
-          </div>
-        </li>
+        <EntryRow
+          title={talk.title ?? ""}
+          href={talk.slidesUrl ?? talk.recordingUrl}
+          detail={talk.event}
+          date={isoDate(talk.date)}
+          datetime={talk.date}
+          summary={talk.summary}
+        />
       ))}
     </ul>
   </section>
@@ -283,15 +257,14 @@ const TILES = [
   {education.length > 0 && (
     <section id="education" class="scroll-mt-6 border-t border-line py-10" data-reveal>
       <SectionHeading title="Education" icon="graduation-cap" />
-      <ul class="flex flex-col gap-3">
+      <ul class="flex flex-col">
         {education.map((item) => (
-          <li>
-            <p class="font-semibold">{item.organization?.name}</p>
-            <p class="text-soft">
-              {item.degree}
-              {item.field && `, ${item.field}`} · {formatRange(item.startDate, item.endDate)}
-            </p>
-          </li>
+          <EntryRow
+            title={item.organization?.name ?? ""}
+            href={item.organization?.url}
+            date={formatRange(item.startDate, item.endDate)}
+            summary={[item.degree, item.field].filter(Boolean).join(", ")}
+          />
         ))}
       </ul>
     </section>

@@ -19,9 +19,12 @@ export const isoDate = (value: string | null | undefined) =>
 const parseDate = (value: string) =>
   new Date(/^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T00:00:00+07:00` : value)
 
-/** "2020 – 2023", "2026 – now". */
-export const formatRange = (start?: string | null, end?: string | null) =>
-  `${start?.slice(0, 4) ?? "?"} – ${end ? end.slice(0, 4) : "now"}`
+/** "2020 – 2023", "2026 – now". One year when it starts and ends in the same year: "2019". */
+export function formatRange(start?: string | null, end?: string | null) {
+  const from = start?.slice(0, 4) ?? "?"
+  const to = end ? end.slice(0, 4) : "now"
+  return from === to ? from : `${from} – ${to}`
+}
 
 /** Sanity image CDN URL, resized and format-negotiated. */
 export const imageUrl = (url: string | null | undefined, width: number, height?: number) =>

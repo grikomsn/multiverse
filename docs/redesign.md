@@ -17,7 +17,7 @@ The source for this list is the 14 rebuilt editions in `apps/archive` and the li
 | Email call to action      | "Drop a mail at…" (v4b, v5), "Reach me via email…" (v7), "email me at…" (2023b–2024)             | "Send an email to griko@nibras.co, or book a call."                        |
 | Light and dark            | Light (v2–v4, 2023b, 2024); dark (v4b–v9, 2022b, 2023a); toggle (v8, v9, 2023b, 2023c)           | Follow the system setting, with a toggle                                   |
 | Narrow single column      | About 40–45 rem from v4 to 2024                                                                  | `max-w-2xl` reading column; wider only for project grids                   |
-| Plain post list           | Title, date and description (v8, v9, 2023c, 2024)                                                | Date in monospace, then the title; no cards                                |
+| Plain post list           | Title, date and description (v8, v9, 2023c, 2024)                                                | The title, then the date in monospace on the right; no cards               |
 | Colophon footer           | "Made with Next.js, Tailwind CSS… Hosted on…", "Contents licensed under CC BY-NC-SA 4.0" (v4–v7) | Colophon line, plus links to every older version                           |
 | Top text navigation       | Top right (v2–v7), floating dock (v9, 2023b, 2023c), sidebar list (2024)                         | Top-right text links: Blog, Work, About, Now                               |
 
@@ -232,4 +232,17 @@ Decided on 2026-11-22. The mascot is Gri: a cartoon face of Griko with a tuft of
 
 ### Home page order
 
-Decided on 2026-11-22: Experience, Projects, Talks, then Latest posts. Every row on the home page has its date on the right, as the experience rows always had. On narrow screens the date goes under the title. Blog and Work keep the date on the left.
+Decided on 2026-11-22: Experience, Projects, Talks, then Latest posts.
+
+### List rows and title links
+
+Decided on 2026-11-22, after a look at every list on Home, Blog and Work. It replaces the rule that Blog and Work keep the date on the left.
+
+- A dated row is `apps/web/src/components/entry-row.astro`: posts, talks, home experience, community roles and schools. The title and the summary are on the left. The date is on the right, in monospace. On narrow screens the date goes under the title.
+- A row starts with the name that its link opens. Experience, community roles and schools start with the organization; the role or the degree comes second.
+- The amber underline shows all the time (the `link` utility) on a link in a sentence, on a link that stands alone ("All posts"), and on the organization headings in Experience on Work.
+- The title of a row or a card shows the underline on hover (the `title-link` utility): a post, a talk, a project, and an organization or a school in a list. An underline on each title, and on the small links of each project card, was tried on 2026-11-22 and was too much.
+- Buttons, cards that are one link, icons and the header navigation have their own shapes and take no underline.
+- A post row opens its post from any point in the row. Other rows open from the title only.
+- A range that starts and ends in the same year shows one year: `2019`, not `2019 – 2019`.
+- The resume keeps its own styles, because it is also the printed document.

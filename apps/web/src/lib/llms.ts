@@ -134,7 +134,9 @@ function workMarkdown(work: Work, resume: Resume) {
     ...work.education.map((item) =>
       paragraphs(
         `### ${[item.degree, item.field].filter(Boolean).join(" in ")} · ${item.organization?.name ?? ""}`,
-        formatPeriod(item.startDate, item.endDate),
+        [formatPeriod(item.startDate, item.endDate), item.organization?.url]
+          .filter(Boolean)
+          .join(" · "),
       ),
     ),
   )}\n`

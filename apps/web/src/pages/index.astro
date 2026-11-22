@@ -4,6 +4,7 @@ import Icon from "@multiverse/ui/icon.astro"
 import { formatRange, groupByOrganization, imageUrl, isoDate } from "@multiverse/content/format"
 import SectionHeading from "@multiverse/ui/section-heading.astro"
 
+import EntryRow from "../components/entry-row.astro"
 import ProjectCard from "../components/project-card.astro"
 import RichText from "../components/rich-text.astro"
 import Signature from "../components/signature.astro"
@@ -159,21 +160,13 @@ const structuredData = profile?.name && {
     <SectionHeading title="Experience" href="/work" link="Full work history" icon="briefcase" />
     <ul class="flex flex-col">
       {stops.map((stop) => (
-        <li class="flex flex-col py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-          <p>
-            <span class="font-semibold">{stop.organization?.name}</span>
-            <span class="text-soft"> · {stop.roles.map((job) => job.role).join(", ")}</span>
-          </p>
-          <p class="flex shrink-0 items-center gap-2 font-mono text-[0.8125rem] text-soft">
-            {!stop.endDate && (
-              <span class="relative flex size-2" title="Current role">
-                <span class="absolute inline-flex size-full rounded-full bg-mark-green-ink opacity-60 motion-safe:animate-ping" />
-                <span class="relative inline-flex size-2 rounded-full bg-mark-green-ink" />
-              </span>
-            )}
-            {formatRange(stop.startDate, stop.endDate)}
-          </p>
-        </li>
+        <EntryRow
+          title={stop.organization?.name ?? ""}
+          href={stop.organization?.url}
+          detail={stop.roles.map((job) => job.role).join(", ")}
+          date={formatRange(stop.startDate, stop.endDate)}
+          current={!stop.endDate}
+        />
       ))}
     </ul>
   </section>
@@ -194,24 +187,13 @@ const structuredData = profile?.name && {
       <SectionHeading title="Talks" href="/work#talks" link="All talks" icon="mic" />
       <ul class="flex flex-col">
         {talks.map((talk) => (
-          <li class="flex flex-col py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <p>
-              {talk.slidesUrl || talk.recordingUrl ? (
-                <a
-                  class="link font-semibold decoration-transparent hover:decoration-accent"
-                  href={talk.slidesUrl ?? talk.recordingUrl ?? undefined}
-                >
-                  {talk.title}
-                </a>
-              ) : (
-                <span class="font-semibold">{talk.title}</span>
-              )}
-              {talk.event && <span class="text-soft"> · {talk.event}</span>}
-            </p>
-            <time class="shrink-0 font-mono text-[0.8125rem] text-soft" datetime={talk.date}>
-              {isoDate(talk.date)}
-            </time>
-          </li>
+          <EntryRow
+            title={talk.title ?? ""}
+            href={talk.slidesUrl ?? talk.recordingUrl}
+            detail={talk.event}
+            date={isoDate(talk.date)}
+            datetime={talk.date}
+          />
         ))}
       </ul>
     </section>
@@ -221,22 +203,14 @@ const structuredData = profile?.name && {
     <SectionHeading title="Latest posts" href="/blog" link="All posts" icon="pen" />
     <ul class="flex flex-col">
       {posts.map((post) => (
-        <li>
-          <a
-            href={`/${post.slug}`}
-            class="group flex flex-col py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
-          >
-            <span
-              class="font-semibold decoration-accent decoration-2 underline-offset-4 group-hover:underline"
-              style={`view-transition-name: post-${post.slug}`}
-            >
-              {post.title}
-            </span>
-            <time class="shrink-0 font-mono text-[0.8125rem] text-soft" datetime={post.publishedAt}>
-              {isoDate(post.publishedAt)}
-            </time>
-          </a>
-        </li>
+        <EntryRow
+          title={post.title ?? ""}
+          href={`/${post.slug}`}
+          stretch
+          date={isoDate(post.publishedAt)}
+          datetime={post.publishedAt}
+          transition={`post-${post.slug}`}
+        />
       ))}
     </ul>
   </section>

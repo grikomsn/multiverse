@@ -1,6 +1,7 @@
 ---
 import { isoDate } from "@multiverse/content/format"
 
+import EntryRow from "../components/entry-row.astro"
 import BaseLayout from "../layouts/base.astro"
 import { POSTS_QUERY } from "../lib/queries"
 import { sanity } from "../lib/sanity"
@@ -26,27 +27,15 @@ const years = Map.groupBy(posts, (post) => isoDate(post.publishedAt).slice(0, 4)
         </h2>
         <ul class="flex flex-col">
           {items.map((post) => (
-            <li>
-              <a
-                href={`/${post.slug}`}
-                class="group grid gap-x-5 py-2.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline"
-              >
-                <time class="font-mono text-[0.8125rem] text-soft" datetime={post.publishedAt}>
-                  {isoDate(post.publishedAt)}
-                </time>
-                <span>
-                  <span
-                    class="font-semibold decoration-accent decoration-2 underline-offset-4 group-hover:underline"
-                    style={`view-transition-name: post-${post.slug}`}
-                  >
-                    {post.title}
-                  </span>
-                  {post.excerpt && (
-                    <span class="mt-0.5 block text-[0.9375rem] text-soft">{post.excerpt}</span>
-                  )}
-                </span>
-              </a>
-            </li>
+            <EntryRow
+              title={post.title ?? ""}
+              href={`/${post.slug}`}
+              stretch
+              date={isoDate(post.publishedAt)}
+              datetime={post.publishedAt}
+              summary={post.excerpt}
+              transition={`post-${post.slug}`}
+            />
           ))}
         </ul>
       </section>

@@ -479,6 +479,22 @@ canvas.develop {
   }
 }
 
+/*
+ * The title of a row or a card: a post, a talk, a project, an organization in a list. The
+ * underline shows only on hover, so a list of titles stays calm.
+ */
+@utility title-link {
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 150ms var(--ease-out-quart);
+
+  &:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
 @layer components {
   /* Small uppercase label above a list or section. */
   .label {
