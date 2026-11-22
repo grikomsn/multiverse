@@ -62,3 +62,13 @@ pre {
   @apply max-w-none;
   z-index: 61;
 }
+
+/*
+ * Not in the original. The tab bar (`h-16 md:hidden` in the layout) touches the lower edge of
+ * the window, so the archive banner goes above it.
+ */
+@media (max-width: 767.98px) {
+  :root {
+    --archive-banner-lift: 4rem;
+  }
+}

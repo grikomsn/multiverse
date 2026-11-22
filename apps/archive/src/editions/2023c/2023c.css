@@ -43,3 +43,13 @@
 .dark .fade-bottom::before {
   background: linear-gradient(to top, theme("colors.neutral.900"), transparent);
 }
+
+/*
+ * Not in the original. The floating nav stays above the archive banner while the window is too
+ * narrow for both on one line.
+ */
+@media (max-width: 1023.98px) {
+  nav.floating-nav {
+    padding-bottom: 3.5rem;
+  }
+}
