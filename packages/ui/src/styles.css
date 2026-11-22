@@ -84,14 +84,29 @@
 /*
  * Header brand on the home page: out of sight while the hero avatar is in view, then it slides
  * up from under the header as the avatar scrolls away (the header is 4.5rem tall).
- * Scroll-linked, so it is not motion that plays by itself; browsers without scroll timelines
- * show the brand all the time.
+ * Scroll-linked, so it is not motion that plays by itself.
+ *
+ * The script in site-header.astro states the two ends on `:root`: `data-brand="hidden"` while
+ * the whole avatar is in view, `"shown"` when none of it is. `!important` wins over the animation,
+ * so the ends hold in a browser where the scroll timeline is missing or does not update
+ * (Safari 26 showed the brand over the hero). Such a browser has no slide: the brand shows
+ * when the avatar is gone. Without the script and without scroll timelines, the brand shows
+ * all the time.
  */
 .brand-clip {
   overflow: clip;
   /* Room for the focus ring. */
   margin: -0.375rem;
   padding: 0.375rem;
+}
+
+:root[data-brand="hidden"] .brand-reveal {
+  visibility: hidden !important;
+}
+
+:root[data-brand="shown"] .brand-reveal {
+  translate: none !important;
+  visibility: visible !important;
 }
 
 @supports (animation-timeline: view()) {

@@ -76,3 +76,32 @@ const current = (href: string) =>
   </header>
   {progress && <div class="read-progress" aria-hidden="true" />}
 </div>
+{revealBrand && <script is:inline>
+  // States the two ends of the brand reveal (styles.css). Between them the scroll timeline
+  // moves the brand; where no timeline runs, the brand waits until the avatar is gone.
+  {
+    const root = document.documentElement
+    root.dataset.brand = "hidden"
+    addEventListener("DOMContentLoaded", () => {
+      const hero = document.querySelector("[data-hero]")
+      const brand = document.querySelector(".brand-reveal")
+      if (!hero || !brand || !("IntersectionObserver" in window)) {
+        delete root.dataset.brand
+        return
+      }
+      const scrubs = () =>
+        brand.getAnimations().some((animation) => animation.timeline?.currentTime != null)
+      // The header is 4.5rem tall: the avatar leaves the view at its lower edge.
+      const header = 4.5 * parseFloat(getComputedStyle(root).fontSize)
+      new IntersectionObserver(
+        (entries) => {
+          const entry = entries[entries.length - 1]
+          if (entry.intersectionRatio > 0.99) root.dataset.brand = "hidden"
+          else if (!entry.isIntersecting) root.dataset.brand = "shown"
+          else root.dataset.brand = scrubs() ? "moving" : "hidden"
+        },
+        { rootMargin: `-${header}px 0px 0px`, threshold: [0, 0.99, 1] },
+      ).observe(hero)
+    })
+  }
+</script>}
