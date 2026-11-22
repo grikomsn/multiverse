@@ -1,8 +1,11 @@
 ---
 import DitherWave from "@multiverse/ui/dither-wave.astro"
+import { MOODS } from "@multiverse/ui/gri"
+import Gri from "@multiverse/ui/gri.astro"
 import Icon from "@multiverse/ui/icon.astro"
 import { formatRange, groupByOrganization, imageUrl, isoDate } from "@multiverse/content/format"
 import SectionHeading from "@multiverse/ui/section-heading.astro"
+import { MASCOT_ID } from "@multiverse/sanity/constants"
 
 import EntryRow from "../components/entry-row.astro"
 import ProjectCard from "../components/project-card.astro"
@@ -19,6 +22,9 @@ const [{ profile, avatar }, { site, experience, posts, projects, talks }] = awai
 ])
 
 const metrics = await getMetrics(projects)
+// While the profile's icon is the mascot, the hero draws it in the page: it winks under the
+// pointer, shows the next mood on a click, and answers the links marked `data-gri`.
+const mascot = avatar?._id === MASCOT_ID
 const current = experience[0]
 const stops = groupByOrganization(experience)
 // The highlighted line, as on the 2019–2020 versions. Words in [brackets] get a mark; split()
@@ -68,16 +74,28 @@ const structuredData = profile?.name && {
     <DitherWave class="hero-wave" />
     {avatar?.url && (
       <div class="mb-8 flex items-center gap-2">
-        <img
-          src={imageUrl(avatar.url, 240, 240)}
-          srcset={`${imageUrl(avatar.url, 120, 120)} 1x, ${imageUrl(avatar.url, 240, 240)} 2x`}
-          width="112"
-          height="112"
-          alt={avatar.alt ?? "Cartoon face of Griko"}
-          class="hero-avatar size-24 rounded-full border border-line bg-white sm:size-28"
-          data-hero
-          fetchpriority="high"
-        />
+        {mascot ? (
+          <button
+            type="button"
+            class="hero-avatar size-24 cursor-pointer overflow-hidden rounded-full border border-line transition-[scale] duration-150 active:scale-95 sm:size-28"
+            aria-label={`${avatar.alt ?? "Cartoon face of Griko"}. Press it to change its mood.`}
+            data-hero
+            data-face
+          >
+            <Gri moods={MOODS} />
+          </button>
+        ) : (
+          <img
+            src={imageUrl(avatar.url, 240, 240)}
+            srcset={`${imageUrl(avatar.url, 120, 120)} 1x, ${imageUrl(avatar.url, 240, 240)} 2x`}
+            width="112"
+            height="112"
+            alt={avatar.alt ?? "Cartoon face of Griko"}
+            class="hero-avatar size-24 rounded-full border border-line bg-white sm:size-28"
+            data-hero
+            fetchpriority="high"
+          />
+        )}
         <p class="hero-doodle flex items-end gap-1 text-accent-ink" aria-hidden="true">
           <svg class="h-10 w-14" viewBox="0 0 56 40" fill="none">
             <path
@@ -114,6 +132,7 @@ const structuredData = profile?.name && {
         index % 2 ? (
           <mark
             class="mark hero-mark text-fg"
+            data-gri="starstruck"
             style={`--mark: var(${MARKS[((index - 1) / 2) % MARKS.length]}); --i: ${(index - 1) / 2}`}
           >
             {part}
@@ -143,12 +162,12 @@ const structuredData = profile?.name && {
       )}
     </div>
     <nav class="hero-actions mt-6 flex flex-wrap gap-2" aria-label="Shortcuts">
-      <a class="button" href="/resume">
+      <a class="button" href="/resume" data-gri="cool">
         <Icon name="file-text" class="size-4 text-accent-ink" />
         Resume
       </a>
       {profile?.scheduleUrl && (
-        <a class="button" href={profile.scheduleUrl}>
+        <a class="button" href={profile.scheduleUrl} data-gri="laugh">
           <Icon name="calendar" class="size-4 text-accent-ink" />
           Book a call
         </a>
@@ -240,3 +259,51 @@ const structuredData = profile?.name && {
     <Signature class="mt-8 w-40 sm:w-44" label={profile?.givenName ?? "Griko"} />
   </section>
 </BaseLayout>
+
+<script>
+  import { faces, showMood } from "@multiverse/ui/gri-moods"
+
+  // The face in the hero. `data-rest` holds the mood that a click chose.
+  const hero = document.querySelector<HTMLElement>(".hero")
+  const button = hero?.querySelector<HTMLElement>("[data-face]")
+  const face = button && faces(button)[0]
+  if (hero && button && face) {
+    // The moods in the order that the drawing holds them.
+    const moods = [
+      ...new Set(
+        [...face.querySelectorAll<SVGElement>("g[data-m] > .mouth")].map(
+          (mouth) => (mouth.parentNode as SVGElement).dataset.m!,
+        ),
+      ),
+    ]
+    const rest = () => face.dataset.rest ?? "smile"
+    const show = (mood: string) => {
+      if (face.dataset.mood !== mood) showMood(face, mood)
+    }
+    /** A mood while the pointer or the keyboard focus is on `item`. */
+    const answer = (item: HTMLElement, mood: () => string | undefined) => {
+      const enter = () => {
+        const next = mood()
+        if (next) show(next)
+      }
+      const leave = () => show(rest())
+      item.addEventListener("pointerenter", (event) => {
+        if (event.pointerType === "mouse") enter()
+      })
+      item.addEventListener("pointerleave", leave)
+      item.addEventListener("focus", enter)
+      item.addEventListener("blur", leave)
+    }
+
+    // A wink under the pointer, until a click has chosen a different mood.
+    answer(button, () => (rest() === "smile" ? "wink" : undefined))
+    button.addEventListener("click", () => {
+      const next = moods[(moods.indexOf(rest()) + 1) % moods.length] ?? "smile"
+      face.dataset.rest = next
+      showMood(face, next)
+    })
+    for (const item of hero.querySelectorAll<HTMLElement>("[data-gri]")) {
+      answer(item, () => item.dataset.gri)
+    }
+  }
+</script>

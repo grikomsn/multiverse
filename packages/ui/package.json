@@ -15,7 +15,10 @@
     "./brand-icon.astro": "./src/brand-icon.astro",
     "./brand-marks": "./src/brand-marks.ts",
     "./dither": "./src/dither.ts",
-    "./dither-wave.astro": "./src/dither-wave.astro"
+    "./dither-wave.astro": "./src/dither-wave.astro",
+    "./gri": "./src/gri.ts",
+    "./gri.astro": "./src/gri.astro",
+    "./gri-moods": "./src/gri-moods.ts"
   },
   "scripts": {
     "lint": "eslint .",

@@ -17,7 +17,7 @@ const PROJECT_ICON = `"icon": icon.asset-> { url, extension, "width": metadata.d
 export const SITE_SHELL_QUERY = defineQuery(`{
   "site": *[_id == "site"][0] { description },
   "profile": *[_id == "profile"][0] { ${PROFILE} },
-  "avatar": ${ICON} { alt, "url": image.asset->url },
+  "avatar": ${ICON} { _id, alt, "url": image.asset->url },
   "versions": count(*[_type == "edition"])
 }`)
 

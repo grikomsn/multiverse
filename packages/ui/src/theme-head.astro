@@ -1,7 +1,8 @@
 ---
 /**
  * Put inside <head> on every page that uses the shared design. Applies a saved theme before
- * the first paint, preloads the font and names the icons. The app must register
+ * the first paint, preloads the font and names the icons. The tab icon changes while the tab is
+ * in the background. The app must register
  * `timelessSans()` in its config, and hold the icon files that `scripts/make-icons.sh` writes.
  */
 import { Font } from "astro:assets"
@@ -19,4 +20,15 @@ import { Font } from "astro:assets"
     const theme = localStorage.getItem("theme")
     if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme
   } catch {}
+</script>
+<script is:inline>
+  // The tab icon sleeps while the tab is in the background: the mascot shuts its eyes on a
+  // grey ground. `scripts/make-icons.sh` writes both sets of files.
+  {
+    const icons = document.querySelectorAll('link[rel="icon"]')
+    document.addEventListener("visibilitychange", () => {
+      const name = document.hidden ? "/favicon-asleep." : "/favicon."
+      for (const icon of icons) icon.href = icon.href.replace(/\/favicon(-asleep)?\./, name)
+    })
+  }
 </script>

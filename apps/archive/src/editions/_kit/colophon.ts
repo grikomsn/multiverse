@@ -3,13 +3,14 @@
  * old footers. Each version is rebuilt in Astro with its own CSS framework and served from
  * Cloudflare, so those lines state that, not what the version ran on at the time.
  */
+import { REPOSITORY_URL } from "@multiverse/sanity/constants"
+
 export const COLOPHON = {
   framework: { name: "Astro", url: "https://astro.build" },
   host: { name: "Cloudflare", url: "https://workers.cloudflare.com" },
   /** The edition's own folder in the repository. */
-  source: (key: string) =>
-    `https://github.com/grikomsn/multiverse/tree/main/apps/archive/src/editions/${key}`,
-  repository: "https://github.com/grikomsn/multiverse",
+  source: (key: string) => `${REPOSITORY_URL}/tree/main/apps/archive/src/editions/${key}`,
+  repository: REPOSITORY_URL,
   /** First year of the personal site. */
   since: 2018,
 }

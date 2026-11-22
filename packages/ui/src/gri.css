@@ -1,0 +1,455 @@
+/*
+ * Gri in motion (`gri.astro`). A mood has a resting pose and one short move. The move plays
+ * once, when the mood starts: the parts of a mood start hidden, and an animation starts when
+ * its element shows. Nothing loops. See docs/redesign.md, "Mascot and icons".
+ *
+ * `--gri-turn` and `--gri-drop` are the pose. The rules inside each drawing set them for its moods
+ * (`griSvg()` in `gri.ts`).
+ */
+.gri {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * A mood hides its parts, not its groups. A part that is hidden itself starts its animation
+ * again when it shows. Chromium does not do that for a part inside a hidden group.
+ */
+.gri [data-m] {
+  display: inline;
+}
+
+.gri [data-m] > * {
+  display: none;
+}
+
+.gri .hr {
+  transform: rotate(var(--gri-turn, -5deg));
+}
+
+.gri .hm {
+  transform: translateY(var(--gri-drop, 0px));
+}
+
+.gri :is(.eye, .mouth, .mark, .lens, .extra, .blush) {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.gri .ground {
+  transition: fill 400ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /*
+   * `data-live` is on the drawing from its first change of mood, so nothing moves when a page
+   * opens. Every mood: the head turns to the new pose, and the eyes blink into place.
+   */
+  .gri[data-live] :is(.hr, .hm) {
+    transition: transform 500ms cubic-bezier(0.3, 1.45, 0.5, 1);
+  }
+
+  .gri[data-live] .eye {
+    animation: gri-eye 240ms var(--ease-snap) both;
+  }
+
+  .gri[data-live] .mouth {
+    animation: gri-pop 280ms 30ms var(--ease-snap) both;
+  }
+
+  .gri[data-live] .mark {
+    animation: gri-mark 360ms calc(120ms + var(--i, 0) * 90ms) cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  }
+
+  .gri[data-live] :is(.lens, .extra) {
+    animation: gri-fade 200ms both;
+  }
+
+  /* Each mood's own move. */
+  .gri[data-live][data-mood="smile"] .hm {
+    animation: gri-bob 400ms var(--ease-snap);
+  }
+
+  .gri[data-live][data-mood="laugh"] .hm {
+    animation: gri-laugh 850ms cubic-bezier(0.3, 0, 0.3, 1);
+  }
+
+  .gri[data-live][data-mood="laugh"] .mouth {
+    transform-origin: center top;
+    animation: gri-laugh-mouth 850ms cubic-bezier(0.3, 0, 0.3, 1);
+  }
+
+  .gri[data-live][data-mood="wink"] .hm {
+    animation: gri-bob 350ms var(--ease-snap);
+  }
+
+  .gri[data-live][data-mood="wink"] .eye.r {
+    animation: gri-wink 400ms var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="cheeky"] .hm {
+    animation: gri-wiggle 550ms ease-in-out;
+  }
+
+  .gri[data-live][data-mood="cheeky"] .extra {
+    transform-origin: center top;
+    animation: gri-tongue 400ms 180ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  }
+
+  .gri[data-live]:is([data-mood="wow"], [data-mood="starstruck"]) .hm {
+    animation: gri-jump 500ms var(--ease-snap);
+  }
+
+  .gri[data-live][data-mood="wow"] .eye {
+    animation: gri-grow 450ms var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="love"] .eye {
+    animation: gri-beat 900ms cubic-bezier(0.3, 0, 0.3, 1) both;
+  }
+
+  .gri[data-live][data-mood="love"] .mark {
+    animation: gri-float 600ms calc(250ms + var(--i) * 160ms) var(--ease-snap) both;
+  }
+
+  .gri[data-live]:is([data-mood="starstruck"], [data-mood="dizzy"]) .eye {
+    animation: gri-spin 650ms var(--ease-snap) both;
+  }
+
+  .gri[data-live]:is([data-mood="starstruck"], [data-mood="dizzy"]) .mark {
+    animation: gri-twinkle 500ms calc(350ms + var(--i) * 130ms) var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="cool"] .lens {
+    animation: gri-lens 420ms cubic-bezier(0.3, 0, 0.3, 1) both;
+  }
+
+  .gri[data-live][data-mood="cool"] .eye {
+    animation: gri-shine 300ms 400ms var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="think"] .eye {
+    animation: gri-drift 550ms cubic-bezier(0.3, 0, 0.2, 1) both;
+  }
+
+  .gri[data-live][data-mood="think"] .mark {
+    animation: gri-question 500ms 300ms var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="side-eye"] .eye {
+    animation: gri-slide 500ms cubic-bezier(0.3, 0, 0.2, 1) both;
+  }
+
+  .gri[data-live][data-mood="sleepy"] .eye {
+    animation: gri-close 500ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .gri[data-live]:is([data-mood="sleepy"], [data-mood="sad"]) :is(.hr, .hm) {
+    transition: transform 950ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gri[data-live][data-mood="sleepy"] .mark {
+    animation: gri-float 700ms calc(550ms + var(--i) * 350ms) var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="shy"] .blush {
+    animation: gri-blush 600ms 100ms var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="shy"] .extra {
+    animation: gri-fade 400ms 450ms both;
+  }
+
+  .gri[data-live][data-mood="oops"] .hm {
+    animation: gri-shake 450ms linear;
+  }
+
+  .gri[data-live][data-mood="oops"] .mark {
+    animation: gri-fall 500ms 250ms cubic-bezier(0.3, 0, 0.3, 1) both;
+  }
+
+  .gri[data-live][data-mood="sad"] .extra {
+    animation: gri-fall 600ms 550ms cubic-bezier(0.4, 0, 0.6, 1) both;
+  }
+
+  .gri[data-live][data-mood="grumpy"] .eye {
+    animation: gri-slam 200ms 100ms cubic-bezier(0.5, 0, 1, 1) both;
+  }
+
+  .gri[data-live][data-mood="grumpy"] .hm {
+    animation: gri-thud 400ms 100ms var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="dizzy"] .hr {
+    animation: gri-dizzy 1000ms ease-in-out;
+  }
+}
+
+/* A keyframe that is left out is the resting pose, so each move ends where the mood rests. */
+@keyframes gri-eye {
+  from {
+    transform: scaleY(0.12);
+  }
+}
+
+@keyframes gri-pop {
+  from {
+    transform: scale(0.55);
+  }
+}
+
+@keyframes gri-mark {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes gri-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes gri-bob {
+  45% {
+    transform: translateY(calc(var(--gri-drop, 0px) - 4px));
+  }
+}
+
+@keyframes gri-laugh {
+  14%,
+  44%,
+  74% {
+    transform: translateY(calc(var(--gri-drop, 0px) - 6px));
+  }
+
+  30%,
+  60%,
+  88% {
+    transform: translateY(calc(var(--gri-drop, 0px) + 1px));
+  }
+}
+
+@keyframes gri-laugh-mouth {
+  14%,
+  44%,
+  74% {
+    transform: scaleY(1.14);
+  }
+
+  30%,
+  60%,
+  88% {
+    transform: scaleY(0.9);
+  }
+}
+
+@keyframes gri-wink {
+  from {
+    transform: scaleX(0.2);
+  }
+
+  60% {
+    transform: scaleX(1.2);
+  }
+}
+
+@keyframes gri-wiggle {
+  20% {
+    transform: translate(-4px, var(--gri-drop, 0px));
+  }
+
+  45% {
+    transform: translate(4px, var(--gri-drop, 0px));
+  }
+
+  70% {
+    transform: translate(-2px, var(--gri-drop, 0px));
+  }
+}
+
+@keyframes gri-tongue {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes gri-jump {
+  25% {
+    transform: translateY(calc(var(--gri-drop, 0px) - 10px));
+  }
+
+  62% {
+    transform: translateY(calc(var(--gri-drop, 0px) + 2px));
+  }
+}
+
+@keyframes gri-grow {
+  from {
+    transform: scale(0.3);
+  }
+
+  60% {
+    transform: scale(1.22);
+  }
+}
+
+@keyframes gri-beat {
+  0% {
+    transform: scale(0);
+  }
+
+  28% {
+    transform: scale(1.35);
+  }
+
+  48% {
+    transform: scale(1);
+  }
+
+  68% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes gri-float {
+  from {
+    transform: translate(-6px, 12px) scale(0.4);
+    opacity: 0;
+  }
+}
+
+@keyframes gri-spin {
+  from {
+    transform: rotate(-200deg) scale(0);
+  }
+}
+
+@keyframes gri-twinkle {
+  from {
+    transform: scale(0) rotate(90deg);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+@keyframes gri-lens {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  70% {
+    transform: translateY(2px);
+    opacity: 1;
+  }
+}
+
+@keyframes gri-shine {
+  from {
+    transform: translate(-6px, 6px);
+    opacity: 0;
+  }
+}
+
+@keyframes gri-drift {
+  from {
+    transform: translate(6px, 5px);
+  }
+}
+
+@keyframes gri-question {
+  from {
+    transform: scale(0) rotate(-40deg);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.15) rotate(8deg);
+    opacity: 1;
+  }
+}
+
+@keyframes gri-slide {
+  from {
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes gri-close {
+  from {
+    transform: scaleY(-0.7);
+  }
+}
+
+@keyframes gri-blush {
+  from {
+    transform: scale(0.3);
+    opacity: 0.2;
+  }
+}
+
+@keyframes gri-shake {
+  15% {
+    transform: translate(-3px, var(--gri-drop, 0px));
+  }
+
+  35% {
+    transform: translate(3px, var(--gri-drop, 0px));
+  }
+
+  55% {
+    transform: translate(-2px, var(--gri-drop, 0px));
+  }
+
+  75% {
+    transform: translate(2px, var(--gri-drop, 0px));
+  }
+}
+
+@keyframes gri-fall {
+  from {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+}
+
+@keyframes gri-slam {
+  from {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes gri-thud {
+  from {
+    transform: translateY(calc(var(--gri-drop, 0px) - 5px));
+  }
+
+  55% {
+    transform: translateY(calc(var(--gri-drop, 0px) + 3px));
+  }
+}
+
+@keyframes gri-dizzy {
+  15% {
+    transform: rotate(calc(var(--gri-turn) - 11deg));
+  }
+
+  35% {
+    transform: rotate(calc(var(--gri-turn) + 10deg));
+  }
+
+  55% {
+    transform: rotate(calc(var(--gri-turn) - 7deg));
+  }
+
+  75% {
+    transform: rotate(calc(var(--gri-turn) + 4deg));
+  }
+}

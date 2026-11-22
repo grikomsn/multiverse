@@ -1,4 +1,5 @@
 ---
+import Gri from "./gri.astro"
 import ThemeToggle from "./theme-toggle.astro"
 
 interface Props {
@@ -9,6 +10,11 @@ interface Props {
   name?: string
   avatar?: string | null
   /**
+   * Draw the mascot in the page in place of the `avatar` picture, so it can answer a theme
+   * change. For a profile whose icon is the mascot.
+   */
+  mascot?: boolean
+  /**
    * Hide the avatar and name until the element marked `data-hero` scrolls under the header.
    * For the home page, where the hero already shows both.
    */
@@ -17,7 +23,16 @@ interface Props {
   progress?: boolean
 }
 
-const { origin = "", name = "Griko Nibras", avatar, wide, revealBrand, progress } = Astro.props
+const {
+  origin = "",
+  name = "Griko Nibras",
+  avatar,
+  mascot,
+  wide,
+  revealBrand,
+  progress,
+} = Astro.props
+const pictured = mascot || avatar
 const path = Astro.url.pathname.replace(/\/$/, "") || "/"
 const NAV = [
   { href: "/blog", label: "Blog" },
@@ -45,16 +60,22 @@ const current = (href: string) =>
           revealBrand && "brand-reveal",
         ]}
       >
-        {avatar && (
-          <img
-            src={`${avatar}?w=72&h=72&fit=crop&auto=format`}
-            width="28"
-            height="28"
-            alt=""
-            class="size-7 rounded-full border border-line bg-white"
-          />
+        {mascot ? (
+          <span class="size-7 shrink-0 overflow-hidden rounded-full border border-line">
+            <Gri moods={["smile", "cool", "cheeky"]} marks={false} />
+          </span>
+        ) : (
+          avatar && (
+            <img
+              src={`${avatar}?w=72&h=72&fit=crop&auto=format`}
+              width="28"
+              height="28"
+              alt=""
+              class="size-7 rounded-full border border-line bg-white"
+            />
+          )
         )}
-        <span class:list={[avatar && "max-[25rem]:sr-only"]}>{name}</span>
+        <span class:list={[pictured && "max-[25rem]:sr-only"]}>{name}</span>
       </a>
     </div>
     <nav aria-label="Main" class="flex items-center gap-1">

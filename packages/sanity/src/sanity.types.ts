@@ -678,7 +678,7 @@ export type ARCHIVE_SHELL_QUERY_RESULT = {
 
 // Source: ../web/src/lib/queries.ts
 // Variable: SITE_SHELL_QUERY
-// Query: {  "site": *[_id == "site"][0] { description },  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured } },  "avatar": *[_id == "profile"][0].icon-> { alt, "url": image.asset->url },  "versions": count(*[_type == "edition"])}
+// Query: {  "site": *[_id == "site"][0] { description },  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured } },  "avatar": *[_id == "profile"][0].icon-> { _id, alt, "url": image.asset->url },  "versions": count(*[_type == "edition"])}
 export type SITE_SHELL_QUERY_RESULT = {
   site:
     | {
@@ -774,6 +774,7 @@ export type SITE_SHELL_QUERY_RESULT = {
       }
     | null
   avatar: {
+    _id: string
     alt: string
     url: string | null
   } | null
@@ -2067,7 +2068,7 @@ declare global {
     '*[_type == "edition"] | order(startDate asc) {\n  _id,\n  title,\n  "key": key.current,\n  status,\n  domain,\n  startDate,\n  endDate,\n  stack,\n  summary,\n  sourceUrl,\n  waybackUrl,\n  "screenshot": screenshots[0] { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip }\n}': EDITIONS_QUERY_RESULT
     '*[_type == "edition" && key.current == $key][0] {\n  title,\n  "key": key.current,\n  status,\n  domain,\n  startDate,\n  endDate,\n  sourceUrl,\n  assets[] { _key, name, url, "image": image { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }\n}': EDITION_QUERY_RESULT
     '{\n  "profile": *[_id == "profile"][0] {\n    name, email, scheduleUrl, socialLinks[] { platform, label, url, featured }\n  },\n  "avatar": *[_id == "profile"][0].icon->.image.asset->url\n}': ARCHIVE_SHELL_QUERY_RESULT
-    '{\n  "site": *[_id == "site"][0] { description },\n  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured } },\n  "avatar": *[_id == "profile"][0].icon-> { alt, "url": image.asset->url },\n  "versions": count(*[_type == "edition"])\n}': SITE_SHELL_QUERY_RESULT
+    '{\n  "site": *[_id == "site"][0] { description },\n  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured } },\n  "avatar": *[_id == "profile"][0].icon-> { _id, alt, "url": image.asset->url },\n  "versions": count(*[_type == "edition"])\n}': SITE_SHELL_QUERY_RESULT
     '{\n  "site": *[_id == "site"][0] { tagline, "intro": intro[] { ..., markDefs[] { ..., _type == "link" && defined(internal) => { "href": "/" + internal->slug.current } } } },\n  "experience": *[_type == "experience"] | order(orderRank) { _id, role, startDate, endDate, "location": select(workMode == "remote" => "Remote", workMode == "hybrid" => "Hybrid", workMode == "onsite" => "On-site"), technologies, highlights, "organization": organization-> { name, url } },\n  "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {\n    _id, title, "slug": slug.current, publishedAt, excerpt\n  },\n  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) [0...4] {\n    _id, name, "slug": slug.current, role, status, kind, featured, url, summary, technologies, startDate, "repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]), "metrics": { "github": repositories, "npm": packages[registry == "npm"].name, "vscode": packages[registry == "vscode"].name }, "icon": icon.asset-> { url, extension, "width": metadata.dimensions.width, "height": metadata.dimensions.height }\n  },\n  "talks": *[_type == "talk"] | order(date desc) [0...4] { _id, title, kind, event, date, summary, slidesUrl, recordingUrl }\n}': HOME_QUERY_RESULT
     '*[_type == "post" && visibility == "listed"] | order(publishedAt desc) {\n  _id, title, "slug": slug.current, publishedAt, excerpt\n}': POSTS_QUERY_RESULT
     '*[_type in ["post", "page"] && defined(slug.current)] {\n  _id,\n  _type,\n  title,\n  "slug": slug.current,\n  publishedAt,\n  updatedAt,\n  excerpt,\n  visibility,\n  lang,\n  originalUrl,\n  "image": cover.asset->url,\n  "imageAlt": cover.alt,\n  body[] { ..., _type == "figure" => { ..., "image": { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }, _type == "profileLinks" => { "email": *[_id == "profile"][0].email, "links": *[_id == "profile"][0].socialLinks[defined(url)] { platform, label, url, featured } }, markDefs[] { ..., _type == "link" && defined(internal) => { "href": "/" + internal->slug.current } } }\n}': ROUTES_QUERY_RESULT

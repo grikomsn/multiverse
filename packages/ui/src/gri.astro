@@ -1,0 +1,40 @@
+---
+/**
+ * Gri, the mascot, drawn in the page so it can change its mood. The drawing fills its parent:
+ * put it in a box with a size, and round the box for a circle.
+ *
+ * A script changes the mood with `showMood()` from `@multiverse/ui/gri-moods`. Every drawing
+ * that holds "cool" and "cheeky" also answers a theme change: sunglasses for the dark theme,
+ * a squint for the light one.
+ */
+import "./gri.css"
+
+import { griSvg, type Mood } from "./gri"
+
+interface Props {
+  /** The moods this drawing can show. The first one shows at the start. Fewer moods, less HTML. */
+  moods?: readonly Mood[]
+  /** The marks around the head, such as hearts. Leave them out below about 3rem. */
+  marks?: boolean
+}
+
+const { moods = ["smile"], marks = true } = Astro.props
+---
+
+<Fragment set:html={griSvg({ moods, marks, rules: true, attrs: `aria-hidden="true"` })} />
+
+<script>
+  import { onThemeChange } from "./dither"
+  import { faces, showMood } from "./gri-moods"
+
+  const root = document.documentElement
+  const isDark = () =>
+    (root.dataset.theme ??
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark"
+  let dark = isDark()
+  onThemeChange(() => {
+    if (dark === isDark()) return
+    dark = !dark
+    for (const face of faces()) showMood(face, dark ? "cool" : "cheeky", dark ? 2000 : 1200)
+  })
+</script>

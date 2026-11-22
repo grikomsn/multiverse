@@ -1,13 +1,23 @@
 ---
+import Gri from "@multiverse/ui/gri.astro"
+
 import BaseLayout from "../layouts/base.astro"
 ---
 
 <BaseLayout title="Page not found" noIndex>
   <section class="flex flex-col items-start gap-4 pt-12 pb-10 sm:pt-20">
-    <!-- The number is drawn in dots, and a slow wave moves through it. Plain text without JavaScript. -->
+    <!--
+      The fours are drawn in dots, and a slow wave moves through them. The zero is the mascot,
+      dizzy. Plain text without JavaScript.
+    -->
     <p class="dither-mark lost-number" role="img" aria-label="Error 404" data-lost>
       <canvas></canvas>
-      <span aria-hidden="true">404</span>
+      <span class="lost-digits" aria-hidden="true">
+        404
+      </span>
+      <span class="lost-face" aria-hidden="true" data-lost-face>
+        <Gri moods={["dizzy"]} />
+      </span>
     </p>
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Page not found</h1>
     <p class="text-lg text-soft">This page does not exist, or it moved to a different address.</p>
@@ -39,14 +49,26 @@ import BaseLayout from "../layouts/base.astro"
     left: 0;
   }
 
-  .lost-number span {
+  .lost-digits {
     font-size: clamp(5rem, 30vw, 11rem);
     line-height: 1;
     letter-spacing: -0.04em;
   }
 
-  .lost-number.is-drawn span {
+  .lost-number.is-drawn .lost-digits {
     visibility: hidden;
+  }
+
+  /* The script puts the face in the gap between the fours. */
+  .lost-face {
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .lost-number.is-drawn .lost-face {
+    display: block;
   }
 </style>
 
@@ -59,19 +81,30 @@ import BaseLayout from "../layouts/base.astro"
     paintShape,
     reducedMotion,
   } from "@multiverse/ui/dither"
+  import { faces, showMood } from "@multiverse/ui/gri-moods"
 
   const DOT = 3
+  // Sizes as parts of the font size. Capital digits are about 0.74 tall. The face is a little
+  // taller than a digit, because its head does not fill its circle.
+  const CAP = 0.74
+  const FACE = 0.84
+  const GAP = 0.03
   const box = document.querySelector<HTMLElement>("[data-lost]")
 
   if (box) {
     const canvas = box.querySelector("canvas")!
+    const frame = box.querySelector<HTMLElement>("[data-lost-face]")!
+    const face = faces(frame)[0]
     const family = getComputedStyle(box).fontFamily
     let shape: Float32Array | undefined
     let grid = { columns: 0, rows: 0 }
     let time = 0
     let color = inkOf(box)
 
-    /** The number as a shape: 1 inside a digit, 0 outside, one value for each dot. */
+    /**
+     * The two fours as a shape: 1 inside a digit, 0 outside, one value for each dot. The face
+     * goes between them.
+     */
     const prepare = () => {
       grid = fit(canvas, DOT)
       const { columns, rows } = grid
@@ -79,11 +112,19 @@ import BaseLayout from "../layouts/base.astro"
       pad.canvas.width = columns
       pad.canvas.height = rows
       pad.font = `700 100px ${family}`
-      // As wide as the box, but no taller: capital digits are about 0.74 of the font size.
-      const size = Math.min((columns / pad.measureText("404").width) * 100, rows / 0.74)
+      const four = pad.measureText("4").width / 100
+      const zero = FACE + 2 * GAP
+      // As wide as the box, but no taller than the box: the face is the tallest part.
+      const size = Math.min(columns / (2 * four + zero), (rows - 1) / FACE)
+      // The face and the digits have the same middle line.
+      const baseline = rows - 1 - ((FACE - CAP) / 2) * size
       pad.font = `700 ${size}px ${family}`
       pad.textBaseline = "alphabetic"
-      pad.fillText("404", 0, rows - 1)
+      pad.fillText("4", 0, baseline)
+      pad.fillText("4", (four + zero) * size, baseline)
+      frame.style.left = `${(four + GAP) * size * DOT}px`
+      frame.style.top = `${(baseline - (CAP / 2 + FACE / 2) * size) * DOT}px`
+      frame.style.width = frame.style.height = `${FACE * size * DOT}px`
       const data = pad.getImageData(0, 0, columns, rows).data
       shape = new Float32Array(columns * rows)
       for (let index = 0; index < shape.length; index++) {
@@ -103,6 +144,11 @@ import BaseLayout from "../layouts/base.astro"
       .then(() => {
         prepare()
         new ResizeObserver(prepare).observe(box)
+        // The wobble plays once when the page opens, and again under the pointer.
+        if (face) {
+          showMood(face, "dizzy")
+          frame.addEventListener("pointerenter", () => showMood(face, "dizzy"))
+        }
         onThemeChange(() => {
           color = inkOf(box)
           draw()

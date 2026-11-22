@@ -52,3 +52,12 @@ export function platformLabel(platform?: string | null, label?: string | null) {
 
 export const platformKind = (platform?: string | null): PlatformKind =>
   SOCIAL_PLATFORMS.find((item) => item.value === platform)?.kind ?? "social"
+
+/**
+ * The portrait document that holds the mascot. While the profile's `icon` points at it, pages
+ * draw the mascot in the page, so it can change its mood (`@multiverse/ui/gri.astro`).
+ */
+export const MASCOT_ID = "portrait-gri"
+
+/** The public repository that holds these sites. */
+export const REPOSITORY_URL = "https://github.com/grikomsn/multiverse"
