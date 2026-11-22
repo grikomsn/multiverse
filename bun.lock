@@ -272,7 +272,9 @@
   },
   "trustedDependencies": [
     "@fortawesome/fontawesome-common-types",
+    "esbuild",
     "core-js-pure",
+    "workerd",
   ],
   "catalog": {
     "@astrojs/check": "0.9.12",

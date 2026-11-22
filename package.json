@@ -158,6 +158,8 @@
   },
   "trustedDependencies": [
     "@fortawesome/fontawesome-common-types",
-    "core-js-pure"
+    "core-js-pure",
+    "esbuild",
+    "workerd"
   ]
 }
