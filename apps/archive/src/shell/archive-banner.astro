@@ -1,0 +1,64 @@
+---
+/**
+ * Small fixed pill on every archived page. Styles are scoped and self-contained so they
+ * survive whatever CSS framework the edition ships. Every version shows today's content in its
+ * old design.
+ */
+interface Props {
+  title: string
+  period: string
+}
+
+import { WEB_ORIGIN } from "../lib/web"
+
+const { title, period } = Astro.props
+---
+
+<aside class="archive-banner" aria-label="Archived version">
+  <span>
+    Archived: {title}, {period}
+  </span>
+  <span class="archive-banner-mode">Today's content</span>
+  <a href="/">All versions</a>
+  <a href={WEB_ORIGIN}>Current site</a>
+</aside>
+
+<style>
+  .archive-banner {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2147483647;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    max-width: calc(100vw - 2rem);
+    padding: 0.5rem 0.875rem;
+    border: 1px solid #3f3f46;
+    border-radius: 999px;
+    background: #18181b;
+    box-shadow: 0 8px 24px -8px rgb(0 0 0 / 0.4);
+    color: #f4f4f5;
+    font:
+      500 12px/1.2 ui-sans-serif,
+      system-ui,
+      sans-serif;
+    letter-spacing: normal;
+    text-align: left;
+  }
+
+  .archive-banner-mode {
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    background: #3f3f46;
+  }
+
+  .archive-banner a {
+    color: #f4f4f5;
+    text-decoration: underline;
+    text-decoration-color: #facc15;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+</style>

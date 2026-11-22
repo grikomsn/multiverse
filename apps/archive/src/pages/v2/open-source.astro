@@ -1,0 +1,96 @@
+---
+import { faCodeBranch, faEye, faStar } from "@fortawesome/free-solid-svg-icons"
+
+import { getEdition, imageUrl, pageOf } from "../../lib/editions"
+import { repoStats } from "@multiverse/content/github"
+import { projectsOf } from "../../editions/v2/data"
+import FaIcon from "../../editions/v2/fa-icon.astro"
+import Footer from "../../editions/v2/footer.astro"
+import Layout from "../../editions/v2/layout.astro"
+import Navbar from "../../editions/v2/navbar.astro"
+import RichText from "../../editions/v2/rich-text.astro"
+
+const edition = await getEdition("v2")
+const page = pageOf(edition, "open-source")
+// pages/open-source.js listed each repo's full name, description, stars and watchers from the
+// GitHub API; today's projects with a repository, with the same counts.
+const repos = await Promise.all(
+  projectsOf(edition, "repo").map(async (repo) => ({
+    ...repo,
+    stats: await repoStats(repo.repoUrl),
+  })),
+)
+---
+
+<Layout colorHex="#209bee">
+  <div class="hero is-info">
+    <div class="hero-head">
+      <Navbar edition={edition} />
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">{page?.title}</h1>
+        <p class="subtitle">{page?.description}</p>
+        <br />
+        <div class="has-text-dark" id="g-repos">
+          <div class="has-text-left">
+            {page?.body && (
+              <div class="box">
+                <RichText value={page.body} />
+              </div>
+            )}
+            {repos.map((repo) => (
+              <a
+                href={repo.repoUrl ?? repo.url}
+                class="box g-repo"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {repo.image?.url && (
+                  <img
+                    class="g-repo-cover"
+                    src={imageUrl(repo.image.url, 320, 160)}
+                    alt=""
+                    width="160"
+                    height="80"
+                    loading="lazy"
+                  />
+                )}
+                <div class="g-repo-body">
+                  <h4 class="title is-4 has-text-dark">{repo.stats?.fullName ?? repo.title}</h4>
+                  <div class="subtitle has-text-dark">
+                    {repo.description || <i>No description available</i>}
+                  </div>
+                  {repo.stats && (
+                    <p class="g-repo-stats">
+                      <span>
+                        <FaIcon icon={faStar} fixedWidth /> {repo.stats.stars}
+                      </span>
+                      <span>
+                        <FaIcon icon={faEye} fixedWidth /> {repo.stats.watchers}
+                      </span>
+                      <span>
+                        <FaIcon icon={faCodeBranch} fixedWidth /> {repo.stats.forks}
+                      </span>
+                      {repo.stats.language && <span>{repo.stats.language}</span>}
+                    </p>
+                  )}
+                </div>
+              </a>
+            ))}
+            <br />
+          </div>
+          <a
+            href="https://github.com/grikomsn?tab=repositories&type=source"
+            class="button is-light has-shadow"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View more on my GitHub profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer edition={edition} bgClass="has-background-info" btnClass="is-info" />
+</Layout>

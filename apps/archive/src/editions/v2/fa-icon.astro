@@ -1,0 +1,15 @@
+---
+import type { IconDefinition } from "@fortawesome/free-brands-svg-icons"
+
+import { faSvg } from "./fa"
+
+interface Props {
+  icon: IconDefinition
+  fixedWidth?: boolean
+  size?: "3x"
+}
+
+const { icon, ...options } = Astro.props
+---
+
+<Fragment set:html={faSvg(icon, options)} />

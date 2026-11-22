@@ -1,0 +1,62 @@
+---
+import { getEdition } from "../../../lib/editions"
+import Icon from "../../../editions/v8/icon.astro"
+import Layout from "../../../editions/v8/layout.astro"
+import { BASE, formatDate, pageOf, postEntries } from "../../../editions/v8/paths"
+import Prose from "../../../editions/v8/prose.astro"
+
+const edition = await getEdition("v8")
+const page = pageOf(edition, "blog")
+const posts = postEntries(edition)
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section>
+    <Prose>
+      <h1>{page?.title}</h1>
+      <p class="lead">{page?.description}</p>
+    </Prose>
+    <div class="flex justify-center p-4 md:justify-end">
+      <button
+        type="button"
+        class="flex w-full max-w-xs items-center gap-3 rounded bg-neutral-500/20 px-3 py-2 text-neutral-400 transition hover:bg-neutral-500/30"
+        data-kbar-open="search-posts"
+      >
+        <Icon name="search" size={20} />
+        <span>Search posts</span>
+      </button>
+    </div>
+    <ul class="space-y-4 p-4">
+      {posts.map((post) => {
+        const href = post.redirect ?? `${BASE}/blog/${post.slug}`
+        const shown = post.redirect ?? `/blog/${post.slug}`
+        return (
+          <li class="relative -mx-4 space-y-2 rounded bg-neutral-500/0 p-4 md:transition md:hover:-translate-y-1 md:hover:bg-neutral-500/10 md:hover:shadow-lg">
+            <span class="float-right mb-2 ml-4 text-right text-sm text-neutral-500">
+              {formatDate(post.date)}
+            </span>
+            <a
+              class="before:absolute before:inset-0"
+              href={href}
+              {...(post.redirect ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              <h3 class="line-clamp-2 max-w-xl text-2xl font-bold tracking-tighter">
+                {post.title}
+              </h3>
+            </a>{" "}
+            <p class="line-clamp-2 max-w-xl text-neutral-400">{post.description}</p>
+            <div
+              class:list={[
+                "pointer-events-none flex items-center gap-2 pt-2 text-sm opacity-50",
+                { "text-primary": Boolean(post.redirect) },
+              ]}
+            >
+              <Icon name={post.redirect ? "external-link" : "link"} />
+              <span class="line-clamp-1">{shown}</span>
+            </div>
+          </li>
+        )
+      })}
+    </ul>
+  </section>
+</Layout>

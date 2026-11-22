@@ -1,0 +1,23 @@
+---
+import { getEdition } from "../../../lib/editions"
+import Layout from "../../../editions/v7/layout.astro"
+import { pageOf, postEntries } from "../../../editions/v7/paths"
+import PostItem from "../../../editions/v7/post-item.astro"
+
+const edition = await getEdition("v7")
+const page = pageOf(edition, "blog")
+---
+
+<Layout pageTitle={page?.title ?? "Blog posts"} description={page?.description}>
+  <div class="v7-container">
+    <div class="v7-center v7-stack">
+      <h1 class="v7-heading">{page?.title}</h1>
+      <p style="padding-bottom: 2rem">{page?.description}</p>
+      <div class="v7-stack" style="--gap: 4rem; width: 100%">
+        {postEntries(edition).map((post) => (
+          <PostItem post={post} />
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

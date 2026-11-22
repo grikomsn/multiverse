@@ -1,0 +1,199 @@
+---
+import "../styles/global.css"
+
+import SiteFooter from "@multiverse/ui/site-footer.astro"
+import SiteHeader from "@multiverse/ui/site-header.astro"
+import ThemeHead from "@multiverse/ui/theme-head.astro"
+
+import { SITE_SHELL_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+import { platformLabel } from "@multiverse/sanity/constants"
+import { ARCHIVE_ORIGIN } from "../lib/archive"
+import { siteDescription, siteTitle as titleOf } from "../lib/site"
+
+interface Props {
+  title?: string
+  description?: string | null
+  lang?: string | null
+  noIndex?: boolean
+  canonical?: string | null
+  type?: "website" | "article" | "profile"
+  /** Full-width column, for the media gallery. */
+  wide?: boolean
+  /** Absolute URL of the social preview image. */
+  image?: string | null
+  imageAlt?: string
+  /** Rendered as JSON-LD. */
+  structuredData?: object
+  /** A Markdown copy of this page, for LLMs and other tools. */
+  markdown?: string
+  /** Show the reading progress under the header. For posts. */
+  progress?: boolean
+}
+
+const {
+  title,
+  description,
+  lang,
+  noIndex,
+  canonical,
+  type = "website",
+  wide,
+  image,
+  imageAlt,
+  structuredData,
+  markdown,
+  progress,
+} = Astro.props
+const shell = await sanity.fetch(SITE_SHELL_QUERY)
+const siteTitle = titleOf(shell.profile)
+const fullTitle = title ? `${title} · ${siteTitle}` : siteTitle
+const metaDescription = description ?? (siteDescription(shell) || undefined)
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).href
+const profiles = (shell.profile?.socialLinks ?? [])
+  .filter((link) => link.featured && link.url)
+  .map((link) => ({
+    label: platformLabel(link.platform, link.label),
+    url: link.url!,
+    platform: link.platform,
+  }))
+---
+
+<!doctype html>
+<html lang={lang ?? "en"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {metaDescription && <meta name="description" content={metaDescription} />}
+    {noIndex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={siteTitle} href="/feed.xml" />
+    <link rel="alternate" type="application/atom+xml" title={siteTitle} href="/atom.xml" />
+    <link rel="alternate" type="application/feed+json" title={siteTitle} href="/feed.json" />
+    <link rel="preconnect" href="https://cdn.sanity.io" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    {metaDescription && <meta property="og:description" content={metaDescription} />}
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:locale" content="en_US" />
+    {image && <meta property="og:image" content={image} />}
+    {image && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    {markdown && <link rel="alternate" type="text/markdown" href={markdown} />}
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    {structuredData && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(structuredData).replaceAll("<", "\\u003c")}
+      />
+    )}
+    <meta name="generator" content={Astro.generator} />
+    <ThemeHead />
+    <script is:inline>
+      // Motion that needs a script (charts, counters, the signature) starts hidden only with
+      // this class. Set before the first paint, so nothing jumps.
+      if (
+        "IntersectionObserver" in window &&
+        !matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+        document.documentElement.classList.add("js-reveal")
+    </script>
+    <noscript>
+      <style>
+        .project-mark img {
+          visibility: visible !important;
+        }
+      </style>
+    </noscript>
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-dvh flex-col bg-bg text-fg">
+    <a
+      href="#main"
+      class="sr-only z-50 rounded-md bg-fg px-3 py-2 text-bg focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+    >
+      Skip to content
+    </a>
+    <SiteHeader
+      name={siteTitle}
+      avatar={shell.avatar?.url}
+      revealBrand={Astro.url.pathname === "/"}
+      wide={wide}
+      progress={progress}
+    />
+    {/* The hero wave is wider than the column. This box clips it, so the page never scrolls sideways. */}
+    <div class="flex-1 overflow-x-clip">
+      <main id="main" class:list={["mx-auto w-full px-5", wide ? "max-w-6xl" : "max-w-2xl"]}>
+        <slot />
+      </main>
+    </div>
+    <SiteFooter
+      name={shell.profile?.name}
+      email={Astro.url.pathname === "/" ? null : shell.profile?.email}
+      scheduleUrl={shell.profile?.scheduleUrl}
+      profiles={profiles}
+      versions={shell.versions}
+      archiveUrl={ARCHIVE_ORIGIN}
+      wide={wide}
+    />
+    <script>
+      import { startDevelop } from "../scripts/develop"
+
+      startDevelop()
+
+      // Cards with a pointer light: tell the card under the pointer where the pointer is.
+      document.addEventListener(
+        "pointermove",
+        (event) => {
+          const card = (event.target as Element).closest?.<HTMLElement>(".card-spot")
+          if (!card) return
+          const box = card.getBoundingClientRect()
+          card.style.setProperty("--spot-x", `${event.clientX - box.left}px`)
+          card.style.setProperty("--spot-y", `${event.clientY - box.top}px`)
+        },
+        { passive: true },
+      )
+
+      // Count a number up from zero. The text is e.g. "116.7k": digits, then a unit.
+      function countUp(element: HTMLElement) {
+        const match = element.textContent?.trim().match(/^(\d+(?:\.(\d+))?)(.*)$/)
+        if (!match) return
+        const end = Number(match[1])
+        const digits = match[2]?.length ?? 0
+        // Keep the final width, so the row does not move while the number grows.
+        element.style.display = "inline-block"
+        element.style.minWidth = `${element.getBoundingClientRect().width}px`
+        const started = performance.now()
+        const step = (now: number) => {
+          const progress = Math.min(1, (now - started) / 1100)
+          element.textContent = (end * (1 - (1 - progress) ** 4)).toFixed(digits) + match[3]
+          if (progress < 1) requestAnimationFrame(step)
+        }
+        requestAnimationFrame(step)
+      }
+
+      // Things that play once when they enter the view: `data-inview` gets `.is-inview`, and
+      // `data-count` counts up.
+      if (document.documentElement.classList.contains("js-reveal")) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue
+              observer.unobserve(entry.target)
+              entry.target.classList.add("is-inview")
+              if (entry.target.hasAttribute("data-count")) countUp(entry.target as HTMLElement)
+            }
+          },
+          { rootMargin: "0px 0px -10% 0px" },
+        )
+        for (const element of document.querySelectorAll("[data-inview], [data-count]")) {
+          observer.observe(element)
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+---
+import { Code } from "astro:components"
+
+import { atomDark } from "./code-theme"
+import Icon from "./icon.astro"
+
+type Props = { node: { language?: string; code?: string } }
+
+const { language = "text", code = "" } = Astro.props.node
+---
+
+<div class="v7-snippet">
+  <button type="button" class="v7-copy" aria-label="Copy snippet" data-label="Copy snippet">
+    <Icon name="copy" class="v7-copy-idle" />
+    <Icon name="check" class="v7-copy-done" />
+  </button>
+  <Code code={code} lang={language as "plaintext"} theme={atomDark} />
+</div>

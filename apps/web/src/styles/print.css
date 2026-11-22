@@ -1,0 +1,192 @@
+/*
+ * A4, black on white, one column, two pages at most. Browser print of `/resume` and `/resume.pdf`
+ * (which renders `/resume/ats`) give the same pages. Links keep their URL as visible text, so they
+ * work on paper. Talk summaries stay on the web page and in Markdown only.
+ */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+
+  html,
+  body {
+    background: white !important;
+    color: black;
+  }
+
+  html {
+    font-size: 9.5pt;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  /* Screen-only parts */
+  .actions,
+  .resume-tools,
+  .resume-header__avatar {
+    display: none !important;
+  }
+
+  body > main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .resume-shell {
+    max-width: none;
+    padding: 0;
+  }
+
+  .resume {
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    line-height: 1.28;
+    orphans: 2;
+    widows: 2;
+  }
+
+  .resume a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .resume-header__name {
+    font-size: 17pt;
+  }
+
+  .resume-header__headline {
+    margin-top: 0;
+    color: black;
+    font-size: 10.5pt;
+  }
+
+  .resume-header__contact {
+    gap: 0 10pt;
+    margin-top: 3pt;
+    font-size: 8.5pt;
+  }
+
+  .resume-header__contact li {
+    min-height: 0;
+  }
+
+  .resume-section {
+    margin-top: 8pt;
+  }
+
+  .resume-section__heading {
+    margin-bottom: 4pt;
+    padding-bottom: 1.5pt;
+    border-bottom: 0.75pt solid #888;
+    font-size: 10pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    break-after: avoid;
+  }
+
+  .entry + .entry {
+    margin-top: 5pt;
+  }
+
+  /* Short entries stay whole; long ones may split, but never right after their heading. */
+  .entry:not(.entry--long),
+  .entry__bullets li,
+  .skills li {
+    break-inside: avoid;
+  }
+
+  .entry__head,
+  .entry__sub {
+    break-after: avoid;
+  }
+
+  .entry__text--talk {
+    display: none;
+  }
+
+  .entry--talk + .entry--talk {
+    margin-top: 1pt;
+  }
+
+  .entry__period,
+  .entry__sub,
+  .entry__status,
+  .entry__role,
+  .entry__meta {
+    color: #222;
+  }
+
+  .entry__period,
+  .entry__sub {
+    font-size: 8.5pt;
+  }
+
+  .entry__bullets {
+    margin-top: 1pt;
+    padding-left: 11pt;
+  }
+
+  .entry__bullets li + li {
+    margin-top: 1pt;
+  }
+
+  .entry__bullets li::marker {
+    color: black;
+  }
+
+  .entry__meta {
+    margin-top: 2pt;
+    font-size: 8.5pt;
+  }
+
+  .entry__title a,
+  .entry__period a,
+  .entry__links a {
+    min-height: 0;
+  }
+
+  .skills li + li {
+    margin-top: 0.5pt;
+  }
+
+  .resume-note {
+    display: block;
+    margin-top: 8pt;
+    color: #222;
+    font-size: 8pt;
+  }
+}
+
+@media print {
+  .letter {
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .letter-header {
+    border-bottom: 0.75pt solid #888;
+    padding-bottom: 8pt;
+  }
+
+  .letter-header__name {
+    font-size: 14pt;
+  }
+
+  .letter-header__title {
+    margin-top: 10pt;
+    font-size: 13pt;
+  }
+
+  .letter-header__company {
+    color: #222;
+  }
+
+  .letter-body p {
+    break-inside: avoid;
+  }
+}

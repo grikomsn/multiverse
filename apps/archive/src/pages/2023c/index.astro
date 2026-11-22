@@ -1,0 +1,55 @@
+---
+import { getEdition } from "../../lib/editions"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+import Icon from "../../editions/2023c/icon.astro"
+import type { IconName } from "../../editions/2023c/icons"
+import Layout from "../../editions/2023c/layout.astro"
+import { BASE } from "../../editions/2023c/paths"
+import RichText from "../../editions/2023c/rich-text.astro"
+
+const edition = await getEdition("2023c")
+const latest = edition.posts?.[0]
+// Lucide icons the 2023 site had, by platform; a Simple Icons mark for the rest.
+const ICON: Record<string, IconName> = {
+  bluesky: "cloud",
+  github: "github",
+  linkedin: "linkedin",
+  mastodon: "mastodon",
+}
+const profiles = (edition.links ?? []).filter((link) => link.platform)
+---
+
+<Layout>
+  <section class="container relative flex flex-col items-start py-8 lg:py-16">
+    <h1 class="mb-2 text-4xl font-bold">{edition.name}</h1>
+    <p class="mb-8 text-2xl">{edition.headline}</p>
+    <div class="mb-16 max-w-screen-sm space-y-4 text-neutral-700 dark:text-neutral-300 [&_a]:text-primary-600 dark:[&_a]:text-primary-500 [&_a:hover]:underline">
+      <RichText value={edition.intro} />
+    </div>
+    <ul class="flex items-center gap-x-4 [&_a:hover]:text-primary-600 dark:[&_a:hover]:text-primary-500">
+      {profiles.map((link) => (
+        <li>
+          <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+            {ICON[link.platform!] ? (
+              <Icon name={ICON[link.platform!]!} class="h-5 w-5" />
+            ) : (
+              <Fragment set:html={brandSvg(link.platform!, 'class="h-5 w-5"')} />
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+    {latest && (
+      <a
+        href={`${BASE}/articles/${latest.slug}`}
+        class="-order-1 mb-8 flex items-center space-x-2 rounded-full border border-neutral-500/25 bg-neutral-500/10 px-2 py-1 pr-3 text-sm text-neutral-700 hover:border-neutral-500/50 dark:text-neutral-300"
+      >
+        <span class="rounded-full bg-primary-500/50 px-2 py-px text-xs font-semibold text-neutral-200">
+          New Article
+        </span>
+        <span>{latest.title}</span>
+        <Icon name="arrow-right" class="h-3 w-3" />
+      </a>
+    )}
+  </section>
+</Layout>

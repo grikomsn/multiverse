@@ -1,0 +1,162 @@
+/*
+ * /media: the portrait gallery and its lightbox. Imported by that page only.
+ */
+@layer base {
+  /* Inline icons in the gallery's buttons; Lucide and brand icons size themselves. */
+  :is(.icon-button, .button) > svg:not([class]) {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .icon-button {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background-color: var(--color-card);
+    color: var(--color-fg);
+    cursor: pointer;
+    transition: border-color 150ms var(--ease-out-quart);
+
+    &:hover {
+      border-color: color-mix(in oklab, var(--color-fg) 35%, var(--color-line));
+    }
+  }
+
+  /* Gallery tile: a square image in a thin frame. */
+  .portrait-frame {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    background-color: var(--color-sunk);
+
+    & img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      background-size: cover;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      & img {
+        transition: scale 300ms var(--ease-out-quart);
+      }
+
+      &:hover img,
+      &:focus-visible img {
+        scale: 1.03;
+      }
+    }
+  }
+
+  .lightbox {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    border: 0;
+    padding: max(1rem, env(safe-area-inset-top)) 1rem max(1rem, env(safe-area-inset-bottom));
+    background: transparent;
+    color: inherit;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    &[open] {
+      display: grid;
+      place-items: center;
+    }
+
+    &::backdrop {
+      background: color-mix(in oklab, #0b0b0d 75%, transparent);
+      backdrop-filter: blur(6px);
+    }
+  }
+
+  /* --ratio (width / height) is set per image so the panel hugs the picture. */
+  .lightbox-panel {
+    --ratio: 1;
+    /* The header, details and padding take about 18rem of height; the picture gets the rest. */
+    --stage-height: clamp(16rem, 100dvh - 18rem, 56rem);
+    display: grid;
+    gap: 1rem;
+    width: min(100%, 64rem, max(24rem, calc(var(--stage-height) * var(--ratio) + 2.5rem)));
+    border: 1px solid var(--color-line);
+    border-radius: 1rem;
+    background-color: var(--color-bg);
+    padding: 1rem;
+    box-shadow: 0 24px 64px -24px rgb(0 0 0 / 0.45);
+
+    @media (min-width: 48rem) {
+      padding: 1.25rem;
+    }
+
+    .lightbox[open] & {
+      animation: lightbox-in 180ms var(--ease-out-quart);
+    }
+  }
+
+  .lightbox-stage {
+    position: relative;
+    aspect-ratio: var(--ratio);
+    border-radius: 0.625rem;
+    background: var(--color-sunk) center / cover no-repeat;
+    overflow: hidden;
+    touch-action: pan-y;
+    user-select: none;
+
+    & img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+
+      &.is-loaded {
+        opacity: 1;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: opacity 200ms ease;
+      }
+    }
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+  }
+
+  @keyframes lightbox-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes lightbox-in {
+      from {
+        opacity: 0;
+        scale: 0.97;
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "links",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 4323",
+    "deploy": "wrangler deploy",
+    "lint": "eslint .",
+    "typecheck": "tsc && tsc -p tsconfig.test.json",
+    "test": "bun test",
+    "cf-typegen": "wrangler types --include-runtime=false"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "catalog:",
+    "@multiverse/config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "wrangler": "catalog:"
+  }
+}

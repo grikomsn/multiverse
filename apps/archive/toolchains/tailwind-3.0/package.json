@@ -1,0 +1,14 @@
+{
+  "name": "@archive/tailwind-3.0",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.cjs",
+  "dependencies": {
+    "@tailwindcss/forms": "catalog:tailwind-3.0",
+    "@tailwindcss/line-clamp": "catalog:tailwind-3.0",
+    "@tailwindcss/typography": "catalog:tailwind-3.0",
+    "postcss": "catalog:tailwind-3.0",
+    "tailwindcss": "catalog:tailwind-3.0"
+  }
+}

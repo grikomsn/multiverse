@@ -1,0 +1,21 @@
+---
+import { getEdition } from "../../lib/editions"
+import Layout from "../../editions/v6/layout.astro"
+import { pageOf } from "../../editions/v6/paths"
+import ProjectList from "../../editions/v6/project-list.astro"
+import TitleSeparator from "../../editions/v6/title-separator.astro"
+
+const edition = await getEdition("v6")
+const page = pageOf(edition, "projects")
+// showcaseCollection(order: title_ASC)
+const projects = [...(edition.projects ?? [])].sort((a, b) =>
+  (a.title ?? "").localeCompare(b.title ?? "", "en"),
+)
+---
+
+<Layout pageTitle={page?.title ?? "Projects"} description={page?.description}>
+  <div class="v6-panel v6-panel-rounded v6-stack" style="--gap: 1rem">
+    <TitleSeparator as="h1" title={page?.title ?? "Projects"} description={page?.description} />
+    <ProjectList projects={projects} />
+  </div>
+</Layout>

@@ -1,0 +1,77 @@
+---
+import "./2024.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import { web } from "../../lib/web"
+import { href } from "./paths"
+import { COLOPHON, copyright } from "../_kit/colophon"
+
+interface Props {
+  pageTitle?: string
+  description?: string | null
+  /** Bear's body class: home, blog, post or page. */
+  bodyClass: string
+}
+
+const { pageTitle, description, bodyClass } = Astro.props
+const edition = await getEdition("2024")
+const name = edition.name ?? "Griko Nibras"
+const nav = edition.links?.filter((link) => link.group === "nav") ?? []
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+    <title>{pageTitle ? `${pageTitle} | ${name}` : name}</title>
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    {edition.avatar?.url && <link rel="icon" href={imageUrl(edition.avatar.url, 64)} />}
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@700,701,401,400&display=swap"
+    />
+    <ArchiveHead />
+  </head>
+  <body class={bodyClass}>
+    <header>
+      <a class="title" href={href("/")}>
+        <h1>{name}</h1>
+      </a>
+      <nav>
+        <p>
+          {nav.map((link, index) => (
+            <>
+              <a href={href(link.url)}>{link.label}</a>
+              {index < nav.length - 1 && "\n"}
+            </>
+          ))}
+        </p>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <span id="footer-directive">
+        <p>
+          Subscribe to my blog via <a href={web("https://nibras.co/feed.xml")}>RSS feed</a>
+          <br />
+          &copy; {copyright()}, {name}
+        </p>
+      </span>
+      <span>
+        Powered by <a href={COLOPHON.framework.url}>{COLOPHON.framework.name}</a>, styled after{" "}
+        <a href="https://bearblog.dev">
+          Bear{" "}
+          <span role="img" class="bear" aria-label="ASCII bear logo">
+            ʕ•ᴥ•ʔ
+          </span>
+        </a>
+      </span>
+    </footer>
+    <ArchiveBanner title={edition.title} period={period(edition.startDate, edition.endDate)} />
+  </body>
+</html>

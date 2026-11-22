@@ -1,0 +1,85 @@
+---
+import Icon from "@multiverse/ui/icon.astro"
+
+import { formatCount, type Metrics } from "../lib/metrics"
+import { KIND, KIND_ICON, linkLabel, STATUS } from "../lib/projects"
+import ProjectMark from "./project-mark.astro"
+import Sparkline from "./sparkline.astro"
+
+/** A featured project as a card with its biggest number and, for npm packages, a trend line. */
+interface Props {
+  project: {
+    name: string | null
+    kind?: string | null
+    status?: string | null
+    url?: string | null
+    repoUrl?: string | null
+    summary?: string | null
+    icon?: { url: string | null; extension?: string | null } | null
+  }
+  metrics?: Metrics
+}
+
+const { project, metrics } = Astro.props
+const href = project.url ?? project.repoUrl
+const stat =
+  metrics && metrics.downloads >= 100
+    ? {
+        value: formatCount(metrics.downloads),
+        label: "npm downloads a month",
+        trend: metrics.trend,
+      }
+    : metrics && metrics.installs >= 100
+      ? { value: formatCount(metrics.installs), label: "VS Code installs" }
+      : metrics && metrics.stars >= 10
+        ? { value: formatCount(metrics.stars), label: "GitHub stars" }
+        : undefined
+---
+
+<article class="card card-spot flex h-full flex-col" data-mark-area>
+  <ProjectMark icon={project.icon} class="rounded-t-[calc(0.75rem-1px)] border-b border-line" />
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <p class="label flex items-center justify-between gap-3 text-xs">
+      <span class="flex items-center gap-1.5">
+        <Icon name={KIND_ICON[project.kind ?? ""] ?? "package"} class="size-3.5 text-accent-ink" />
+        {KIND[project.kind ?? ""] ?? "Project"}
+      </span>
+      {project.status && STATUS[project.status] && (
+        <span class="rounded-full bg-sunk px-2 py-0.5 normal-case">{STATUS[project.status]}</span>
+      )}
+    </p>
+    <h3 class="text-2xl leading-tight font-bold tracking-tight">
+      {href ? (
+        <a class="decoration-accent decoration-2 underline-offset-4 hover:underline" href={href}>
+          {project.name}
+        </a>
+      ) : (
+        project.name
+      )}
+    </h3>
+    <p class="line-clamp-3 text-[0.9375rem] leading-snug text-soft">{project.summary}</p>
+    {stat && (
+      <div class="mt-auto flex items-end justify-between gap-3 pt-2">
+        <p class="flex flex-col">
+          <span class="text-3xl font-bold tracking-tight tabular-nums" data-count>
+            {stat.value}
+          </span>
+          <span class="text-xs text-soft">{stat.label}</span>
+        </p>
+        {stat.trend && <Sparkline values={stat.trend} width={96} height={32} />}
+      </div>
+    )}
+    <p class:list={["flex flex-wrap gap-x-4 text-sm text-soft", !stat && "mt-auto"]}>
+      {project.url && (
+        <a class="inline-block py-1 hover:text-fg" href={project.url}>
+          {linkLabel(project.url)}
+        </a>
+      )}
+      {project.repoUrl && project.repoUrl !== project.url && (
+        <a class="inline-block py-1 hover:text-fg" href={project.repoUrl}>
+          Source code
+        </a>
+      )}
+    </p>
+  </div>
+</article>

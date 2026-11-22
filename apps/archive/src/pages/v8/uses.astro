@@ -1,0 +1,23 @@
+---
+import { getEdition } from "../../lib/editions"
+import Layout from "../../editions/v8/layout.astro"
+import { pageOf } from "../../editions/v8/paths"
+import Portable from "../../editions/v8/portable.astro"
+import Prose from "../../editions/v8/prose.astro"
+
+// content/pages/uses.mdx, served by pages/[slug].tsx
+const page = pageOf(await getEdition("v8"), "uses")
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <Prose class="text-center">
+    <h1>{page?.title}</h1>
+    <p class="lead">{page?.description}</p>
+    <hr />
+  </Prose>
+  <Prose>
+    <article class="cursor-auto">
+      <Portable value={page?.body} />
+    </article>
+  </Prose>
+</Layout>

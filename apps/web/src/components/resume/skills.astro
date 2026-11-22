@@ -1,0 +1,29 @@
+---
+import type { SkillEntry } from "../../lib/resume/resume"
+import Section from "./section.astro"
+
+interface Props {
+  entries: SkillEntry[]
+  /** Spoken languages, from the profile. */
+  languages?: string[]
+}
+
+const { entries, languages = [] } = Astro.props
+---
+
+{entries.length > 0 && (
+  <Section id="skills" title="Skills">
+    <ul class="skills">
+      {entries.map((group) => (
+        <li>
+          <strong>{group.name}:</strong> {group.skills.join(", ")}
+        </li>
+      ))}
+      {languages.length > 0 && (
+        <li>
+          <strong>Spoken languages:</strong> {languages.join(", ")}
+        </li>
+      )}
+    </ul>
+  </Section>
+)}

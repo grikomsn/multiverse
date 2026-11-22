@@ -1,0 +1,23 @@
+---
+import { getEdition } from "../../lib/editions"
+import AppearanceItem from "../../editions/v7/appearance-item.astro"
+import Layout from "../../editions/v7/layout.astro"
+import { pageOf } from "../../editions/v7/paths"
+
+const edition = await getEdition("v7")
+const page = pageOf(edition, "appearances")
+---
+
+<Layout pageTitle={page?.title ?? "Appearances"} description={page?.description}>
+  <div class="v7-container v7-container-wide">
+    <div class="v7-stack">
+      <h1 class="v7-heading" style="text-align: center">
+        {page?.title}
+      </h1>
+      <p style="padding-bottom: 2rem; text-align: center">{page?.description}</p>
+      {edition.talks?.map((talk) => (
+        <AppearanceItem talk={talk} />
+      ))}
+    </div>
+  </div>
+</Layout>

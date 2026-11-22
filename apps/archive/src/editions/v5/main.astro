@@ -1,0 +1,10 @@
+---
+/** components/main.tsx: the Framer Motion section that slides in from above and out below. */
+type Props = { class?: string }
+---
+
+<section class="v4b-main">
+  <main class:list={["container mx-auto p-4", Astro.props.class]}>
+    <slot />
+  </main>
+</section>

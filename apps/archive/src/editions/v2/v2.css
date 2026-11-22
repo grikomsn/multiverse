@@ -1,0 +1,294 @@
+@import "./original.css";
+
+/* Runtime CSS react-fontawesome 0.1 injected (fontawesome-svg-core 1.2.8, trimmed to what v2 used). */
+svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+
+.svg-inline--fa {
+  display: inline-block;
+  height: 1em;
+  overflow: visible;
+  font-size: inherit;
+  vertical-align: -0.125em;
+}
+
+.svg-inline--fa.fa-fw {
+  width: 1.25em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+/* next-page-transitions: 200 ms opacity on enter. */
+@keyframes v2-page-enter {
+  from {
+    opacity: 0;
+  }
+}
+
+.v2-page {
+  animation: v2-page-enter 200ms;
+}
+
+/* react-reveal Fade (1 s) on lazy-loaded images, Bounce top on the wordmark and modal card. */
+.v2-js [data-v2-fade] {
+  opacity: 0;
+  transition: opacity 1000ms ease-out;
+}
+
+.v2-js [data-v2-fade].is-revealed {
+  opacity: 1;
+}
+
+@keyframes v2-bounce-top {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  from {
+    opacity: 0;
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+.v2-bounce-top {
+  animation: v2-bounce-top 1000ms both;
+}
+
+/* Navbar.js (styled-jsx). */
+.modal-card {
+  width: 100%;
+  max-width: 800px;
+}
+
+.modal-card-body {
+  margin: 0.5rem;
+  padding: 4rem 1rem;
+  border-radius: 4px;
+}
+
+.navbar-burger {
+  z-index: 5;
+}
+
+.v2-modal-open,
+.v2-modal-open body {
+  overflow: hidden;
+}
+
+.modal.v2-modal {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 300ms,
+    visibility 0s 300ms;
+}
+
+.modal.v2-modal.is-active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.modal.v2-modal.is-active .modal-card {
+  animation: v2-bounce-top 1000ms both;
+}
+
+/* Spring.js: the wordmark sticker. */
+#g-spring {
+  width: 80%;
+  max-width: 24rem;
+  margin: 0 auto 4rem;
+  cursor: pointer;
+  transform: scale(1.125);
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.3));
+  transition: 250ms ease;
+}
+
+#g-spring:hover {
+  transform: scale(1.2) rotate(1deg);
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.3));
+}
+
+#g-spring:active {
+  transform: scale(1.15) rotate(0.5deg);
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* pages/index.js (styled-jsx, global). */
+hr {
+  margin: 3rem 0;
+}
+
+section.section {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+ul.list-unstyled {
+  display: inline;
+  margin: 0;
+  list-style: none;
+}
+
+.card {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.card-image,
+.image > img {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+/* SectionFirst: the avatar overlapping the first card, then the yellow-to-dark band. */
+#avatar {
+  position: relative;
+  z-index: 2;
+  width: 192px;
+  height: 192px;
+  margin: 0 auto -96px;
+  border: 3px white solid;
+  border-radius: 100%;
+  background-size: cover;
+}
+
+.v2-first .g-max-width.card {
+  padding-top: calc(96px + 2rem);
+}
+
+.v2-first .container {
+  padding: 0.4rem 0.4rem 0;
+}
+
+#g-section-separator {
+  height: 4rem;
+  margin-top: calc(7px - 8rem);
+}
+
+/* Only the wrapper is see-through; the plug cards inside stay white, as Bulma drew them. */
+.v2-second .card.is-shadowless {
+  background: transparent;
+}
+
+.v2-second .container,
+.v2-third .container {
+  padding: 0 0.4rem;
+}
+
+.v2-second .section {
+  padding-bottom: 0;
+}
+
+.v2-third .card-content {
+  padding: 4rem 1rem;
+}
+
+.v2-third .section {
+  padding-top: 0;
+}
+
+.footer .buttons {
+  justify-content: center;
+}
+
+/* pages/socials.js and open-source.js. */
+.v2-tile .box {
+  padding: 3rem;
+}
+
+.v2-tile .subtitle {
+  margin: 2rem 0 0;
+}
+
+.v2-tile:hover,
+.g-repo:hover {
+  transform: scale(1.025);
+}
+
+#g-repos {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Bulma 0.7's `is-half`, missing from the trimmed 2018 stylesheet: two work cards per row now
+   that "Recent works" lists every featured project, not two client sites. */
+@media screen and (min-width: 769px), print {
+  .column.is-half {
+    flex: none;
+    width: 50%;
+  }
+}
+
+/* Today's project links (a GitHub list path, for one) are longer than 2018's hostnames. */
+.card-footer-item {
+  overflow-wrap: anywhere;
+}
+
+/* The repo boxes, with today's project covers next to the 2018 name, description and counts. */
+.g-repo {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.g-repo-cover {
+  flex: none;
+  width: 160px;
+  height: 80px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.g-repo-body {
+  min-width: 0;
+}
+
+.g-repo-body .subtitle {
+  margin-bottom: 0.75rem;
+}
+
+.g-repo-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  color: #7a7a7a;
+  font-size: 0.875rem;
+}
+
+@media screen and (max-width: 768px) {
+  .g-repo {
+    flex-direction: column;
+  }
+
+  .g-repo-cover {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 1;
+  }
+}

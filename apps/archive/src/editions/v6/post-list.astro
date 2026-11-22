@@ -1,0 +1,30 @@
+---
+import { BASE, formatDate, type PostEntry } from "./paths"
+
+interface Props {
+  posts: PostEntry[]
+}
+
+const { posts } = Astro.props
+---
+
+<div>
+  {posts.map((post, index) => (
+    <>
+      {index > 0 && <hr class="v6-divider" />}
+      <a href={`${BASE}/blog/${post.slug}`} class="v6-row v6-post-row" role="group">
+        <h3 class="v6-heading-sm v6-link-heading" style="font-weight: 700; line-height: 1.5">
+          {post.title}
+        </h3>
+        <div class="v6-stack" style="--gap: 1rem">
+          <p>{post.subtitle}</p>
+          <p class="v6-muted">{post.tags.join(", ")}</p>
+        </div>
+        <p class="v6-muted v6-post-date">
+          <span class="v6-md-hide">Posted on </span>
+          {formatDate(post.date)}
+        </p>
+      </a>
+    </>
+  ))}
+</div>

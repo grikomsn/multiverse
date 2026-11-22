@@ -1,0 +1,26 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // nibras.co. Deploys: docs/deploy.md.
+  "name": "multiverse-web",
+  "account_id": "e02a25d4d8f0bacceba5cb29bcaa74de",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-10-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    // Every other path is a static file and never runs the Worker.
+    "run_worker_first": ["/", "/resume", "/resume/", "/mcp", "/mcp/*", "/resume.pdf"],
+  },
+  "browser": { "binding": "BROWSER", "remote": true },
+  "r2_buckets": [{ "binding": "BLOB", "bucket_name": "blob1", "remote": true }],
+  "version_metadata": { "binding": "CF_VERSION_METADATA" },
+  "observability": { "enabled": true },
+  "workers_dev": true,
+  "preview_urls": true,
+  "routes": [
+    { "pattern": "nibras.co", "custom_domain": true },
+    { "pattern": "www.nibras.co", "custom_domain": true },
+  ],
+}

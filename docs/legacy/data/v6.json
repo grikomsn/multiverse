@@ -1,0 +1,413 @@
+{
+  "_source": "Wayback __NEXT_DATA__ captures of griko.id (v6, Contentful era)",
+  "home_20201101032914": {
+    "showcase": [
+      {
+        "title": "airtable-deno",
+        "tech": ["Airtable", "Deno"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/7yOzWdvCIV2PgPUrhyOHmy/8f44608ce804eab23fa436d699752040/Screen_Shot_2020-09-23_at_3.56.45_PM.png?w=1280"
+        },
+        "url": "https://github.com/grikomsn/airtable-deno",
+        "sys": {
+          "id": "49KtymGZxc0sq6FkctmToX"
+        }
+      },
+      {
+        "title": "airtable-dnd",
+        "tech": ["Airtable", "Node.js", "NPM", "Yarn"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/5OgbGOUjAOnFPS0bAO2sKF/c21792e85b1b766427205f720ea9e8ea/Screen_Shot_2020-09-23_at_3.56.35_PM.png?w=1280"
+        },
+        "url": "https://github.com/grikomsn/airtable-dnd",
+        "sys": {
+          "id": "3adsgDq8l8SsWQ983d2cb"
+        }
+      },
+      {
+        "title": "Nextplate",
+        "tech": ["Next.js", "Chakra UI", "Vercel"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/6WAoyHQArBqxmDu2XlPstl/cfe9dde49d260650aeedf1934b60104f/Screen_Shot_2020-10-04_at_10.03.53_PM.png?w=1280"
+        },
+        "url": "https://nextplate.now.sh",
+        "sys": {
+          "id": "3JGkAkxB4GeLdg089eDYEk"
+        }
+      },
+      {
+        "title": "MDX Logos",
+        "tech": ["Figma"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/2mJTBnOOSfQGFNrGblpCX5/a8c8143934537a75b2eeac3dba2c3af7/Screen_Shot_2020-10-04_at_10.09.15_PM.png?w=1280"
+        },
+        "url": "https://www.figma.com/file/XJZNM7jgDNUE9b0gkrx4Xi/MDX-Logos",
+        "sys": {
+          "id": "uk5rYd6Lg9UEZPUyOYtZY"
+        }
+      },
+      {
+        "title": "Console Patterns",
+        "tech": ["Next.js", "Tailwind CSS", "Vercel"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/3DQI56wuP8TssywEd5zwWz/c95262deaa719f8e03b7a00175693dca/Screen_Shot_2020-09-23_at_3.56.18_PM.png?w=1280"
+        },
+        "url": "https://console-patterns.now.sh",
+        "sys": {
+          "id": "7pb8IcPZ2Ztdu7xKJO0KPw"
+        }
+      },
+      {
+        "title": "SurabayaJS",
+        "tech": ["Next.js", "Chakra UI", "Contentful", "Vercel"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/2cAJ3xgxdMvEBS3BP0dhUO/b828eedce7f6530b13e0d36a46bb658d/Screen_Shot_2020-09-23_at_3.56.10_PM.png?w=1280"
+        },
+        "url": "https://surabayajs.org",
+        "sys": {
+          "id": "1dzcpeGt7ZMttTRvnYFWPZ"
+        }
+      }
+    ],
+    "appearance": [
+      {
+        "title": "Automate Social Images using Next.js and Puppeteer",
+        "date": "2020-10-24T00:00:00.000Z",
+        "subtitle": "Utilize Next.js API routes and Puppeteer to create dynamic social images",
+        "url": "https://slides.com/grikomsn/automate-social-images-using-nextjs-and-puppeteer",
+        "tags": ["SurabayaJS", "Next.js", "Puppeteer", "Vercel"],
+        "category": "talk",
+        "sys": {
+          "id": "DTgt4eHPKYm1FGodAME6r"
+        }
+      },
+      {
+        "title": "Deno In A Nutshell",
+        "date": "2020-07-11T00:00:00.000Z",
+        "subtitle": "Get to know more about the latest JS runtime made by the creator of Node.js",
+        "url": "https://slides.com/grikomsn/deno-in-a-nutshell",
+        "tags": ["Deno", "JavaScript", "TypeScript", "Deno Land Indonesia"],
+        "category": "talk",
+        "sys": {
+          "id": "19DY449QAYlG9oneJD8ubh"
+        }
+      },
+      {
+        "title": "DILo x Cilsy: #DILoDevelopersClass",
+        "date": "2019-11-25T00:00:00.000Z",
+        "subtitle": "Remote mentor for DILo Developers Class by DILo and Cilsy",
+        "url": "https://dilo.id/surabaya/event/detail/551",
+        "tags": ["DILo", "Cilsy", "Mentoring", "Workshop"],
+        "category": "workshop",
+        "sys": {
+          "id": "Bh3UN2LZUzww214E8Ftou"
+        }
+      },
+      {
+        "title": "Slick and Clean JavaScript",
+        "date": "2019-10-27T00:00:00.000Z",
+        "subtitle": "Clean code concepts, tips and tricks on writing JavaScript",
+        "url": "https://slick-and-clean-javascript.now.sh",
+        "tags": ["SurabayaDev", "SurabayaJS", "JavaScript", "Clean Code"],
+        "category": "talk",
+        "sys": {
+          "id": "3qSTB0HjmFZ6fcHfRnvzrn"
+        }
+      },
+      {
+        "title": "Hooks In A Nutshell",
+        "date": "2019-09-22T00:00:00.000Z",
+        "subtitle": "Introduction to React Hooks",
+        "url": "https://hooks-in-a-nutshell.now.sh",
+        "tags": ["Facebook Developer Circle", "SurabayaJS", "React"],
+        "category": "talk",
+        "sys": {
+          "id": "7BFzprSswuhqZ00nFAQcEN"
+        }
+      },
+      {
+        "title": "Landing Page in 5 Minutes",
+        "date": "2019-06-20T00:00:00.000Z",
+        "subtitle": "Create a Static Site using GatsbyJS and ZEIT Now",
+        "url": "https://github.com/grikomsn/landing-page-in-5-minutes",
+        "tags": ["SurabayaJS", "Gatsby,js", "ZEIT Now", "Vercel"],
+        "category": "lightning-talk",
+        "sys": {
+          "id": "Yc6iVJcEnGhMRzaK5VZMZ"
+        }
+      },
+      {
+        "title": "DSC PENS Campus Roadshow",
+        "date": "2019-03-09T00:00:00.000Z",
+        "subtitle": "Web/PWA mentor for DSC PENS Campus Workshop #1",
+        "url": "https://jobhun.id/developer-student-club-campus-roadshow",
+        "tags": ["Web", "PWA", "Firebase", "Mentoring", "Workshop"],
+        "category": "workshop",
+        "sys": {
+          "id": "45ojtQuDfsocEDPQrCE6Ex"
+        }
+      }
+    ],
+    "posts": [
+      {
+        "title": "I Made a Deno Module Registry Using Next.js, Vercel, and GitHub",
+        "slug": "i-made-a-deno-module-registry-using-next-js-vercel-and-github",
+        "subtitle": "An adventure log about how I remade deno.land module registry from scratch for denoland.id",
+        "postedAt": "2020-06-04T00:00:00.000Z",
+        "tags": ["Deno", "Vercel", "Next.js", "GitHub"],
+        "sys": {
+          "id": "2NilX5NIEpsPt6DdjJurqU"
+        }
+      },
+      {
+        "title": "Windows Is Now Great for Development",
+        "slug": "windows-is-now-great-for-development",
+        "subtitle": "My personal thoughts and experience on how Windows is getting better for development",
+        "postedAt": "2019-06-14T00:00:00.000Z",
+        "tags": ["Windows", "Web Development", "Thoughts"],
+        "sys": {
+          "id": "6odpBEgyLQ6HIpYi6dQ6d7"
+        }
+      },
+      {
+        "title": "Gatsby.js Plugin Priority vs. OCD",
+        "slug": "gatsby-js-plugin-priority-vs-ocd",
+        "subtitle": "Sometimes tidiness must be sacrificed with import sequences",
+        "postedAt": "2019-05-04T00:00:00.000Z",
+        "tags": ["Gatsby.js", "React", "Thoughts", "Web Development"],
+        "sys": {
+          "id": "imWl2AqmX91vza7paQtRV"
+        }
+      },
+      {
+        "title": "Exploring Undocumented getInitialProps Properties on Next.js",
+        "slug": "exploring-undocumented-getinitialprops-properties-on-next-js",
+        "subtitle": "An adventure log on discovering the secrets of the getInitialProps function and its mysterious object properties — updated March 2020",
+        "postedAt": "2018-11-26T00:00:00.000Z",
+        "tags": ["Next.js", "React", "Web Development"],
+        "sys": {
+          "id": "7yEsl4mYALFK2r6h0TuY7T"
+        }
+      }
+    ]
+  },
+  "about_20201119010410": {
+    "avatar": "https://images.ctfassets.net/kve0ex6jlycb/7pnIUMHH66OioPhaYOg0RO/f29476e70bd473c3b15e7699a5ea57de/7AD8A96E-0083-4332-B885-BC965C9DA6A8_1_105_c.jpeg?w=1280&h=1280",
+    "preface": "My full name is Griko Muhammad Sultan Nibras, and Griko in short. Born, raised, and currently living in [Surabaya, Indonesia](https://surabaya.go.id). Currently working on my bachelor's degree in Informatics on Artificial Intelligence at [Institut Teknologi Adhi Tama Surabaya](https://itats.ac.id) and doing remote web dev work based on Toronto, CA.\n\nI start getting into backend web dev on college by creating an internal dashboard/CMS for practicum management using [Laravel](https://laravel.com) and [Voyager](https://voyager.devdojo.com), then focused on learning frontend by contributing to various projects or creating my own.\n\nNowadays I spend my time contribute to [open source projects](https://github.com/grikomsn), organize [SurabayaJS](https://surabayajs.org) meetups mostly every month, sometimes contribute on [Deno Land Indonesia](https://denoland.id) and [Frontend Indonesia](https://feid.dev), hang around various programming/web dev user groups, sometimes stream on [Twitch](https://twitch.tv/griko_nibras) or Discord communities, and keep learning new things while I can.",
+    "kb": [
+      "###### Languages\n\n- CSS & HTML\n- JavaScript\n- PHP\n- TypeScript",
+      "###### Frontend\n\n- Emotion\n- Gatsby.js\n- Next.js\n- Styled Components\n- Tailwind CSS",
+      "###### Backend\n\n- Docker\n- Firebase\n- MariaDB / MySQL\n- Node.js\n- PostgreSQL",
+      "###### Headless CMS\n\n- Airtable\n- Contentful\n- DatoCMS\n- GraphCMS\n- Notion\n- Prismic",
+      "###### Tools of the trade\n\n- DataGrip\n- GitKraken / Git Fork\n- Insomnia / Postman\n- Visual Studio Code",
+      "###### Infrastructure\n\n- Cloudflare\n- DigitalOcean\n- Netlify\n- Vercel\n- Vultr",
+      "###### Currently learning\n\n- Deno\n- FaunaDB\n- Prisma\n- Python"
+    ]
+  },
+  "projects_20210303025509": {
+    "showcase": [
+      {
+        "title": "airtable-deno",
+        "tech": ["Airtable", "Deno"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/7yOzWdvCIV2PgPUrhyOHmy/8f44608ce804eab23fa436d699752040/Screen_Shot_2020-09-23_at_3.56.45_PM.png?w=1280"
+        },
+        "url": "https://github.com/grikomsn/airtable-deno",
+        "sys": {
+          "id": "49KtymGZxc0sq6FkctmToX"
+        }
+      },
+      {
+        "title": "airtable-dnd",
+        "tech": ["Airtable", "Node.js", "NPM", "Yarn"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/5OgbGOUjAOnFPS0bAO2sKF/c21792e85b1b766427205f720ea9e8ea/Screen_Shot_2020-09-23_at_3.56.35_PM.png?w=1280"
+        },
+        "url": "https://github.com/grikomsn/airtable-dnd",
+        "sys": {
+          "id": "3adsgDq8l8SsWQ983d2cb"
+        }
+      },
+      {
+        "title": "Amazon Cell Phones Reviews",
+        "tech": ["Puppeteer", "Kaggle Dataset"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/11NbmSKxF5WAhkSq4HTGsp/4d677a139147884f1fef1ecbe9654ca6/Screen_Shot_2020-09-23_at_3.57.17_PM.png?w=1280"
+        },
+        "url": "https://www.kaggle.com/grikomsn/amazon-cell-phones-reviews",
+        "sys": {
+          "id": "6llP0mGPtlXrbheRfWk3eB"
+        }
+      },
+      {
+        "title": "Console Patterns",
+        "tech": ["Next.js", "Tailwind CSS", "Vercel"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/3DQI56wuP8TssywEd5zwWz/c95262deaa719f8e03b7a00175693dca/Screen_Shot_2020-09-23_at_3.56.18_PM.png?w=1280"
+        },
+        "url": "https://console-patterns.now.sh",
+        "sys": {
+          "id": "7pb8IcPZ2Ztdu7xKJO0KPw"
+        }
+      },
+      {
+        "title": "Deno Land Indonesia",
+        "tech": ["Next.js", "Chakra UI", "Vercel", "GitHub"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/1u5xPyQ2RgTbzc0rqL0YyD/dfd67c592505af2fd43328a592aba1b9/Screen_Shot_2020-09-23_at_3.57.02_PM.png?w=1280"
+        },
+        "url": "https://denoland.id",
+        "sys": {
+          "id": "2cTc5QmaewZpYmFIUhnv2m"
+        }
+      },
+      {
+        "title": "localtodo-react",
+        "tech": ["Create React App", "Vercel", "Netlify", "Hostman"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/1fJwAn0hDKTGtuM5gLrDQ7/aec1f7c3200790e2f951a89d9ab37c21/Screen_Shot_2020-10-05_at_6.08.55_AM.png?w=1280"
+        },
+        "url": "https://localtodo-react.now.sh",
+        "sys": {
+          "id": "6Kg4tNtfSlH2KwrB62LZil"
+        }
+      },
+      {
+        "title": "MDX Logos",
+        "tech": ["Figma"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/2mJTBnOOSfQGFNrGblpCX5/a8c8143934537a75b2eeac3dba2c3af7/Screen_Shot_2020-10-04_at_10.09.15_PM.png?w=1280"
+        },
+        "url": "https://www.figma.com/file/XJZNM7jgDNUE9b0gkrx4Xi/MDX-Logos",
+        "sys": {
+          "id": "uk5rYd6Lg9UEZPUyOYtZY"
+        }
+      },
+      {
+        "title": "Nextplate",
+        "tech": ["Next.js", "Chakra UI", "Vercel"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/6WAoyHQArBqxmDu2XlPstl/cfe9dde49d260650aeedf1934b60104f/Screen_Shot_2020-10-04_at_10.03.53_PM.png?w=1280"
+        },
+        "url": "https://nextplate.now.sh",
+        "sys": {
+          "id": "3JGkAkxB4GeLdg089eDYEk"
+        }
+      },
+      {
+        "title": "puppet-scraper",
+        "tech": ["Puppeteer", "tsdx", "NPM"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/6J928DtIRq4U5RlQnce9CW/08e8bce9c05ef77c828a4a64af43ab44/Screen_Shot_2020-09-23_at_3.56.01_PM.png?w=1280"
+        },
+        "url": "https://github.com/grikomsn/puppet-scraper",
+        "sys": {
+          "id": "2eeGc1t4TYKzCAyRfva2CV"
+        }
+      },
+      {
+        "title": "SurabayaJS",
+        "tech": ["Next.js", "Chakra UI", "Contentful", "Vercel"],
+        "image": {
+          "url": "https://images.ctfassets.net/kve0ex6jlycb/2cAJ3xgxdMvEBS3BP0dhUO/1980924d27a68b9b3338d0bbf83c3f1e/Screen_Shot_2020-11-22_at_12.44.52_AM.png?w=1280"
+        },
+        "url": "https://surabayajs.org",
+        "sys": {
+          "id": "1dzcpeGt7ZMttTRvnYFWPZ"
+        }
+      }
+    ]
+  },
+  "blog_20210411180734": {
+    "posts": [
+      {
+        "title": "I Made a Deno Module Registry Using Next.js, Vercel, and GitHub",
+        "slug": "i-made-a-deno-module-registry-using-next-js-vercel-and-github",
+        "subtitle": "An adventure log about how I remade deno.land module registry from scratch for denoland.id",
+        "postedAt": "2020-06-04T00:00:00.000Z",
+        "tags": ["Deno", "Vercel", "Next.js", "GitHub"],
+        "sys": {
+          "id": "2NilX5NIEpsPt6DdjJurqU"
+        }
+      },
+      {
+        "title": "Windows Is Now Great for Development",
+        "slug": "windows-is-now-great-for-development",
+        "subtitle": "My personal thoughts and experience on how Windows is getting better for development",
+        "postedAt": "2019-06-14T00:00:00.000Z",
+        "tags": ["Windows", "Web Development", "Thoughts"],
+        "sys": {
+          "id": "6odpBEgyLQ6HIpYi6dQ6d7"
+        }
+      },
+      {
+        "title": "Gatsby.js Plugin Priority vs. OCD",
+        "slug": "gatsby-js-plugin-priority-vs-ocd",
+        "subtitle": "Sometimes tidiness must be sacrificed with import sequences",
+        "postedAt": "2019-05-04T00:00:00.000Z",
+        "tags": ["Gatsby.js", "React", "Thoughts", "Web Development"],
+        "sys": {
+          "id": "imWl2AqmX91vza7paQtRV"
+        }
+      },
+      {
+        "title": "Exploring Undocumented getInitialProps Properties on Next.js",
+        "slug": "exploring-undocumented-getinitialprops-properties-on-next-js",
+        "subtitle": "An adventure log on discovering the secrets of the getInitialProps function and its mysterious object properties — updated March 2020",
+        "postedAt": "2018-11-26T00:00:00.000Z",
+        "tags": ["Next.js", "React", "Web Development"],
+        "sys": {
+          "id": "7yEsl4mYALFK2r6h0TuY7T"
+        }
+      }
+    ]
+  },
+  "posts": {
+    "i-made-a-deno-module-registry-using-next-js-vercel-and-github": {
+      "image": {
+        "url": "https://images.ctfassets.net/kve0ex6jlycb/4NAWrPXpI68fjug2rSTAK/3eb9eca4f6e43c1afd49300a8bc79ede/screen-shot-2020-06-05-at-3-28-11-am-1.png?w=1280",
+        "width": 2784,
+        "height": 800,
+        "title": "https://denoland.id/x"
+      },
+      "title": "I Made a Deno Module Registry Using Next.js, Vercel, and GitHub",
+      "slug": "i-made-a-deno-module-registry-using-next-js-vercel-and-github",
+      "subtitle": "An adventure log about how I remade deno.land module registry from scratch for denoland.id",
+      "postedAt": "2020-06-04T00:00:00.000Z",
+      "tags": ["Deno", "Vercel", "Next.js", "GitHub"],
+      "content": "When [Deno premiered its version 1.0.0](https://twitter.com/deno_land/status/1260701643311583234?s=20), everyone was on the Deno hype train. And one of the most interesting feature about Deno is that [external modules are imported using direct URLs](https://deno.land/manual/linking_to_external_code), so rather than downloading a module then store metadata on some `package-lock.json`-like file, Deno uses URLs which the runtime will download and cache the module locally for future usage. But if you need to have some kind of lockfile, Deno can do this too, which you can read more on the [manual about integrity checking](https://deno.land/manual/linking_to_external_code/integrity_checking).\n\n## Third Party Modules 📦\n\nAnd speaking of modules, lots of third party modules are being submitted on [deno.land/x](https://deno.land/x), which is Deno's official module registry for third party modules.\n\nUnlike npm or other package/module registries, Deno uses [a single JSON file](https://github.com/denoland/deno_website2/blob/master/database.json) to store module names, source type (GitHub or npm), user/org name and repo name. With that metadata,  the deno.land website/API will proxy to its module source. For example, here's the entry for the `airtable` module:\n\n[![https://github.com/denoland/deno_website2/blob/master/database.json#L32-L37](https://dev-to-uploads.s3.amazonaws.com/i/vymucm8vz6mq2dnz8oou.png)](https://github.com/denoland/deno_website2/blob/master/database.json#L32-L37)\n\nSo if we want to import a `mod.ts` file on the module, deno.land will resolve the `airtable` module from GitHub with the owner/org `grikomsn`, the repo `airtable-deno`, and the contents of `mod.ts` file, which the proxied URL will be <https://deno.land/x/airtable/mod.ts>.\n\nSo no need to use GitHub's very long CDN URL like `https://raw.githubusercontent.com/grikomsn/airtable-deno/master/mod.ts`. There are also other services like <https://denopkg.com> where it doesn't proxy sources but redirects to GitHub CDN, so <https://denopkg.com/grikomsn/airtable-deno/mod.ts> redirects to the GitHub CDN URL. Neat!\n\n## The Magic URL ✨\n\nNow you may or may not noticed that the import URL for modules and the module explorer page URL is _exactly the same_.\n\n![The magical deno.land/x route.](https://dev-to-uploads.s3.amazonaws.com/i/fqm6xx427xfdn7m931kl.png)\n\nIt was designed on purpose so by just using the same URL, you can explore the module contents and just copy paste the same URL to import on Deno. This is achieved using [Cloudflare Workers](https://workers.cloudflare.com) where it proxies HTML requests to the module explorer page which is deployed on [Vercel](https://vercel.com/home), and non-HTML requests to the module source files from their respective sources. This was the most mind-blowing thing when I started experimenting on Deno, and I'm still astonished that the Deno team can pull this off. 🤯\n\nSidetrack for a moment. I joined and help maintain a new Deno user group for Indonesia folks, aptly named [Deno Land Indonesia](https://denoland.id). Everyone was [joining the Telegram group](https://t.me/deno_id) from various places, probably someone broadcasted the invite link to other groups, which resulted from 10–20 members to instantly 200–300 members. And one day, someone bought the `denoland.id` domain and filled it with a Gatsby-based placeholder page, and then out of the blue, this thought hit me:\n\n> _\"What if we have our own module registry?\"_\n\n…which followed with another thought:\n\n> _\"Could this be achieved only using Vercel rewrites?\"_\n\nAnd with that, my week long journey on sleepless nights and constant trial and error begins.\n\n## Testing and Tinkering 👨‍🔧\n\nFirst order of business was experimenting if [Vercel `rewrites` config](https://vercel.com/docs/configuration#project/rewrites) could proxy another URL, which it could. But realizing that I also need to detect if the request accepts HTML or not, I definitely need something else that just rewriting requests. I created a [Next.js](https://nextjs.org/) project with a [page route](https://nextjs.org/docs/basic-features/pages) to view the module explorer page and an [API route](https://nextjs.org/docs/api-routes/introduction) to resolve module sources, which it a success. Just need to proxy those URLs with Vercel `rewrites` config and ready to go. And so I thought.\n\nSo here's the basic idea on that iteration:\n\n- `/x/[...segments]` is the page route showing the module explorer page.\n- `/api/x/[...segments]` is the API route which returns the module source.\n- If `/x` is `accept`-ing HTML, it shouldn't proxy to `/api/x` and show as is.\n- If `/x` is not `accept`-ing HTML, it should proxy to `/api/x`.\n- Since `/x` is the page route and I also want it to handle `/api/x`, that means I should rewrite `/x` to `/api/x`.\n- And if `/x` is now `/api/x`, the API should be able to load regular `/x` page.\n- But since `/x` is `/api/x`, so that means it's requesting itself.\n\nFor clarity, here's a rough diagram I made using [Excalidraw](https://excalidraw.com/):\n\n![The recursion route dilemma.](https://dev-to-uploads.s3.amazonaws.com/i/vr53xq1jt3vi5czfxefm.png)\n\nSo basically rewriting to and redirecting to itself. And I only realized this when working on _the third day_! Imagine those sleepless nights. 😞\n\n## Using Different Routes ⤵️\n\nAfter the recursion problem, I tried a workaround using a different route for the module explorer, like `/mod` for module explorer page and rewrite `/api/x` to `/x`. And same as before where if `/x` is requesting HTML, it should be able to load `/mod` since it's not referring to anything else like before, and it should be able to load modules since it's `/api/x`.\n\nSo here's what this should do:\n\n- `/mod` is the page route showing the module explorer page.\n- `/x` is a rewrite of `/api/x` which is the API route returning the module source.\n- If `/x` is `accept`-ing HTML, it should proxy to `/mod`.\n- If `/x` is not `accept`-ing HTML, it should load the module.\n- With that, there's no looping routes like before.\n\nHere's another diagram:\n\n![An alternative route solution, should probably work.](https://dev-to-uploads.s3.amazonaws.com/i/rverlphq3l0t3dxoejz8.png)\n\nThis should work, right? There's no recursion requests, no same route conflicts, this should definitely work. (Yeah, it doesn't.)\n\nApparently it's a Next.js related issue. Let's trace things one by one. `/mod` is the page route and `/x` is the rewritten API route which also returns the `/mod` page if it's `accept`-ing HTML. But since `/x` technically does not exist and if you were to navigate to `/x` on a loaded page, Next.js will throw an error since it doesn't find any `/x` pages. `/x` will only work on first page load since it's just a rewrite/proxy from `/api/x`, so what if maybe renaming all Next.js navigation links from `/mod` to `/x`?\n\nI tried that \"solution\", but Next.js can't do aliased client-side navigation routes that aren't dynamic, so it can't access `/mod` as `/x`, only dynamic routes like `/x/[...segments]` can utilize the aliased navigation or just hard reload or on first page load requests. So yeah, this one also does not work. Back to the drawing board. 😣\n\n## Separate Deployment 🔀\n\nOkay so we know that we can't use same route proxying and rewriting a Next.js page route is also not an option. I start re-exploring the Deno website codebase and thinking of another way to achieve the magical `/x` route, when it hit me:\n\n> \"So if deno.land is using Cloudflare Workers, that means it's using a separate thing to proxy routes. What if using a separate Vercel deployment to proxy routes?\"\n\nWhich basically means that I have given up trying to do same route proxying and just implement a proxy like a normal human being. So with that in mind, I deleted all the \"same route\" stuff and spin up a separate project to test if using [Vercel serverless functions](https://vercel.com/docs/v2/serverless-functions/introduction) or `rewrite` configs could forward requests to the original Next.js codebase. Here's another breakdown:\n\n- Let's say the proxy project will be called `example.com`.\n- And the original website with the module explorer page and the API route to load modules will be called `web.example.com`.\n- So that means the module explorer page will be `web.example.com/x` and the API route will be `web.example.com/api/x`.\n- Which means the proxy should rewrite requests from `example.com` to `web.example.com`.\n- And for `/x` routes, the proxy should check if it's `accept`-ing HTML, pass it to `web.example.com/x`.\n- If it's not, the proxy should pass it to `web.example.com/api/x`.\n\nDiagrams should explain things better:\n\n![A sane routing solution, I'd say.](https://dev-to-uploads.s3.amazonaws.com/i/uo210rz58b89p90xkcwx.png)\n\nNo route conflicts, no loop requests, no hacky rewrites, this definitely checks a lot of boxes! So with that planned ahead, I start iterating many versions on how the proxy is handling requests and forwarding responses. 👏\n\n## If This Then That 👨‍💻\n\nThe proxy project was quite challenging since there are a lot of edge cases that I need to cover, not to mention the technical limitations of Vercel `rewrites` and serverless functions, and also finding out how to properly forward requests to specific routes. It took me another three or four days to develop the proxy and also working on the module explorer page. But the proxy is my main priority since the module explorer is basically ready at that time.\n\nThe first iteration of the proxy was just testing if using Vercel `rewrites` config could actually rewrite `example.com` to `web.example.com`. But since we need to handle `/x` routes differently, so again, `rewrites` won't do the job.\n\n![First iteration diagram, just basic rewriting.](https://dev-to-uploads.s3.amazonaws.com/i/ua5821fz5f15yt1d0u30.png)\n\nThe second iteration was adding an function to handle `/x` routes while any other routes can just use Vercel `rewrites` config. This works as intended, but in further development I realized that if I want to test something that isn't production ready, I need a way so that the proxy can forward request to a separate branch deployment. And again, `rewrites` won't do the job.\n\n![Second iteration diagram, now using functions.](https://dev-to-uploads.s3.amazonaws.com/i/o2crio6ucyg89wkbfyee.png)\n\nThe third iteration was removing Vercel `rewrites` completely and use functions to handle all requests but with an additional checking phase. So now if the request is from `example.com`, it should forward to `web.example.com`. But if it's from `staging.example.com`, it should forward to `web-staging.example.com`. The staging domains are just deployments from the `develop` branch from both projects (Next.js website and proxy), so I can test something without actually pushing to the production domain `example.com`.\n\n![Third iteration diagram, same as second one but with different destinations.](https://dev-to-uploads.s3.amazonaws.com/i/8i6b7oq9yz7xlib3zt30.png)\n\nAnd with further testing and improvements on how the proxy forwards request and response headers, this was the final and working solution, and boy am I relieved that this is finished. 😅\n\n## Painting the Picture ️👨‍🎨\n\nThe proxy is finished, now it's time to continue working on the main website.\n\ndeno.land uses Next.js, [Preact](https://preactjs.com/), and [Tailwind UI](https://tailwindui.com/), whereas denoland.id uses Next.js, [React](https://reactjs.org/), and [Chakra UI](https://chakra-ui.com/). So it's not quite apples to apples, but since the theme specs are inspired from [Tailwind CSS](https://tailwindcss.com/), I can achieve the same visual identity of deno.land just by using Chakra UI. Here's a screenshot side by side of deno.land and denoland.id:\n\n[![https://twitter.com/denoland_id/status/1266390919755882496](https://images.ctfassets.net/kve0ex6jlycb/1lHw0Vh4QO4ZScsxQ0Uzp9/0b01266c88c35a604e64ee6c7a0986c7/ezmfwzeucacya44.jpg)](https://twitter.com/denoland_id/status/1266390919755882496)\n\nThe only thing I can't replicate completely is the nav animation from Tailwind UI, so I just use Chakra UI's `<Drawer />` component. But  that's not the main attraction, the module explorer is! So after tidying things up, I start working on the module explorer page.\n\nWhen I was tinkering the first iteration of the proxy, the module explorer page was already up and running but only listing and redirecting to the modules' repository. The module list was initially stored on [Airtable](https://airtable.com/home) where I utilize [Next.js static data fetching](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) to populate the list and resolve the module repository URL. Airtable was chosen since the [API is dead simple](https://airtable.com/api) and quick for small cases like this, and with its form creation, I can share a form quickly where other module creators can submit their modules. But this didn't last long since I ended up using another solution (more on that later on).\n\n![Airtable table and form for the initial module registry.](https://dev-to-uploads.s3.amazonaws.com/i/oxyn97yg6ue5nm1o3lpr.png)\n\nWith that implemented, I start working on the API route to resolve repository trees and file contents by inspecting how deno.land/x loads content.\n\nThe upside is that deno.land/x fetches the tree and contents on the client side using the browser's built-in fetch, which is using the [optimistic UI approach](https://uxplanet.org/optimistic-1000-34d9eefe4c05) so users can get an early response by showing a skeleton content then show the actual content when it resolves. Another bonus point is since it's fetching client-side, response will be cached so next navigations will be quick and snappy. The only downside is it fetches the data from the browser to GitHub's API directly, so if you were to say refresh the page multiple times, you'll get rate limited and deno.land/x will show an error, which rarely happens but unfortunate if it happens.\n\nAfter learning how deno.land/x does does things, I start working on the tree list but with another approach where I use Next.js [server-side data fetching](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering). The upside is the page requests once and there's no client-side fetching, but with the downside where every page load will take some time since it's fetching things server-side. Probably in a future update, I'll update the page like deno.land/x. [Let me know what you think!](https://github.com/denoland-id/denoland.id/issues)\n\n[![https://denoland.id/x/airtable](https://dev-to-uploads.s3.amazonaws.com/i/cx544d6k9ouohl1i8lpa.png)](https://denoland.id/x/airtable)\n\nThe module explorer is finally up and running, tree lists and file contents are showing correctly, another task finished. After wrapping things up, I started a discussion on the Telegram group about how we should implement the module registry else than Airtable. [Zain Fathoni](https://twitter.com/zainfathoni) [pitched an idea](https://t.me/deno_id/4989) where we could store metadatas on JSON files like how deno.land does but instead on a single file, we split the modules alphabetically. I thought it was a great idea since everyone can view and submit PRs whereas Airtable is closed and must be maintained by the internal members. So with that, I started planning to refactor the registry system. 😱\n\n# Delivering the Package 📦\n\nFortunately it only took me a day or two to work on this since I already have a basic idea on how to implement the module registry. So I spin up another project, create a `database` directory, and create a script where it iterates the 26 alphabets to check if the file exists on `database/[letter].json` file (`a.json`, `b.json`, and so on), which also if it has any contents, it validates and sorts the JSON contents alphabetically.\n\n[![https://github.com/denoland-id/registry/tree/master/database](https://dev-to-uploads.s3.amazonaws.com/i/ppdhcjnhktd712zx1vgc.png)](https://github.com/denoland-id/registry/tree/master/database)\n\nThe next step is to design the module specification, and by design I mean defining a [type definition using TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) and a [JSON schema](https://json-schema.org/) for future usage. Since the current script only sorts the modules alphabetically, there's no way to validate if the properties are correct, or even validating if there are duplicate modules. So by creating the specification, it'll be useful for future development and other contributors. Which means that I have to learn how JSON schema works and how to write one. Definitely worth it.\n\nWith the specs finished, I update the JSON database files to have a `$schema` field with the defined schema I previously made so editors and validators can pick up the schema definitions. So if you're using [Visual Studio Code](https://code.visualstudio.com/), the editor will fetch the schema from the field and type-hint the current file.\n\n![VS Code type-hinting the database file.](https://dev-to-uploads.s3.amazonaws.com/i/dx1zw98ixa2ycffcv6lu.png)\n\nAfter all of that, now it's time to deploy the registry so it can be accessed for the module explorer website and also the API.\n\nThe first iteration was using Vercel serverless functions which captured `/[a-z].json` routes to import the specified JSON letter database. And for those wondering \"why did you use functions when you can just serve the JSON files?\", yes you are correct, and I realized that on the next day and I changed to just serve static files. This is why you shouldn't code until sunrise.\n\nThen I remember that the module explorer website needs to list all the packages from A to Z. So I added a build script where on deployment, it'll combine all the JSON files to a single `all.json` file so the website can fetch the list easily without needing to parse from A to Z again. As for the module resolving API, it checks the first letter of the module and only fetch from that letter database, so if you're fetching `airtable`, the API will fetch the `a.json` registry file and not the whole list.\n\nAnd with the registry finished, I refactored the website and module resolver API to fetch from the new registry. 😎\n\n## Party Time 🥳\n\nSince I'm developing for Deno Land Indonesia, I use the `denoland.id` domain for all the deployment. Which means the proxy is `denoland.id`, the main website is `web.denoland.id`, and the registry is `registry.denoland.id`. Whereas the staging domains are `staging.denoland.id` and `web-staging.denoland.id`.\n\nThe proxy is live, the website is up and ready, the API is loading properly and `curl`-ing actually returns the module contents, it's time to test if Deno can actually use the routes. I opened up a terminal, `vim`-ing a `deps.ts` file with `export * from 'https://denoland.id/x/airtable/mod.ts`, and run `deno cache deps.ts`:\n\n[![https://twitter.com/griko_nibras/status/1268092150232702984](//images.ctfassets.net/kve0ex6jlycb/KvlN27ld6l51yq0vgXprk/89e17339cd246bf5f7030b986d92c39f/ezkrc6huyaeeotd.jpg)](https://twitter.com/griko_nibras/status/1268092150232702984)\n\nSweet mother of Deno this actually works.\n\n---\n\nAnd that concludes this adventure log on how I made a Deno module registry using Next.js, Vercel, and GitHub. And a little bit of Airtable. You can view the repository for the [website](https://github.com/denoland-id/denoland.id), [proxy](https://github.com/denoland-id/proxy), and [registry](https://github.com/denoland-id/registry) on [Deno Land Indonesia's GitHub](https://github.com/denoland-id).\n\n_This is also posted on [Medium](https://medium.com/@griko/i-made-a-deno-module-registry-using-next-js-vercel-and-github-6954d308e1e2) and [dev.to](https://dev.to/grikomsn/i-made-a-deno-module-registry-using-next-js-vercel-and-github-3a73)._"
+    },
+    "windows-is-now-great-for-development": {
+      "image": null,
+      "title": "Windows Is Now Great for Development",
+      "slug": "windows-is-now-great-for-development",
+      "subtitle": "My personal thoughts and experience on how Windows is getting better for development",
+      "postedAt": "2019-06-14T00:00:00.000Z",
+      "tags": ["Windows", "Web Development", "Thoughts"],
+      "content": "I'm not saying that Windows was never great for web or any kind of development, but from personal experience, prepping and developing things on Windows was quite a hassle at the time.\n\nFrom extra configurations and specific tools to be installed, to different file handlings compared to Linux and macOS, Windows needs some special treatment and extra steps before actually developing things. But seeing how tools and Windows itself evolves from time to time, or update to update, there's not much of a difference working on Windows compared to working on Linux and macOS. And people already discussed a lot like \"[is Windows okay for web development](https://www.reddit.com/r/webdev/comments/3ijf06/is_windows_okay_for_web_development/)\" and [various guides to setting up Windows for development](https://www.google.com/search?q=windows+for+web+development).\n\nSome of what I think the reasons why Windows is now great for development is:\n\n## Tools are now multi-platform\n\nI remember a time where a software is only available on one operating system, so you gotta search something similar or better for another operating system. Now most softwares are multi-platform, take for example: [Visual Studio Code](https://code.visualstudio.com/), [JetBrains' various IDEs](https://www.jetbrains.com/products.html), [NetBeans](https://netbeans.apache.org/), and a whole other [text editors](https://alternativeto.net/software/visual-studio-code/) and [IDEs](https://alternativeto.net/software/phpstorm/) available on Windows, Linux, and macOS with no difference whatsoever. So if you're the kind of people who switch workstations or have multiple operating systems installed, you'll get the same experience for your preferred editors.\n\nFor example, I have a MacBook and a Windows laptop with both have the same editors and tools installed. Both development experience is the same because all the softwares and tools are the same or similar. VS Code and PhpStorm shortcuts may vary on different platforms, but both have the same interface and workflows. No need to worry having a specific software on one operating system again.\n\n## Similar tools are available\n\nAs I mentioned before, some softwares or tools are only available on a specific platform. Like how you can install tools quickly using package managers on Linux by just running `apt-get install php` to install PHP. But on macOS you need to add [Homebrew](https://brew.sh/) first, then run `brew install php`. [Homebrew is also available on Linux and Windows on WSL](https://docs.brew.sh/Homebrew-on-Linux), but as we know [things on WSL aren't that performant](https://www.google.com/search?q=wsl+performance). So if you need a \"package manager\" for Windows like the others, we can use [Chocolatey](https://chocolatey.org/) which can install tools by running `choco install php`. No need to download and install things manually.\n\nAnother example, installing PHP and MariaDB on Linux or macOS is just simply `apt-get install php mariadb` or `brew install php mariadb`, and Windows is just `choco install php mariadb`. No need to download separate things and install individually. Yes, some prefer using [WAMP](https://bitnami.com/stack/wamp/installer) or [XAMPP](https://www.apachefriends.org/download.html), but it's not the same experience like the other operating systems and requires extra configuration on environment variables and paths, and not to mention the hassle to download and install things manually.\n\n## Windows itself is getting better\n\nYes, Windows isn't that perfect with it's [various unstable updates](https://www.google.com/search?q=windows+update+unstable) and random hiccups. But let's be honest for a moment, Windows is getting better by every update, and I'm talking about Windows 10 and not 7 or older versions. Compared to the early days of Windows 10, current versions are much more polished, optimized for various workstations, and better driver support from Windows updates which nowadays most drivers are available through an update.\n\nWith the addition of [Windows Subsystem for Linux (WSL)](https://www.google.com/search?q=windows+wsl), now you can run Linux on Windows by just [download your preferred distro on Microsoft Store](https://www.microsoft.com/store/productId/9NBLGGH4MSV6). While WSL isn't most developers' first choice because of its slow performance, future Windows 10 releases will include the [next iteration of WSL which includes a Linux kernel](https://www.howtogeek.com/424886/windows-10s-linux-kernel-is-now-available/). Or developer friendly additions like when [someone tried running `python` on the command line and it opens the Microsoft Store to install Python](https://twitter.com/shanselman/status/1127022451433410560?s=20), which [Microsoft explained in a blog post about this feature](https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/). Not to mention now [Microsoft is on fire in the open source world](https://www.google.com/search?q=microsoft+open+source+strategy).\n\n## Verdict\n\nNowadays using Windows for development is just like other operating systems, you just need the right tools and configurations, then you're good to go. Personally I develop both on macOS on my MacBook when I'm on the go, and on Windows when I'm at home or specifically need something Windows-only. And so far, working on Windows is better than before.\n\nWhat do you think about developing things on Windows?\n"
+    },
+    "gatsby-js-plugin-priority-vs-ocd": {
+      "image": null,
+      "title": "Gatsby.js Plugin Priority vs. OCD",
+      "slug": "gatsby-js-plugin-priority-vs-ocd",
+      "subtitle": "Sometimes tidiness must be sacrificed with import sequences",
+      "postedAt": "2019-05-04T00:00:00.000Z",
+      "tags": ["Gatsby.js", "React", "Thoughts", "Web Development"],
+      "content": "I have a confession to make: _I always try to order everything alphabetically._ Computer files, macOS dock icons and launchpad, basically anything. Even if there's no auto sort feature like on iOS home screen, I'd sort it manually from A to Z until it's sorted. Also my icons on my dock doesn't show names but I still organize it alphabetically.\n\n**Everything must be in order.**\n\nEven in programming, sorting things alphabetically is a must. Variable declaration, switch values, and especially on package imports. For example, imports on JavaScript are sorted alphabetically and 'package-wise'. Here's a snippet from my third iteration of my landing page:\n\n```js\nimport \"prism-theme-ainami-dark/prism-bulma.min.css\";\n\nimport { DiscussionEmbed } from \"disqus-react\";\nimport { graphql, Link } from \"gatsby\";\nimport React from \"react\";\nimport styled from \"styled-components\";\n\nimport { siteUrl, social } from \"../../site-config\";\nimport Head from \"../components/Head\";\nimport Layout from \"../components/Layout\";\nimport Section from \"../components/Section\";\nimport parsePostDate from \"../helpers/parsePostDate\";\n```\n\nFirst priority must be direct imports like CSS files, then package imports (e.g. `from 'react'`), then relative imports (e.g. `from '../components/Head'`). Because I code using [Visual Studio Code](https://code.visualstudio.com), there's an extension to sort package imports on save or manually using [TypeScript Hero](https://marketplace.visualstudio.com/items?itemName=rbbit.typescript-hero), just don't forget to enable some settings.\n\nSpeaking of imports, here's another confession: _I always try to order GatsbyJS plugins alphabetically._ If some plugins have options, it must be grouped after plugins without options, and also alphabetically. Plugin option parameters are also sorted, along with array option values.\n\n**Everything must be in order.**\n\nPackage imports are sorted alphabetically, right? So why not also Gatsby plugins, too? Here's my `gatsby-config.js` contents at the time (with several parts truncated):\n\n```js\n'gatsby-plugin-eslint',\n'gatsby-plugin-offline',\n'gatsby-plugin-react-helmet',\n...\n{\n  resolve: 'gatsby-plugin-purgecss',\n  options: { ... },\n},\n{\n  resolve: 'gatsby-plugin-react-svg',\n  options: { ... },\n},\n{\n  resolve: 'gatsby-plugin-sass',\n  options: { ... },\n},\n...\n```\n\nAs you can see, plugins that doesn't have options are positioned topmost, then continued with plugins with options that are also sorted alphabetically. This makes it easy to find and edit package options because it's located below plugins without options. And so that's what I thought.\n\nI kept this structure until I realized something: _none of the CSS classes from Bulma aren't purged on the build process_. I noticed this when looking on the deployment build log on ~~ZEIT Now~~ Vercel:\n\n![Partial build log on Vercel](//images.ctfassets.net/kve0ex6jlycb/2LVGVzR0bHqWBh9TnT2UqY/afbedecd93bc7f7bd4b9d0ef16cac4d5/build-log.png)\n\nAs we can see from the build log, what was purged is only selectors from the imported PrismJS stylesheets (which shouldn't be purged). My instant thought is that I should add an exception for that stylesheet or the whole `prism-themes` package. But that doesn't explain why there aren't any unused Bulma CSS selectors showing on the build logs. Then I read [this part of the plugin readme for `gatsby-plugin-purgecss`](https://github.com/anantoghosh/gatsby-plugin-purgecss#usage):\n\n> Add the plugin AFTER other css/postcss plugins\n\nCopied from the snippet above, you can see that the `gatsby-plugin-purgecss` plugin is imported before `gatsby-plugin-sass` (because alphabetically ofc):\n\n```js\n'gatsby-plugin-eslint',\n'gatsby-plugin-offline',\n'gatsby-plugin-react-helmet',\n...\n{\n  resolve: 'gatsby-plugin-purgecss', // 👈🏻\n  options: { ... },\n},\n{\n  resolve: 'gatsby-plugin-react-svg',\n  options: { ... },\n},\n{\n  resolve: 'gatsby-plugin-sass', // 👈🏻\n  options: { ... },\n},\n...\n```\n\nThat means if we follow the order of the plugins, it purges unused selectors first using `gatsby-plugin-purgecss`, then does other things, then imports SASS and SCSS files using `gatsby-plugin-sass`. Which means purging nothing because at first there are none imported. So the solution is exactly what the readme says: _add the plugins after other stylesheet plugins_.\n\n**Everything must (not always) be in order.**\n\nLooks like I have to adjust my imports accordingly. Not to mention that I also added a blog, the `gatsby-transformer-remark` plugin is now positioned topmost to prevent any conflicts with other plugins. So now, here's what it looks like (with several parts truncated):\n\n```js\n// Remark Plugins\n{\n  resolve: 'gatsby-transformer-remark',\n  options: {\n    plugins: [\n      'gatsby-remark-copy-linked-files',\n      'gatsby-remark-prismjs',\n      'gatsby-remark-responsive-iframe',\n      ...\n      {\n        resolve: 'gatsby-remark-default-html-attrs',\n        options: { ... },\n      },\n      {\n        resolve: 'gatsby-remark-external-links',\n        options: { ... },\n      },\n      ...\n    ],\n  },\n},\n// Other Plugins\n'gatsby-plugin-catch-links',\n'gatsby-plugin-eslint',\n'gatsby-plugin-react-helmet',\n...\n{\n  resolve: 'gatsby-plugin-react-svg',\n  options: { ... },\n},\n{\n  resolve: 'gatsby-plugin-sass',\n  options: { ... },\n},\n...\n// Last-priority Plugins\n{\n  resolve: 'gatsby-plugin-purgecss',\n  options: { ... },\n},\n```\n\nNote that I added comments to describe sections of the plugins, which also exists in the `gatsby-config.js` file to organize things. Now the order starts from Remark plugin with its plugins sorted from no options to with options, then plugins without options, then plugins with options, and finally the `purgecss` plugin. It's not fully alphabetically sorted, but at least it's much organized that [Dan Abramov's Gatsby config file](https://github.com/gaearon/overreacted.io/blob/master/gatsby-config.js).\n\nSo what do I learned from this debacle? **Not everything must be sorted**.\n\nGatsbyJS plugins: 1. OCD: 0.\n"
+    },
+    "exploring-undocumented-getinitialprops-properties-on-next-js": {
+      "image": {
+        "url": "https://images.ctfassets.net/kve0ex6jlycb/5P7ZKPsSJrKirdIoOtzmkC/0383c5d2f5925060481f95654dd785a7/exploring-undocumented-getinitialprops-properties-on-next-js.jpg?w=1280",
+        "width": 2560,
+        "height": 800,
+        "title": "\"Fetching data and component lifecycle\" section from Next.js 9.1.7 documentation"
+      },
+      "title": "Exploring Undocumented getInitialProps Properties on Next.js",
+      "slug": "exploring-undocumented-getinitialprops-properties-on-next-js",
+      "subtitle": "An adventure log on discovering the secrets of the getInitialProps function and its mysterious object properties — updated March 2020",
+      "postedAt": "2018-11-26T00:00:00.000Z",
+      "tags": ["Next.js", "React", "Web Development"],
+      "content": "Sometime around 2018, I was working on a web app using [Next.js](https://github.com/vercel/next.js) on an older version. At the time, one of the features of Next.js is that it supports initial data population using the [`getInitialProps` static method](https://nextjs.org/docs/api-reference/data-fetching/getInitialProps), which means that you can populate the page component `props` before loading the page (e.g. fetching news feeds).\n\nThe latest docs for Next.js is available on their [official website](https://nextjs.org/docs/getting-started). At [version 9.1.7](https://github.com/vercel/next.js/tree/v9.1.7) and before, the docs was published on GitHub. Specifically at the [\"Fetching data and component lifecycle\"](https://github.com/vercel/next.js/tree/v9.1.7#fetching-data-and-component-lifecycle) section, it shows how to use `getInitialProps` and what parameters that can be destructured. A snippet from their readme:\n\n> `getInitialProps` receives a context object with the following properties:\n> \n> `pathname` - path section of URL  \n> `query` - query string section of URL parsed as an object  \n> `asPath` - `String` of the actual path (including the query) shows in the browser  \n> `req` - HTTP request object (server only)  \n> `res` - HTTP response object (server only)  \n> `err` - Error object if any error is encountered during the rendering\n\nBefore updating this post, `getInitialProps` has one additional property which you can read on their readme at [version 8.0.0 and below](https://github.com/vercel/next.js/tree/v8.0.0#fetching-data-and-component-lifecycle):\n\n> `jsonPageRes` - [Fetch Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (client only)\n\nPretty straightforward, right? Except for one minor problem.\n\n## Something’s not right 🔥\n\nOn another part of the readme which explains on [how to use a custom `App` component on `_app.js`](https://github.com/zeit/next.js/tree/v9.0.0#custom-app), it also uses `getInitialProps` but with different destructured context parameters. Here's the code snippet from the readme:\n\n```js\nstatic async getInitialProps({ Component, router, ctx }) { // 👈🏻\n  let pageProps = {}\n\n  if (Component.getInitialProps) {\n    pageProps = await Component.getInitialProps(ctx)\n  }\n\n  return { pageProps }\n}\n```\n\nFrom the snippet above, it shows that `getInitialProps` doesn't use the documented object properties. And also it seems that I'm not the only one confused about this. Quoting from a [discussion on a Spectrum thread](https://spectrum.chat/?t=07e9ab0e-0fae-43a8-8bc0-350c79e921a3),\n\n> *What damn are* and *where are coming from* the following properties of the context parameter?\n\nSo for many weeks, I searched the codebase, issues, and even Spectrum threads related to `getInitialProps`. And in this post I will try my best to explain the `getInitialProps` debacle.\n\n## Inspecting and dumping ✨\n\nIn [another Spectrum thread that I created](https://spectrum.chat/?t=bd0da841-05f0-4b3b-8f1f-9e6b16b1952b), [@revskill](https://spectrum.chat/users/revskill) recommends using `util.inspect` to analyze objects. So I made a temporary page (`pages/temp.js`) and use this snippet below to dump the `getInitialProps` parameter using `util.inspect` (note that this is Next.js before version 9):\n\n```js\nimport React, { Component } from \"react\";\nimport { inspect } from \"util\";\n\nexport default class extends Component {\n  static getInitialProps(something) {\n    return {\n      pageLog: inspect(something, true, 0), // 👈🏻\n    };\n  }\n\n  componentDidMount() {\n    console.log(this.props.pageLog); // 👈🏻\n  }\n\n  render() {\n    return <pre>Check the console ^^</pre>;\n  }\n}\n```\n\nChecking the console, it returns this:\n\n```js\n{ err: undefined,\n  req: [Object],\n  res: [Object],\n  pathname: '/',\n  query: {},\n  asPath: '/' }\n```\n\nAll properties shown are already documented on the readme, so where's `Component`, `router`, and `ctx`? Because the readme shows that those three properties are used on a custom `App`, so I made `pages/_app.js` and dump the parameter on `getInitialProps` like before (again, note that this is before version 9):\n\n```js\nimport App, { Container } from \"next/app\";\nimport React from \"react\";\nimport { inspect } from \"util\";\n\nexport default class MyApp extends App {\n  static async getInitialProps(something) {\n    const { Component, ctx } = something;\n    let pageProps = {};\n\n    if (Component.getInitialProps) {\n      pageProps = await Component.getInitialProps(ctx);\n    }\n\n    return {\n      pageProps,\n      appLog: inspect(something, true, 0), // 👈🏻\n    };\n  }\n\n  componentDidMount() {\n    console.log(this.props.appLog); // 👈🏻\n  }\n\n  render() {\n    const { Component, pageProps } = this.props;\n\n    return (\n      <Container>\n        <Component {...pageProps} />\n      </Container>\n    );\n  }\n}\n```\n\nNow the console returns two logs:\n\n```js\n{ err: undefined,\n  req: [Object],\n  res: [Object],\n  pathname: '/',\n  query: {},\n  asPath: '/' }\n\n{ Component: [Object], router: [Object], ctx: [Object] }\n```\n\nAs you can see on the snippet above, I destructured two properties: `Component` and `ctx`. So from my understanding is that the `Component` object is the page component that will be loaded (e.g. `pages/index.js`), and the `ctx` object is the `App` context (which explains why it has a `router` property). Note the `if (Component.getInitialProps)`, it's quite obvious that what it does is checks whether the page component has a getInitialProps function to run.\n\nSo what that means is the `getInitialProps` parameter (or context) differs from a page component. But this doesn't explain another thing.\n\n## Type? What type? 🐴\n\nI’m a sucker for object types, so it really bothers me when statically adding `getInitialProps` to an `App` or page component obviously doesn't give any hints on my editor. And after inspecting a lot above, at some point I asked myself, \"does `next` has a `@types` package?\" [And they have!](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/5b30992fd59e4a145b7589f2b333673f231fd36f/types/next/index.d.ts) Why did I bother inspecting ony by one?\n\n**March 2020 update note**: [DefinitelyTyped](https://github.com/DefinitelyTyped) has deprecated the Next.js typings since version 9 already includes its own TypeScript declaration file. You can [view the deprecation pull request on GitHub](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/40235), courtesy of [Resi Respati](https://resir014.xyz/).\n\nAfter that sudden realization, I added the type package and checked whether it has an object or interface with the name 'context using the IntelliSense extensions on Visual Studio Code. Lo and behold, I found three interfaces 'context' related (remember that this is before version 9):\n\n```js\nimport { NextContext } from \"next\";\nimport { AppComponentContext, NextAppContext } from \"next/app\";\n```\n\nAfter finding those three, I tried type hinting the `getInitialProps` function on both `_app.js` and a page component, and the results was fantastic:\n\n![App context object properties](https://images.ctfassets.net/kve0ex6jlycb/26CrI7KIfuyLh7o212pbTw/07f776a715da550c4df1a98ae8749f4a/app-context-object-properties.png)\n\n![Page context object properties](https://images.ctfassets.net/kve0ex6jlycb/6f3F0OwiQpPIIKanOKjL5d/0a371c7873c61beca6c77fe225df6078/page-context-object-properties.png)\n\nMuch better! Now I have found out that it has a `@types` package, getting to know more about its type and contents is much easier.\n\n## Getting to know more 🚀\n\nIn Visual Studio Code, you can jump to the definition of the type by command or control clicking the variable like below:\n\n![Preview on control or command clicking the object type](//images.ctfassets.net/kve0ex6jlycb/2o8YEeKzUZqmE3RGtmJelW/02af1818362e13875ebcbf050bdfcbd4/control-click.gif)\n\nFrom the GIF above, it opens the declaration files in the `node_modules` directory in `node_modules/@types/next`. Or you can view the file on the [`@types/next` repository on GitHub](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/5b30992fd59e4a145b7589f2b333673f231fd36f/types/next/index.d.ts). Here's a snippet from the declaration files for the context object on the `App` component (`NextAppContext`):\n\n```js\n/**\n * Context passed to App.getInitialProps.\n * Component is dynamic - cannot infer type.\n *\n * @template Q Query object schema.\n */\nexport interface NextAppContext<Q extends DefaultQuery = DefaultQuery> {\n    Component: NextComponentType<any, any, NextContext<Q>>;\n    router: RouterProps<Q>;\n    ctx: NextContext<Q>;\n}\n```\n\nAnd here’s the context declaration for page components (`NextContext`):\n\n```js\n/**\n * Context object used in methods like `getInitialProps()`\n * https://github.com/zeit/next.js/blob/7.0.0/server/render.js#L97\n * https://github.com/zeit/next.js/blob/7.0.0/README.md#fetching-data-and-component-lifecycle\n *\n * @template Q Query object schema.\n */\ninterface NextContext<Q extends DefaultQuery = DefaultQuery> {\n    /** path section of URL */\n    pathname: string;\n    /** query string section of URL parsed as an object */\n    query: Q;\n    /** String of the actual path (including the query) shows in the browser */\n    asPath: string;\n    /** HTTP request object (server only) */\n    req?: http.IncomingMessage;\n    /** HTTP response object (server only) */\n    res?: http.ServerResponse;\n    /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */\n    jsonPageRes?: NodeResponse;\n    /** Error object if any error is encountered during the rendering */\n    err?: Error;\n}\n```\n\nThat’s much better than inspecting objects one by one. 😅\n\n---\n\nHopefully this adventure log isn't that confusing, since `getInitialProps` is already confusing at the start. Thanks for reading, and happy coding! 👋🏻\n\n[*This was originally posted at Medium on November 26th, 2018 with the same title and contents.*](https://medium.com/@griko/exploring-undocumented-getinitialprops-properties-on-next-js-1265a6abc652)"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+---
+import Layout from "../../editions/2024/layout.astro"
+import { dateTime, formatDate, href } from "../../editions/2024/paths"
+import { getEdition } from "../../lib/editions"
+
+const edition = await getEdition("2024")
+const posts = [...(edition.posts ?? [])].sort((a, z) => z.publishedAt.localeCompare(a.publishedAt))
+---
+
+<Layout pageTitle="Blog" bodyClass="blog">
+  <ul class="blog-posts">
+    {posts.map((post) => (
+      <li data-tags="">
+        <span>
+          <i>
+            <time datetime={dateTime(post.publishedAt)}>{formatDate(post.publishedAt)}</time>
+          </i>
+        </span>
+        <a href={href(`/${post.slug}/`)}>{post.title}</a>
+      </li>
+    ))}
+  </ul>
+</Layout>

@@ -1,0 +1,13 @@
+---
+import type { Mark } from "astro-portabletext/types"
+
+import { href } from "./paths"
+
+type Props = { node: Mark<{ href: string }> }
+
+const target = Astro.props.node.markDef.href
+---
+
+<a href={href(target)}>
+  <slot />
+</a>

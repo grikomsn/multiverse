@@ -1,0 +1,38 @@
+---
+import { toPlainText } from "astro-portabletext"
+import { getEdition, imageUrl } from "../../lib/editions"
+import Layout from "../../editions/v3/layout.astro"
+import RichText from "../../editions/v3/rich-text.astro"
+
+const edition = await getEdition("v3")
+const [heading, ...intro] = edition.intro ?? []
+const headingText = heading ? toPlainText([heading]) : ""
+---
+
+<Layout class="has-background-warning" hideFooter>
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <figure class="image">
+          {edition.avatar?.url && (
+            <img
+              class="v3-ainami"
+              src={imageUrl(edition.avatar.url, 600)}
+              alt={edition.avatar.alt ?? "Ainami"}
+              width={edition.avatar.width ?? undefined}
+              height={edition.avatar.height ?? undefined}
+            />
+          )}
+        </figure>
+        <br />
+        <h1 class="title is-marginless">{headingText}</h1>
+        {intro.map((block) => (
+          <>
+            <br />
+            <RichText value={[block]} />
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

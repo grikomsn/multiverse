@@ -1,0 +1,5 @@
+# The period-copy build under /original/ was removed on 2026-11-21. Every version now shows today's content.
+/original/* /:splat 301
+# v4b (Jan 2020) was folded into v5, which shares its design.
+/v4b /v5/ 301
+/v4b/* /v5/:splat 301

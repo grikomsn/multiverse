@@ -1,0 +1,13 @@
+---
+/** Intro and about copy, rendered like v6's `baseRenderer` (paragraphs as Chakra `Text`). */
+import { PortableText } from "astro-portabletext"
+import type { PortableTextProps } from "astro-portabletext/types"
+
+import LinkMark from "./link-mark.astro"
+
+type Props = { value: PortableTextProps["value"] | null | undefined }
+
+const { value } = Astro.props
+---
+
+{value && <PortableText value={value} components={{ mark: { link: LinkMark } }} />}

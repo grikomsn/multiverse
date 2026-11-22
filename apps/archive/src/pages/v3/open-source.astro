@@ -1,0 +1,34 @@
+---
+import { getEdition, pageOf } from "../../lib/editions"
+import { emojify } from "../../editions/v3/emoji"
+import Layout from "../../editions/v3/layout.astro"
+
+const edition = await getEdition("v3")
+const page = pageOf(edition, "open-source")
+const groups = Map.groupBy(edition.projects ?? [], (repo) => repo.category ?? "")
+---
+
+<Layout pageTitle="Open Source">
+  <section class="section">
+    <div class="container content">
+      <h1 class="title" set:html={emojify(page?.title)} />
+      <p>{page?.description}</p>
+      <br />
+      {[...groups].map(([type, repos]) => (
+        <>
+          <h6>{type}</h6>
+          <ul>
+            {repos.map((repo) => (
+              <li>
+                <a href={repo.url} rel="noopener noreferrer" target="_blank">
+                  {repo.title}
+                </a>{" "}
+                - {repo.description}
+              </li>
+            ))}
+          </ul>
+        </>
+      ))}
+    </div>
+  </section>
+</Layout>

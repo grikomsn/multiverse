@@ -1,0 +1,159 @@
+{
+  "name": "multiverse",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Griko Nibras's sites (nibras.co, its archive of every past version, and nbr.st) and the Sanity CMS that feeds them",
+  "homepage": "https://nibras.co",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grikomsn/multiverse.git"
+  },
+  "license": "MIT",
+  "author": "Griko Nibras (https://nibras.co)",
+  "type": "module",
+  "packageManager": "bun@1.4.4",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "check": "turbo run lint typecheck test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "postcss": "catalog:",
+    "prettier": "catalog:",
+    "prettier-plugin-astro": "catalog:",
+    "prettier-plugin-tailwindcss": "catalog:",
+    "tailwindcss": "catalog:",
+    "turbo": "catalog:"
+  },
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "apps/archive/toolchains/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "@astrojs/check": "0.9.12",
+      "@astrojs/cloudflare": "14.4.3",
+      "@astrojs/sitemap": "3.7.4",
+      "@cloudflare/workers-types": "5.20261031.1",
+      "@eslint/js": "10.0.1",
+      "@fontsource-variable/figtree": "5.3.0",
+      "@fontsource-variable/geist-mono": "5.3.0",
+      "@fontsource/archivo": "5.3.0",
+      "@fontsource/cousine": "5.3.0",
+      "@fontsource/dm-sans": "5.3.0",
+      "@fontsource/jetbrains-mono": "5.3.0",
+      "@fontsource/jost": "5.3.0",
+      "@fontsource/lexend": "5.3.0",
+      "@fontsource/manrope": "5.3.0",
+      "@fontsource/plus-jakarta-sans": "5.3.0",
+      "@fortawesome/free-brands-svg-icons": "5.5.0",
+      "@fortawesome/free-solid-svg-icons": "5.5.0",
+      "@modelcontextprotocol/server": "2.4.0",
+      "@paper-design/shaders": "0.0.82",
+      "@portabletext/to-html": "6.0.0",
+      "@sanity/astro": "3.6.0",
+      "@sanity/client": "8.14.1",
+      "@sanity/icons": "5.2.3",
+      "@sanity/image-url": "2.1.1",
+      "@sanity/orderable-document-list": "2.0.28",
+      "@sanity/vision": "6.21.0",
+      "@tailwindcss/typography": "0.5.20",
+      "@tailwindcss/vite": "4.3.3",
+      "@types/node": "26.6.6",
+      "@types/react": "19.3.0",
+      "@types/react-dom": "19.3.0",
+      "agents": "0.32.0",
+      "astro": "7.4.4",
+      "astro-portabletext": "1.0.1",
+      "eslint": "10.14.0",
+      "eslint-config-prettier": "10.1.8",
+      "eslint-plugin-astro": "3.2.1",
+      "eslint-plugin-react-hooks": "7.1.1",
+      "globals": "17.13.0",
+      "groq": "6.21.0",
+      "inter-ui": "3.9.0",
+      "lenis": "1.3.27",
+      "lucide-static": "1.66.0",
+      "medium-zoom": "1.1.2",
+      "pdf-lib": "1.17.1",
+      "postcss": "8.5.33",
+      "prettier": "3.9.10",
+      "prettier-plugin-astro": "1.1.2",
+      "prettier-plugin-tailwindcss": "0.8.1",
+      "prismjs": "1.30.0",
+      "react": "19.3.1",
+      "react-dom": "19.3.1",
+      "rough-notation": "0.5.1",
+      "sanity": "6.21.0",
+      "sharp": "0.35.5",
+      "simple-icons": "16.36.0",
+      "styled-components": "6.6.0",
+      "tachyons": "4.11.1",
+      "tailwindcss": "4.3.3",
+      "turbo": "2.11.10",
+      "typescript": "6.0.3",
+      "typescript-eslint": "8.72.1",
+      "wrangler": "4.156.0",
+      "zod": "4.6.7"
+    },
+    "catalogs": {
+      "tailwind-1.1": {
+        "@fullhuman/postcss-purgecss": "1.3.0",
+        "postcss": "7.0.26",
+        "tailwindcss": "1.1.4",
+        "tailwindcss-transitions": "2.1.0"
+      },
+      "tailwind-3.0": {
+        "@tailwindcss/forms": "0.5.0",
+        "@tailwindcss/line-clamp": "0.3.1",
+        "@tailwindcss/typography": "0.5.2",
+        "postcss": "8.4.12",
+        "tailwindcss": "3.0.23"
+      },
+      "tailwind-3.2": {
+        "@tailwindcss/forms": "0.5.3",
+        "@tailwindcss/line-clamp": "0.4.2",
+        "@tailwindcss/typography": "0.5.7",
+        "postcss": "8.4.18",
+        "tailwindcss": "3.2.2"
+      },
+      "tailwind-3.4": {
+        "@tailwindcss/typography": "0.5.13",
+        "postcss": "8.4.38",
+        "tailwindcss": "3.4.3"
+      },
+      "chakra-1.0": {
+        "@chakra-ui/css-reset": "1.0.0",
+        "@chakra-ui/styled-system": "1.1.0",
+        "@chakra-ui/theme": "1.1.0",
+        "@emotion/react": "11.1.1",
+        "@emotion/serialize": "1.0.0",
+        "stylis": "4.0.3"
+      },
+      "chakra-1.6": {
+        "@chakra-ui/css-reset": "1.0.0",
+        "@chakra-ui/styled-system": "1.12.3",
+        "@chakra-ui/theme": "1.10.4",
+        "@emotion/react": "11.5.0",
+        "@emotion/serialize": "1.0.2",
+        "stylis": "4.0.10"
+      },
+      "chakra-2.8": {
+        "@chakra-ui/css-reset": "2.2.0",
+        "@chakra-ui/styled-system": "2.9.1",
+        "@chakra-ui/theme": "3.2.0",
+        "@emotion/react": "11.11.1",
+        "@emotion/serialize": "1.1.2",
+        "stylis": "4.2.0"
+      }
+    }
+  }
+}

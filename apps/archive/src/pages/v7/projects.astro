@@ -1,0 +1,23 @@
+---
+import { getEdition } from "../../lib/editions"
+import Layout from "../../editions/v7/layout.astro"
+import { pageOf } from "../../editions/v7/paths"
+import ShowcaseItem from "../../editions/v7/showcase-item.astro"
+
+const edition = await getEdition("v7")
+const page = pageOf(edition, "projects")
+---
+
+<Layout pageTitle={page?.title ?? "Creations and projects"} description={page?.description}>
+  <div class="v7-container">
+    <div class="v7-center v7-stack">
+      <h1 class="v7-heading">{page?.title}</h1>
+      <p style="padding-bottom: 2rem">{page?.description}</p>
+      <div class="v7-showcase-grid" style="width: 100%; text-align: center">
+        {edition.projects?.map((project) => (
+          <ShowcaseItem project={project} />
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

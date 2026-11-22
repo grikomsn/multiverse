@@ -1,0 +1,63 @@
+---
+import "../../../styles/resume.css"
+import "../../../styles/print.css"
+
+import type { GetStaticPaths } from "astro"
+
+import CoverLetterHeader from "../../../components/resume/cover-letter-header.astro"
+import PrintIcon from "../../../components/resume/icons/print-icon.astro"
+import RichText from "../../../components/rich-text.astro"
+import BaseLayout from "../../../layouts/base.astro"
+import { getCoverLetters, getResume } from "../../../lib/resume/content"
+import { displayUrl, type CoverLetter } from "../../../lib/resume/resume"
+
+/** Unlisted letters for job applications: noindex, and not in the sitemap. */
+export const getStaticPaths = (async () => {
+  const letters = await getCoverLetters()
+  return letters.map((letter) => ({ params: { slug: letter.slug }, props: { letter } }))
+}) satisfies GetStaticPaths
+
+interface Props {
+  letter: CoverLetter
+}
+
+const { letter } = Astro.props
+const { profile, site } = await getResume()
+---
+
+<BaseLayout
+  title={`Cover letter – ${letter.company}`}
+  description={`Cover letter from ${profile.name} for the ${letter.title} role at ${letter.company}.`}
+  noIndex
+>
+  <div class="resume-shell">
+    <nav class="actions" aria-label="Cover letter actions">
+      <button class="action action--primary" type="button" data-action="print">
+        <PrintIcon aria-hidden="true" />
+        Print or save as PDF
+      </button>
+      <a class="action" href="/resume">
+        View resume
+      </a>
+    </nav>
+
+    <article class="resume letter" aria-labelledby="cover-letter-title">
+      <CoverLetterHeader
+        title={letter.title}
+        company={letter.company}
+        jobPostUrl={letter.jobPostUrl}
+        profile={profile}
+      />
+      <div class="letter-body">
+        <RichText value={letter.body} />
+      </div>
+      <p class="resume-note">
+        Resume: <a href={site.url}>{displayUrl(site.url)}</a>
+      </p>
+    </article>
+  </div>
+
+  <script>
+    document.querySelector("[data-action=print]")?.addEventListener("click", () => window.print())
+  </script>
+</BaseLayout>

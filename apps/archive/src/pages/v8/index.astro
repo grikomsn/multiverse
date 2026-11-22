@@ -1,0 +1,63 @@
+---
+import { getEdition, imageUrl } from "../../lib/editions"
+import A from "../../editions/v8/a.astro"
+import Icon from "../../editions/v8/icon.astro"
+import Layout from "../../editions/v8/layout.astro"
+import Portable from "../../editions/v8/portable.astro"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+
+const edition = await getEdition("v8")
+// The second button was Twitter (@griko_nibras); now X, with today's handle.
+const x = edition.links?.find((link) => link.platform === "x")
+const handle = x ? `@${new URL(x.url).pathname.split("/").filter(Boolean)[0]}` : null
+// The last intro line carries the <Underline show> on the location.
+const intro = edition.intro ?? []
+const last = intro.at(-1)
+const lastLine =
+  last?._type === "block"
+    ? (last.children ?? []).map((child) => ("text" in child ? child.text : "")).join("")
+    : ""
+const [prefix, place] = lastLine.split(/(?<=based on )/)
+---
+
+<Layout>
+  <div class="mx-auto flex min-h-[80vh] max-w-xl flex-col items-center justify-between gap-8 p-4 md:max-w-none md:flex-row md:gap-8 md:p-8">
+    <div class="safari-transform-fix w-full max-w-[256px] shrink-0 overflow-hidden rounded-full">
+      {edition.avatar?.url && (
+        <img
+          src={imageUrl(edition.avatar.url, 512)}
+          alt={edition.name}
+          width="256"
+          height="256"
+          style={`background: url(${edition.avatar.lqip}) center / cover`}
+        />
+      )}
+    </div>
+    <div class="flex flex-col gap-8">
+      <div class="prose prose-invert prose-sky text-center prose-headings:tracking-tighter md:prose-lg md:text-left">
+        <h1>{edition.name}</h1>
+        <Portable value={intro.slice(0, -1)} />
+        <p>
+          {prefix}
+          <span data-underline>{place}</span>
+        </p>
+      </div>
+      <div class="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:justify-start">
+        <button type="button" class="group relative rounded-full" data-copy-email={edition.email}>
+          <div class="absolute inset-0 rounded-full bg-current text-text ring-current ring-offset-body transition group-hover:ring-2 group-hover:ring-offset-4"></div>
+          <div class="relative flex items-center gap-2 px-8 py-2 text-body">
+            <Icon name="mail" size={18} /> <span>{edition.email}</span>
+          </div>
+        </button>
+        {x && (
+          <A class="group relative rounded-full" href={x.url}>
+            <div class="absolute inset-0 rounded-full bg-current text-sky-600 ring-current ring-offset-body transition group-hover:ring-2 group-hover:ring-offset-4"></div>
+            <div class="relative flex items-center gap-2 px-8 py-2">
+              <Fragment set:html={brandSvg("x", 'width="18" height="18"')} /> <span>{handle}</span>
+            </div>
+          </A>
+        )}
+      </div>
+    </div>
+  </div>
+</Layout>

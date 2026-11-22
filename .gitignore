@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnp.*
+
+# Builds and caches
+dist/
+dist-*/
+.astro/
+.turbo/
+.wrangler/
+.sanity/
+*.tsbuildinfo
+.eslintcache
+
+# Env and secrets (commit only *.example)
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# Local working material: fonts are licensed for embedding only, resumes hold
+# personal data, tmp holds raw exports (Bear Blog, legacy zips).
+assets/
+references/
+tmp/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+*.log
+.idea/

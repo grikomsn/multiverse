@@ -1,0 +1,31 @@
+---
+import { PortableText } from "astro-portabletext"
+import type { Block, PortableTextProps, RenderHandlerProps } from "astro-portabletext/types"
+
+import LinkMark from "./link-mark.astro"
+
+type Props = {
+  value: PortableTextProps["value"] | null | undefined
+  /** v4 headings were bare `h1`s with per-page Tachyons type scale classes. */
+  headingClass?: string
+  paragraphClass?: string
+}
+
+const { value, headingClass, paragraphClass } = Astro.props
+---
+
+{value && (
+  <PortableText value={value} components={{ mark: { link: LinkMark } }}>
+    <fragment slot="block">
+      {({ Component, props, children }: RenderHandlerProps<Block>) =>
+        props.node.style === "h2" ? (
+          <h1 class={headingClass}>{children}</h1>
+        ) : props.node.style === "normal" ? (
+          <p class={paragraphClass}>{children}</p>
+        ) : (
+          <Component {...props}>{children}</Component>
+        )
+      }
+    </fragment>
+  </PortableText>
+)}

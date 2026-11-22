@@ -1,0 +1,44 @@
+---
+import { displayUrl, type InvolvementEntry } from "../../lib/resume/resume"
+
+import Section from "./section.astro"
+
+interface Props {
+  entries: InvolvementEntry[]
+}
+
+const { entries } = Astro.props
+---
+
+{entries.length > 0 && (
+  <Section id="community" title="Community">
+    {entries.map((entry) => (
+      <article class="entry">
+        <div class="entry__head">
+          <h3 class="entry__title">
+            {entry.role} at {entry.organization}
+          </h3>
+          <p class="entry__period">
+            {entry.year}
+            {entry.url && (
+              <>
+                {" · "}
+                <a class="link" href={entry.url}>
+                  {displayUrl(entry.url)}
+                </a>
+              </>
+            )}
+          </p>
+        </div>
+        {entry.summary && <p class="entry__text">{entry.summary}</p>}
+        {entry.bullets.length > 0 && (
+          <ul class="entry__bullets">
+            {entry.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        )}
+      </article>
+    ))}
+  </Section>
+)}

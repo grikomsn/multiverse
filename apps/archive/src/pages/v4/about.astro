@@ -1,0 +1,35 @@
+---
+import { getEdition } from "../../lib/editions"
+import A from "../../editions/v4/a.astro"
+import Layout from "../../editions/v4/layout.astro"
+import RichText from "../../editions/v4/rich-text.astro"
+
+const edition = await getEdition("v4")
+---
+
+<Layout pageTitle="About" class="measure lh-copy">
+  <RichText value={edition.bio} headingClass="f2-l f3 lh-title mt0 tracked-tight" />
+
+  <div class="v4-ellipsis f3-l f4"></div>
+
+  <h3 class="f3-l f4 tracked-tight">Knowledge Base</h3>
+
+  {edition.skills?.map((group) => (
+    <div class="fl w-50">
+      <b>{group.title}</b>
+      <ul class="list pl0">
+        {group.items?.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  ))}
+
+  <div class="v4-ellipsis f3-l f4 cb"></div>
+
+  <h3 class="f3-l f4 tracked-tight">Contact</h3>
+
+  <p>
+    Visit the <A href="/contact">contact page</A> for more information.
+  </p>
+</Layout>

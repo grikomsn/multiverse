@@ -1,0 +1,33 @@
+---
+/** ui/markdown.tsx (chakra-ui-markdown-renderer): headings by level, gold links, Chakra lists. */
+import { PortableText } from "astro-portabletext"
+import type {
+  Block,
+  PortableTextProps,
+  RenderHandlerProps,
+  TypedObject,
+} from "astro-portabletext/types"
+
+import LinkMark from "./link-mark.astro"
+
+type Props = { value: PortableTextProps["value"] | null | undefined }
+
+const raw = Astro.props.value
+const value = (Array.isArray(raw) ? (raw as TypedObject[]) : []).filter(
+  (node) => node._type === "block" || node._type === "codeBlock",
+)
+---
+
+<PortableText value={value} components={{ mark: { link: LinkMark } }}>
+  <fragment slot="block">
+    {({ Component, props, children }: RenderHandlerProps<Block>) =>
+      props.node.style === "h2" ? (
+        <h2 class="a-heading-xl">{children}</h2>
+      ) : props.node.style === "h3" ? (
+        <h3 class="a-heading-lg">{children}</h3>
+      ) : (
+        <Component {...props}>{children}</Component>
+      )
+    }
+  </fragment>
+</PortableText>

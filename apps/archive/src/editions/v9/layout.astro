@@ -1,0 +1,190 @@
+---
+import "./v9.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import A from "./a.astro"
+import Icon from "./icon.astro"
+import { BASE } from "./paths"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+import { COLOPHON, copyright } from "../_kit/colophon"
+
+interface Props {
+  /** next-seo title, templated as "%s - Griko Nibras". */
+  pageTitle?: string
+  description?: string | null
+}
+
+const { pageTitle, description } = Astro.props
+const edition = await getEdition("v9")
+const name = edition.name ?? "Griko Nibras"
+const title = pageTitle ? `${pageTitle} - ${name}` : name
+const path = Astro.url.pathname
+// The footer linked GitHub, Mastodon and Twitter; now the featured profiles, with v9's GitHub
+// icon and a Simple Icons mark for the rest.
+const socials = (edition.links ?? [])
+  .filter((link) => link.featured && link.platform)
+  .map((link) => ({
+    label: link.label,
+    url: link.url,
+    mark:
+      link.platform === "github"
+        ? null
+        : brandSvg(link.platform!, 'class="h-5 w-5 hover:text-neutral-300"'),
+  }))
+
+// ui/navigation/routes.ts
+const ROUTES = ["about", "work", "talk", "blog", "contact"].map((slug) => ({
+  href: `${BASE}/${slug}`,
+  text: slug[0]!.toUpperCase() + slug.slice(1),
+}))
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    <meta name="theme-color" content="#171717" />
+    {edition.avatar?.url && <link rel="icon" href={imageUrl(edition.avatar.url, 32)} />}
+    <ArchiveHead />
+  </head>
+  <body>
+    <div class="container mx-auto flex max-w-4xl flex-col p-4 motion-safe:animate-fade-in sm:p-8">
+      <main class="mb-16 min-h-screen grow sm:motion-safe:animate-slide-down-fade">
+        <slot />
+      </main>
+      <footer class="my-16 flex flex-col items-center gap-1 py-8 text-center text-2xs text-neutral-400">
+        <p>
+          Made using {COLOPHON.framework.name} and Tailwind CSS. Hosted on {COLOPHON.host.name}.
+        </p>
+        <br />
+        <p>
+          Contents licensed under{" "}
+          <A
+            class="underline hover:text-neutral-300"
+            href="https://creativecommons.org/licenses/by-nc-sa/4.0"
+          >
+            CC BY-NC-SA 4.0
+          </A>
+        </p>
+        <p>
+          <A class="underline hover:text-neutral-300" href={COLOPHON.repository}>
+            MIT License
+          </A>{" "}
+          &copy; {copyright()}
+          {name}
+        </p>
+        <br />
+        <br />
+        <div class="flex items-center gap-6">
+          {socials.map((social) => (
+            <A href={social.url} rel="me" aria-label={social.label}>
+              {social.mark ? (
+                <Fragment set:html={social.mark} />
+              ) : (
+                <Icon name="github" class="h-5 w-5 hover:text-neutral-300" />
+              )}
+            </A>
+          ))}
+        </div>
+      </footer>
+    </div>
+
+    <!-- ui/navigation: the floating dock; lifted above the archive banner. -->
+    <div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 flex justify-center bg-gradient-to-t from-neutral-900/50 to-transparent pb-12 motion-safe:animate-slide-up-fade">
+      <nav class="pointer-events-auto relative container m-4 flex max-w-xl snap-x items-stretch overflow-x-auto overflow-y-hidden rounded-xl bg-neutral-800/80 p-1 shadow-lg shadow-black/50 backdrop-blur-sm sm:snap-none">
+        <a class="rounded-lg p-1 md:hover:bg-white/10" href={`${BASE}/`}>
+          <div class="h-8 w-8">
+            {edition.avatar?.url && (
+              <img
+                alt="home"
+                src={imageUrl(edition.avatar.url, 64)}
+                width="32"
+                height="32"
+                class="rounded-full"
+              />
+            )}
+          </div>
+        </a>
+        <div class="min-w-[2ch] grow"></div>
+        {ROUTES.map((route) => {
+          const active = path.startsWith(route.href)
+          return (
+            <a
+              href={route.href}
+              class:list={[
+                "relative flex snap-end items-center justify-center rounded-lg px-2 py-1 transition-colors md:px-4",
+                "before:pointer-events-none before:absolute before:inset-x-2 before:rounded-t-full before:border-b before:shadow motion-safe:before:transition-all",
+                active
+                  ? "text-primary-500 before:bottom-[-4px] before:border-primary-500 before:shadow-primary-500"
+                  : "before:bottom-[-8px] before:border-neutral-400/0 hover:before:bottom-[-4px] hover:before:border-neutral-400 hover:before:shadow-neutral-400",
+              ]}
+            >
+              {route.text}
+            </a>
+          )
+        })}
+      </nav>
+    </div>
+
+    <div
+      id="v9-toast"
+      class="pointer-events-none fixed inset-x-0 top-4 z-[70] flex justify-center opacity-0 transition-opacity"
+      role="status"
+      aria-live="polite"
+    >
+      <div
+        class="rounded-lg bg-white px-3 py-2 text-xs text-neutral-800 shadow-lg"
+        id="v9-toast-text"
+      ></div>
+    </div>
+
+    <ArchiveBanner
+      title={edition.title ?? "Version 9"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+
+    <script>
+      // ⌘K showed a toast: the "Spotlight" (formerly kbar) never shipped in v9.
+      let timer: ReturnType<typeof setTimeout> | undefined
+      const toast = (message: string) => {
+        const root = document.getElementById("v9-toast")
+        const text = document.getElementById("v9-toast-text")
+        if (!root || !text) return
+        text.textContent = message
+        root.style.opacity = "1"
+        clearTimeout(timer)
+        timer = setTimeout(() => (root.style.opacity = "0"), 2000)
+      }
+      window.addEventListener("keydown", (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+          event.preventDefault()
+          toast("Spotlight (formerly kbar) is under construction!")
+        }
+      })
+      for (const button of document.querySelectorAll<HTMLElement>("[data-copy-url]")) {
+        button.addEventListener("click", (event) => {
+          if (!navigator.clipboard) return
+          event.preventDefault()
+          void navigator.clipboard
+            .writeText(button.dataset.copyUrl ?? "")
+            .then(() => toast("✅ Copied post link to clipboard!"))
+        })
+      }
+      for (const button of document.querySelectorAll<HTMLElement>("[data-share]")) {
+        if (!("share" in navigator)) continue
+        button.hidden = false
+        button.addEventListener("click", () => {
+          navigator.share({ title: button.dataset.share, url: button.dataset.url }).then(
+            () => toast("✅ Shared post!"),
+            () => {},
+          )
+        })
+      }
+    </script>
+  </body>
+</html>

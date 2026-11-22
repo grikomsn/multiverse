@@ -1,0 +1,48 @@
+---
+import type { Edition } from "../../lib/editions"
+import Icon from "./icon.astro"
+import type { IconName } from "./icons"
+import { formatDate } from "./paths"
+
+interface Props {
+  talks: NonNullable<Edition["talks"]>
+}
+
+const { talks } = Astro.props
+
+const ICONS: Record<string, IconName> = {
+  "lightning-talk": "bolt",
+  podcast: "microphone",
+  talk: "comment-alt",
+  workshop: "chalkboard",
+}
+---
+
+<div>
+  {talks.map((talk, index) => (
+    <>
+      {index > 0 && <hr class="v6-divider" />}
+      <a
+        href={talk.url ?? undefined}
+        class="v6-row"
+        role="group"
+        style="align-items: center"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div style="padding: 0 2rem 0 1rem">
+          <Icon name={ICONS[talk.category ?? ""] ?? "comment-alt"} class="v6-icon-8" />
+        </div>
+        <div class="v6-stack">
+          <h3 class="v6-heading-md v6-link-heading" style="font-weight: 700">
+            {talk.title}
+          </h3>
+          <p class="v6-text-md">
+            {formatDate(talk.date)} - {talk.subtitle}
+          </p>
+          <p class="v6-muted v6-text-sm">{talk.tags?.join(", ")}</p>
+        </div>
+      </a>
+    </>
+  ))}
+</div>

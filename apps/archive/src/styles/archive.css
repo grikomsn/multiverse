@@ -1,0 +1,6 @@
+/* Tailwind for the archive's own pages only; editions bring their own CSS. */
+@import "tailwindcss" source(none);
+@import "@multiverse/ui/styles.css";
+
+@source "../pages/index.astro";
+@source "../shell";

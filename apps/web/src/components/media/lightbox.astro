@@ -1,0 +1,283 @@
+---
+import { FULL_SIZES, type GalleryPortrait } from "../../lib/portraits"
+
+interface Props {
+  /** In page order; matches the cards' `data-index`. */
+  portraits: GalleryPortrait[]
+}
+
+const { portraits } = Astro.props
+const data = portraits.map(
+  ({
+    slug,
+    title,
+    alt,
+    caption,
+    kind,
+    credit,
+    creditUrl,
+    width,
+    height,
+    meta,
+    lqip,
+    full,
+    original,
+    download,
+  }) => ({
+    slug,
+    title,
+    alt,
+    caption,
+    kind,
+    credit,
+    creditUrl,
+    width,
+    height,
+    meta,
+    lqip,
+    src: full.src,
+    srcset: full.srcset,
+    original,
+    download,
+  }),
+)
+---
+
+<dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+  <div class="lightbox-panel">
+    <div class="flex items-center justify-between gap-3">
+      <p class="font-mono text-sm text-soft" data-counter></p>
+      <button type="button" class="icon-button" data-close aria-label="Close" title="Close (Esc)">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m6 6 12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="lightbox-stage" data-stage>
+      <img data-image alt="" sizes={FULL_SIZES} decoding="async" />
+      <button
+        type="button"
+        class="icon-button lightbox-nav left-2"
+        data-prev
+        aria-label="Previous portrait"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m14.5 6-6 6 6 6"></path>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="icon-button lightbox-nav right-2"
+        data-next
+        aria-label="Next portrait"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9.5 6 6 6-6 6"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+      <div class="min-w-0 space-y-1">
+        <h2 id="lightbox-title" class="text-xl leading-tight font-bold" data-title></h2>
+        <p class="font-mono text-xs text-soft" data-meta></p>
+        <p class="max-w-prose text-sm" data-caption hidden></p>
+        <p class="text-sm" data-credit hidden></p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <a class="button button-primary" href={portraits[0]?.download} data-download download>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14"></path>
+          </svg>
+          Download original
+        </a>
+        <button type="button" class="button" data-copy hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path>
+          </svg>
+          <span data-copy-label>Copy image URL</span>
+        </button>
+      </div>
+    </div>
+
+    <p class="sr-only" aria-live="polite" data-status></p>
+  </div>
+</dialog>
+
+<script
+  is:inline
+  type="application/json"
+  id="lightbox-data"
+  set:html={JSON.stringify(data).replaceAll("<", "\\u003c")}
+/>
+<script>
+  interface Item {
+    slug: string
+    title: string
+    alt: string
+    caption: string | null
+    kind: "photo" | "illustration"
+    credit: string | null
+    creditUrl: string | null
+    width: number
+    height: number
+    meta: string
+    lqip: string | null
+    src: string
+    srcset: string
+    original: string
+    download: string
+  }
+
+  const SWIPE_THRESHOLD = 48
+
+  const dialog = document.querySelector<HTMLDialogElement>("#lightbox")!
+  const items = JSON.parse(document.querySelector("#lightbox-data")!.textContent!) as Item[]
+  const $ = <T extends Element>(selector: string) => dialog.querySelector<T>(selector)!
+
+  const panel = $<HTMLElement>(".lightbox-panel")
+  const stage = $<HTMLElement>("[data-stage]")
+  const image = $<HTMLImageElement>("[data-image]")
+  const counter = $<HTMLElement>("[data-counter]")
+  const title = $<HTMLElement>("[data-title]")
+  const meta = $<HTMLElement>("[data-meta]")
+  const caption = $<HTMLElement>("[data-caption]")
+  const credit = $<HTMLElement>("[data-credit]")
+  const download = $<HTMLAnchorElement>("[data-download]")
+  const copy = $<HTMLButtonElement>("[data-copy]")
+  const copyLabel = $<HTMLElement>("[data-copy-label]")
+  const status = $<HTMLElement>("[data-status]")
+
+  let current = 0
+  let opener: HTMLElement | null = null
+
+  function preload(item: Item | undefined) {
+    if (!item) return
+    const img = new Image()
+    img.sizes = image.sizes
+    img.srcset = item.srcset
+  }
+
+  function show(index: number) {
+    current = (index + items.length) % items.length
+    const item = items[current]!
+
+    panel.style.setProperty("--ratio", String(item.width / item.height))
+    stage.style.backgroundImage = item.lqip ? `url(${item.lqip})` : ""
+    image.classList.remove("is-loaded")
+    image.alt = item.alt
+    image.width = item.width
+    image.height = item.height
+    image.srcset = item.srcset
+    image.src = item.src
+    if (image.complete) image.classList.add("is-loaded")
+
+    counter.textContent = `${current + 1} / ${items.length}`
+    title.textContent = item.title
+    meta.textContent = `${item.kind === "photo" ? "Photo" : "Illustration"} · ${item.meta}`
+    caption.textContent = item.caption ?? ""
+    caption.hidden = !item.caption
+    credit.replaceChildren()
+    credit.hidden = !item.credit
+    if (item.credit) {
+      const by = item.creditUrl
+        ? Object.assign(document.createElement("a"), { href: item.creditUrl })
+        : document.createElement("span")
+      by.textContent = item.credit
+      credit.append(item.kind === "photo" ? "Photo by " : "Illustration by ", by)
+    }
+    download.href = item.download
+    download.setAttribute("aria-label", `Download original ${item.title}, ${item.meta}`)
+    copyLabel.textContent = "Copy image URL"
+    status.textContent = `${item.title}, ${current + 1} of ${items.length}`
+
+    history.replaceState(null, "", `#${item.slug}`)
+    preload(items[current + 1])
+    preload(items[current - 1])
+  }
+
+  function open(index: number) {
+    opener = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    show(index)
+    dialog.showModal()
+  }
+
+  image.addEventListener("load", () => image.classList.add("is-loaded"))
+
+  dialog.addEventListener("close", () => {
+    image.removeAttribute("srcset")
+    image.removeAttribute("src")
+    history.replaceState(null, "", location.pathname + location.search)
+    // Return focus to the card that opened the viewer, even after navigating.
+    const card = document.querySelector<HTMLElement>(`[data-index="${current}"]`)
+    ;(card ?? opener)?.focus()
+  })
+
+  // Clicks on the backdrop land on the <dialog> itself.
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close()
+  })
+
+  dialog.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") show(current - 1)
+    else if (event.key === "ArrowRight") show(current + 1)
+    else if (event.key === "Home") show(0)
+    else if (event.key === "End") show(items.length - 1)
+    else return
+    event.preventDefault()
+  })
+
+  $("[data-close]").addEventListener("click", () => dialog.close())
+  $("[data-prev]").addEventListener("click", () => show(current - 1))
+  $("[data-next]").addEventListener("click", () => show(current + 1))
+
+  if (navigator.clipboard) {
+    copy.hidden = false
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(items[current]!.original)
+        copyLabel.textContent = "Copied!"
+        status.textContent = "Image URL copied"
+      } catch {
+        status.textContent = "Couldn't copy the link"
+      }
+    })
+  }
+
+  // Horizontal swipes on touch and pen; vertical pans still scroll (touch-action: pan-y).
+  let start: { x: number; y: number } | null = null
+  stage.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "mouse") start = { x: event.clientX, y: event.clientY }
+  })
+  stage.addEventListener("pointercancel", () => (start = null))
+  stage.addEventListener("pointerup", (event) => {
+    if (!start) return
+    const dx = event.clientX - start.x
+    const dy = event.clientY - start.y
+    start = null
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy))
+      show(current + (dx < 0 ? 1 : -1))
+  })
+
+  // Cards are plain links to the original file; open the viewer instead, unless the
+  // visitor asked for a new tab or a download.
+  document.addEventListener("click", (event) => {
+    const card = (event.target as Element).closest<HTMLAnchorElement>("a[data-index]")
+    if (
+      !card ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    )
+      return
+    event.preventDefault()
+    open(Number(card.dataset.index))
+  })
+
+  // Deep links: nibras.co/media#formal opens that portrait.
+  const linked = items.findIndex((item) => `#${item.slug}` === location.hash)
+  if (linked >= 0) open(linked)
+</script>

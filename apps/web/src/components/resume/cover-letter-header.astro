@@ -1,0 +1,45 @@
+---
+import { contactLinks, displayUrl, type Profile } from "../../lib/resume/resume"
+
+interface Props {
+  company: string
+  jobPostUrl?: string
+  profile: Profile
+  title: string
+}
+
+const { title, company, jobPostUrl, profile } = Astro.props
+---
+
+<header class="letter-header">
+  <p class="letter-header__name">{profile.name}</p>
+  <ul class="resume-header__contact" aria-label="Contact details">
+    {profile.location && <li>{profile.location}</li>}
+    {profile.email && (
+      <li>
+        <a class="link" href={`mailto:${profile.email}`}>
+          {profile.email}
+        </a>
+      </li>
+    )}
+    {contactLinks(profile).map((link) => (
+      <li>
+        <a class="link" href={link.url}>
+          {displayUrl(link.url)}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <h1 id="cover-letter-title" class="letter-header__title">
+    Cover letter: {title}
+  </h1>
+  <p class="letter-header__company">
+    {jobPostUrl ? (
+      <a class="link" href={jobPostUrl}>
+        {company}
+      </a>
+    ) : (
+      company
+    )}
+  </p>
+</header>

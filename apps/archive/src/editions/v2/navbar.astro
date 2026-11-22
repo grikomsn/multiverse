@@ -1,0 +1,115 @@
+---
+/** components/Navbar.js: primary socials, burger, menu and the contact modal. */
+import type { Edition } from "../../lib/editions"
+import { BASE, brandOf } from "./brands"
+import { linksOf } from "./data"
+import FaIcon from "./fa-icon.astro"
+import IAmInterested from "./i-am-interested.astro"
+
+type Props = { edition: Edition }
+
+const { edition } = Astro.props
+---
+
+<div data-v2-nav>
+  <nav class="navbar" aria-label="main navigation">
+    <div class="navbar-brand">
+      {linksOf(edition, "Primary").map((link) => {
+        const brand = brandOf(link.platform)
+        return (
+          <a
+            href={link.url}
+            target="_blank"
+            class="navbar-item"
+            rel="noreferrer"
+            aria-label={link.label}
+          >
+            {brand && <FaIcon icon={brand.icon} fixedWidth />}
+          </a>
+        )
+      })}
+      <a
+        class="navbar-burger burger"
+        role="button"
+        tabindex="0"
+        aria-label="menu"
+        aria-expanded="false"
+        data-v2-burger
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" data-v2-menu>
+      <div class="navbar-end">
+        <a href={`${BASE}/`} class="navbar-item">
+          About
+        </a>
+        <a href={`${BASE}/open-source`} class="navbar-item">
+          Open Source
+        </a>
+        <a href={`${BASE}/socials`} class="navbar-item">
+          Socials
+        </a>
+        <a class="navbar-item" role="button" tabindex="0" data-v2-contact>
+          Contact
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="modal v2-modal" role="dialog" aria-modal="true" aria-label="Contact" data-v2-modal>
+    <div class="modal-background" data-v2-dismiss></div>
+    <div class="modal-card has-text-centered">
+      <section class="modal-card-body has-text-centered">
+        <IAmInterested edition={edition} />
+      </section>
+      <br />
+      <small class="has-text-light">
+        You can dismiss this by clicking or tapping the background.
+      </small>
+    </div>
+  </div>
+</div>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>("[data-v2-nav]")) {
+    const burger = root.querySelector<HTMLElement>("[data-v2-burger]")
+    const menu = root.querySelector<HTMLElement>("[data-v2-menu]")
+    const modal = root.querySelector<HTMLElement>("[data-v2-modal]")
+
+    const toggleMenu = () => {
+      const open = !menu?.classList.contains("is-active")
+      menu?.classList.toggle("is-active", open)
+      burger?.classList.toggle("is-active", open)
+      burger?.setAttribute("aria-expanded", String(open))
+    }
+
+    const setModal = (open: boolean) => {
+      modal?.classList.toggle("is-active", open)
+      document.documentElement.classList.toggle("v2-modal-open", open)
+    }
+
+    const onKey = (handler: () => void) => (event: KeyboardEvent) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault()
+        handler()
+      }
+    }
+
+    burger?.addEventListener("click", toggleMenu)
+    burger?.addEventListener("keydown", onKey(toggleMenu))
+    for (const trigger of root.querySelectorAll<HTMLElement>("[data-v2-contact]")) {
+      trigger.addEventListener("click", () => setModal(true))
+      trigger.addEventListener(
+        "keydown",
+        onKey(() => setModal(true)),
+      )
+    }
+    root.querySelector("[data-v2-dismiss]")?.addEventListener("click", () => setModal(false))
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setModal(false)
+    })
+  }
+</script>

@@ -1,0 +1,35 @@
+{
+  "name": "@multiverse/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./styles.css": "./src/styles.css",
+    "./fonts": "./src/fonts.ts",
+    "./theme-head.astro": "./src/theme-head.astro",
+    "./theme-toggle.astro": "./src/theme-toggle.astro",
+    "./site-header.astro": "./src/site-header.astro",
+    "./site-footer.astro": "./src/site-footer.astro",
+    "./section-heading.astro": "./src/section-heading.astro",
+    "./icon.astro": "./src/icon.astro",
+    "./brand-icon.astro": "./src/brand-icon.astro",
+    "./brand-marks": "./src/brand-marks.ts",
+    "./dither": "./src/dither.ts",
+    "./dither-wave.astro": "./src/dither-wave.astro"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc"
+  },
+  "devDependencies": {
+    "@multiverse/config": "workspace:*",
+    "astro": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@paper-design/shaders": "catalog:",
+    "lucide-static": "catalog:",
+    "simple-icons": "catalog:"
+  }
+}

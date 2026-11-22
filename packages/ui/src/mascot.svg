@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="13 11 174 174" width="1024" height="1024">
+<title>Griko Nibras</title>
+<rect width="200" height="200" fill="#eab308"/>
+<g transform="translate(0 -2) rotate(-5 100 110)">
+<g fill="#fbfaf7" stroke="#18181b" stroke-width="6" stroke-linejoin="round">
+<circle cx="44" cy="120" r="10"/>
+<circle cx="156" cy="120" r="10"/>
+<path d="M46 104 C46 40 154 40 154 104 L154 122 C154 156 128 175 100 175 C72 175 46 156 46 122 Z"/>
+</g>
+<ellipse cx="64" cy="147" rx="9.5" ry="5.5" fill="#f7b9b6"/>
+<ellipse cx="136" cy="147" rx="9.5" ry="5.5" fill="#f7b9b6"/>
+<path d="M43 106 C38 82 42 62 54 49 L51 40.5 L60.5 43.5 L63.5 32.5 L74.5 39.5 C92 32 112 31 127 37 C146 44 157 62 158 84 C158.5 92 158 100 157 106 C156 96 153 88 150 82 C148 86 145 89 141 91 C141 83 136 75 128 70 C108 75 84 73 68 64 C55 74 47 92 43 106 Z" fill="#18181b" stroke="#18181b" stroke-width="6" stroke-linejoin="round"/>
+<g fill="#18181b">
+</g>
+<g fill="none" stroke="#18181b" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M63.0 122.0 Q72.5 109.0 82.0 122.0"/>
+<path d="M118.0 122.0 Q127.5 109.0 137.0 122.0"/>
+<path d="M88 154 Q100 164 112 154"/>
+</g>
+<g fill="none" stroke="#18181b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+<rect x="50.0" y="99.0" width="45" height="37" rx="13"/>
+<rect x="105.0" y="99.0" width="45" height="37" rx="13"/>
+<path d="M95.0 111.95 Q100 106.95 105.0 111.95"/>
+</g>
+</g>
+</svg>

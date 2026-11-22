@@ -1,0 +1,110 @@
+---
+import type { GetStaticPaths } from "astro"
+
+import { getEdition } from "../../../lib/editions"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+import { postAddress, shareOnX } from "../../../editions/_kit/share"
+import A from "../../../editions/v8/a.astro"
+import Icon from "../../../editions/v8/icon.astro"
+import Layout from "../../../editions/v8/layout.astro"
+import { BASE, formatDate, postEntries, type PostEntry } from "../../../editions/v8/paths"
+import Portable from "../../../editions/v8/portable.astro"
+import Prose from "../../../editions/v8/prose.astro"
+
+export const getStaticPaths = (async () => {
+  const posts = postEntries(await getEdition("v8"))
+  return posts.map((entry, index) => ({
+    params: { slug: entry.slug },
+    props: { entry, next: posts[index - 1], prev: posts[index + 1] },
+  }))
+}) satisfies GetStaticPaths
+
+type Props = { entry: PostEntry; next?: PostEntry; prev?: PostEntry }
+const { entry, next, prev } = Astro.props as Props
+const intent = shareOnX(await getEdition("v8"), entry.title, postAddress(entry.slug))
+---
+
+<Layout pageTitle={entry.title} description={entry.description}>
+  {entry.redirect ? (
+    <>
+      <meta http-equiv="refresh" content={`3;url=${entry.redirect}`} />
+      <section class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
+        <Icon name="loader-2" size={32} class="animate-spin" />
+        <span>
+          Redirecting to{" "}
+          <a class="text-primary underline" href={entry.redirect}>
+            {entry.redirect}
+          </a>{" "}
+          ...
+        </span>
+      </section>
+    </>
+  ) : (
+    <>
+      <Prose class="text-center">
+        <h1>{entry.title}</h1>
+        <p class="lead">{entry.description}</p>
+        <p class="text-sm text-neutral-500">
+          Posted on {formatDate(entry.date)}
+          {entry.lastUpdate && <> / Last updated on {formatDate(entry.lastUpdate)}</>}
+        </p>
+        <br />
+        <div class="not-prose flex flex-col items-center justify-center gap-4 text-sm sm:flex-row sm:gap-8">
+          <A class="flex items-center gap-2 transition hover:text-primary" href={intent}>
+            <Fragment set:html={brandSvg("x", 'width="18" height="18"')} /> <span>Share on X</span>
+          </A>
+          <button
+            type="button"
+            class="flex items-center gap-2 transition hover:text-neutral-500"
+            data-copy-url
+          >
+            <Icon name="link" size={18} /> <span>Copy link</span>
+          </button>
+          <button
+            type="button"
+            class="hidden items-center gap-2 transition hover:text-teal-500"
+            data-share={entry.title}
+          >
+            <Icon name="share" size={18} /> <span>Share post</span>
+          </button>
+        </div>
+        <hr />
+      </Prose>
+      <Prose>
+        <article class="cursor-auto">
+          <Portable value={entry.post?.body} />
+        </article>
+        <div class="h-16" />
+        <div class="not-prose flex flex-col items-center sm:flex-row sm:items-start">
+          {next && (
+            <a
+              class="group flex max-w-sm flex-col items-center gap-1 rounded bg-neutral-500/0 p-4 text-center transition hover:bg-neutral-500/10 hover:shadow-lg sm:-m-4 sm:items-start sm:text-left sm:hover:-translate-y-1"
+              href={next.redirect ?? `${BASE}/blog/${next.slug}`}
+            >
+              <span class="flex items-center justify-start gap-1 text-sm opacity-50">
+                <Icon name="arrow-left" size={12} /> <span>Latest post</span>
+              </span>
+              <span class="line-clamp-2 leading-normal font-bold tracking-tighter">
+                {next.title}
+              </span>
+            </a>
+          )}
+          <div class="grow" />
+          {prev && (
+            <a
+              class="group flex max-w-sm flex-col items-center gap-1 rounded bg-neutral-500/0 p-4 text-center transition hover:bg-neutral-500/10 hover:shadow-lg sm:-m-4 sm:items-end sm:text-right sm:hover:-translate-y-1"
+              href={prev.redirect ?? `${BASE}/blog/${prev.slug}`}
+            >
+              <span class="flex items-center justify-end gap-1 text-sm opacity-50">
+                <span>Previous post</span> <Icon name="arrow-right" size={12} />
+              </span>
+              <span class="line-clamp-2 leading-normal font-bold tracking-tighter">
+                {prev.title}
+              </span>
+            </a>
+          )}
+        </div>
+      </Prose>
+    </>
+  )}
+</Layout>

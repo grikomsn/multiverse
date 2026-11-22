@@ -1,0 +1,81 @@
+---
+import { getEdition } from "../../lib/editions"
+import Layout from "../../editions/v8/layout.astro"
+import { pageOf } from "../../editions/v8/paths"
+
+const page = pageOf(await getEdition("v8"), "time")
+const ZONES = ["Asia/Jakarta", "CET", "EST", "CST6CDT", "PST8PDT"]
+const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="p-4 text-center">
+    <div class="space-y-8">
+      {ZONES.map((tz) => (
+        <div
+          class="v8-zone space-y-2 rounded border-2 border-transparent py-8 transition target:border-neutral-500 md:space-y-4"
+          id={slugify(tz)}
+          data-tz={tz}
+        >
+          <a class="text-lg text-neutral-500 hover:underline md:text-2xl" href={`#${slugify(tz)}`}>
+            Time in {tz} is
+          </a>
+          <p class="text-2xl font-bold md:text-4xl" data-date>
+            &nbsp;
+          </p>
+          <p class="font-mono text-2xl font-bold md:text-4xl" data-time>
+            &nbsp;
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <script>
+    // pages/time.tsx ticked a zustand store every animation frame and formatted with date-fns-tz
+    // ("PPPP" and "HH:mm:ss zzz"); Intl does the same here.
+    const zones = [...document.querySelectorAll<HTMLElement>(".v8-zone")].map((element) => {
+      const timeZone = element.dataset.tz!
+      return {
+        element,
+        date: new Intl.DateTimeFormat("en-US", { timeZone, dateStyle: "full" }),
+        time: new Intl.DateTimeFormat("en-GB", {
+          timeZone,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+          timeZoneName: "short",
+        }),
+      }
+    })
+    const ordinal = (day: number) =>
+      day % 10 === 1 && day !== 11
+        ? "st"
+        : day % 10 === 2 && day !== 12
+          ? "nd"
+          : day % 10 === 3 && day !== 13
+            ? "rd"
+            : "th"
+    const tick = () => {
+      const now = new Date()
+      for (const zone of zones) {
+        zone.element.querySelector("[data-date]")!.textContent = zone.date
+          .format(now)
+          .replace(/(\d+),/, (_, day: string) => `${day}${ordinal(Number(day))},`)
+        zone.element.querySelector("[data-time]")!.textContent = zone.time.format(now)
+      }
+      requestAnimationFrame(tick)
+    }
+    tick()
+    const dim = () => {
+      for (const zone of zones) {
+        zone.element.classList.toggle(
+          "opacity-50",
+          Boolean(location.hash) && location.hash !== `#${zone.element.id}`,
+        )
+      }
+    }
+    window.addEventListener("hashchange", dim)
+    dim()
+  </script>
+</Layout>

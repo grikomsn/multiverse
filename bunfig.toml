@@ -1,0 +1,5 @@
+[install]
+# Hoisted is Bun's default again since 1.3.2; isolated installs still trip up
+# Astro/Sanity type resolution across workspaces.
+linker = "hoisted"
+exact = true

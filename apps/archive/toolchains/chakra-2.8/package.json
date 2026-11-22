@@ -1,0 +1,16 @@
+{
+  "name": "@archive/chakra-2.8",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.cjs",
+  "dependencies": {
+    "@chakra-ui/css-reset": "catalog:chakra-2.8",
+    "@chakra-ui/styled-system": "catalog:chakra-2.8",
+    "@chakra-ui/theme": "catalog:chakra-2.8",
+    "@emotion/react": "catalog:chakra-2.8",
+    "@emotion/serialize": "catalog:chakra-2.8",
+    "postcss": "catalog:",
+    "stylis": "catalog:chakra-2.8"
+  }
+}

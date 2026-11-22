@@ -1,0 +1,45 @@
+---
+/**
+ * A small area chart of a series, oldest first. Decorative: pair it with the number in text.
+ * The line draws once when the chart enters the view (global.css).
+ */
+interface Props {
+  values: number[]
+  width?: number
+  height?: number
+  class?: string
+}
+
+const { values, width = 96, height = 28, class: className } = Astro.props
+const max = Math.max(...values, 1)
+const step = values.length > 1 ? width / (values.length - 1) : width
+// 1px inset keeps the 1.5px stroke inside the box at the top and bottom.
+const points = values.map(
+  (value, index) => [index * step, height - 1 - (value / max) * (height - 2)] as const,
+)
+const line = points.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`)
+const area = `${line.join("")}L${width} ${height}L0 ${height}Z`
+---
+
+{values.length > 1 && (
+  <svg
+    class:list={["sparkline shrink-0 overflow-visible text-accent", className]}
+    data-inview
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+    aria-hidden="true"
+  >
+    <path class="sparkline-area" d={area} fill="currentColor" fill-opacity="0.18" />
+    <path
+      class="sparkline-line"
+      pathLength="1"
+      d={line.join("")}
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </svg>
+)}

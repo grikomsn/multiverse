@@ -1,0 +1,30 @@
+---
+import Layout from "../../editions/2022b/layout.astro"
+import PostCard from "../../editions/2022b/post-card.astro"
+import { postsOf } from "../../editions/2022b/posts"
+import { getEdition } from "../../lib/editions"
+
+const edition = await getEdition("2022b")
+const posts = postsOf(edition)
+---
+
+<Layout bodyClass="home-template">
+  <div class="site-header-content outer left-aligned">
+    <div class="site-header-inner inner">
+      <h1 class="site-title">{edition.name}</h1>
+      <p class="site-description">{edition.description}</p>
+    </div>
+  </div>
+  <main id="site-main" class="site-main outer">
+    <div class="inner posts">
+      <div class="post-feed">
+        {posts.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+      <nav class="pagination">
+        <span class="page-number">Page 1 of 1</span>
+      </nav>
+    </div>
+  </main>
+</Layout>

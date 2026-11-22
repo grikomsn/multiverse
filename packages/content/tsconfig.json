@@ -1,0 +1,4 @@
+{
+  "extends": "@multiverse/config/tsconfig/base.json",
+  "include": ["src"]
+}

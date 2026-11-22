@@ -1,0 +1,39 @@
+---
+import { displayUrl, formatMonth, type Resume } from "../../lib/resume/resume"
+import Community from "./community.astro"
+import Education from "./education.astro"
+import Experience from "./experience.astro"
+import Header from "./header.astro"
+import Projects from "./projects.astro"
+import Skills from "./skills.astro"
+import Summary from "./summary.astro"
+import Talks from "./talks.astro"
+
+/**
+ * The resume itself: one markup for the screen, browser print and `/resume/ats`, which
+ * `/resume.pdf` renders. No positioned layers or grids, so text extraction reads in order.
+ */
+interface Props {
+  resume: Resume
+  showAvatar?: boolean
+}
+
+const { resume, showAvatar = false } = Astro.props
+const { site, profile, experience, education, skills, projects, involvements, talks } = resume
+const updated = formatMonth(resume.updatedAt)
+---
+
+<article class="resume" aria-labelledby="resume-title">
+  <Header profile={profile} showAvatar={showAvatar} />
+  <Summary summary={profile.summary} />
+  <Experience entries={experience} />
+  <Projects entries={projects} />
+  <Skills entries={skills} languages={profile.languages} />
+  <Education entries={education} />
+  <Community entries={involvements} />
+  <Talks entries={talks} />
+  <p class="resume-note">
+    {updated && <>Updated {updated}. </>}
+    Latest version: <a href={site.url}>{displayUrl(site.url)}</a>
+  </p>
+</article>

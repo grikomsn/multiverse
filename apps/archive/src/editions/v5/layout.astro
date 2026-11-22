@@ -1,0 +1,62 @@
+---
+/** pages/_app.tsx + _document.tsx + components/layout.tsx. */
+import "./v5.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import Footer from "./footer.astro"
+import Navbar from "./navbar.astro"
+
+interface Props {
+  pageTitle?: string
+  description?: string | null
+}
+
+const { pageTitle = "Home", description } = Astro.props
+const edition = await getEdition("v5")
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/v5`
+const icon = edition.avatar?.url
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{`${pageTitle} • ${edition.name ?? "Griko Nibras"}`}</title>
+    <meta name="description" content={description ?? edition.description} />
+    <meta name="theme-color" content="#1A202C" />
+    {icon && <link rel="icon" type="image/png" sizes="32x32" href={imageUrl(icon, 32)} />}
+    {icon && <link rel="apple-touch-icon" sizes="180x180" href={imageUrl(icon, 180)} />}
+    <ArchiveHead />
+  </head>
+  <body>
+    <div class="flex flex-col justify-between min-h-screen">
+      <Navbar base={base} />
+      <div>
+        <slot />
+      </div>
+      <Footer />
+    </div>
+    <ArchiveBanner
+      title={edition.title ?? "Version 5"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+    <script>
+      const root = import.meta.env.BASE_URL.replace(/\/$/, "")
+      const base = `${root}/v5`
+
+      // AnimatePresence exitBeforeEnter: slide the page out before following a site link.
+      document.addEventListener("click", (event) => {
+        const link = (event.target as Element).closest<HTMLAnchorElement>(`a[href^='${base}']`)
+        if (!link || event.metaKey || event.ctrlKey || event.shiftKey || link.target) return
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+        event.preventDefault()
+        document.body.classList.add("v4b-leaving")
+        setTimeout(() => location.assign(link.href), 300)
+      })
+      addEventListener("pageshow", () => document.body.classList.remove("v4b-leaving"))
+    </script>
+  </body>
+</html>

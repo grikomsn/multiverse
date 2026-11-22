@@ -1,0 +1,42 @@
+---
+import type { Edition } from "../../lib/editions"
+import { imageUrl } from "../../lib/editions"
+import { trimProtocol } from "./paths"
+import Tags from "./tags.astro"
+
+interface Props {
+  project: NonNullable<Edition["projects"]>[number]
+}
+
+const { project } = Astro.props
+---
+
+<article class="v7-card v7-showcase">
+  <div class="v7-showcase-image">
+    {project.image?.url && (
+      <img
+        src={imageUrl(project.image.url, 960)}
+        alt={project.image.alt ?? ""}
+        width="960"
+        height="504"
+        loading="lazy"
+      />
+    )}
+  </div>
+  <div class="v7-showcase-info">
+    <h2 class="v7-heading v7-heading-lg">{project.title}</h2>
+    <p class="v7-showcase-text">{project.subtitle}</p>
+    {project.url && (
+      <a
+        href={project.url}
+        class="v7-link v7-overlay v7-showcase-text"
+        style="padding-bottom: 1rem"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {trimProtocol(project.url)}
+      </a>
+    )}
+    <Tags tags={project.tags} />
+  </div>
+</article>

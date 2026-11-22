@@ -1,0 +1,18 @@
+---
+/** components/a.tsx: always a new tab; `bold` for footer credits. */
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"a"> & { href: string; bold?: boolean }
+
+const { href, bold, class: className, ...rest } = Astro.props
+---
+
+<a
+  href={href}
+  class:list={[bold && "font-semibold tracking-tight", className]}
+  rel="noopener noreferrer"
+  target="_blank"
+  {...rest}
+>
+  <slot>{href}</slot>
+</a>

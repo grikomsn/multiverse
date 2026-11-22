@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../layouts/base.astro"
+---
+
+<BaseLayout title="Page not found" noIndex>
+  <section class="flex flex-col items-start gap-4 pt-12 pb-10 sm:pt-20">
+    <!-- The number is drawn in dots, and a slow wave moves through it. Plain text without JavaScript. -->
+    <p class="dither-mark lost-number" role="img" aria-label="Error 404" data-lost>
+      <canvas></canvas>
+      <span aria-hidden="true">404</span>
+    </p>
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Page not found</h1>
+    <p class="text-lg text-soft">This page does not exist, or it moved to a different address.</p>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <a href="/" class="button button-primary">
+        Go to the home page
+      </a>
+      <a href="/blog" class="button">
+        Read the blog
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost-number {
+    position: relative;
+    overflow: hidden;
+    width: min(100%, 27.5rem);
+    aspect-ratio: 2.35 / 1;
+    margin-bottom: 0.75rem;
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .lost-number canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .lost-number span {
+    font-size: clamp(5rem, 30vw, 11rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .lost-number.is-drawn span {
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  import {
+    animate,
+    fit,
+    inkOf,
+    onThemeChange,
+    paintShape,
+    reducedMotion,
+  } from "@multiverse/ui/dither"
+
+  const DOT = 3
+  const box = document.querySelector<HTMLElement>("[data-lost]")
+
+  if (box) {
+    const canvas = box.querySelector("canvas")!
+    const family = getComputedStyle(box).fontFamily
+    let shape: Float32Array | undefined
+    let grid = { columns: 0, rows: 0 }
+    let time = 0
+    let color = inkOf(box)
+
+    /** The number as a shape: 1 inside a digit, 0 outside, one value for each dot. */
+    const prepare = () => {
+      grid = fit(canvas, DOT)
+      const { columns, rows } = grid
+      const pad = document.createElement("canvas").getContext("2d")!
+      pad.canvas.width = columns
+      pad.canvas.height = rows
+      pad.font = `700 100px ${family}`
+      // As wide as the box, but no taller: capital digits are about 0.74 of the font size.
+      const size = Math.min((columns / pad.measureText("404").width) * 100, rows / 0.74)
+      pad.font = `700 ${size}px ${family}`
+      pad.textBaseline = "alphabetic"
+      pad.fillText("404", 0, rows - 1)
+      const data = pad.getImageData(0, 0, columns, rows).data
+      shape = new Float32Array(columns * rows)
+      for (let index = 0; index < shape.length; index++) {
+        shape[index] = data[index * 4 + 3]! >= 128 ? 1 : 0
+      }
+      draw()
+      box.classList.add("is-drawn")
+    }
+    const draw = () => {
+      if (!shape) return
+      paintShape(canvas, shape, grid.columns, grid.rows, { px: DOT, color, time })
+    }
+
+    document.fonts
+      .load(`700 40px ${family}`)
+      .catch(() => {})
+      .then(() => {
+        prepare()
+        new ResizeObserver(prepare).observe(box)
+        onThemeChange(() => {
+          color = inkOf(box)
+          draw()
+        })
+        if (reducedMotion()) return
+        animate(box, (seconds) => {
+          time = seconds
+          draw()
+        })
+      })
+  }
+</script>

@@ -1,0 +1,12 @@
+{
+  "name": "@archive/tailwind-3.4",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.cjs",
+  "dependencies": {
+    "@tailwindcss/typography": "catalog:tailwind-3.4",
+    "postcss": "catalog:tailwind-3.4",
+    "tailwindcss": "catalog:tailwind-3.4"
+  }
+}

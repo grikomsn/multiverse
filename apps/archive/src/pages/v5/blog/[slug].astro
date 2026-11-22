@@ -1,0 +1,57 @@
+---
+/** pages/blog/[slug].tsx; Disqus is dropped. */
+import type { GetStaticPaths } from "astro"
+
+import { getEdition } from "../../../lib/editions"
+import Content from "../../../editions/v5/content.astro"
+import Main from "../../../editions/v5/main.astro"
+import { postDate } from "../../../editions/v5/paths"
+import RichText from "../../../editions/v5/rich-text.astro"
+import Layout from "../../../editions/v5/layout.astro"
+
+export const getStaticPaths = (async () => {
+  const edition = await getEdition("v5")
+  return (edition.extras ?? [])
+    .filter((entry) => entry.category === "post")
+    .map((entry) => ({
+      params: { slug: entry.url?.split("/").filter(Boolean).pop() ?? "" },
+      props: { entry, body: edition.posts?.find((post) => post._id === entry.ref)?.body },
+    }))
+}) satisfies GetStaticPaths
+
+const { entry, body } = Astro.props
+---
+
+<Layout pageTitle={entry.title} description={entry.description}>
+  <Main>
+    <Content isBlogPost>
+      {entry.image?.url && (
+        <img
+          src={`${entry.image.url}?w=1600&h=900&fit=crop&auto=format`}
+          alt={entry.title}
+          class="mt-2 mb-6 rounded shadow-lg"
+          width="1600"
+          height="900"
+        />
+      )}
+
+      <h1>{entry.title}</h1>
+      <div class="mb-4">{entry.description}</div>
+
+      <small>
+        Published on {postDate(entry.date)}
+        <span class="mx-2"> / </span>
+        {/* `{post.tags}` rendered a raw array, so the tags ran together. */}
+        {entry.tags?.join("")}
+      </small>
+
+      <hr class="border-gray-800 my-6" />
+
+      <div>
+        <RichText value={body} />
+      </div>
+
+      <br />
+    </Content>
+  </Main>
+</Layout>

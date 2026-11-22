@@ -1,0 +1,16 @@
+---
+/** gatsby-remark-images rendered post images as a plain, centered image inside a paragraph. */
+import { assetUrl } from "./highlight"
+
+type Props = { node: { alt?: string; caption?: string; asset?: { _ref?: string } } }
+
+const { alt, caption, asset } = Astro.props.node
+const src = assetUrl(asset?._ref, 1600)
+---
+
+{src && (
+  <p>
+    <img src={src} alt={alt ?? ""} loading="lazy" decoding="async" />
+    {caption && <small>{caption}</small>}
+  </p>
+)}

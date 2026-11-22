@@ -1,0 +1,24 @@
+---
+/** Keystatic document bodies rendered inside the site's `prose` article wrapper. */
+import { PortableText } from "astro-portabletext"
+import type { PortableTextProps, TypedObject } from "astro-portabletext/types"
+
+import CodeBlock from "./code-block.astro"
+import Embed from "../_kit/embed.astro"
+import Figure from "./figure.astro"
+import LinkMark from "./link-mark.astro"
+
+type Props = { value: unknown[] | null | undefined }
+
+const value = (Astro.props.value ?? []).filter(
+  (node): node is TypedObject => typeof node === "object" && node !== null && "_type" in node,
+) as PortableTextProps["value"]
+---
+
+<PortableText
+  value={value}
+  components={{
+    type: { codeBlock: CodeBlock, figure: Figure, embed: Embed },
+    mark: { link: LinkMark },
+  }}
+/>

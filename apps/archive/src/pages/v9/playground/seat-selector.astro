@@ -1,0 +1,51 @@
+---
+import { getEdition } from "../../../lib/editions"
+import Layout from "../../../editions/v9/layout.astro"
+import { pageOf } from "../../../editions/v9/paths"
+import PageHeader from "../../../editions/v9/page-header.astro"
+
+// pages/playground/seat-selector.tsx: static markup, no selection logic (as in the original).
+const page = pageOf(await getEdition("v9"), "playground/seat-selector")
+const EXAMPLE_SEATS = [
+  [-1, 0, 0, 2, 2, 2, 0, 0],
+  [0, 0, 1, 1, 0, 0, 0, -1],
+  [0, 0, -1, 0, 1, 1, 1, 0],
+  [0, 0, 0, 0, 2, 2, 2, 2],
+]
+const COLUMNS = Math.max(...EXAMPLE_SEATS.map((row) => row.length))
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="space-y-8">
+    <PageHeader
+      class="pt-[5rem] md:pt-[10rem]"
+      title={page?.title}
+      description={page?.description}
+    />
+    <div class="grid gap-4 p-4" style={`grid-template-columns: repeat(${COLUMNS}, minmax(0, 1fr))`}>
+      {EXAMPLE_SEATS.map((row, rowIndex) =>
+        row.map((state, seatIndex) => (
+          <div class="flex items-center justify-center">
+            <button
+              type="button"
+              class:list={[
+                "flex h-8 w-8 flex-col items-center justify-center rounded border border-neutral-500 text-xs transition",
+                "disabled:cursor-not-allowed disabled:opacity-50",
+                {
+                  hidden: state === -1,
+                  "hover:bg-neutral-500/50": state === 0,
+                  "border-none": state > 0,
+                  "bg-neutral-500": state === 1,
+                  "bg-primary-700": state === 2,
+                },
+              ]}
+              disabled={state > 0}
+            >
+              {`${rowIndex}${seatIndex}`}
+            </button>
+          </div>
+        )),
+      )}
+    </div>
+  </section>
+</Layout>

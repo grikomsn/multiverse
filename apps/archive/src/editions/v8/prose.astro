@@ -1,0 +1,18 @@
+---
+interface Props {
+  class?: string
+}
+
+// ui/core/prose.tsx
+const { class: className } = Astro.props
+---
+
+<section
+  class:list={[
+    "prose prose-sm prose-invert prose-sky max-w-none p-4 md:prose-base",
+    "prose-headings:tracking-tighter",
+    className,
+  ]}
+>
+  <slot />
+</section>

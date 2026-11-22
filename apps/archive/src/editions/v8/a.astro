@@ -1,0 +1,20 @@
+---
+/** v8's adaptive `<A>`: internal links stay in the tab, external ones open a new one. */
+import type { HTMLAttributes } from "astro/types"
+
+import { href as resolve, isExternal } from "./paths"
+
+type Props = HTMLAttributes<"a"> & { href: string }
+
+const { href, ...rest } = Astro.props
+---
+
+<a
+  href={resolve(href)}
+  {...(isExternal(href) && !href.startsWith("mailto:")
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {})}
+  {...rest}
+>
+  <slot />
+</a>

@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // archive.nibras.co: every past version under /<edition>/, one static-assets Worker.
+  "name": "multiverse-archive",
+  "account_id": "e02a25d4d8f0bacceba5cb29bcaa74de",
+  "compatibility_date": "2026-10-28",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+  // A custom domain takes precedence over the wildcard record `*.nibras.co`.
+  "routes": [{ "pattern": "archive.nibras.co", "custom_domain": true }],
+}

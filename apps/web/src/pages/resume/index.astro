@@ -1,0 +1,84 @@
+---
+import "../../styles/resume.css"
+import "../../styles/print.css"
+
+import Actions from "../../components/resume/actions.astro"
+import Document from "../../components/resume/document.astro"
+import SectionHeading from "@multiverse/ui/section-heading.astro"
+import ActionCard from "../../components/action-card.astro"
+import BaseLayout from "../../layouts/base.astro"
+import { getResume } from "../../lib/resume/content"
+import { resumeJsonLd } from "../../lib/resume/json-ld"
+import { resumeMarkdown } from "../../lib/resume/markdown"
+
+const resume = await getResume()
+const { site, profile } = resume
+const prompt = encodeURIComponent(
+  `Read ${site.origin}/resume.md, the resume of ${profile.name}. Then answer my questions about it. Use only facts from the resume.`,
+)
+---
+
+<BaseLayout
+  title="Resume"
+  description={site.description}
+  type="profile"
+  canonical={site.url}
+  image={site.ogImage ?? `${site.origin}/resume.png`}
+  imageAlt={`${profile.name}, ${profile.headline}. Resume.`}
+  structuredData={resumeJsonLd(resume)}
+  markdown="/resume.md"
+>
+  <link
+    slot="head"
+    rel="alternate"
+    type="application/pdf"
+    href="/resume.pdf"
+    title="Resume (PDF)"
+  />
+  <meta slot="head" property="profile:first_name" content={profile.givenName} />
+  <meta slot="head" property="profile:last_name" content={profile.familyName} />
+  {profile.handle && <meta slot="head" property="profile:username" content={profile.handle} />}
+
+  <div class="resume-shell">
+    <Actions name={profile.name} origin={site.origin} />
+    <Document resume={resume} showAvatar />
+  </div>
+
+  <section class="resume-tools pt-12 pb-4" aria-labelledby="get-resume" data-reveal>
+    <SectionHeading id="get-resume" title="Get this resume" icon="download" />
+    <div>
+      <ActionCard
+        label="Resume formats"
+        actions={[
+          {
+            title: "PDF",
+            note: "A4, for print and job sites",
+            label: "Download",
+            href: "/resume.pdf",
+            kind: "download",
+          },
+          {
+            title: "Markdown",
+            note: "The same text, for notes and AI tools",
+            label: "Copy",
+            copy: resumeMarkdown(resume),
+          },
+          {
+            title: "Ask Claude",
+            note: "Ask questions about this resume",
+            label: "Open",
+            href: `https://claude.ai/new?q=${prompt}`,
+            kind: "external",
+          },
+          {
+            title: "Ask ChatGPT",
+            note: "Ask questions about this resume",
+            label: "Open",
+            href: `https://chatgpt.com/?q=${prompt}`,
+            kind: "external",
+          },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>

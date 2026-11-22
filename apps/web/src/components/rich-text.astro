@@ -1,0 +1,22 @@
+---
+import { PortableText } from "astro-portabletext"
+import type { PortableTextProps } from "astro-portabletext/types"
+
+import CodeBlock from "./portable/code-block.astro"
+import Embed from "./portable/embed.astro"
+import Figure from "./portable/figure.astro"
+import ProfileLinks from "./portable/profile-links.astro"
+
+type Props = { value: PortableTextProps["value"] | null | undefined }
+
+const { value } = Astro.props
+---
+
+{value && (
+  <PortableText
+    value={value}
+    components={{
+      type: { figure: Figure, codeBlock: CodeBlock, embed: Embed, profileLinks: ProfileLinks },
+    }}
+  />
+)}

@@ -1,0 +1,104 @@
+---
+import { Font } from "astro:assets"
+import "../../styles/global.css"
+
+import { getResume } from "../../lib/resume/content"
+import { displayUrl } from "../../lib/resume/resume"
+
+/*
+ * 1200×630 source of public/resume.png. Not in the sitemap. After the name, the first
+ * summary sentence or the avatar changes, run the dev server and take a new screenshot:
+ *
+ *   bunx playwright@1.56.1 screenshot --viewport-size=1200,630 http://localhost:4321/resume/og public/resume.png
+ */
+const { profile, site } = await getResume()
+const tagline = profile.summary.split(/(?<=\.)\s/)[0] ?? profile.headline
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Open Graph card</title>
+    <Font cssVariable="--font-timeless-sans" preload />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .card {
+        display: flex;
+        align-items: center;
+        gap: 64px;
+        width: 1200px;
+        height: 630px;
+        box-sizing: border-box;
+        padding: 72px 88px;
+        background: var(--color-bg);
+        color: var(--color-fg);
+        font-family: var(--font-sans);
+      }
+
+      .text {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .label {
+        color: var(--color-accent-ink);
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 72px;
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+
+      .tagline {
+        color: var(--color-soft);
+        font-size: 32px;
+        line-height: 1.35;
+      }
+
+      .url {
+        margin-top: 12px;
+        font-size: 28px;
+        text-decoration: underline;
+        text-decoration-color: var(--color-accent);
+        text-decoration-thickness: 4px;
+        text-underline-offset: 8px;
+      }
+
+      img {
+        flex-shrink: 0;
+        width: 300px;
+        height: 300px;
+        border-radius: 9999px;
+        background: white;
+        box-shadow: 0 0 0 10px var(--color-accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="text">
+        <p class="label">Resume</p>
+        <h1>{profile.name}</h1>
+        <p class="tagline">{tagline}</p>
+        <p class="url">{displayUrl(site.url)}</p>
+      </div>
+      {profile.avatar && (
+        <img src={`${profile.avatar.url}?w=600&h=600&fit=crop&auto=format`} alt="" />
+      )}
+    </div>
+  </body>
+</html>

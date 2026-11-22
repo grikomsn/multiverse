@@ -1,0 +1,17 @@
+---
+import { getEdition } from "../../lib/editions"
+import AppearanceList from "../../editions/v6/appearance-list.astro"
+import Layout from "../../editions/v6/layout.astro"
+import { pageOf } from "../../editions/v6/paths"
+import TitleSeparator from "../../editions/v6/title-separator.astro"
+
+const edition = await getEdition("v6")
+const page = pageOf(edition, "appearances")
+---
+
+<Layout pageTitle={page?.title ?? "Appearances"} description={page?.description}>
+  <div class="v6-panel v6-panel-rounded v6-stack" style="--gap: 1rem">
+    <TitleSeparator as="h1" title={page?.title ?? "Appearances"} description={page?.description} />
+    <AppearanceList talks={edition.talks ?? []} />
+  </div>
+</Layout>

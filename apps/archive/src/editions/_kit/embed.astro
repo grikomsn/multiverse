@@ -1,0 +1,18 @@
+---
+/** Embedded HTML from the CMS, or a plain link when the embed has only a URL. Shared by the editions. */
+type Props = { node: { html?: string; url?: string; label?: string } }
+
+const { html, url, label } = Astro.props.node
+---
+
+{html ? (
+  <div set:html={html} />
+) : (
+  url && (
+    <p>
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        {label ?? url}
+      </a>
+    </p>
+  )
+)}

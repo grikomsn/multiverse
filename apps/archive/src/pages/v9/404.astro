@@ -1,0 +1,18 @@
+---
+import Icon from "../../editions/v9/icon.astro"
+import Layout from "../../editions/v9/layout.astro"
+import { BASE } from "../../editions/v9/paths"
+---
+
+<Layout pageTitle="Not Found">
+  <section class="space-y-8 py-[5rem] md:py-[10rem]">
+    <Icon name="cancel" class="m-auto h-24 w-24" />
+    <article class="prose prose-invert text-center">
+      <h1>404 Not Found</h1>
+      <p>
+        The current page you are accessing is not available.{" "}
+        <a href={`${BASE}/`}>Head back to home page.</a>
+      </p>
+    </article>
+  </section>
+</Layout>

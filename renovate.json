@@ -1,0 +1,46 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "minimumReleaseAge": "14 days",
+  "internalChecksFilter": "strict",
+  "rangeStrategy": "pin",
+  "schedule": ["before 6am on monday"],
+  "packageRules": [
+    {
+      "description": "Legacy editions keep the versions they shipped with. Only the archive uses these packages.",
+      "matchPackageNames": [
+        "@chakra-ui/**",
+        "@emotion/**",
+        "@fontsource/**",
+        "@fontsource-variable/**",
+        "@fortawesome/**",
+        "@fullhuman/postcss-purgecss",
+        "@tailwindcss/forms",
+        "@tailwindcss/line-clamp",
+        "inter-ui",
+        "lenis",
+        "medium-zoom",
+        "prismjs",
+        "rough-notation",
+        "stylis",
+        "tachyons",
+        "tailwindcss-transitions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "TypeScript stays on 6.x: astro check needs the compiler API that TypeScript 7 does not ship.",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
+      "description": "The Node.js minimum in engines changes by hand.",
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    }
+  ]
+}

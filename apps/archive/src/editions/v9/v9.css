@@ -1,0 +1,62 @@
+/*
+ * v9's website/styles/index.css on Tailwind 3.2.2 (see tailwind.config.cjs). Changes:
+ * Fontsource fonts, and the rehype-pretty-code rules target Astro's Shiki output
+ * (`pre.astro-code`) instead.
+ */
+@toolchain "tailwind-3.2";
+
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/plus-jakarta-sans/800.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  cursor: default;
+  font-feature-settings:
+    "ss01" 0,
+    "ss02" 0,
+    "ss03" 0;
+  line-height: 1.7142857;
+  text-rendering: optimizeLegibility;
+  @apply selection:bg-opacity-50 selection:bg-primary-500 overflow-x-hidden bg-neutral-900 font-sans text-neutral-300 underline-offset-2 subpixel-antialiased;
+}
+
+[data-heading-link] {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  left: -2ch;
+  opacity: 0%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+[data-heading-link]:hover {
+  opacity: 100%;
+}
+
+pre.astro-code {
+  padding: 0;
+}
+pre.astro-code > code {
+  display: grid;
+  @apply py-4;
+}
+pre.astro-code > code span.line {
+  @apply px-4;
+}
+/* rehype-pretty-code kept a space in blank lines; Shiki leaves them empty, so grid rows collapse. */
+pre.astro-code > code span.line:empty::before {
+  content: " ";
+}

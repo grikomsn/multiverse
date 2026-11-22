@@ -1,0 +1,16 @@
+---
+/** `A` (new tab) for outbound links, next/link for site paths, a bare anchor for mailto. */
+import type { Mark } from "astro-portabletext/types"
+
+import { baseOf } from "./paths"
+
+type Props = { node: Mark<{ href: string }> }
+
+const { href } = Astro.props.node.markDef
+const external = /^https?:/.test(href)
+const resolved = href.startsWith("/") ? `${baseOf(Astro.url)}${href}` : href
+---
+
+<a href={resolved} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+  <slot />
+</a>

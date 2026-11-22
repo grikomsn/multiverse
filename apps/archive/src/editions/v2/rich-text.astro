@@ -1,0 +1,29 @@
+---
+/** Paragraph copy from the edition document, with v2's links and `:emoji:` shortnames. */
+import { PortableText } from "astro-portabletext"
+import type { Block, PortableTextProps, RenderHandlerProps } from "astro-portabletext/types"
+
+import EmojiText from "./emoji-text.astro"
+import LinkMark from "./link-mark.astro"
+
+type Props = {
+  value: PortableTextProps["value"] | null | undefined
+  paragraphStyle?: string
+}
+
+const { value, paragraphStyle } = Astro.props
+---
+
+{value && (
+  <PortableText value={value} components={{ text: EmojiText, mark: { link: LinkMark } }}>
+    <fragment slot="block">
+      {({ Component, props, children }: RenderHandlerProps<Block>) =>
+        props.node.style === "normal" ? (
+          <p style={paragraphStyle}>{children}</p>
+        ) : (
+          <Component {...props}>{children}</Component>
+        )
+      }
+    </fragment>
+  </PortableText>
+)}

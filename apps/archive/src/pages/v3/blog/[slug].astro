@@ -1,0 +1,57 @@
+---
+/** templates/blog-post-template.js; Disqus comments are dropped. */
+import type { GetStaticPaths } from "astro"
+
+import { getEdition, pageOf } from "../../../lib/editions"
+import Layout from "../../../editions/v3/layout.astro"
+import { href, postDate } from "../../../editions/v3/paths"
+import RichText from "../../../editions/v3/rich-text.astro"
+
+export const getStaticPaths = (async () => {
+  const edition = await getEdition("v3")
+  const entries = edition.extras?.filter((entry) => entry.category === "post") ?? []
+  return entries.map((entry, index) => {
+    const slug = entry.url?.split("/").filter(Boolean).pop() ?? ""
+    const body =
+      edition.posts?.find((post) => post._id === entry.ref)?.body ??
+      pageOf(edition, `blog/${slug}`)?.body
+    return {
+      params: { slug },
+      // Listed newest first: "previous" is the older post, "next" the newer one.
+      props: { entry, body, previous: entries[index + 1], next: entries[index - 1] },
+    }
+  })
+}) satisfies GetStaticPaths
+
+const { entry, body, previous, next } = Astro.props
+---
+
+<Layout pageTitle={entry.title} description={entry.description}>
+  <section class="section">
+    <div class="container content">
+      <h1 class="title is-spaced">{entry.title}</h1>
+      <p class="subtitle">{entry.description}</p>
+      <small>Published on {postDate(entry.date)}</small>
+      <hr />
+      <div>
+        <RichText value={body} />
+      </div>
+      <br />
+      {(previous || next) && (
+        <div class="buttons v3-buttons">
+          {previous && (
+            <a href={href(previous.url ?? "")} class="button remove-animation" rel="prev">
+              ← <small>&nbsp;{previous.title}</small>
+            </a>
+          )}
+          {next && (
+            <a href={href(next.url ?? "")} class="button remove-animation" rel="next">
+              <small>{next.title}&nbsp;</small> →
+            </a>
+          )}
+        </div>
+      )}
+      <br />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,6 @@
+---
+/** Contentful rich text had no code blocks; shared posts' snippets render as plain preformatted code. */
+type Props = { node: { code?: string } }
+---
+
+<pre class="my-4 overflow-x-auto text-sm"><code>{Astro.props.node.code}</code></pre>

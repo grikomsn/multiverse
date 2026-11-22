@@ -1,0 +1,39 @@
+---
+/**
+ * The page's last element: a band of the hero wave that rises from the bottom edge. Decorative.
+ * It moves only while it is on screen, about 12 frames a second; with reduced motion it is a
+ * still picture. Without JavaScript the band is empty.
+ */
+---
+
+<div class="dither-band" data-dither-band aria-hidden="true">
+  <canvas></canvas>
+</div>
+
+<script>
+  import { animate, inkOf, onThemeChange, paintWave, reducedMotion } from "./dither"
+
+  /** Dot size in CSS pixels, and the hero shader's speed, so both waves move alike. */
+  const DOT = 3
+  const SPEED = 0.3
+
+  for (const band of document.querySelectorAll<HTMLElement>("[data-dither-band]")) {
+    const canvas = band.querySelector("canvas")!
+    let color = inkOf(band)
+    // A fixed start, so the still picture under reduced motion is a good one.
+    let time = 24
+    const draw = () => paintWave(canvas, { px: DOT, color, time })
+    draw()
+    new ResizeObserver(draw).observe(band)
+    onThemeChange(() => {
+      color = inkOf(band)
+      draw()
+    })
+    if (!reducedMotion()) {
+      animate(band, (seconds) => {
+        time = 24 + seconds * SPEED
+        draw()
+      })
+    }
+  }
+</script>

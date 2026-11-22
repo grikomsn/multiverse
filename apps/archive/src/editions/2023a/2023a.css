@@ -1,0 +1,424 @@
+/*
+ * 2023a: Chakra UI 2.8.0 (dark, forced) with the custom gold "primary" scale, DM Sans and
+ * JetBrains Mono. The chakra-2.8 toolchain compiles this file: the reset, --chakra-*
+ * variables, global styles, component recipes and `token()` values come from
+ * @chakra-ui/theme 3.2.0 with 2023a's overrides (chakra.config.cjs). The rest is its layout.
+ */
+@toolchain "chakra-2.8" "./chakra.config.cjs";
+
+@import "@fontsource/dm-sans/latin-400.css";
+@import "@fontsource/dm-sans/latin-500.css";
+@import "@fontsource/dm-sans/latin-600.css";
+@import "@fontsource/dm-sans/latin-700.css";
+@import "@fontsource/jetbrains-mono/latin-400.css";
+
+@chakra reset;
+@chakra vars;
+@chakra global;
+
+:root {
+  color-scheme: dark;
+}
+
+/* Forced on in the last commits (aff1142), so the static gradient always sits underneath. */
+body[data-basement-gradient-fallback] {
+  background-image: var(--basement-fallback);
+}
+
+/* Every link is a Chakra <Link>. */
+a {
+  @chakra Link;
+}
+
+/* Layout ------------------------------------------------------------------------------------ */
+
+.a-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 1rem;
+}
+
+.a-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 2rem;
+}
+
+.a-nav .a-spacer {
+  flex: 1;
+}
+
+.a-home {
+  font-weight: 700;
+  animation: a-slide-fade 200ms token(transition.easing.ease-out) both;
+}
+
+@keyframes a-slide-fade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.a-main {
+  flex-grow: 1;
+}
+
+.a-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 4rem;
+  color: token(colors.whiteAlpha.600);
+  font-size: 0.875rem;
+}
+
+.a-footer .a-spacer {
+  flex: 1;
+}
+
+.a-signature {
+  height: 2rem;
+  width: auto;
+  color: token(colors.primary.200);
+  stroke-width: 4;
+}
+
+.a-footer a:hover {
+  text-decoration: none;
+}
+
+@media (min-width: token(breakpoints.md)) {
+  .a-nav {
+    gap: 1rem;
+  }
+
+  .a-footer {
+    flex-direction: row;
+  }
+
+  .a-copyright {
+    text-align: end;
+  }
+}
+
+/* Home -------------------------------------------------------------------------------------- */
+
+.a-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 4rem;
+  transition: padding 150ms token(transition.easing.ease-out);
+}
+
+/* <Heading letterSpacing="tight" size="2xl"> */
+.a-heading-2xl {
+  @chakra Heading {
+    size: 2xl;
+  }
+  letter-spacing: token(letterSpacings.tight);
+}
+
+/* <Heading> */
+.a-heading-xl {
+  @chakra Heading;
+}
+
+.a-heading-lg {
+  @chakra Heading {
+    size: lg;
+  }
+}
+
+/* <Text color="whiteAlpha.600" fontSize={{ base: "xl", md: "2xl" }}> */
+.a-lede {
+  @chakra sx {
+    color: whiteAlpha.600;
+    fontSize: {
+      base: xl;
+      md: 2xl;
+    }
+  }
+  margin-top: token(space.2);
+}
+
+.a-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  color: token(colors.whiteAlpha.800);
+}
+
+.a-socials a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.a-socials a:hover {
+  color: token(colors.primary.200);
+}
+
+.a-socials svg {
+  width: 1em;
+  height: 1em;
+}
+
+.a-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.a-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.a-shot {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid token(colors.whiteAlpha.50);
+  border-radius: 0.5rem;
+  background-color: token(colors.whiteAlpha.50);
+  transition: all 150ms token(transition.easing.ease-out);
+}
+
+/* 2023 slid a full-page screenshot in from the top left. Today's covers are social images in a
+   few ratios, so each sits in the same centered frame with even margins. */
+.a-shot img {
+  position: absolute;
+  top: 9%;
+  left: 6%;
+  width: 88%;
+  max-width: 100%;
+  aspect-ratio: 40 / 21;
+  border-radius: 0.375rem;
+  box-shadow: 0 8px 24px -8px rgb(0 0 0 / 0.5);
+  object-fit: cover;
+}
+
+.a-shot a {
+  display: none;
+}
+
+.a-shot a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.a-item-title {
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.a-item-subtitle {
+  color: token(colors.whiteAlpha.600);
+}
+
+.a-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+  list-style: none;
+}
+
+/* <Tag colorScheme="gray" size="sm" variant="subtle"> */
+.a-tag {
+  @chakra Tag.container {
+    colorscheme: gray;
+    size: sm;
+    variant: subtle;
+  }
+}
+
+.a-item-link {
+  position: relative;
+  align-self: start;
+  color: token(colors.primary.200);
+  word-break: break-all;
+}
+
+.a-item-link svg {
+  display: inline;
+  width: 0.625rem;
+  height: 0.625rem;
+  margin-left: 0.25rem;
+  vertical-align: baseline;
+}
+
+@media (min-width: token(breakpoints.md)) {
+  .a-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .a-shot:hover {
+    border-color: token(colors.primaryAlpha.800);
+    background-color: token(colors.primaryAlpha.200);
+    transform: translateY(-1px);
+  }
+
+  .a-shot a {
+    display: block;
+  }
+}
+
+@media (min-width: token(breakpoints.lg)) {
+  .a-hero {
+    padding-top: 8rem;
+  }
+}
+
+/* Markdown pages ---------------------------------------------------------------------------- */
+
+.a-markdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 56rem;
+}
+
+.a-markdown a {
+  color: token(colors.primary.200);
+}
+
+.a-markdown ul,
+.a-markdown ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-inline-start: 1em;
+  padding-left: 1rem;
+}
+
+.a-markdown ul {
+  list-style-type: disc;
+}
+
+.a-markdown ol {
+  list-style-type: decimal;
+}
+
+/* <Code p={2}> */
+.a-markdown code {
+  @chakra Code;
+  padding: token(space.2);
+}
+
+.a-about {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1rem;
+}
+
+.a-cover {
+  align-self: center;
+  width: 100%;
+  max-width: 36rem;
+  border-radius: 0.5rem;
+  transition: all 150ms token(transition.easing.ease-out);
+}
+
+@media (min-width: token(breakpoints.lg)) {
+  .a-about {
+    flex-direction: row;
+  }
+
+  .a-cover {
+    position: sticky;
+    top: 2rem;
+    right: 0;
+    align-self: start;
+    max-width: 40%;
+  }
+
+  .a-cover:hover {
+    box-shadow:
+      rgb(0 0 0 / 0.1) 0 0 0 1px,
+      rgb(0 0 0 / 0.2) 0 5px 10px,
+      rgb(0 0 0 / 0.4) 0 15px 40px;
+    transform: translateY(-0.25rem) rotate(0.5deg);
+  }
+}
+
+.a-media {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.a-media img {
+  max-width: 16rem;
+  border-radius: 0.5rem;
+}
+
+.a-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 1rem;
+}
+
+.a-center a {
+  color: token(colors.primary.200);
+}
+
+.a-empty {
+  font-size: 8rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Basement gradient ------------------------------------------------------------------------- */
+
+.a-basement {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  animation: a-slide-fade 200ms token(transition.easing.ease-out) both;
+}
+
+.a-basement[hidden] {
+  display: none;
+}
+
+.a-noise {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  mix-blend-mode: overlay;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.a-basement svg {
+  position: relative;
+  min-width: 100vw;
+  min-height: 100vh;
+  max-width: none;
+  opacity: 0.2;
+}

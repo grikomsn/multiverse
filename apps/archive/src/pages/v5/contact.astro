@@ -1,0 +1,11 @@
+---
+import { getEdition } from "../../lib/editions"
+import Contact from "../../editions/v5/contact.astro"
+import Layout from "../../editions/v5/layout.astro"
+
+const edition = await getEdition("v5")
+---
+
+<Layout pageTitle="Contact">
+  <Contact edition={edition} />
+</Layout>

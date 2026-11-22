@@ -1,0 +1,63 @@
+---
+import Layout from "../../../editions/2022b/layout.astro"
+import PostCard from "../../../editions/2022b/post-card.astro"
+import { postsOf } from "../../../editions/2022b/posts"
+import { getEdition, imageUrl } from "../../../lib/editions"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+
+const edition = await getEdition("2022b")
+const posts = postsOf(edition)
+const author = edition.extras?.find((extra) => extra.category === "author")
+const socials = edition.links?.filter((link) => link.group === "author") ?? []
+---
+
+<Layout pageTitle={`${author?.title} - Griko Nibras`} bodyClass="author-template author-griko">
+  <main id="site-main" class="site-main outer">
+    <div class="post-feed inner">
+      <section class="post-card post-card-large">
+        <div class="post-card-content">
+          <div class="post-card-content-link">
+            <img
+              class="author-profile-pic"
+              src={imageUrl(author?.image?.url, 250)}
+              alt={author?.title}
+            />
+            <header class="post-card-header">
+              <h2 class="post-card-title">{author?.title}</h2>
+            </header>
+            <div class="post-card-excerpt">{edition.description}</div>
+            <footer class="author-profile-footer">
+              <div class="author-profile-location">{author?.description}</div>
+              <div class="author-profile-meta">
+                {socials.map((link) =>
+                  link.platform && link.platform !== "website" ? (
+                    <a
+                      class="author-profile-social-link"
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={link.label}
+                      set:html={brandSvg(link.platform, 'class="icon"')}
+                    />
+                  ) : (
+                    <a
+                      class="author-profile-social-link"
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      {link.label}
+                    </a>
+                  ),
+                )}
+              </div>
+            </footer>
+          </div>
+        </div>
+      </section>
+      {posts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+  </main>
+</Layout>

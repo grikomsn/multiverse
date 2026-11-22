@@ -1,0 +1,42 @@
+---
+import type { EducationEntry } from "../../lib/resume/resume"
+import Section from "./section.astro"
+
+interface Props {
+  entries: EducationEntry[]
+}
+
+const { entries } = Astro.props
+---
+
+{entries.length > 0 && (
+  <Section id="education" title="Education">
+    {entries.map((entry) => (
+      <article class="entry">
+        <div class="entry__head">
+          <h3 class="entry__title">
+            {entry.field ? `${entry.degree} in ${entry.field}` : entry.degree}
+            <span class="entry__role">
+              {" · "}
+              {entry.url ? (
+                <a class="link" href={entry.url}>
+                  {entry.school}
+                </a>
+              ) : (
+                entry.school
+              )}
+            </span>
+          </h3>
+          <p class="entry__period">{entry.period}</p>
+        </div>
+        {entry.bullets.length > 0 && (
+          <ul class="entry__bullets">
+            {entry.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        )}
+      </article>
+    ))}
+  </Section>
+)}

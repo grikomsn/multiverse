@@ -1,0 +1,9 @@
+---
+import type { TextNode } from "astro-portabletext/types"
+
+import { emojify } from "./emoji"
+
+type Props = { node: TextNode }
+---
+
+<Fragment set:html={emojify(Astro.props.node.text)} />

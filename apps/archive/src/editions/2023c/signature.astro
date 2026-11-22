@@ -1,0 +1,16 @@
+---
+import { SIGNATURE } from "./icons"
+
+interface Props {
+  class?: string
+}
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={SIGNATURE.viewBox}
+  class={Astro.props.class}
+  role="img"
+  aria-label="Griko's signature"
+  set:html={SIGNATURE.inner}
+/>

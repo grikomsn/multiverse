@@ -1,0 +1,587 @@
+/*
+ * v7 ran Chakra UI 1.6.10 (dark only) with Archivo body text and Manrope 800 headings. The
+ * chakra-1.6 toolchain compiles this file: the reset, --chakra-* variables, global styles,
+ * component recipes and `token()` values come from @chakra-ui/theme 1.10.4 with v7's overrides
+ * (chakra.config.cjs). The rest is v7's layout.
+ */
+@toolchain "chakra-1.6" "./chakra.config.cjs";
+
+@import "@fontsource/archivo/400.css";
+@import "@fontsource/archivo/400-italic.css";
+@import "@fontsource/archivo/500.css";
+@import "@fontsource/archivo/600.css";
+@import "@fontsource/archivo/700.css";
+@import "@fontsource/manrope/700.css";
+@import "@fontsource/manrope/800.css";
+
+@chakra reset;
+@chakra vars;
+@chakra global;
+
+.v7-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.v7-grow {
+  flex-grow: 1;
+}
+.v7-container {
+  width: 100%;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.v7-container-wide {
+  max-width: 72rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-container {
+    padding: 2rem;
+  }
+}
+.v7-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.v7-stack > * + * {
+  margin-top: var(--gap, 1rem);
+}
+
+/* <Heading size> */
+.v7-heading {
+  @chakra Heading;
+}
+.v7-heading-3xl {
+  @chakra Heading {
+    size: 3xl;
+    only: size;
+  }
+}
+.v7-heading-2xl {
+  @chakra Heading {
+    size: 2xl;
+    only: size;
+  }
+}
+.v7-heading-lg {
+  @chakra Heading {
+    size: lg;
+    only: size;
+  }
+}
+.v7-heading-md {
+  @chakra Heading {
+    size: md;
+    only: size;
+  }
+}
+/* <Link variant="link"> */
+.v7-link {
+  @chakra Link {
+    variant: link;
+  }
+}
+.v7-muted {
+  color: token(colors.whiteAlpha.700);
+}
+.v7-subtitle {
+  color: token(colors.whiteAlpha.600);
+  font-style: italic;
+}
+.v7-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* <Button>, <IconButton rounded="full">: variant, colorScheme and size as modifiers */
+.v7-button {
+  @chakra Button {
+    only: base size;
+  }
+  gap: token(space.2);
+}
+.v7-button-ghost {
+  @chakra Button {
+    variant: ghost;
+    only: variant;
+  }
+}
+.v7-button-yellow {
+  @chakra Button {
+    variant: ghost;
+    colorscheme: yellow;
+    only: variant;
+  }
+}
+.v7-button-solid {
+  @chakra Button {
+    only: variant;
+  }
+}
+.v7-button-sm {
+  @chakra Button {
+    size: sm;
+    only: size;
+  }
+}
+.v7-button-round {
+  border-radius: token(radii.full);
+  padding: 0;
+}
+
+/* Navbar */
+.v7-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1400;
+  display: none;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 2px solid token(colors.whiteAlpha.50);
+  background: rgb(23 25 35 / 0.9);
+}
+@supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
+  .v7-nav {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background: rgb(23 25 35 / 0.6);
+  }
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-nav {
+    display: flex;
+    padding: 1rem;
+  }
+}
+.v7-nav .v7-button {
+  font-weight: 400;
+}
+.v7-nav .v7-button[aria-current="page"] {
+  font-weight: 700;
+}
+
+/* Footer */
+.v7-footer {
+  color: token(colors.whiteAlpha.700);
+  font-size: 0.75rem;
+}
+.v7-footer .v7-button {
+  font-size: 1rem;
+}
+
+/* Cards */
+.v7-card {
+  position: relative;
+  display: block;
+  border-radius: token(radii.md);
+  background: token(colors.whiteAlpha.50);
+  box-shadow: token(shadows.sm);
+  transition-property: background-color, box-shadow, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.v7-card:hover {
+  background: token(colors.whiteAlpha.200);
+  box-shadow: token(shadows.lg);
+  transform: translateY(-4px);
+}
+.v7-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.v7-card a:not(.v7-overlay),
+.v7-card .v7-tags {
+  position: relative;
+  z-index: 1;
+}
+.v7-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+/* <Tag as="a" size="sm" variant="subtle"> */
+.v7-tag {
+  @chakra Tag.container {
+    size: sm;
+    variant: subtle;
+  }
+}
+.v7-cover {
+  max-height: 14rem;
+  overflow: hidden;
+  border-radius: token(radii.md) token(radii.md) 0 0;
+  background: token(colors.whiteAlpha.800);
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-cover {
+    max-height: 16rem;
+  }
+}
+.v7-cover img,
+.v7-showcase img {
+  width: 100%;
+  aspect-ratio: 40 / 21;
+  object-fit: cover;
+}
+
+.v7-appearance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+.v7-appearance .v7-icon {
+  width: 2rem;
+  height: 2rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-appearance {
+    gap: 2rem;
+    padding: 2rem;
+  }
+  .v7-appearance .v7-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+@media (min-width: token(breakpoints.md)) {
+  .v7-appearance {
+    flex-direction: row;
+    text-align: initial;
+  }
+  .v7-appearance .v7-tags {
+    justify-content: flex-start;
+  }
+}
+
+.v7-showcase-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v7-showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.v7-showcase {
+  overflow: hidden;
+}
+.v7-showcase:hover {
+  background: token(colors.whiteAlpha.50);
+}
+.v7-showcase-image {
+  overflow: hidden;
+  transition: filter 0.2s ease-out;
+}
+.v7-showcase:hover .v7-showcase-image {
+  filter: blur(2px);
+}
+.v7-showcase-info {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: rgb(0 0 0 / 0.64);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+.v7-showcase:hover .v7-showcase-info,
+.v7-showcase:focus-within .v7-showcase-info {
+  opacity: 1;
+}
+
+.v7-avatar {
+  display: block;
+  max-width: 20rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transition: background-color 0.2s ease-out;
+}
+.v7-avatar:hover {
+  background: token(colors.whiteAlpha.50);
+}
+
+.v7-kb {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-kb {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: token(breakpoints.md)) {
+  .v7-kb {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Modals (keybinds cheatsheet, mobile menu) */
+/* <Modal isCentered> on a <dialog> */
+.v7-modal {
+  @chakra Modal.dialog;
+  width: calc(100% - 2rem);
+  padding: token(space.8);
+  border: 0;
+  font-family: token(fonts.body);
+}
+/* ModalContent's display: flex would otherwise show the closed <dialog>. */
+.v7-modal:not([open]) {
+  display: none;
+}
+.v7-modal-xs {
+  @chakra Modal.dialog {
+    size: xs;
+    only: size;
+  }
+}
+.v7-modal[open] {
+  animation: v7-pop 0.15s ease-out;
+}
+.v7-modal::backdrop {
+  @chakra Modal.overlay;
+}
+@keyframes v7-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+/* <Kbd> */
+.v7-kbd {
+  @chakra Kbd;
+}
+.v7-hint {
+  padding-top: 2rem;
+  color: token(colors.whiteAlpha.400);
+  font-size: 0.75rem;
+  text-align: center;
+}
+.v7-fab {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  /* Clear of the archive banner in the bottom-right corner. */
+  padding-bottom: 4rem;
+  pointer-events: none;
+}
+/* <Button variant="outline" size="sm" bgColor="blackAlpha.600" boxShadow="dark-lg"> */
+.v7-fab button {
+  @chakra Button {
+    variant: outline;
+    only: variant;
+  }
+  @chakra sx {
+    bgcolor: blackAlpha.600;
+    boxshadow: dark-lg;
+    pointerevents: visible;
+  }
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-fab {
+    display: none;
+  }
+}
+
+/* Toasts (keybind feedback): Chakra subtle info toast, top-right */
+/* useToast({ position: "top-right", variant: "subtle" }): an info <Alert> */
+.v7-toast {
+  @chakra Alert.container {
+    variant: subtle;
+    colorscheme: blue;
+  }
+  @chakra Alert.title;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: token(zIndices.toast);
+  width: auto;
+  min-width: 18rem;
+  padding: token(space.3) token(space.4);
+  border-radius: token(radii.md);
+  box-shadow: token(shadows.lg);
+  opacity: 0;
+  transform: translateX(120%);
+  transition:
+    transform 0.25s ease-out,
+    opacity 0.25s;
+}
+.v7-toast[data-open] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Markdown bodies (components/markdown postComponents) */
+.v7-prose {
+  line-height: 1.625;
+}
+.v7-prose > * + * {
+  margin-top: 1rem;
+}
+.v7-prose p,
+.v7-prose li,
+.v7-prose blockquote {
+  font-size: 0.875rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-prose p,
+  .v7-prose li,
+  .v7-prose blockquote {
+    font-size: 1rem;
+  }
+}
+.v7-prose h2,
+.v7-prose h3,
+.v7-prose h4 {
+  font-family: token(fonts.heading);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+.v7-prose h2 {
+  font-size: 1.875rem;
+  line-height: 1.33;
+}
+.v7-prose h3 {
+  font-size: 1.5rem;
+  line-height: 1.33;
+}
+.v7-prose h4 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v7-prose h2 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+  .v7-prose h3 {
+    font-size: 1.875rem;
+    line-height: 1.2;
+  }
+}
+.v7-prose a {
+  color: token(colors.yellow.200);
+}
+.v7-prose a:hover {
+  text-decoration: underline;
+}
+.v7-prose ul {
+  list-style: disc;
+  padding-left: 1rem;
+  margin-left: 1em;
+}
+.v7-prose ol {
+  list-style: decimal;
+  padding-left: 1rem;
+  margin-left: 1em;
+}
+.v7-prose blockquote {
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-left: 2px solid token(colors.whiteAlpha.400);
+  color: token(colors.whiteAlpha.700);
+}
+/* <Code> */
+.v7-prose :not(pre) > code {
+  @chakra Code;
+}
+.v7-snippet {
+  position: relative;
+  font-size: 0.75rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-snippet {
+    font-size: 0.875rem;
+  }
+}
+.v7-snippet pre {
+  margin: 0.5em 0;
+  padding: 1em;
+  border-radius: 0.3em;
+  overflow: auto;
+  font-family: token(fonts.mono);
+  line-height: 1.5;
+  text-shadow: 0 1px rgb(0 0 0 / 0.3);
+  tab-size: 4;
+}
+.v7-copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: token(radii.md);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.v7-copy:hover {
+  opacity: 1;
+  background: token(colors.whiteAlpha.200);
+}
+.v7-copy-done,
+.v7-copy[data-copied] .v7-copy-idle {
+  display: none;
+}
+.v7-copy[data-copied] .v7-copy-done {
+  display: inline-block;
+}
+.v7-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+.v7-figure img {
+  margin: 0 auto;
+}
+.v7-figure figcaption {
+  color: token(colors.whiteAlpha.400);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+.v7-prose iframe {
+  max-width: 100%;
+  margin: 0 auto;
+}
+.v7-post-item {
+  padding: 1rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-post-item {
+    padding: 2rem;
+  }
+}
+.v7-showcase-text {
+  font-size: 0.75rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v7-showcase-text {
+    font-size: 0.875rem;
+  }
+}

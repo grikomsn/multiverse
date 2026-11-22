@@ -1,0 +1,32 @@
+---
+import { imageUrl } from "../../lib/editions"
+import { isPlaceholder } from "./paths"
+
+interface Props {
+  image: { url?: string | null; alt?: string | null } | null | undefined
+  alt?: string | null
+  class?: string
+}
+
+const { image, alt, class: className } = Astro.props
+const lqip = isPlaceholder(image?.alt)
+---
+
+<div
+  class:list={[
+    "overflow-hidden rounded bg-neutral-800 transition-colors sm:group-hover:bg-neutral-700",
+    className,
+  ]}
+>
+  {image?.url && (
+    <img
+      alt={alt ?? ""}
+      class:list={[
+        "aspect-video h-full w-full translate-x-6 translate-y-6 scale-110 transform-gpu transition-transform sm:motion-safe:group-hover:translate-y-5",
+        { "blur-md": lqip },
+      ]}
+      src={imageUrl(image.url, lqip ? 64 : 1280)}
+      loading="lazy"
+    />
+  )}
+</div>

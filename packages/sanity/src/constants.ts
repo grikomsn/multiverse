@@ -1,0 +1,54 @@
+export const SANITY_PROJECT_ID = "lboasusv"
+export const SANITY_DATASET = "production"
+
+/** Pin for Studio Vision and every frontend client. */
+export const SANITY_API_VERSION = "2026-11-01"
+
+/**
+ * Every `socialLink.platform`, with its name and the kind of site it is. One table for Studio,
+ * nibras.co and the archive: a profile link's `label` is set only when the name here is wrong.
+ * Designs that sort profiles under headings ("Blogs", "Development", "Social") map the kind.
+ */
+export const SOCIAL_PLATFORMS = [
+  { value: "github", title: "GitHub", kind: "code" },
+  { value: "linkedin", title: "LinkedIn", kind: "social" },
+  { value: "bluesky", title: "Bluesky", kind: "social" },
+  { value: "x", title: "X", kind: "social" },
+  { value: "mastodon", title: "Mastodon", kind: "social" },
+  { value: "matrix", title: "Matrix", kind: "social" },
+  { value: "telegram", title: "Telegram", kind: "social" },
+  { value: "keybase", title: "Keybase", kind: "code" },
+  { value: "devto", title: "DEV Community", kind: "writing" },
+  { value: "medium", title: "Medium", kind: "writing" },
+  { value: "gitlab", title: "GitLab", kind: "code" },
+  { value: "npm", title: "npm", kind: "code" },
+  { value: "docker", title: "Docker Hub", kind: "code" },
+  { value: "hackernews", title: "Hacker News", kind: "code" },
+  { value: "steam", title: "Steam", kind: "social" },
+  { value: "twitch", title: "Twitch", kind: "social" },
+  { value: "soundcloud", title: "SoundCloud", kind: "social" },
+  { value: "deviantart", title: "DeviantArt", kind: "social" },
+  { value: "gravatar", title: "Gravatar", kind: "social" },
+  { value: "email", title: "Email", kind: "social" },
+  { value: "website", title: "Website", kind: "social" },
+  { value: "other", title: "Other", kind: "social" },
+] as const satisfies readonly {
+  value: string
+  title: string
+  kind: "code" | "writing" | "social"
+}[]
+
+export type PlatformKind = (typeof SOCIAL_PLATFORMS)[number]["kind"]
+
+/** A profile link's name: its own label when set, otherwise the platform's. */
+export function platformLabel(platform?: string | null, label?: string | null) {
+  return (
+    label ||
+    SOCIAL_PLATFORMS.find((item) => item.value === platform)?.title ||
+    platform ||
+    "Profile"
+  )
+}
+
+export const platformKind = (platform?: string | null): PlatformKind =>
+  SOCIAL_PLATFORMS.find((item) => item.value === platform)?.kind ?? "social"

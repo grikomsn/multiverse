@@ -1,0 +1,58 @@
+---
+import { getEdition, imageUrl } from "../../lib/editions"
+import Layout from "../../editions/v7/layout.astro"
+import { BASE } from "../../editions/v7/paths"
+
+const edition = await getEdition("v7")
+// "or Twitter at @griko_nibras": now X, with today's handle.
+const x = edition.links?.find((link) => link.platform === "x")
+const handle = x ? `@${new URL(x.url).pathname.split("/").filter(Boolean)[0]}` : null
+---
+
+<Layout>
+  <div class="v7-container">
+    <div class="v7-center v7-stack">
+      <a href={`${BASE}/about`} class="v7-avatar">
+        {edition.avatar?.url && (
+          <img
+            src={imageUrl(edition.avatar.url, 640)}
+            alt={edition.avatar.alt ?? ""}
+            width="320"
+            height="320"
+          />
+        )}
+      </a>
+      <h1 class="v7-heading v7-heading-3xl">{edition.headline}</h1>
+      <p class="v7-muted v7-lead" style="max-width: 42rem">
+        {edition.description}
+      </p>
+      <div style="height: 2rem"></div>
+      <p style="padding-bottom: 2rem">
+        Reach me via email at{" "}
+        <a href={`mailto:${edition.email}`} class="v7-link">
+          {edition.email}
+        </a>
+        {x && handle && (
+          <>
+            , or X at{" "}
+            <a href={x.url} class="v7-link" target="_blank" rel="noopener noreferrer">
+              {handle}
+            </a>
+          </>
+        )}
+        .
+      </p>
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .v7-lead {
+    font-size: 1.125rem;
+  }
+  @media (min-width: 30em) {
+    .v7-lead {
+      font-size: 1.25rem;
+    }
+  }
+</style>

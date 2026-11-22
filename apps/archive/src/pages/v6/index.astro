@@ -1,0 +1,59 @@
+---
+import { getEdition } from "../../lib/editions"
+import AppearanceList from "../../editions/v6/appearance-list.astro"
+import DoodleDesktop from "../../editions/v6/doodle-desktop.svg"
+import DoodleMobile from "../../editions/v6/doodle-mobile.svg"
+import EmailInquiry from "../../editions/v6/email-inquiry.astro"
+import Layout from "../../editions/v6/layout.astro"
+import { BASE, pageOf, postEntries } from "../../editions/v6/paths"
+import PostList from "../../editions/v6/post-list.astro"
+import ProjectList from "../../editions/v6/project-list.astro"
+import RichText from "../../editions/v6/rich-text.astro"
+import TitleSeparator from "../../editions/v6/title-separator.astro"
+import ViewAll from "../../editions/v6/view-all.astro"
+
+const edition = await getEdition("v6")
+// Home showed showcases with a featuredOrder, 10 appearances and 10 posts.
+const featured = (edition.projects ?? []).filter((project) => project.category === "featured")
+const talks = (edition.talks ?? []).slice(0, 10)
+const posts = postEntries(edition).slice(0, 10)
+---
+
+<Layout>
+  <div class="v6-hero">
+    <div class="v6-stack v6-hero-copy" style="--gap: 1rem">
+      <h1 class="v6-heading">Hi, I&apos;m {edition.name}.</h1>
+      <div class="v6-text-lg">
+        <RichText value={edition.intro} />
+      </div>
+      <p class="v6-text-lg">{edition.email && <EmailInquiry email={edition.email} />}</p>
+    </div>
+    <div style="width: 1rem; height: 1rem"></div>
+    <DoodleMobile class="v6-doodle v6-doodle-mobile" role="img" aria-label="Doodle of Griko" />
+    <DoodleDesktop class="v6-doodle v6-doodle-desktop" role="img" aria-label="Doodle of Griko" />
+  </div>
+
+  <div class="v6-panel v6-panel-lg-rounded v6-stack" style="--gap: 1rem">
+    <TitleSeparator
+      title="Recent Projects"
+      description={pageOf(edition, "projects")?.description}
+    />
+    <ProjectList projects={featured} />
+    <ViewAll title="View all projects" href={`${BASE}/projects`} />
+
+    <div style="height: 1rem"></div>
+
+    <TitleSeparator
+      title="Recent Appearances"
+      description={pageOf(edition, "appearances")?.description}
+    />
+    <AppearanceList talks={talks} />
+    <ViewAll title="View all appearances" href={`${BASE}/appearances`} />
+
+    <div style="height: 1rem"></div>
+
+    <TitleSeparator title="Recent Posts" description={pageOf(edition, "blog")?.description} />
+    <PostList posts={posts} />
+    <ViewAll title="View all posts" href={`${BASE}/blog`} />
+  </div>
+</Layout>

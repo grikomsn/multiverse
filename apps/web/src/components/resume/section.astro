@@ -1,0 +1,16 @@
+---
+interface Props {
+  /** Anchor id; the heading gets `<id>-heading`. */
+  id: string
+  title: string
+}
+
+const { id, title } = Astro.props
+---
+
+<section id={id} class="resume-section" aria-labelledby={`${id}-heading`}>
+  <h2 id={`${id}-heading`} class="resume-section__heading">
+    {title}
+  </h2>
+  <slot />
+</section>

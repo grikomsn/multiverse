@@ -1,0 +1,180 @@
+---
+import "./2023c.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import Icon from "./icon.astro"
+import { BASE } from "./paths"
+
+interface Props {
+  pageTitle?: string
+  description?: string | null
+  /** Pages with long content show the floating "Back to top" pill. */
+  backToTop?: boolean
+}
+
+const { pageTitle, description, backToTop = false } = Astro.props
+const edition = await getEdition("2023c")
+const name = edition.name ?? "Griko Nibras"
+const title = pageTitle ? `${pageTitle} | ${name}` : name
+const path = Astro.url.pathname.replace(/\/$/, "")
+const NAV: { href: string; label: string; external?: boolean }[] = [
+  { href: `${BASE}/about`, label: "About" },
+  { href: `${BASE}/articles`, label: "Articles" },
+  { href: `${BASE}/projects`, label: "Projects" },
+  ...(edition.links ?? [])
+    .filter((link) => link.group === "nav")
+    .map((link) => ({ href: link.url, label: link.label, external: true })),
+]
+const navLink =
+  "relative block h-9 p-2 hover:text-primary-600 dark:hover:text-primary-500 transition-colors before:absolute before:inset-x-2 before:h-px before:rounded-t-full before:-bottom-px hover:before:bottom-0 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-200 before:ease-out hover:before:bg-primary-600 dark:hover:before:bg-primary-500 before:shadow-primary-600 dark:before:shadow-primary-500 before:shadow-[0_1px_4px] after:absolute after:inset-0 hover:after:-inset-1"
+const pill =
+  "bg-neutral-100/80 backdrop-blur-[2px] dark:bg-neutral-900/80 rounded-full border border-neutral-500/25 shadow-md"
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171717" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafa" />
+    <ArchiveHead />
+    <script is:inline>
+      // next-themes (attribute "class", default "system"): apply before paint.
+      try {
+        const stored = localStorage.getItem("theme")
+        const dark =
+          stored === "dark" ||
+          ((!stored || stored === "system") && matchMedia("(prefers-color-scheme: dark)").matches)
+        document.documentElement.classList.add(dark ? "dark" : "light")
+        document.documentElement.style.colorScheme = dark ? "dark" : "light"
+      } catch {
+        // Storage blocked: follow the system via the media query fallback above.
+      }
+    </script>
+  </head>
+  <body class="relative flex min-h-screen flex-col items-stretch overflow-y-scroll bg-neutral-50 font-sans text-neutral-900 antialiased dark:bg-neutral-900 dark:text-neutral-50">
+    <main class="beams relative flex-grow overflow-x-hidden">
+      <slot />
+    </main>
+
+    <nav
+      class="container pointer-events-none sticky bottom-0 left-0 z-50 flex items-center gap-x-2 py-4 text-sm [&>*]:pointer-events-auto"
+      aria-label="Main"
+    >
+      <a
+        href={`${BASE}/`}
+        class="group h-9 w-9 overflow-hidden rounded-full border border-neutral-500/25 bg-neutral-500/25 shadow-md transition hover:bg-primary-500/50 max-sm:hidden"
+        aria-label={name}
+      >
+        {edition.avatar?.url && (
+          <img
+            src={imageUrl(edition.avatar.url, 128)}
+            alt=""
+            width="256"
+            height="256"
+            class="pointer-events-none"
+          />
+        )}
+      </a>
+      <ul class:list={["flex items-center justify-center px-4", pill]}>
+        {NAV.map((item) => (
+          <li class="max-sm:hidden">
+            <a
+              href={item.href}
+              class:list={[
+                navLink,
+                path === item.href && "!text-primary-600 dark:!text-primary-500",
+              ]}
+              {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+        <li class="sm:hidden">
+          <details class="group/menu relative">
+            <summary class:list={[navLink, "list-none"]}>Open Menu</summary>
+            <ul
+              class:list={[
+                "absolute bottom-12 left-0 flex min-w-40 flex-col p-2",
+                pill,
+                "!rounded-lg",
+              ]}
+            >
+              <li>
+                <a href={`${BASE}/`} class={navLink}>
+                  Home
+                </a>
+              </li>
+              {NAV.map((item) => (
+                <li>
+                  <a href={item.href} class={navLink}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </li>
+        <li>
+          <button type="button" class={navLink} data-theme-toggle aria-label="Change theme">
+            <Icon name="sun" class="h-4 w-4 dark:hidden" />
+            <Icon name="moon" class="hidden h-4 w-4 dark:block" />
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    {backToTop && (
+      <div class="container pointer-events-none fixed inset-x-0 bottom-4 z-10 flex justify-end">
+        <div
+          class:list={[
+            "flex items-center justify-center px-2 opacity-0 transition-opacity data-[visible=true]:pointer-events-auto data-[visible=true]:opacity-100",
+            pill,
+          ]}
+          data-back-to-top
+        >
+          <button type="button" class:list={[navLink, "flex items-center gap-x-1"]}>
+            <span>Back to top</span>
+            <Icon name="arrow-up" class="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    )}
+
+    <ArchiveBanner
+      title={edition.title ?? "Keystatic"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+
+    <script>
+      const root = document.documentElement
+      document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
+        const dark = !root.classList.contains("dark")
+        root.classList.toggle("dark", dark)
+        root.classList.toggle("light", !dark)
+        root.style.colorScheme = dark ? "dark" : "light"
+        try {
+          localStorage.setItem("theme", dark ? "dark" : "light")
+        } catch {
+          // Not persisted; the toggle still applies for this page.
+        }
+      })
+
+      const pill = document.querySelector<HTMLElement>("[data-back-to-top]")
+      if (pill) {
+        const update = () => (pill.dataset.visible = String(scrollY > 400))
+        addEventListener("scroll", update, { passive: true })
+        update()
+        pill
+          .querySelector("button")
+          ?.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }))
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+/* Framer Motion 1.7 behaviors from v4b/v5, as CSS for the vanilla scripts in layout.astro. */
+
+/* components/main.tsx: enter from y -80, exit to y +80, fading. */
+@keyframes v4b-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+}
+
+.v4b-main {
+  animation: v4b-enter 500ms cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  transition:
+    opacity 300ms,
+    transform 300ms;
+}
+
+.v4b-leaving .v4b-main {
+  opacity: 0;
+  transform: translateY(80px);
+}
+
+/* whileHover y -4 (hero pills), y -6 (works images, blog cards), whileTap y -4. */
+.v4b-lift-4,
+.v4b-lift-6 {
+  transition: transform 200ms ease-out;
+}
+
+.v4b-lift-4:hover {
+  transform: translateY(-4px);
+}
+
+.v4b-lift-6:hover {
+  transform: translateY(-6px);
+}
+
+.v4b-lift-6:active {
+  transform: translateY(-4px);
+}
+
+/* pages/index.tsx: the draggable Memoji. */
+.v4b-memoji {
+  touch-action: none;
+  user-select: none;
+  transition: transform 200ms ease-out;
+}
+
+.v4b-memoji:hover {
+  transform: rotate(2deg) scale(1.05);
+}
+
+.v4b-memoji:active,
+.v4b-memoji.is-dragging {
+  transform: translate(var(--x, 0), var(--y, 0)) rotate(1deg) scale(1.025);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4b-main {
+    animation: none;
+  }
+}
+
+/* Today's profile URLs (a Bluesky DID, for one) are longer than 2020's. */
+.v4b-main li a {
+  overflow-wrap: anywhere;
+}
+
+/* Today's covers come in a few ratios; one frame keeps the two columns level. */
+.v5-work-shot img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border-radius: 0.25rem;
+  object-fit: cover;
+}

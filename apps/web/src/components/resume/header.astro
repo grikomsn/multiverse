@@ -1,0 +1,48 @@
+---
+import { contactLinks, displayUrl, type Profile } from "../../lib/resume/resume"
+
+interface Props {
+  profile: Profile
+  /** Avatar on screen only; the PDF and `/ats` leave it out. */
+  showAvatar?: boolean
+}
+
+const { profile, showAvatar = false } = Astro.props
+---
+
+<header class="resume-header">
+  {showAvatar && profile.avatar && (
+    <img
+      src={`${profile.avatar.url}?w=192&h=192&fit=crop&auto=format`}
+      alt=""
+      width="96"
+      height="96"
+      loading="eager"
+      decoding="async"
+      class="resume-header__avatar"
+    />
+  )}
+  <div class="resume-header__text">
+    <h1 id="resume-title" class="resume-header__name">
+      {profile.name}
+    </h1>
+    {profile.headline && <p class="resume-header__headline">{profile.headline}</p>}
+    <ul class="resume-header__contact" aria-label="Contact details">
+      {profile.location && <li>{profile.location}</li>}
+      {profile.email && (
+        <li>
+          <a class="link" href={`mailto:${profile.email}`}>
+            {profile.email}
+          </a>
+        </li>
+      )}
+      {contactLinks(profile).map((link) => (
+        <li>
+          <a class="link" href={link.url}>
+            {displayUrl(link.url)}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>

@@ -1,0 +1,36 @@
+---
+import { getEdition, pageOf } from "../../lib/editions"
+import { emojify } from "../../editions/v3/emoji"
+import Layout from "../../editions/v3/layout.astro"
+import { trimProtocol } from "../../editions/v3/paths"
+import RichText from "../../editions/v3/rich-text.astro"
+
+const edition = await getEdition("v3")
+const page = pageOf(edition, "socials")
+const groups = Map.groupBy(edition.links ?? [], (link) => link.group ?? "")
+---
+
+<Layout pageTitle="Links">
+  <section class="section">
+    <div class="container content">
+      <h1 class="title" set:html={emojify(page?.title)} />
+      <RichText value={page?.body} />
+      <br />
+      {[...groups].map(([name, links]) => (
+        <>
+          <h6>{name}</h6>
+          <ul>
+            {links.map((link) => (
+              <li>
+                {link.label !== trimProtocol(link.url) && <span>{link.label} - </span>}
+                <a href={link.url} rel="noopener noreferrer" target="_blank">
+                  {trimProtocol(link.url)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))}
+    </div>
+  </section>
+</Layout>

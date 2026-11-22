@@ -1,0 +1,8 @@
+---
+/** Raw HTML authored in the CMS (Bear Blog tables, iframes); trusted, editor-only input. */
+type Props = { node: { html?: string | null; url?: string | null; label?: string | null } }
+
+const { html, url, label } = Astro.props.node
+---
+
+{html ? <div class="overflow-x-auto" set:html={html} /> : url && <a href={url}>{label ?? url}</a>}

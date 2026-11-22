@@ -1,0 +1,62 @@
+---
+import type { GetStaticPaths } from "astro"
+
+import { type Edition, getEdition } from "../../../lib/editions"
+import Icon from "../../../editions/2023c/icon.astro"
+import Layout from "../../../editions/2023c/layout.astro"
+import { assetUrl, BASE, formatDate } from "../../../editions/2023c/paths"
+import RichText from "../../../editions/2023c/rich-text.astro"
+import Signature from "../../../editions/2023c/signature.astro"
+
+type Post = NonNullable<Edition["posts"]>[number]
+
+export const getStaticPaths = (async () => {
+  const edition = await getEdition("2023c")
+  return (edition.posts ?? []).map((post) => ({ params: { slug: post.slug }, props: { post } }))
+}) satisfies GetStaticPaths
+
+const { post } = Astro.props as { post: Post }
+// Keystatic articles had a separate cover; the shared post keeps it as its first image.
+const [first, ...rest] = post.body ?? []
+const cover = first?._type === "figure" ? first : undefined
+const body = cover ? rest : (post.body ?? [])
+const coverRef = cover && "asset" in cover ? cover.asset?._ref : undefined
+---
+
+<Layout pageTitle={post.title ?? undefined} description={post.excerpt} backToTop>
+  <section class="container fade-bottom py-8 lg:py-16">
+    {coverRef && (
+      <img
+        src={assetUrl(coverRef, 1280)}
+        alt="article cover image"
+        class="mb-8 aspect-video w-full max-w-screen-sm rounded bg-neutral-500 object-cover"
+      />
+    )}
+    <div class="relative">
+      <h1 class="max-w-screen-sm text-4xl font-bold">{post.title}</h1>
+      <a
+        href={`${BASE}/articles`}
+        class="absolute inset-y-1 -left-8 z-10 flex h-8 w-8 items-center justify-center rounded-full hover:text-primary-600 max-lg:hidden dark:hover:text-primary-500"
+        aria-label="Back to articles"
+      >
+        <Icon name="arrow-left" class="h-4 w-4" />
+      </a>
+    </div>
+    <p class="max-w-screen-sm space-y-4 text-neutral-700 dark:text-neutral-300">{post.excerpt}</p>
+    {post.publishedAt && (
+      <div class="flex items-center gap-x-1 text-sm text-neutral-700 dark:text-neutral-300">
+        <Icon name="calendar" class="h-3 w-3" />
+        <span>Published at</span>
+        <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+      </div>
+    )}
+    <br />
+    <br />
+    <article class="prose-primary prose pb-20 dark:prose-invert prose-a:inline prose-a:break-words prose-a:hyphens-auto [&_a]:no-underline [&_a:hover]:underline [&>*]:gap-4">
+      <RichText value={body} />
+    </article>
+    <a class="inline-block" href={`${BASE}/`} aria-label="Home">
+      <Signature class="w-36 max-w-xs -rotate-6 transform-gpu fill-current stroke-current stroke-[4]" />
+    </a>
+  </section>
+</Layout>

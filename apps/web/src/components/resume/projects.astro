@@ -1,0 +1,46 @@
+---
+import { displayUrl, type ProjectEntry } from "../../lib/resume/resume"
+
+import Section from "./section.astro"
+
+interface Props {
+  entries: ProjectEntry[]
+}
+
+const { entries } = Astro.props
+---
+
+{entries.length > 0 && (
+  <Section id="projects" title="Projects">
+    {entries.map((entry) => (
+      <article class="entry">
+        <div class="entry__head">
+          <h3 class="entry__title">
+            {entry.name}
+            {entry.discontinued && <span class="entry__status"> (discontinued)</span>}
+            {entry.role && <span class="entry__role"> · {entry.role}</span>}
+          </h3>
+          {entry.url && (
+            <p class="entry__period">
+              <a class="link" href={entry.url}>
+                {displayUrl(entry.url)}
+              </a>
+            </p>
+          )}
+        </div>
+        {entry.summary && <p class="entry__text">{entry.summary}</p>}
+        {entry.usage && <p class="entry__text">{entry.usage}</p>}
+        {entry.bullets.length > 0 && (
+          <ul class="entry__bullets">
+            {entry.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        )}
+        {entry.technologies.length > 0 && (
+          <p class="entry__meta entry__tech">Technologies: {entry.technologies.join(", ")}</p>
+        )}
+      </article>
+    ))}
+  </Section>
+)}

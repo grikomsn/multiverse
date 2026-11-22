@@ -1,0 +1,137 @@
+---
+import "../styles/archive.css"
+
+import SiteFooter from "@multiverse/ui/site-footer.astro"
+import SiteHeader from "@multiverse/ui/site-header.astro"
+import ThemeHead from "@multiverse/ui/theme-head.astro"
+
+import { imageUrl, period } from "../lib/editions"
+import { ARCHIVE_SHELL_QUERY, EDITIONS_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+import { WEB_ORIGIN } from "../lib/web"
+
+const [editions, { profile, avatar }] = await Promise.all([
+  sanity.fetch(EDITIONS_QUERY),
+  sanity.fetch(ARCHIVE_SHELL_QUERY),
+])
+
+// Newest first: the reader came from the current site and walks back in time.
+const timeline = [...editions].reverse()
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Older versions · Griko Nibras</title>
+    <meta
+      name="description"
+      content="Every earlier version of Griko Nibras's personal site since 2018, rebuilt where possible."
+    />
+    <link rel="canonical" href={new URL("/", Astro.site)} />
+    <link rel="preconnect" href="https://cdn.sanity.io" />
+    <ThemeHead />
+  </head>
+  <body class="flex min-h-dvh flex-col bg-bg text-fg">
+    <SiteHeader origin={WEB_ORIGIN} avatar={avatar} />
+    <main class="mx-auto w-full max-w-2xl flex-1 px-5">
+      <header class="pt-10 pb-8 sm:pt-16">
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Older versions</h1>
+        <p class="mt-3 text-lg text-soft">
+          This page shows every version of my personal site since 2018. I rebuilt each version from
+          its source code or from the Internet Archive. Each version keeps its original design.
+        </p>
+        <p class="mt-3 text-soft">
+          Each version shows today's posts, projects and profile in its old design. The Internet
+          Archive link shows the version as it was.
+        </p>
+      </header>
+
+      <ol class="flex flex-col">
+        {timeline.map((edition, index) => {
+          const href = `/${edition.key}/`
+          const shot = edition.screenshot
+          return (
+            <li class="grid gap-4 border-t border-line py-7 sm:grid-cols-[1fr_11rem] sm:gap-6">
+              <div class="flex flex-col gap-2">
+                <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-soft">
+                  <span class="font-mono font-semibold text-fg">{edition.key}</span>
+                  <span>{period(edition.startDate, edition.endDate)}</span>
+                  <span>{edition.domain}</span>
+                  {edition.status === "reconstruction" && (
+                    <span class="rounded-full border border-line px-2 text-xs">Reconstruction</span>
+                  )}
+                </p>
+                <h2 class="text-xl font-bold tracking-tight">
+                  <a class="link" href={href}>
+                    {edition.title}
+                  </a>
+                </h2>
+                {edition.summary && <p class="text-[0.9375rem] text-soft">{edition.summary}</p>}
+                {edition.stack && (
+                  <ul class="flex flex-wrap gap-1.5" aria-label="Technologies">
+                    {edition.stack.map((item) => (
+                      <li class="rounded-md bg-sunk px-2 py-0.5 font-mono text-xs text-soft">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <p class="flex flex-wrap gap-x-4 text-sm">
+                  {edition.waybackUrl && (
+                    <a class="inline-block py-1 text-soft hover:text-fg" href={edition.waybackUrl}>
+                      Original (Internet Archive)
+                    </a>
+                  )}
+                  {edition.sourceUrl && (
+                    <a class="inline-block py-1 text-soft hover:text-fg" href={edition.sourceUrl}>
+                      Source code
+                    </a>
+                  )}
+                </p>
+              </div>
+              <a
+                href={href}
+                tabindex="-1"
+                aria-hidden="true"
+                class="card card-link block aspect-[16/10] overflow-hidden sm:self-start"
+              >
+                {shot?.url ? (
+                  <img
+                    class="size-full object-cover object-top"
+                    src={imageUrl(shot.url, 440)}
+                    srcset={`${imageUrl(shot.url, 440)} 440w, ${imageUrl(shot.url, 880)} 880w`}
+                    sizes="(min-width: 40rem) 11rem, 100vw"
+                    width="440"
+                    height="275"
+                    alt=""
+                    loading={index < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                ) : (
+                  <span class="grid size-full place-items-center text-sm text-soft">
+                    No screenshot yet
+                  </span>
+                )}
+              </a>
+            </li>
+          )
+        })}
+      </ol>
+    </main>
+    <SiteFooter
+      origin={WEB_ORIGIN}
+      name={profile?.name}
+      email={profile?.email}
+      scheduleUrl={profile?.scheduleUrl}
+      profiles={(profile?.socialLinks ?? [])
+        .filter((link) => link.featured && link.url)
+        .map((link) => ({
+          label: link.label ?? link.platform ?? "Profile",
+          url: link.url!,
+          platform: link.platform,
+        }))}
+    />
+  </body>
+</html>

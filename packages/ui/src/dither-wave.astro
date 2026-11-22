@@ -1,0 +1,21 @@
+---
+/**
+ * A moving dither wave behind a section: the hero backdrop. Decorative.
+ *
+ * Put it inside a positioned parent and give it a size and a mask with `class`. Mark the area
+ * that the wave follows the pointer in with `data-dither-area`. See `dither-wave.ts`.
+ */
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<div class:list={["dither-wave", className]} data-dither-wave aria-hidden="true"></div>
+
+<script>
+  import { startDitherWaves } from "./dither-wave"
+
+  startDitherWaves()
+</script>

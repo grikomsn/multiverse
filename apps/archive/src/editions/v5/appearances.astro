@@ -1,0 +1,49 @@
+---
+/** pages/appearances.tsx. v5 printed Contentful dates as "October 27, 2019". */
+import type { Edition } from "../../lib/editions"
+import { pageOf } from "../../lib/editions"
+import A from "./a.astro"
+import Content from "./content.astro"
+import { featherIcon } from "./icons"
+import Main from "./main.astro"
+import { postDate } from "./paths"
+
+type Props = { edition: Edition; dark?: boolean }
+
+const { edition, dark } = Astro.props
+const page = pageOf(edition, "appearances")
+---
+
+<Main>
+  <Content>
+    <div class="text-center">
+      <h1>{page?.title}</h1>
+      <p>{page?.description}</p>
+    </div>
+
+    <br />
+
+    {edition.talks?.map(({ title, date, subtitle, description, url, tags, category }) => (
+      <A
+        href={url ?? "#"}
+        class:list={[
+          "flex items-center mb-2 no-underline px-4 py-2 rounded transition-all hover:bg-dodger-blue-500 hover:shadow-lg",
+          dark && "text-gray-100 hover:text-gray-100",
+        ]}
+      >
+        <div class="pl-2 pr-6" set:html={featherIcon(category, 36)} />
+        <div>
+          <h3 class="mt-2 mb-1">{title}</h3>
+          <p class="my-1">
+            {dark ? postDate(date) : subtitle} - {description}
+          </p>
+          <div class="flex flex-wrap my-2 text-gray-500 text-xs">
+            {tags?.map((tag) => (
+              <span class="border border-gray-600 mb-1 mr-1 px-2 py-1 rounded">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </A>
+    ))}
+  </Content>
+</Main>

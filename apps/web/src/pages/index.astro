@@ -1,0 +1,268 @@
+---
+import DitherWave from "@multiverse/ui/dither-wave.astro"
+import Icon from "@multiverse/ui/icon.astro"
+import { formatRange, groupByOrganization, imageUrl, isoDate } from "@multiverse/content/format"
+import SectionHeading from "@multiverse/ui/section-heading.astro"
+
+import ProjectCard from "../components/project-card.astro"
+import RichText from "../components/rich-text.astro"
+import Signature from "../components/signature.astro"
+import BaseLayout from "../layouts/base.astro"
+import { getMetrics } from "../lib/metrics"
+import { HOME_QUERY, SITE_SHELL_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+
+const [{ profile, avatar }, { site, experience, posts, projects, talks }] = await Promise.all([
+  sanity.fetch(SITE_SHELL_QUERY),
+  sanity.fetch(HOME_QUERY),
+])
+
+const metrics = await getMetrics(projects)
+const current = experience[0]
+const stops = groupByOrganization(experience)
+// The highlighted line, as on the 2019–2020 versions. Words in [brackets] get a mark; split()
+// with a capture group puts them at the odd indexes.
+const TAGLINE = "I make [useful], [fast], and [friendly] things."
+const tagline = (site?.tagline || TAGLINE).split(/\[([^\]]+)\]/)
+const MARKS = ["--color-mark-red", "--color-mark-green", "--color-mark-blue"]
+// One clip box for each word of the headline, so the words can rise in one after another.
+const headline = `Hey there, I’m ${profile?.givenName ?? "Griko"}.`.split(" ")
+// Where the fallback intro's links go: every repository, and the npm packages for coding agents.
+const TOOLS_URL = "https://github.com/grikomsn"
+const AGENTS_URL = "https://www.npmjs.com/~grikomsn"
+
+// The same Person `@id` as /resume and /media, so search engines join them.
+const origin = Astro.site?.origin ?? "https://nibras.co"
+const structuredData = profile?.name && {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "@id": `${origin}/#website`, url: origin, name: profile.name },
+    {
+      "@type": "Person",
+      "@id": `${origin}/#person`,
+      name: profile.name,
+      url: origin,
+      ...(profile.headline ? { jobTitle: profile.headline } : {}),
+      ...(current?.organization?.name
+        ? { worksFor: { "@type": "Organization", name: current.organization.name } }
+        : {}),
+      ...(avatar?.url ? { image: avatar.url } : {}),
+      sameAs: (profile.socialLinks ?? []).flatMap((link) => (link.url ? [link.url] : [])),
+    },
+  ],
+}
+---
+
+<BaseLayout structuredData={structuredData || undefined}>
+  <script is:inline slot="head">
+    // The hero entrance plays once in a session (global.css).
+    try {
+      if (sessionStorage.getItem("entrance")) document.documentElement.classList.add("no-entrance")
+      else sessionStorage.setItem("entrance", "1")
+    } catch {
+      // No storage: the entrance plays on every visit.
+    }
+  </script>
+  <section class="hero relative isolate pt-10 pb-14 sm:pt-16" data-dither-area>
+    <DitherWave class="hero-wave" />
+    {avatar?.url && (
+      <div class="mb-8 flex items-center gap-2">
+        <img
+          src={imageUrl(avatar.url, 240, 240)}
+          srcset={`${imageUrl(avatar.url, 120, 120)} 1x, ${imageUrl(avatar.url, 240, 240)} 2x`}
+          width="112"
+          height="112"
+          alt={avatar.alt ?? "Cartoon face of Griko"}
+          class="hero-avatar size-24 rounded-full border border-line bg-white sm:size-28"
+          data-hero
+          fetchpriority="high"
+        />
+        <p class="hero-doodle flex items-end gap-1 text-accent-ink" aria-hidden="true">
+          <svg class="h-10 w-14" viewBox="0 0 56 40" fill="none">
+            <path
+              pathLength="1"
+              d="M52 31C38 33 19 28 4 16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              pathLength="1"
+              d="M13.5 16.5 4 16l2.8 8.8"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="-mb-1 inline-block -rotate-6 text-sm font-semibold">that’s me</span>
+        </p>
+      </div>
+    )}
+    <h1 class="text-[2.5rem] leading-[1.05] font-bold tracking-tight text-balance sm:text-6xl">
+      {headline.map((word, index) => (
+        <>
+          <span class="hero-word">
+            <span style={`--i: ${index}`}>{word}</span>
+          </span>{" "}
+        </>
+      ))}
+    </h1>
+    <p class="hero-tagline mt-4 text-xl leading-snug font-semibold tracking-tight sm:text-2xl">
+      {tagline.map((part, index) =>
+        index % 2 ? (
+          <mark
+            class="mark hero-mark text-fg"
+            style={`--mark: var(${MARKS[((index - 1) / 2) % MARKS.length]}); --i: ${(index - 1) / 2}`}
+          >
+            {part}
+          </mark>
+        ) : (
+          part
+        ),
+      )}
+    </p>
+    <div class="hero-intro mt-8 flex flex-col gap-3 text-lg leading-relaxed text-soft [&_a]:link [&_a]:text-fg">
+      {site?.intro ? (
+        <RichText value={site.intro} />
+      ) : (
+        current && (
+          <p>
+            I lead engineering at{" "}
+            {current.organization?.url ? (
+              <a href={current.organization.url}>{current.organization.name}</a>
+            ) : (
+              current.organization?.name
+            )}
+            . I also make <a href={TOOLS_URL}>developer tools</a> for humans, and lately for{" "}
+            <a href={AGENTS_URL}>AI agents</a> too.
+            {profile?.location && <> I live in {profile.location}.</>}
+          </p>
+        )
+      )}
+    </div>
+    <nav class="hero-actions mt-6 flex flex-wrap gap-2" aria-label="Shortcuts">
+      <a class="button" href="/resume">
+        <Icon name="file-text" class="size-4 text-accent-ink" />
+        Resume
+      </a>
+      {profile?.scheduleUrl && (
+        <a class="button" href={profile.scheduleUrl}>
+          <Icon name="calendar" class="size-4 text-accent-ink" />
+          Book a call
+        </a>
+      )}
+    </nav>
+  </section>
+
+  <section class="border-t border-line py-10" data-reveal>
+    <SectionHeading title="Experience" href="/work" link="Full work history" icon="briefcase" />
+    <ul class="flex flex-col">
+      {stops.map((stop) => (
+        <li class="flex flex-col py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+          <p>
+            <span class="font-semibold">{stop.organization?.name}</span>
+            <span class="text-soft"> · {stop.roles.map((job) => job.role).join(", ")}</span>
+          </p>
+          <p class="flex shrink-0 items-center gap-2 font-mono text-[0.8125rem] text-soft">
+            {!stop.endDate && (
+              <span class="relative flex size-2" title="Current role">
+                <span class="absolute inline-flex size-full rounded-full bg-mark-green-ink opacity-60 motion-safe:animate-ping" />
+                <span class="relative inline-flex size-2 rounded-full bg-mark-green-ink" />
+              </span>
+            )}
+            {formatRange(stop.startDate, stop.endDate)}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="border-t border-line py-10" data-reveal>
+    <SectionHeading title="Projects" href="/work#projects" link="All projects" icon="package" />
+    <ul class="grid gap-3 sm:grid-cols-2">
+      {projects.map((project) => (
+        <li>
+          <ProjectCard project={project} metrics={metrics.get(project._id)} clamp />
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {talks.length > 0 && (
+    <section class="border-t border-line py-10" data-reveal>
+      <SectionHeading title="Talks" href="/work#talks" link="All talks" icon="mic" />
+      <ul class="flex flex-col">
+        {talks.map((talk) => (
+          <li class="flex flex-col py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <p>
+              {talk.slidesUrl || talk.recordingUrl ? (
+                <a
+                  class="link font-semibold decoration-transparent hover:decoration-accent"
+                  href={talk.slidesUrl ?? talk.recordingUrl ?? undefined}
+                >
+                  {talk.title}
+                </a>
+              ) : (
+                <span class="font-semibold">{talk.title}</span>
+              )}
+              {talk.event && <span class="text-soft"> · {talk.event}</span>}
+            </p>
+            <time class="shrink-0 font-mono text-[0.8125rem] text-soft" datetime={talk.date}>
+              {isoDate(talk.date)}
+            </time>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section class="border-t border-line py-10" data-reveal>
+    <SectionHeading title="Latest posts" href="/blog" link="All posts" icon="pen" />
+    <ul class="flex flex-col">
+      {posts.map((post) => (
+        <li>
+          <a
+            href={`/${post.slug}`}
+            class="group flex flex-col py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+          >
+            <span
+              class="font-semibold decoration-accent decoration-2 underline-offset-4 group-hover:underline"
+              style={`view-transition-name: post-${post.slug}`}
+            >
+              {post.title}
+            </span>
+            <time class="shrink-0 font-mono text-[0.8125rem] text-soft" datetime={post.publishedAt}>
+              {isoDate(post.publishedAt)}
+            </time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="border-t border-line pt-14 pb-6" aria-labelledby="say-hi" data-reveal>
+    <h2
+      id="say-hi"
+      class="text-2xl leading-snug font-semibold tracking-tight text-balance sm:text-3xl"
+    >
+      Have something in mind? I am happy to talk about work, open source, or anything on this site.
+    </h2>
+    <p class="mt-5 text-lg leading-relaxed text-soft [&_a]:link [&_a]:text-fg">
+      {profile?.email && (
+        <>
+          Send an email to <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          {profile.scheduleUrl ? (
+            <>
+              , or <a href={profile.scheduleUrl}>book a call</a>.
+            </>
+          ) : (
+            "."
+          )}{" "}
+        </>
+      )}
+      You can also <a href="/ai">ask an AI about me</a>.
+    </p>
+    <Signature class="mt-8 w-40 sm:w-44" label={profile?.givenName ?? "Griko"} />
+  </section>
+</BaseLayout>

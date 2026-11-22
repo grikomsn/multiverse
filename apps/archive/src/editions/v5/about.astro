@@ -1,0 +1,44 @@
+---
+/** pages/about.tsx. v5's Resources list pointed at /now-playing, which is gone. */
+import { toPlainText } from "astro-portabletext"
+import type { Edition } from "../../lib/editions"
+import Content from "./content.astro"
+import Main from "./main.astro"
+import RichText from "./rich-text.astro"
+
+type Props = { edition: Edition; base: string }
+
+const { edition, base } = Astro.props
+const [heading, ...bio] = edition.bio ?? []
+const headingText = heading ? toPlainText([heading]) : ""
+---
+
+<Main>
+  <Content>
+    <h1>{headingText}</h1>
+    <RichText value={bio} />
+
+    <br />
+
+    <h3 class="mb-0">Knowledge Base</h3>
+    <div class="flex flex-wrap">
+      {edition.skills?.map((group) => (
+        <div class="w-1/2">
+          <h5>{group.title}</h5>
+          <ul>
+            {group.items?.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <br />
+
+    <h3>Contact</h3>
+    <p>
+      Visit the <a href={`${base}/contact`}>contact page</a> for more information.
+    </p>
+  </Content>
+</Main>

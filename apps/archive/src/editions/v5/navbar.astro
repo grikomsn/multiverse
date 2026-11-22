@@ -1,0 +1,29 @@
+---
+/** components/navbar.tsx: v5 dropped v4b's theme toggle and added the blog. */
+type Props = { base: string }
+
+const { base } = Astro.props
+const routes = [
+  { to: "/blog", title: "Blog" },
+  { to: "/appearances", title: "Appearances" },
+  { to: "/works", title: "Works" },
+  { to: "/about", title: "About" },
+  { to: "/contact", title: "Contact" },
+]
+---
+
+<nav class="flex flex-col md:flex-row text-center md:text-left justify-between">
+  <div class="flex-grow mt-4">
+    <a href={`${base}/`} class="font-bold md:ml-2 px-2 py-4 tracking-tighter">
+      Griko Nibras
+    </a>
+  </div>
+
+  <div class:list={["text-sm md:text-base", "mt-4"]}>
+    {routes.map(({ to, title }, index) => (
+      <a href={`${base}${to}`} class:list={[index === routes.length - 1 && "md:mr-2", "px-2 py-4"]}>
+        {title}
+      </a>
+    ))}
+  </div>
+</nav>

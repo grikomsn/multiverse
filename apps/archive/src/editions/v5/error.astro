@@ -1,0 +1,16 @@
+---
+/** pages/_error.tsx for a 404 served by the server. */
+import Content from "./content.astro"
+import Main from "./main.astro"
+
+type Props = { base: string }
+---
+
+<Main>
+  <Content>
+    <h1>404: Not Found</h1>
+    <p>
+      An error 404 occurred on server. Go back to <a href={`${Astro.props.base}/`}>home page</a>.
+    </p>
+  </Content>
+</Main>

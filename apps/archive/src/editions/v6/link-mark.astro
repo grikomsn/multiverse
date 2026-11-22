@@ -1,0 +1,17 @@
+---
+import type { Mark } from "astro-portabletext/types"
+
+import { href, isExternal } from "./paths"
+
+type Props = { node: Mark<{ href: string }>; class?: string }
+
+const url = Astro.props.node.markDef.href
+---
+
+<a
+  href={href(url)}
+  class="v6-link"
+  {...(isExternal(url) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+>
+  <slot />
+</a>

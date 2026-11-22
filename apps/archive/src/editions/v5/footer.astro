@@ -1,0 +1,33 @@
+---
+/** components/footer.tsx; the now-playing ticker is gone. */
+import { COLOPHON } from "../_kit/colophon"
+import Credits from "./credits.astro"
+---
+
+<footer class="p-4 pb-6 text-center text-gray-400 text-xs transition-all">
+  <div>
+    <Credits
+      parts={[
+        "Contents licensed under the ",
+        ["CC BY-NC-SA 4.0", "https://creativecommons.org/licenses/by-nc-sa/4.0/"],
+        ". Source licensed under the ",
+        ["MIT License", COLOPHON.repository],
+        ". ",
+      ]}
+    />
+    <br class="hidden md:block" />
+    <Credits
+      parts={[
+        "Made with ",
+        [COLOPHON.framework.name, COLOPHON.framework.url],
+        ", ",
+        ["Tailwind CSS", "https://tailwindcss.com"],
+        ", and ",
+        ["Sanity", "https://www.sanity.io"],
+        ". Hosted on ",
+        [COLOPHON.host.name, COLOPHON.host.url],
+        ".",
+      ]}
+    />
+  </div>
+</footer>

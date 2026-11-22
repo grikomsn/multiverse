@@ -1,0 +1,35 @@
+{
+  "name": "@multiverse/sanity",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./constants": "./src/constants.ts",
+    "./schema": "./src/schema/index.ts",
+    "./singletons": "./src/singletons.ts",
+    "./structure": "./src/structure.ts",
+    "./types": "./src/sanity.types.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@sanity/icons": "catalog:",
+    "@sanity/orderable-document-list": "catalog:"
+  },
+  "devDependencies": {
+    "@multiverse/config": "workspace:*",
+    "@types/react": "catalog:",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "sanity": "catalog:",
+    "styled-components": "catalog:",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "sanity": "catalog:"
+  }
+}

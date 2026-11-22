@@ -1,0 +1,80 @@
+---
+import { getEdition } from "../../lib/editions"
+import A from "../../editions/v9/a.astro"
+import Icon from "../../editions/v9/icon.astro"
+import Layout from "../../editions/v9/layout.astro"
+import { BASE, postEntries } from "../../editions/v9/paths"
+import Portable from "../../editions/v9/portable.astro"
+import PostItem from "../../editions/v9/post-item.astro"
+import ProjectImage from "../../editions/v9/project-image.astro"
+import TalkItem from "../../editions/v9/talk-item.astro"
+
+const edition = await getEdition("v9")
+// The home query took the first 4 of each list.
+const projects = (edition.projects ?? [])
+  .filter((project) => project.category === "featured")
+  .slice(0, 4)
+const talks = (edition.talks ?? []).slice(0, 4)
+const posts = postEntries(edition).slice(0, 4)
+---
+
+<Layout>
+  <section class="space-y-8">
+    <div class="prose prose-invert py-[10vh] md:py-[20vh]">
+      <Portable value={edition.intro} h2AsH1 />
+      <div class="not-prose pt-4">
+        <!-- /schedule was a DatoCMS-managed rewrite; its target is lost. -->
+        <span
+          class="inline-flex cursor-not-allowed items-center gap-3 rounded-lg bg-neutral-800/80 px-4 py-2 font-medium opacity-80 shadow-sm"
+          title="The scheduling link is no longer available"
+        >
+          <Icon name="calendar" class="h-5 w-5" />
+          <span>Schedule Meeting</span>
+        </span>
+      </div>
+    </div>
+    <h3 class="text-lg text-gray-400">Recent projects</h3>
+    <ul class="not-prose -mx-4 grid grid-cols-1 md:grid-cols-2">
+      {projects.map((item) => (
+        <li class="group relative flex flex-col rounded p-4">
+          <ProjectImage image={item.image} alt={item.title} class="mb-4" />
+          <h4 class="mb-2 text-lg font-bold">{item.title}</h4>
+          <p class="mb-4 grow text-neutral-400">{item.description}</p>
+          <A
+            class="text-primary-500 hover:underline sm:before:absolute sm:before:inset-0"
+            href={item.url ?? ""}
+          >
+            Visit website &nbsp; →
+          </A>
+        </li>
+      ))}
+    </ul>
+    <div class="!mb-24 text-right">
+      <a class="text-neutral-400 hover:text-primary-500 hover:underline" href={`${BASE}/work`}>
+        View all projects &nbsp; →
+      </a>
+    </div>
+    <h3 class="text-lg text-gray-400">Recent appearances</h3>
+    <ul class="-mx-4 grid grid-cols-1 items-start gap-4 sm:grid-cols-2">
+      {talks.map((talk) => (
+        <TalkItem talk={talk} />
+      ))}
+    </ul>
+    <div class="!mb-24 text-right">
+      <a class="text-neutral-400 hover:text-primary-500 hover:underline" href={`${BASE}/talk`}>
+        View all talks &nbsp; →
+      </a>
+    </div>
+    <h3 class="text-lg text-gray-400">Recent posts</h3>
+    <ul class="-mx-4 space-y-4">
+      {posts.map((post) => (
+        <PostItem post={post} />
+      ))}
+    </ul>
+    <div class="text-right">
+      <a class="text-neutral-400 hover:text-primary-500 hover:underline" href={`${BASE}/blog`}>
+        View all posts &nbsp; →
+      </a>
+    </div>
+  </section>
+</Layout>

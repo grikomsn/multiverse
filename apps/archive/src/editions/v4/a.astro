@@ -1,0 +1,20 @@
+---
+/** v4's ExtLink/Link: blue unless a color class is given; external links open a new tab. */
+import type { HTMLAttributes } from "astro/types"
+
+import { href as resolve } from "./paths"
+
+type Props = HTMLAttributes<"a"> & { href: string }
+
+const { href, class: className, ...rest } = Astro.props
+const external = /^https?:/.test(href)
+---
+
+<a
+  href={resolve(href)}
+  class:list={[className || "blue", "dim link"]}
+  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+  {...rest}
+>
+  <slot />
+</a>

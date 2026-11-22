@@ -1,0 +1,25 @@
+---
+/** A brand mark from `brand-marks.ts`, inlined at build time. Decorative: pair one with text. */
+import { BRAND_MARKS } from "./brand-marks"
+
+interface Props {
+  /** A `socialLink.platform` value. Unknown platforms render nothing. */
+  platform?: string | null
+  class?: string
+}
+
+const { platform, class: className = "size-4" } = Astro.props
+const path = BRAND_MARKS[platform ?? ""]?.path
+---
+
+{path && (
+  <svg
+    class:list={["shrink-0", className]}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path d={path} />
+  </svg>
+)}

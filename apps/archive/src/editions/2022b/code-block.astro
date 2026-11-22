@@ -1,0 +1,10 @@
+---
+import { Code } from "astro:components"
+
+type Props = { node: { language?: string; code?: string } }
+
+// Unknown languages fall back to plaintext inside <Code>.
+const { language = "text", code = "" } = Astro.props.node
+---
+
+<Code code={code} lang={language as "plaintext"} theme="github-dark" />

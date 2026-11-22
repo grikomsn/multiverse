@@ -1,0 +1,20 @@
+---
+/** ui/core/polyglot-paragaph.tsx: a paragraph wrapped in `!@…@!` renders as `.lead`. */
+import type { Block } from "astro-portabletext/types"
+
+type Props = { node: Block }
+
+const children = Astro.props.node.children as { text?: string }[]
+const isLead = children[0]?.text?.startsWith("!@") && children.at(-1)?.text?.endsWith("@!")
+const html = isLead
+  ? (await Astro.slots.render("default")).replace("!@", "").replace(/@!(?![\s\S]*@!)/, "")
+  : null
+---
+
+{isLead ? (
+  <p class="lead" set:html={html} />
+) : (
+  <p>
+    <slot />
+  </p>
+)}

@@ -1,0 +1,20 @@
+---
+import Layout from "../../editions/2023a/layout.astro"
+import { assetUrl } from "../../editions/2023a/paths"
+import RichText from "../../editions/2023a/rich-text.astro"
+import { getEdition, pageOf } from "../../lib/editions"
+
+const page = pageOf(await getEdition("2023a"), "about")
+const cover = page?.body?.find((node) => node._type === "figure")
+const coverRef = cover && "asset" in cover ? cover.asset?._ref : undefined
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <div class="a-about">
+    <div class="a-markdown">
+      <h1 class="a-heading-2xl">{page?.title}</h1>
+      <RichText value={page?.body} />
+    </div>
+    {coverRef && <img class="a-cover" src={assetUrl(coverRef, 1600)} alt="cover" />}
+  </div>
+</Layout>

@@ -1,0 +1,15 @@
+---
+import { getEdition } from "../../lib/editions"
+import Layout from "../../editions/v4/layout.astro"
+import RichText from "../../editions/v4/rich-text.astro"
+
+const edition = await getEdition("v4")
+---
+
+<Layout grow={false}>
+  <RichText
+    value={edition.intro}
+    headingClass="f1-l f2 lh-title mt0 tracked-tight"
+    paragraphClass="lh-copy mb0"
+  />
+</Layout>

@@ -1,0 +1,16 @@
+---
+/** v5 components/post-content.tsx: embedded Contentful image assets. */
+import { assetUrl } from "../_kit/assets"
+
+type Props = { node: { alt?: string; caption?: string; asset?: { _ref?: string } } }
+
+const { alt, caption, asset } = Astro.props.node
+const src = assetUrl(asset?._ref, 1152)
+---
+
+{src && (
+  <div class="max-w-xl mx-auto py-2 text-center">
+    <img class="p-2" src={src} alt={alt ?? ""} loading="lazy" decoding="async" />
+    <small>{caption}</small>
+  </div>
+)}

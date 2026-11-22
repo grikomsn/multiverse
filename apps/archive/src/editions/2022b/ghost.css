@@ -1,0 +1,34 @@
+/*
+ * 2022b: Ghost (Pro) + Casper 5, forced dark mode. Site code injection carried over: JetBrains
+ * Mono for code (fonts.bunny.net → Fontsource) and the accent color; highlight.js github-dark is
+ * stood in for by Shiki's github-dark.
+ */
+@import "@fontsource/jetbrains-mono/latin-400.css";
+@import "@fontsource/jetbrains-mono/latin-700.css";
+@import "./casper.css";
+@import "./cards.css";
+
+:root {
+  --ghost-accent-color: #3a4865;
+}
+
+.gh-content pre {
+  padding: 0 !important;
+}
+
+pre,
+code {
+  font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+}
+
+/* highlight.js github-dark's block: 1em padding on #0d1117. */
+.gh-content pre.astro-code {
+  padding: 1em !important;
+  background-color: #0d1117 !important;
+}
+
+/* Ghost Portal and search are gone; their buttons stay, inert. */
+[data-portal],
+[data-ghost-search] {
+  cursor: default;
+}

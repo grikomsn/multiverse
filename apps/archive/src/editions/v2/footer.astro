@@ -1,0 +1,64 @@
+---
+/** components/Footer.js, colored per page like the original. */
+import { faHeart } from "@fortawesome/free-solid-svg-icons"
+
+import type { Edition } from "../../lib/editions"
+import { COLOPHON, copyright } from "../_kit/colophon"
+import { brandOf } from "./brands"
+import { linksOf } from "./data"
+import FaIcon from "./fa-icon.astro"
+
+type Props = { edition: Edition; bgClass?: string; btnClass?: string; textClass?: string }
+
+const {
+  edition,
+  bgClass = "has-background-dark",
+  btnClass = "is-dark",
+  textClass = "has-text-light",
+} = Astro.props
+---
+
+<footer class:list={["footer", bgClass, textClass]}>
+  <div class="container has-text-centered">
+    <div class="buttons">
+      {linksOf(edition, "Primary").map((link) => {
+        const brand = brandOf(link.platform)
+        return (
+          <a
+            href={link.url}
+            target="_blank"
+            class:list={["button", btnClass, "is-rounded"]}
+            rel="noreferrer"
+            aria-label={link.label}
+          >
+            {brand && <FaIcon icon={brand.icon} fixedWidth />}
+          </a>
+        )
+      })}
+    </div>
+    <small>
+      Handcrafted with <FaIcon icon={faHeart} fixedWidth /> by myself. Copyright &copy;{" "}
+      {copyright()}.
+      <br />
+      Made with{" "}
+      <a href="https://bulma.io/" target="_blank" rel="noreferrer" class="has-text-light">
+        <b>Bulma</b>
+      </a>{" "}
+      and{" "}
+      <a href={COLOPHON.framework.url} target="_blank" rel="noreferrer" class="has-text-light">
+        <b>{COLOPHON.framework.name}</b>
+      </a>
+      .<br />
+      <br />
+      Hosted on{" "}
+      <a href={COLOPHON.host.url} target="_blank" rel="noreferrer" class="has-text-light">
+        <b>{COLOPHON.host.name}</b>
+      </a>
+      . Source available on{" "}
+      <a href={COLOPHON.source("v2")} target="_blank" rel="noreferrer" class="has-text-light">
+        <b>GitHub</b>
+      </a>
+      .
+    </small>
+  </div>
+</footer>

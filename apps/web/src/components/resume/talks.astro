@@ -1,0 +1,33 @@
+---
+import type { TalkEntry } from "../../lib/resume/resume"
+import Section from "./section.astro"
+
+interface Props {
+  entries: TalkEntry[]
+}
+
+const { entries } = Astro.props
+---
+
+{entries.length > 0 && (
+  <Section id="talks" title="Talks">
+    {entries.map((entry) => (
+      <article class="entry entry--talk">
+        <div class="entry__head">
+          <h3 class="entry__title">
+            {entry.url ? (
+              <a class="link" href={entry.url}>
+                {entry.title}
+              </a>
+            ) : (
+              entry.title
+            )}
+            {entry.event && <span class="entry__role"> · {entry.event}</span>}
+          </h3>
+          <p class="entry__period">{entry.date}</p>
+        </div>
+        {entry.summary && <p class="entry__text entry__text--talk">{entry.summary}</p>}
+      </article>
+    ))}
+  </Section>
+)}

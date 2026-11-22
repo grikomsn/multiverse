@@ -1,0 +1,175 @@
+---
+import SectionHeading from "@multiverse/ui/section-heading.astro"
+import ActionCard, { type Action } from "../components/action-card.astro"
+import ClaudeIcon from "../components/resume/icons/claude-icon.astro"
+import OpenAiIcon from "../components/resume/icons/openai-icon.astro"
+import BaseLayout from "../layouts/base.astro"
+import { getSiteIndex } from "../lib/llms"
+import { searchDocuments } from "../lib/site-index"
+
+const { origin, name, documents } = await getSiteIndex()
+const mcpUrl = `${origin}/mcp`
+const prompt = encodeURIComponent(
+  `Read ${origin}/llms.txt and the pages it links to. Then answer my questions about ${name}. Use only facts from the site.`,
+)
+const counts = {
+  posts: documents.filter((doc) => doc.kind === "post").length,
+  projects: documents.filter((doc) => doc.kind === "project").length,
+  talks: documents.filter((doc) => doc.kind === "talk").length,
+}
+
+const vscode = JSON.stringify({ servers: { nibras: { type: "http", url: mcpUrl } } }, null, 2)
+const cursor = JSON.stringify({ mcpServers: { nibras: { url: mcpUrl } } }, null, 2)
+const SETUP: Action[] = [
+  {
+    title: "Claude Code",
+    note: "Copy the command, then run it in a terminal.",
+    label: "Copy",
+    copy: `claude mcp add --transport http nibras ${mcpUrl}`,
+  },
+  {
+    title: "Claude",
+    note: "Settings → Connectors → Add custom connector. Paste the URL.",
+    label: "Copy URL",
+    copy: mcpUrl,
+  },
+  { title: "VS Code", note: "Paste into .vscode/mcp.json.", label: "Copy", copy: vscode },
+  { title: "Cursor", note: "Paste into ~/.cursor/mcp.json.", label: "Copy", copy: cursor },
+]
+
+// Real answers from this build, so the samples show what the tools return.
+const hits = searchDocuments(documents, "cosmos", { limit: 2 })
+const talks = documents.filter((doc) => doc.kind === "talk")
+const roles = documents.filter((doc) => doc.kind === "experience")
+const TOOLS = [
+  {
+    tool: "search",
+    text: "Finds roles, projects, talks, posts and pages by keyword.",
+    call: `search("cosmos")`,
+    result: hits.map((hit) => hit.title).join(", "),
+  },
+  {
+    tool: "get_document",
+    text: "Gives the full Markdown of one result.",
+    call: `get_document("work")`,
+    result: "# Work, with every role, project and talk",
+  },
+  {
+    tool: "list_documents",
+    text: "Lists posts, projects, talks and more, with dates and links.",
+    call: `list_documents("talk")`,
+    result: `${talks.length} talks, newest: ${talks[0]?.title ?? ""}`,
+  },
+  {
+    tool: "get_resume",
+    text: "Gives the resume, or one section of it.",
+    call: `get_resume("experience")`,
+    result: roles[0]?.title ?? "",
+  },
+  {
+    tool: "assess_fit",
+    text: "A prompt. Paste a job description to get matches and gaps.",
+    call: `assess_fit(job)`,
+    result: "Requirements met, with proof, and what the resume does not show",
+  },
+]
+
+const FILES = [
+  { href: "/llms.txt", label: "llms.txt", text: "What is on this site, with a link to each page." },
+  { href: "/llms-full.txt", label: "llms-full.txt", text: "All pages and posts in one file." },
+  { href: "/resume.md", label: "resume.md", text: "The resume. Same text as the PDF." },
+  {
+    href: "/work.md",
+    label: "work.md",
+    text: "Experience, projects with usage numbers and talks.",
+  },
+  { href: "/blog.md", label: "blog.md", text: "A list of every post." },
+]
+---
+
+<BaseLayout
+  title="AI tools"
+  description={`Use ${name}'s site with an AI assistant: llms.txt, Markdown pages and an MCP server.`}
+>
+  <header class="pt-10 pb-8 sm:pt-16">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">AI tools</h1>
+    <p class="mt-3 text-lg text-pretty text-soft">
+      {`Ask an AI assistant about my work. It can read this site as Markdown or connect to its MCP server. Both have the same text as the pages: ${counts.posts} posts, ${counts.projects} projects, ${counts.talks} talks and the resume.`}
+    </p>
+    <div class="mt-6 flex flex-wrap gap-2">
+      <a
+        class="button button-primary"
+        href={`https://claude.ai/new?q=${prompt}`}
+        rel="noopener"
+        target="_blank"
+      >
+        <ClaudeIcon class="size-4" aria-hidden="true" />
+        Ask Claude<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <a class="button" href={`https://chatgpt.com/?q=${prompt}`} rel="noopener" target="_blank">
+        <OpenAiIcon class="size-4" aria-hidden="true" />
+        Ask ChatGPT<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="border-t border-line py-10" aria-labelledby="mcp" data-reveal>
+    <SectionHeading id="mcp" title="MCP server" icon="plug" />
+    <p class="text-pretty">
+      Connect an assistant to <code class="font-mono text-[0.9375rem]">{mcpUrl}</code>. It uses
+      Streamable HTTP and needs no sign-in.
+    </p>
+    <div class="mt-5">
+      <ActionCard actions={SETUP} label="Set up the MCP server" />
+    </div>
+    <details class="group mt-3 text-sm">
+      <summary class="w-fit cursor-pointer py-1 text-soft hover:text-fg">
+        Show the setup files
+      </summary>
+      <div class="mt-3 flex flex-col gap-3">
+        <pre class="overflow-x-auto rounded-xl border border-line bg-sunk p-4 font-mono text-[0.8125rem] leading-relaxed"><code>{"// .vscode/mcp.json\n" + vscode}</code></pre>
+        <pre class="overflow-x-auto rounded-xl border border-line bg-sunk p-4 font-mono text-[0.8125rem] leading-relaxed"><code>{"// ~/.cursor/mcp.json\n" + cursor}</code></pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="border-t border-line py-10" aria-labelledby="tools" data-reveal>
+    <SectionHeading id="tools" title="Tools" icon="puzzle" />
+    <dl class="divide-y divide-line border-y border-line">
+      {TOOLS.map((item) => (
+        <div class="grid gap-x-6 gap-y-2 py-5 sm:grid-cols-[11rem_1fr]">
+          <dt class="flex flex-col items-start gap-1.5">
+            <span class="rounded-md border border-line bg-sunk px-1.5 py-0.5 font-mono text-xs font-semibold">
+              {item.tool}
+            </span>
+            <span class="text-sm text-soft">{item.text}</span>
+          </dt>
+          <dd class="min-w-0">
+            <p class="font-mono text-[0.8125rem] text-soft">{item.call}</p>
+            <p class="mt-1 text-xl leading-snug font-semibold tracking-tight text-pretty">
+              {item.result}
+            </p>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="border-t border-line pt-10 pb-4" aria-labelledby="files" data-reveal>
+    <SectionHeading id="files" title="Markdown files" icon="file-text" />
+    <p class="text-pretty">
+      Add <code class="font-mono text-[0.9375rem]">.md</code> to the address of a page or post to
+      get it as Markdown. Start with these:
+    </p>
+    <ul class="mt-5 flex flex-col divide-y divide-line border-y border-line">
+      {FILES.map((file) => (
+        <li class="grid gap-x-6 py-3 sm:grid-cols-[11rem_1fr]">
+          <a class="link w-fit py-0.5 font-mono text-[0.875rem]" href={file.href}>
+            {file.label}
+          </a>
+          <span class="text-[0.9375rem] text-soft">{file.text}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

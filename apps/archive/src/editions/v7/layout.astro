@@ -1,0 +1,207 @@
+---
+import "./v7.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+import { COLOPHON } from "../_kit/colophon"
+import Icon from "./icon.astro"
+import { ICONS, type IconName } from "./icons"
+import { BASE } from "./paths"
+
+interface Props {
+  /** next-seo title; the home page uses the site name alone. */
+  pageTitle?: string
+  description?: string | null
+}
+
+const { pageTitle, description } = Astro.props
+const edition = await getEdition("v7")
+const siteName = edition.name ?? "Griko Nibras"
+const title = pageTitle ? `${pageTitle} · ${siteName}` : siteName
+const path = Astro.url.pathname.replace(/\/$/, "") || BASE
+
+const ROUTES = [
+  [`${BASE}`, "Home"],
+  [`${BASE}/blog`, "Blog"],
+  [`${BASE}/appearances`, "Appearances"],
+  [`${BASE}/projects`, "Projects"],
+  [`${BASE}/about`, "About"],
+] as const
+// lib/keybinds.ts, minus `g d` (the DatoCMS dashboard is gone).
+const KEYBINDS = [
+  ["g h", "Navigate to home"],
+  ["g b", "Navigate to blog posts"],
+  ["g a", "Navigate to appearances"],
+  ["g p", "Navigate to projects"],
+  ["g m", "Navigate to about page"],
+  ["Shift+?", "Show keybinds cheatsheet"],
+  ["Meta+KeyK", "Show navigation menu"],
+] as const
+
+// The footer had GitHub and Twitter buttons; now the featured profiles, with v7's own icon where
+// it has one and a Simple Icons mark otherwise.
+const socials = (edition.links ?? [])
+  .filter((link) => link.featured && link.platform)
+  .map((link) => ({
+    label: link.label,
+    url: link.url,
+    icon: link.platform! in ICONS ? (link.platform as IconName) : null,
+    mark: brandSvg(link.platform!, 'class="v7-icon"'),
+  }))
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    {edition.avatar?.url && <link rel="icon" href={imageUrl(edition.avatar.url, 32)} />}
+    <ArchiveHead />
+  </head>
+  <body>
+    <div class="v7-page">
+      <nav class="v7-nav">
+        {ROUTES.map(([route, name]) => (
+          <a
+            href={route === BASE ? `${BASE}/` : route}
+            class:list={["v7-button v7-button-ghost", { "v7-button-yellow": path === route }]}
+            aria-current={path === route ? "page" : undefined}
+          >
+            {name}
+          </a>
+        ))}
+      </nav>
+
+      <div class="v7-grow">
+        <slot />
+      </div>
+
+      <footer class="v7-container v7-footer">
+        <div class="v7-center v7-stack">
+          <p>
+            Contents licensed under{" "}
+            <a
+              class="v7-link"
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+            .<br />
+            Made using{" "}
+            <a
+              class="v7-link"
+              href={COLOPHON.framework.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {COLOPHON.framework.name}
+            </a>
+            ,{" "}
+            <a
+              class="v7-link"
+              href="https://chakra-ui.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Chakra UI
+            </a>
+            , and{" "}
+            <a
+              class="v7-link"
+              href="https://www.sanity.io"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Sanity
+            </a>
+            . Hosted on{" "}
+            <a class="v7-link" href={COLOPHON.host.url} target="_blank" rel="noopener noreferrer">
+              {COLOPHON.host.name}
+            </a>
+            . MIT License &copy; {COLOPHON.since}&ndash;present{" "}
+            <a class="v7-link" href={`${BASE}/`}>
+              {siteName}
+            </a>
+            . Version 7.
+          </p>
+          <div style="display: flex; gap: 0.5rem">
+            {socials.map((social) => (
+              <a
+                class="v7-button v7-button-ghost v7-button-round"
+                href={social.url}
+                aria-label={social.label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {social.icon ? <Icon name={social.icon} /> : <Fragment set:html={social.mark} />}
+              </a>
+            ))}
+            <button
+              type="button"
+              class="v7-button v7-button-ghost v7-button-round"
+              aria-label="Open keybinds cheatsheet"
+              data-v7-open="cheatsheet"
+            >
+              <Icon name="command" />
+            </button>
+          </div>
+        </div>
+      </footer>
+
+      <div class="v7-fab">
+        <button type="button" class="v7-button v7-button-sm" data-v7-open="menu">
+          <Icon name="bars" /> Open menu
+        </button>
+      </div>
+    </div>
+
+    <dialog class="v7-modal v7-modal-xs" id="v7-menu" aria-label="Navigation menu">
+      <div style="display: flex; flex-direction: column; justify-content: center">
+        {ROUTES.map(([route, name]) => (
+          <a
+            href={route === BASE ? `${BASE}/` : route}
+            class:list={["v7-button v7-button-ghost", { "v7-button-yellow": path === route }]}
+            style={`height: 3rem; font-size: 1.125rem; font-weight: ${path === route ? 700 : 400}`}
+          >
+            {name}
+          </a>
+        ))}
+        <p class="v7-hint">Press outside the menu to close</p>
+      </div>
+    </dialog>
+
+    <dialog class="v7-modal" id="v7-cheatsheet" aria-label="Keybinds cheatsheet">
+      <h2 class="v7-heading v7-heading-md" style="padding-bottom: 2rem; text-align: center">
+        Keybinds Cheatsheet
+      </h2>
+      <div class="v7-stack" style="--gap: 0.5rem">
+        {KEYBINDS.map(([key, desc]) => (
+          <div style="display: flex; gap: 0.5rem; align-items: center">
+            <kbd class="v7-kbd">{key}</kbd>
+            <span>{desc}</span>
+          </div>
+        ))}
+      </div>
+      <p class="v7-hint">Press outside the menu to close</p>
+    </dialog>
+
+    <div class="v7-toast" role="status" aria-live="polite" id="v7-toast"></div>
+
+    <ArchiveBanner
+      title={edition.title ?? "Version 7"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+
+    <script>
+      import { initV7 } from "./client"
+
+      initV7()
+    </script>
+  </body>
+</html>

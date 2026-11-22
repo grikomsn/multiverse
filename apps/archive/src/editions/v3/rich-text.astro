@@ -1,0 +1,25 @@
+---
+/** Edition copy and shared post bodies with v3's markdown output (Prism, external links). */
+import { PortableText } from "astro-portabletext"
+import type { PortableTextProps } from "astro-portabletext/types"
+
+import CodeBlock from "./code-block.astro"
+import Figure from "./figure.astro"
+import InlineCode from "./inline-code.astro"
+import LinkMark from "./link-mark.astro"
+
+type Props = { value: PortableTextProps["value"] | null | undefined }
+
+const { value } = Astro.props
+---
+
+{value && (
+  <PortableText
+    value={value}
+    components={{
+      type: { codeBlock: CodeBlock, figure: Figure },
+      mark: { link: LinkMark, code: InlineCode },
+    }}
+    onMissingComponent={false}
+  />
+)}

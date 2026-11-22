@@ -1,0 +1,22 @@
+---
+/**
+ * Put inside <head> on every page that uses the shared design. Applies a saved theme before
+ * the first paint, preloads the font and names the icons. The app must register
+ * `timelessSans()` in its config, and hold the icon files that `scripts/make-icons.sh` writes.
+ */
+import { Font } from "astro:assets"
+---
+
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/icon-192w.png" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#17181c" media="(prefers-color-scheme: dark)" />
+<Font cssVariable="--font-timeless-sans" preload />
+<script is:inline>
+  try {
+    const theme = localStorage.getItem("theme")
+    if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme
+  } catch {}
+</script>

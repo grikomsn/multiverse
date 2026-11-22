@@ -1,0 +1,52 @@
+---
+import type { GetStaticPaths } from "astro"
+
+import { getEdition, imageUrl } from "../../../lib/editions"
+import Icon from "../../../editions/v7/icon.astro"
+import Layout from "../../../editions/v7/layout.astro"
+import { formatDate, postEntries, type PostEntry } from "../../../editions/v7/paths"
+import PostBody from "../../../editions/v7/post-body.astro"
+import Tags from "../../../editions/v7/tags.astro"
+
+export const getStaticPaths = (async () => {
+  const edition = await getEdition("v7")
+  return postEntries(edition).map((entry) => ({ params: { slug: entry.slug }, props: { entry } }))
+}) satisfies GetStaticPaths
+
+const { entry } = Astro.props as { entry: PostEntry }
+---
+
+<Layout pageTitle={entry.title} description={entry.subtitle}>
+  {entry.cover?.url && (
+    <div style="max-height: 50vh; overflow: hidden; background: var(--chakra-colors-whiteAlpha-800)">
+      <img
+        style="width: 100%; aspect-ratio: 3 / 1; object-fit: cover"
+        src={imageUrl(entry.cover.url, 1920, 640)}
+        alt={entry.cover.alt ?? ""}
+        width="1920"
+        height="640"
+      />
+    </div>
+  )}
+  <div class="v7-container v7-container-wide">
+    <div class="v7-center v7-stack">
+      <h1 class="v7-heading v7-heading-2xl">{entry.title}</h1>
+      <p class="v7-subtitle" style="max-width: 42rem; font-size: 1.125rem">
+        {entry.subtitle}
+      </p>
+      <p>Published on {formatDate(entry.date)}</p>
+      <div style="padding-top: 1rem">
+        <Tags tags={entry.tags} />
+      </div>
+    </div>
+  </div>
+  <hr style="max-width: 56rem; margin: 0 auto; opacity: 0.6" />
+  <div class="v7-container">
+    <PostBody value={entry.post?.body} />
+    <div style="display: flex; justify-content: center; padding-top: 2rem">
+      <button type="button" class="v7-button v7-button-solid v7-button-sm v7-muted" data-v7-top>
+        <Icon name="chevron-up" /> Back to top
+      </button>
+    </div>
+  </div>
+</Layout>

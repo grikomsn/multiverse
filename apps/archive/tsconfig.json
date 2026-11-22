@@ -1,0 +1,9 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": [".astro/types.d.ts", "**/*", "../../packages/sanity/src/sanity.types.ts"],
+  "exclude": ["dist", "eslint.config.js"]
+}

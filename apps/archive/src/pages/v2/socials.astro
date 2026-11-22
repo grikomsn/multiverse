@@ -1,0 +1,56 @@
+---
+import { getEdition, pageOf } from "../../lib/editions"
+import { brandOf } from "../../editions/v2/brands"
+import { linksOf } from "../../editions/v2/data"
+import FaIcon from "../../editions/v2/fa-icon.astro"
+import Footer from "../../editions/v2/footer.astro"
+import Layout from "../../editions/v2/layout.astro"
+import Navbar from "../../editions/v2/navbar.astro"
+
+const edition = await getEdition("v2")
+const page = pageOf(edition, "socials")
+---
+
+<Layout colorHex="#353535">
+  <div class="hero is-dark">
+    <div class="hero-head">
+      <Navbar edition={edition} />
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">{page?.title}</h1>
+        <p class="subtitle">{page?.description}</p>
+        <br />
+        <div class="columns is-centered is-multiline g-max-width">
+          {linksOf(edition, "Primary", "Socials").map((link) => {
+            const brand = brandOf(link.platform)
+            return (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={link.label}
+                class="column is-one-third v2-tile"
+              >
+                <div class="box" style={brand ? `background-color: ${brand.color}` : undefined}>
+                  {brand && <FaIcon icon={brand.icon} size="3x" fixedWidth />}
+                  <p class="subtitle">
+                    <small>{link.label}</small>
+                  </p>
+                </div>
+              </a>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer edition={edition} />
+</Layout>
+
+<style is:global>
+  .v2-tile .svg-inline--fa {
+    color: whitesmoke;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+import { getEdition } from "../../../lib/editions"
+import Layout from "../../../editions/v9/layout.astro"
+import { pageOf } from "../../../editions/v9/paths"
+
+const page = pageOf(await getEdition("v9"), "playground/time")
+const ZONES = ["Asia/Jakarta", "CET", "EST", "CST6CDT", "PST8PDT"]
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="space-y-8 text-center">
+    <div class="space-y-8">
+      {ZONES.map((tz) => (
+        <div class="v9-zone space-y-2 py-8 md:space-y-4" data-tz={tz}>
+          <div class="text-lg text-neutral-500 md:text-2xl">Time in {tz}</div>
+          <p class="text-2xl font-bold md:text-4xl" data-date>
+            &nbsp;
+          </p>
+          <p class="font-mono text-2xl font-bold md:text-4xl" data-time>
+            &nbsp;
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <script>
+    // ui/time/zone.tsx ticked a zustand store every animation frame and formatted with date-fns-tz
+    // ("PPPP" and "HH:mm:ss zzz"); Intl does the same here.
+    const zones = [...document.querySelectorAll<HTMLElement>(".v9-zone")].map((element) => {
+      const timeZone = element.dataset.tz!
+      return {
+        element,
+        date: new Intl.DateTimeFormat("en-US", { timeZone, dateStyle: "full" }),
+        time: new Intl.DateTimeFormat("en-GB", {
+          timeZone,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+          timeZoneName: "short",
+        }),
+      }
+    })
+    const ordinal = (day: number) =>
+      day % 10 === 1 && day !== 11
+        ? "st"
+        : day % 10 === 2 && day !== 12
+          ? "nd"
+          : day % 10 === 3 && day !== 13
+            ? "rd"
+            : "th"
+    const tick = () => {
+      const now = new Date()
+      for (const zone of zones) {
+        zone.element.querySelector("[data-date]")!.textContent = zone.date
+          .format(now)
+          .replace(/(\d+),/, (_, day: string) => `${day}${ordinal(Number(day))},`)
+        zone.element.querySelector("[data-time]")!.textContent = zone.time.format(now)
+      }
+      requestAnimationFrame(tick)
+    }
+    tick()
+  </script>
+</Layout>

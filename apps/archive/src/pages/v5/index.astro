@@ -1,0 +1,11 @@
+---
+import { getEdition } from "../../lib/editions"
+import Home from "../../editions/v5/home.astro"
+import Layout from "../../editions/v5/layout.astro"
+
+const edition = await getEdition("v5")
+---
+
+<Layout>
+  <Home edition={edition} class="py-12" />
+</Layout>

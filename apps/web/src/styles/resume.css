@@ -1,0 +1,318 @@
+/*
+ * Resume document (`/resume` and `/resume/ats`). Imported by those pages and the cover letters only. One markup for screen, print and text extraction: no
+ * positioned layers, no grids, every fact as text in reading order. print.css adapts it to A4.
+ */
+
+.resume-shell {
+  padding-block: 2.5rem 1rem;
+}
+
+/* Actions above the document. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background: var(--color-card);
+  color: var(--color-fg);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease-out-quart);
+}
+
+.action:hover {
+  background: var(--color-sunk);
+}
+
+.actions__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actions__label {
+  color: var(--color-soft);
+  font-size: 0.875rem;
+}
+
+.action--icon {
+  justify-content: center;
+  width: 2.5rem;
+  padding: 0;
+}
+
+.action svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.action--primary {
+  border-color: var(--color-fg);
+  background: var(--color-fg);
+  color: var(--color-bg);
+}
+
+.action--primary:hover {
+  background: color-mix(in oklab, var(--color-fg) 85%, var(--color-bg));
+}
+
+.resume {
+  line-height: 1.55;
+}
+
+@media (max-width: 39.99rem) {
+  .actions {
+    gap: 0.375rem;
+  }
+
+  .action {
+    gap: 0.375rem;
+    min-height: 2.25rem;
+    padding-inline: 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .action--icon {
+    width: 2.25rem;
+    padding: 0;
+  }
+
+  .resume-header__avatar {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@media (min-width: 40rem) {
+  .resume-shell {
+    padding-block: 2.5rem 1rem;
+  }
+
+  .resume {
+    padding: 2.5rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    background: var(--color-card);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  }
+}
+
+/* Header */
+.resume-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+.resume-header__avatar {
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--color-sunk);
+  object-fit: cover;
+}
+
+.resume-header__text {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.resume-header__name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.resume-header__headline {
+  margin-top: 0.25rem;
+  color: var(--color-soft);
+  font-size: 1.125rem;
+}
+
+.resume-header__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.resume-header__contact li {
+  display: flex;
+  align-items: center;
+  min-height: 1.5rem;
+}
+
+/* The links themselves reach 24 px, not only their rows. */
+.resume-header__contact a {
+  padding-block: 0.125rem;
+}
+
+/* Sections */
+.resume-section {
+  margin-top: 2rem;
+}
+
+.resume-section__heading {
+  margin-bottom: 0.875rem;
+  padding-bottom: 0.375rem;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.summary + .summary {
+  margin-top: 0.75rem;
+}
+
+/* Entries: experience, projects, education, community, talks */
+.entry + .entry {
+  margin-top: 1.25rem;
+}
+
+.entry__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 1rem;
+}
+
+.entry__title {
+  font-weight: 600;
+}
+
+.entry__status,
+.entry__role {
+  color: var(--color-soft);
+  font-weight: 400;
+}
+
+.entry__period {
+  min-width: 0;
+  color: var(--color-soft);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  /* Long store URLs, such as the Marketplace publisher page, wrap on narrow screens. */
+  overflow-wrap: anywhere;
+}
+
+.entry__sub {
+  color: var(--color-soft);
+  font-size: 0.875rem;
+}
+
+.entry__text {
+  margin-top: 0.25rem;
+}
+
+.entry__bullets {
+  margin-top: 0.375rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.entry__bullets li + li {
+  margin-top: 0.25rem;
+}
+
+.entry__bullets li::marker {
+  color: var(--color-soft);
+}
+
+.entry__meta {
+  margin-top: 0.375rem;
+  color: var(--color-soft);
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+/* 24 px tap targets for links outside running text. */
+.entry__title a,
+.entry__period a,
+.entry__links a {
+  display: inline-block;
+  min-height: 1.5rem;
+}
+
+.skills li + li {
+  margin-top: 0.375rem;
+}
+
+.skills strong {
+  font-weight: 600;
+}
+
+/* Only on paper; the footer says the same on screen. */
+.resume-note {
+  display: none;
+}
+
+/* Footer */
+@media (prefers-reduced-motion: reduce) {
+  .action {
+    transition: none;
+  }
+}
+
+/* Cover letters (`/cover-letters/<slug>/`) */
+.letter-header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.letter-header__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.letter-header__title {
+  margin-top: 1.25rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.letter-header__company {
+  margin-top: 0.25rem;
+  color: var(--color-soft);
+}
+
+.letter-body {
+  margin-top: 1.25rem;
+}
+
+.letter-body p {
+  white-space: pre-line;
+}
+
+.letter-body > * + * {
+  margin-top: 0.875rem;
+}
+
+.letter-body a {
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+}

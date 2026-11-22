@@ -1,0 +1,55 @@
+---
+import { isoDate } from "@multiverse/content/format"
+
+import BaseLayout from "../layouts/base.astro"
+import { POSTS_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+
+const posts = await sanity.fetch(POSTS_QUERY)
+const years = Map.groupBy(posts, (post) => isoDate(post.publishedAt).slice(0, 4) || "Undated")
+---
+
+<BaseLayout
+  title="Blog"
+  description="Posts about web development, tools and my life."
+  markdown="/blog.md"
+>
+  <header class="pt-10 pb-8 sm:pt-16">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Blog</h1>
+    <p class="mt-3 text-lg text-soft">Posts about web development, tools and my life.</p>
+  </header>
+  <div class="flex flex-col gap-8">
+    {[...years].map(([year, items]) => (
+      <section class="border-t border-line pt-6" aria-labelledby={`year-${year}`} data-reveal>
+        <h2 id={`year-${year}`} class="label mb-3">
+          {year}
+        </h2>
+        <ul class="flex flex-col">
+          {items.map((post) => (
+            <li>
+              <a
+                href={`/${post.slug}`}
+                class="group grid gap-x-5 py-2.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline"
+              >
+                <time class="font-mono text-[0.8125rem] text-soft" datetime={post.publishedAt}>
+                  {isoDate(post.publishedAt)}
+                </time>
+                <span>
+                  <span
+                    class="font-semibold decoration-accent decoration-2 underline-offset-4 group-hover:underline"
+                    style={`view-transition-name: post-${post.slug}`}
+                  >
+                    {post.title}
+                  </span>
+                  {post.excerpt && (
+                    <span class="mt-0.5 block text-[0.9375rem] text-soft">{post.excerpt}</span>
+                  )}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

@@ -1,0 +1,11 @@
+---
+import type { Mark } from "astro-portabletext/types"
+
+import A from "./a.astro"
+
+type Props = { node: Mark<{ href: string }> }
+---
+
+<A href={Astro.props.node.markDef.href}>
+  <slot />
+</A>

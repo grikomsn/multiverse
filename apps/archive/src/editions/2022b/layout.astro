@@ -1,0 +1,150 @@
+---
+import "./ghost.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import { BASE, href } from "./paths"
+import { COLOPHON, copyright } from "../_kit/colophon"
+
+interface Props {
+  pageTitle?: string
+  description?: string | null
+  /** Casper's body class, e.g. `home-template` or `post-template tag-personal`. */
+  bodyClass: string
+}
+
+const { pageTitle, description, bodyClass } = Astro.props
+const edition = await getEdition("2022b")
+const name = edition.name ?? "Griko Nibras"
+const links = (group: string) => edition.links?.filter((link) => link.group === group) ?? []
+const searchIcon =
+  '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>'
+---
+
+<!doctype html>
+<html lang="en" class="dark-mode">
+  <head>
+    <title>{pageTitle ?? name}</title>
+    <meta charset="utf-8" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    {edition.avatar?.url && (
+      <link rel="icon" href={imageUrl(edition.avatar.url, 256)} type="image/png" />
+    )}
+    <ArchiveHead />
+  </head>
+  <body class:list={[bodyClass, "is-head-left-logo has-sans-body"]}>
+    <div class="viewport">
+      <header id="gh-head" class="gh-head outer">
+        <div class="gh-head-inner inner">
+          <div class="gh-head-brand">
+            <a class="gh-head-logo no-image" href={`${BASE}/`}>
+              {name}
+            </a>
+            <button
+              class="gh-search gh-icon-btn"
+              aria-label="Search this site"
+              data-ghost-search
+              set:html={searchIcon}
+            />
+            <button class="gh-burger" aria-label="Menu"></button>
+          </div>
+          <nav class="gh-head-menu">
+            <ul class="nav">
+              {links("nav").map((link) => (
+                <li class={`nav-${link.label.toLowerCase()}`}>
+                  <a href={href(link.url)}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div class="gh-head-actions">
+            <button
+              class="gh-search gh-icon-btn"
+              aria-label="Search this site"
+              data-ghost-search
+              set:html={searchIcon}
+            />
+            <div class="gh-head-members">
+              <a class="gh-head-link" data-portal="signin">
+                Sign in
+              </a>
+              <a class="gh-head-button" data-portal="signup">
+                Subscribe
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="site-content">
+        <slot />
+      </div>
+
+      <footer class="site-footer outer">
+        <div class="inner">
+          <section class="copyright">
+            <a href={`${BASE}/`}>{name}</a> &copy; {copyright()}
+          </section>
+          <nav class="site-footer-nav">
+            <ul class="nav">
+              {links("footer").map((link) => (
+                <li class={`nav-${link.label.replace("/", "")}`}>
+                  <a href={href(link.url)}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div>
+            <a href={COLOPHON.framework.url} target="_blank" rel="noopener">
+              Powered by {COLOPHON.framework.name}
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <ArchiveBanner title={edition.title} period={period(edition.startDate, edition.endDate)} />
+    <script>
+      // The site footer's jQuery snippet: the mobile menu trigger.
+      document.querySelector(".gh-burger")?.addEventListener("click", () => {
+        document.body.classList.toggle("gh-head-open")
+      })
+
+      // casper.js dropdown(): overflowing nav items move into a "More" menu, then the nav shows.
+      const mobile = matchMedia("(max-width: 767px)")
+      const menu = document.querySelector<HTMLElement>(".gh-head-menu")!
+      const nav = menu.querySelector<HTMLElement>(".nav")!
+      if (mobile.matches)
+        nav.querySelectorAll("li").forEach((item, index) => {
+          item.style.transitionDelay = `${0.03 * (index + 1)}s`
+        })
+      if (!mobile.matches) {
+        const overflow: Element[] = []
+        while (nav.offsetWidth + 64 > menu.offsetWidth && nav.lastElementChild) {
+          overflow.unshift(nav.lastElementChild)
+          nav.lastElementChild.remove()
+        }
+        if (overflow.length) {
+          const toggle = document.createElement("button")
+          toggle.className = "nav-more-toggle"
+          toggle.setAttribute("aria-label", "More")
+          toggle.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"></path></svg>'
+          const dropdown = document.createElement("div")
+          dropdown.className = "gh-dropdown"
+          overflow.forEach((item) => dropdown.appendChild(item))
+          toggle.appendChild(dropdown)
+          nav.appendChild(toggle)
+          toggle.addEventListener("click", () => document.body.classList.toggle("is-dropdown-open"))
+          window.addEventListener("click", (event) => {
+            if (!toggle.contains(event.target as Node))
+              document.body.classList.remove("is-dropdown-open")
+          })
+        }
+      }
+      document.body.classList.add("is-dropdown-loaded")
+    </script>
+  </body>
+</html>

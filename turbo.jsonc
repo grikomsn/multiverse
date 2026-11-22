@@ -1,0 +1,29 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "ui": "tui",
+  "globalDependencies": [".env.example"],
+  "globalEnv": ["NODE_ENV"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "env": ["SANITY_*", "PUBLIC_*", "SITE_FONT"],
+      // Only lifts a rate limit, so it does not change the output.
+      "passThroughEnv": ["GITHUB_TOKEN"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"],
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+    },
+    "test": {},
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      // Overrides such as PUBLIC_WEB_URL, PUBLIC_ARCHIVE_URL, GITHUB_TOKEN and SITE_FONT.
+      "passThroughEnv": ["SANITY_*", "PUBLIC_*", "GITHUB_TOKEN", "SITE_FONT"],
+    },
+  },
+}

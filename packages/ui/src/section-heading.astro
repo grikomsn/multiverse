@@ -1,0 +1,27 @@
+---
+import type { ComponentProps } from "astro/types"
+
+import Icon from "./icon.astro"
+
+interface Props {
+  title: string
+  href?: string
+  link?: string
+  id?: string
+  icon?: ComponentProps<typeof Icon>["name"]
+}
+
+const { title, href, link, id, icon } = Astro.props
+---
+
+<div class="mb-5 flex items-baseline justify-between gap-4">
+  <h2 class="label flex items-center gap-2" id={id}>
+    {icon && <Icon name={icon} class="size-4 text-accent-ink" />}
+    {title}
+  </h2>
+  {href && link && (
+    <a href={href} class="link inline-block py-1 text-sm font-semibold">
+      {link}
+    </a>
+  )}
+</div>

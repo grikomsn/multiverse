@@ -1,0 +1,13 @@
+bun.lock
+dist/
+dist-*/
+.astro/
+.turbo/
+.wrangler/
+.sanity/
+assets/
+references/
+tmp/
+**/sanity.types.ts
+**/schema.json
+**/worker-configuration.d.ts

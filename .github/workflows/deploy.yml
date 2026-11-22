@@ -1,0 +1,51 @@
+name: Deploy
+
+# Builds web and archive and deploys them with links to Cloudflare Workers: after Check passes on
+# main, when Sanity publishes (a webhook sends a `sanity-publish` repository dispatch), and by hand.
+# It runs only when the repository variable DEPLOY is "true". See docs/deploy.md.
+on:
+  workflow_run:
+    workflows: [Check]
+    types: [completed]
+    branches: [main]
+  repository_dispatch:
+    types: [sanity-publish]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deploy at a time. A newer run waits; it does not stop one that is uploading.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: vars.DEPLOY == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: e02a25d4d8f0bacceba5cb29bcaa74de
+      # Project stars without GitHub's limit of 60 requests an hour.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # After Check, deploy the commit that Check passed, not a later one.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - run: ./scripts/r2-fonts.sh get
+      - run: bunx turbo run build --filter=web --filter=archive
+      - run: bunx wrangler deploy
+        working-directory: apps/web
+      - run: bunx wrangler deploy
+        working-directory: apps/archive
+      - run: bunx wrangler deploy
+        working-directory: apps/links

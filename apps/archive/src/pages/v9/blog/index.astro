@@ -1,0 +1,32 @@
+---
+import { getEdition } from "../../../lib/editions"
+import Layout from "../../../editions/v9/layout.astro"
+import PageHeader from "../../../editions/v9/page-header.astro"
+import { pageOf, postEntries } from "../../../editions/v9/paths"
+import PostItem from "../../../editions/v9/post-item.astro"
+
+const edition = await getEdition("v9")
+const page = pageOf(edition, "blog")
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="space-y-8">
+    <PageHeader
+      class="pt-[10vh] md:pt-[20vh]"
+      title={page?.title}
+      description={page?.description}
+    />
+    <div class="flex items-center gap-2 text-xs sm:gap-4">
+      <hr class="grow border-neutral-500/50" />
+      <!-- atom.xml, feed.json and rss.xml were generated at prebuild and are not rebuilt. -->
+      <span class="text-neutral-500">atom.xml</span>
+      <span class="text-neutral-500">feed.json</span>
+      <span class="text-neutral-500">rss.xml</span>
+    </div>
+    <ul class="-mx-4 space-y-4">
+      {postEntries(edition).map((post) => (
+        <PostItem post={post} />
+      ))}
+    </ul>
+  </section>
+</Layout>

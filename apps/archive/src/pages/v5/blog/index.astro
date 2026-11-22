@@ -1,0 +1,51 @@
+---
+/** pages/blog/index.tsx + components/post-entry.tsx */
+import { getEdition, pageOf } from "../../../lib/editions"
+import Content from "../../../editions/v5/content.astro"
+import Main from "../../../editions/v5/main.astro"
+import { postDate } from "../../../editions/v5/paths"
+import Layout from "../../../editions/v5/layout.astro"
+
+const edition = await getEdition("v5")
+const page = pageOf(edition, "blog")
+const posts = edition.extras?.filter((entry) => entry.category === "post") ?? []
+---
+
+<Layout pageTitle="Blog">
+  <Main>
+    <Content>
+      <h1>{page?.title}</h1>
+      <p>{page?.description}</p>
+
+      <br />
+
+      <div>
+        {posts.map(({ title, description, date, url, image }) => (
+          <div class="v4b-lift-6 bg-gray-800 mb-8 rounded shadow-lg">
+            <a
+              href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/v5${url}`}
+              class="no-underline text-gray-100 hover:text-gray-100"
+            >
+              {image?.url && (
+                <img
+                  src={`${image.url}?w=1280&h=640&fit=crop&auto=format`}
+                  alt={title}
+                  class="rounded-t"
+                  width="1280"
+                  height="640"
+                  loading="lazy"
+                />
+              )}
+              <div class="p-4 rounded-b">
+                <small>{postDate(date)}</small>
+                <h3 class="mt-2 mb-0">{title}</h3>
+                <p class="mt-2 mb-4">{description}</p>
+                <small>Read post &rarr;</small>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+    </Content>
+  </Main>
+</Layout>

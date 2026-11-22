@@ -1,0 +1,30 @@
+---
+import { getEdition, pageOf } from "../../lib/editions"
+import Icon from "../../editions/2023c/icon.astro"
+import Layout from "../../editions/2023c/layout.astro"
+import { formatDate } from "../../editions/2023c/paths"
+import RichText from "../../editions/2023c/rich-text.astro"
+
+const edition = await getEdition("2023c")
+const page = pageOf(edition, "now")
+---
+
+<Layout pageTitle={page?.title ?? "Now"} description={page?.description} backToTop>
+  <section class="container relative space-y-4 py-8 lg:py-16">
+    <h1 class="max-w-screen-sm text-4xl font-bold">{page?.title}</h1>
+    <p class="max-w-screen-sm space-y-4 text-neutral-700 dark:text-neutral-300">
+      {page?.description}
+    </p>
+    {page?.updatedAt && (
+      <div class="flex items-center gap-x-2 text-sm text-neutral-700 dark:text-neutral-300">
+        <Icon name="calendar" class="h-3 w-3" />
+        <time datetime={page.updatedAt}>{formatDate(`${page.updatedAt}T12:00:00Z`)}</time>
+        <div class="flex-grow" />
+      </div>
+    )}
+    <br />
+    <article class="prose-primary prose pb-20 dark:prose-invert [&_a]:no-underline [&_a:hover]:underline [&>*]:gap-4">
+      <RichText value={page?.body} />
+    </article>
+  </section>
+</Layout>

@@ -1,0 +1,17 @@
+---
+import { getEdition, pageOf } from "../../lib/editions"
+import Layout from "../../editions/2023c/layout.astro"
+import RichText from "../../editions/2023c/rich-text.astro"
+
+const edition = await getEdition("2023c")
+const page = pageOf(edition, "about")
+---
+
+<Layout pageTitle="About" backToTop>
+  <section class="container fade-bottom py-8 lg:py-16">
+    <article class="prose-primary prose pb-20 dark:prose-invert [&_a]:no-underline [&_a:hover]:underline">
+      <h1>{page?.title}</h1>
+      <RichText value={page?.body} />
+    </article>
+  </section>
+</Layout>

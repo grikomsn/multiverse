@@ -1,0 +1,5 @@
+* text=auto eol=lf
+
+bun.lock linguist-generated=true -diff
+**/sanity.types.ts linguist-generated=true
+**/schema.json linguist-generated=true

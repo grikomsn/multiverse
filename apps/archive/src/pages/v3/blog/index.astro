@@ -1,0 +1,27 @@
+---
+import { getEdition, pageOf } from "../../../lib/editions"
+import { emojify } from "../../../editions/v3/emoji"
+import Layout from "../../../editions/v3/layout.astro"
+import { href, postDate } from "../../../editions/v3/paths"
+
+const edition = await getEdition("v3")
+const page = pageOf(edition, "blog")
+const posts = edition.extras?.filter((entry) => entry.category === "post") ?? []
+---
+
+<Layout pageTitle="Blog">
+  <section class="section">
+    <div class="container content">
+      <h1 class="title" set:html={emojify(page?.title)} />
+      <p>{page?.description}</p>
+      <br />
+      {posts.map((post) => (
+        <a href={href(post.url ?? "/blog")} class="box remove-animation">
+          <h5>{post.title}</h5>
+          <p class="v3-spoiler">{post.description}</p>
+          <small>Published on {postDate(post.date)}</small>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

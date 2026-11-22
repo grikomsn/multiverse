@@ -1,0 +1,25 @@
+---
+/** Bodies inside Casper's `.gh-content`. */
+import { PortableText } from "astro-portabletext"
+import type { PortableTextProps } from "astro-portabletext/types"
+
+import CodeBlock from "./code-block.astro"
+import Embed from "../_kit/embed.astro"
+import Figure from "./figure.astro"
+import LinkMark from "./link-mark.astro"
+
+type Props = { value: unknown[] | null | undefined }
+
+// Imported image blocks that lost their asset carry no `_type`; skip them.
+const value = (Astro.props.value ?? []).filter(
+  (node): node is { _type: string } => typeof node === "object" && node !== null && "_type" in node,
+) as PortableTextProps["value"]
+---
+
+<PortableText
+  value={value}
+  components={{
+    type: { codeBlock: CodeBlock, figure: Figure, embed: Embed },
+    mark: { link: LinkMark },
+  }}
+/>

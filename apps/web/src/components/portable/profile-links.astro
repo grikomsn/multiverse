@@ -1,0 +1,36 @@
+---
+/** The `profileLinks` block: today's profile links from Profile, never a copy in the page. */
+import BrandIcon from "@multiverse/ui/brand-icon.astro"
+import { platformLabel } from "@multiverse/sanity/constants"
+
+type Link = {
+  platform?: string | null
+  label?: string | null
+  url?: string | null
+  featured?: boolean | null
+}
+type Props = {
+  node: { featuredOnly?: boolean | null; email?: string | null; links?: Link[] | null }
+}
+
+const { node } = Astro.props
+const host = (url: string) => url.replace(/^(https?:\/\/|mailto:)(www\.)?/, "").replace(/\/$/, "")
+const links = [
+  ...(!node.featuredOnly && node.email
+    ? [{ platform: "email", label: "Email", url: `mailto:${node.email}` }]
+    : []),
+  ...(node.links ?? []).filter((link) => link.url && (!node.featuredOnly || link.featured)),
+]
+---
+
+<ul class="not-prose my-6 flex flex-col gap-1">
+  {links.map((link) => (
+    <li>
+      <a class="link inline-flex min-h-6 items-center gap-2 py-1" href={link.url!}>
+        <BrandIcon platform={link.platform} class="size-4 shrink-0" />
+        <span>{platformLabel(link.platform, link.label)}</span>
+        <span class="text-soft">{host(link.url!)}</span>
+      </a>
+    </li>
+  ))}
+</ul>

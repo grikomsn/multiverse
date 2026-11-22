@@ -1,0 +1,328 @@
+---
+import "./v8.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, period } from "../../lib/editions"
+import { web } from "../../lib/web"
+import A from "./a.astro"
+import Icon from "./icon.astro"
+import type { IconName } from "./icons"
+import { BASE, postEntries } from "./paths"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+import { COLOPHON, copyright } from "../_kit/colophon"
+
+interface Props {
+  /** next-seo title, templated as "%s - Griko Nibras". */
+  pageTitle?: string
+  description?: string | null
+}
+
+const { pageTitle, description } = Astro.props
+const edition = await getEdition("v8")
+const name = edition.name ?? "Griko Nibras"
+const title = pageTitle ? `${pageTitle} - ${name}` : name
+const path = Astro.url.pathname.replace(/\/$/, "") || BASE
+const isHome = path === BASE
+const email = edition.email ? `mailto:${edition.email}` : ""
+// Featured profiles; v8's Feather set draws GitHub, a Simple Icons mark draws the rest.
+const socials = (edition.links ?? [])
+  .filter((link) => link.featured && link.platform)
+  .map((link) => ({
+    label: link.label,
+    url: link.url,
+    icon: link.platform === "github" ? ("github" as const) : null,
+    mark: brandSvg(link.platform!, 'width="18" height="18"'),
+  }))
+// "Timeline" opened the Polywork profile, which is gone; the resume is today's timeline.
+const TIMELINE = web("https://nibras.co/resume")
+
+const ROUTES: [href: string, label: string, icon: IconName][] = [
+  [`${BASE}/about`, "About", "navigation"],
+  [`${BASE}/blog`, "Writings", "pencil"],
+]
+const active = (href: string) => path.startsWith(href)
+
+// lib/kbar.tsx actions. Multiverse entries pointed at old commits; here they open the rebuilds.
+type KbarAction = {
+  id: string
+  name: string
+  icon: IconName
+  section?: string
+  parent?: string
+  shortcut?: string
+  href?: string
+  subtitle?: string
+}
+
+const actions: KbarAction[] = [
+  {
+    id: "navigate-home",
+    name: "Home",
+    shortcut: "gh",
+    section: "Navigation",
+    href: `${BASE}/`,
+    icon: "home",
+  },
+  {
+    id: "navigate-about",
+    name: "About",
+    shortcut: "gm",
+    section: "Navigation",
+    href: `${BASE}/about`,
+    icon: "navigation",
+  },
+  {
+    id: "navigate-blog",
+    name: "Writings",
+    shortcut: "gw",
+    section: "Navigation",
+    href: `${BASE}/blog`,
+    icon: "pencil",
+  },
+  {
+    id: "navigate-timeline",
+    name: "Timeline",
+    shortcut: "gt",
+    section: "Navigation",
+    href: TIMELINE,
+    icon: "activity",
+  },
+  { id: "socials-email", name: "Email", section: "Socials", href: email, icon: "mail" },
+  ...socials.map((social) => ({
+    id: `socials-${social.label.toLowerCase()}`,
+    name: social.label,
+    section: "Socials",
+    href: social.url,
+    icon: social.icon ?? ("external-link" as const),
+  })),
+  { id: "extras", name: "Extras", section: "Other", icon: "command" },
+  { id: "multiverse", name: "Multiverse", parent: "extras", icon: "external-link" },
+  { id: "navigate-time", name: "Time", parent: "extras", href: `${BASE}/time`, icon: "link" },
+  { id: "navigate-uses", name: "/uses", parent: "extras", href: `${BASE}/uses`, icon: "link" },
+  ...["v2", "v4", "v5", "v6", "v7", "v8"].map((key) => ({
+    id: `multiverse-${key}`,
+    name: `Multiverse ${key}`,
+    parent: "multiverse",
+    href: `/${key}/`,
+    icon: "external-link" as const,
+  })),
+  { id: "search-posts", name: "Search Posts", icon: "search" },
+  ...postEntries(edition).map((post) => ({
+    id: `post-${post.slug}`,
+    name: post.title,
+    subtitle:
+      post.description.length > 60 ? `${post.description.slice(0, 60)}...` : post.description,
+    parent: "search-posts",
+    href: post.redirect ?? `${BASE}/blog/${post.slug}`,
+    icon: "link" as const,
+  })),
+]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    <meta name="theme-color" content="#171717" />
+    <link
+      rel="icon"
+      href="https://cdn.sanity.io/images/lboasusv/production/fcf6257d9d07ad9c7fd4f55f6d27c8bd509604ef-400x400.png?w=32"
+    />
+    <ArchiveHead />
+  </head>
+  <body>
+    <div class="container mx-auto flex min-h-screen max-w-4xl flex-col">
+      <nav>
+        <div class="hidden items-center justify-end py-4 md:flex">
+          {!isHome && (
+            <a
+              class="px-4 py-2 text-xl font-bold tracking-tighter transition-colors hover:text-primary"
+              href={`${BASE}/`}
+            >
+              {name}
+            </a>
+          )}
+          <div class="grow"></div>
+          {ROUTES.map(([href, label, icon]) => (
+            <a
+              href={href}
+              class:list={[
+                "flex items-center gap-2 p-4 transition-colors hover:text-primary",
+                { "text-primary": active(href) },
+              ]}
+            >
+              <Icon name={icon} />
+              <span>{label}</span>
+            </a>
+          ))}
+          <A
+            href={TIMELINE}
+            class="flex items-center gap-2 p-4 transition-colors hover:text-primary"
+          >
+            <Icon name="activity" />
+            <span>Timeline</span>
+          </A>
+        </div>
+        {!isHome && (
+          <div class="flex items-center justify-center p-4 md:hidden">
+            <a
+              class="text-xl font-bold tracking-tighter transition-colors hover:text-primary"
+              href={`${BASE}/`}
+            >
+              {name}
+            </a>
+          </div>
+        )}
+      </nav>
+
+      <main class="relative grow">
+        <slot />
+      </main>
+
+      <footer class="flex flex-col items-center gap-4 px-4 py-16 text-center md:flex-row md:gap-0 md:text-left">
+        <span class="prose prose-sm prose-invert prose-sky max-w-none grow opacity-80 prose-p:text-xs prose-p:leading-relaxed">
+          <p>
+            Contents licensed under{" "}
+            <a
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+            .
+          </p>
+          <p>
+            Made using{" "}
+            <a href={COLOPHON.framework.url} target="_blank" rel="noopener noreferrer">
+              {COLOPHON.framework.name}
+            </a>{" "}
+            and{" "}
+            <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">
+              Tailwind CSS
+            </a>
+            . Hosted on{" "}
+            <a href={COLOPHON.host.url} target="_blank" rel="noopener noreferrer">
+              {COLOPHON.host.name}
+            </a>
+            .<br />
+            MIT License &copy; {copyright()} {name}. Version 8.
+          </p>
+        </span>
+        <div class="flex items-center">
+          <button
+            type="button"
+            class="p-4 transition-colors hover:text-orange-500"
+            aria-label="Open command palette"
+            data-kbar-toggle
+          >
+            <Icon name="command" size={18} />
+          </button>
+          <a class="p-4 transition-colors hover:text-lime-500" href={email} aria-label="Email">
+            <Icon name="mail" size={18} />
+          </a>
+          {socials.map((social) => (
+            <A
+              class="p-4 transition-colors hover:text-primary"
+              href={social.url}
+              aria-label={social.label}
+            >
+              {social.icon ? (
+                <Icon name={social.icon} size={18} />
+              ) : (
+                <Fragment set:html={social.mark} />
+              )}
+            </A>
+          ))}
+        </div>
+      </footer>
+
+      <div class="h-16 md:hidden">
+        <div class="fixed inset-x-0 bottom-0 grid h-16 w-screen grid-flow-col overflow-x-auto overflow-y-hidden border-t border-t-neutral-700 bg-body/80 text-center backdrop-blur-sm">
+          {[[`${BASE}`, "Home", "home"] as const, ...ROUTES].map(([href, label, icon]) => (
+            <a
+              href={href === BASE ? `${BASE}/` : href}
+              class:list={[
+                "flex flex-col items-center justify-between gap-1 p-4",
+                { "text-primary": href === BASE ? isHome : active(href) },
+              ]}
+            >
+              <Icon name={icon} />
+              <span class="text-xs">{label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="kbar"
+      class="fixed inset-0 z-50 hidden items-start justify-center bg-black/50 pt-[14vh] backdrop-blur-sm"
+      data-actions={JSON.stringify(actions.map(({ icon: _, ...action }) => action))}
+    >
+      <div
+        class="w-screen max-w-md overflow-hidden rounded-lg bg-neutral-900 shadow-xl"
+        role="dialog"
+        aria-label="Command palette"
+      >
+        <div class="flex items-center gap-2 px-4 pt-4">
+          <button type="button" aria-label="Close" data-kbar-toggle>
+            <div class="h-3 w-3 rounded-full bg-red-500 hover:opacity-80"></div>
+          </button>
+          <button type="button" aria-label="Close" data-kbar-toggle>
+            <div class="h-3 w-3 rounded-full bg-yellow-500 hover:opacity-80"></div>
+          </button>
+          <button type="button" aria-label="Close" data-kbar-toggle>
+            <div class="h-3 w-3 rounded-full bg-green-500 hover:opacity-80"></div>
+          </button>
+        </div>
+        <div class="p-4">
+          <input
+            id="kbar-search"
+            type="text"
+            class="w-full rounded bg-transparent px-4 py-2 outline-none transition"
+            placeholder="Type a command or search…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <div id="kbar-results" class="max-h-[400px] overflow-auto"></div>
+        <div class="h-4"></div>
+      </div>
+      <template id="kbar-icons">
+        {actions.map((action) => (
+          <span data-icon={action.id}>
+            <Icon name={action.icon} />
+          </span>
+        ))}
+      </template>
+    </div>
+
+    <div
+      id="v8-toast"
+      class="pointer-events-none fixed inset-x-0 top-4 z-[70] flex justify-center opacity-0 transition-opacity"
+      role="status"
+      aria-live="polite"
+    >
+      <div
+        class="rounded-lg bg-white px-3 py-2 text-sm text-neutral-800 shadow-lg"
+        id="v8-toast-text"
+      ></div>
+    </div>
+
+    <ArchiveBanner
+      title={edition.title ?? "Version 8"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+
+    <script>
+      import { initV8 } from "./client"
+
+      initV8()
+    </script>
+  </body>
+</html>

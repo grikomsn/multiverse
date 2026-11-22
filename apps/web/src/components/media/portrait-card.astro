@@ -1,0 +1,57 @@
+---
+import { inlineImage } from "../../lib/inline-image"
+import { THUMB_SIZES, type GalleryPortrait } from "../../lib/portraits"
+
+interface Props {
+  portrait: GalleryPortrait
+  /** Position across the whole page; drives the lightbox and loading priority. */
+  index: number
+  /** Images in the first visible row load eagerly. */
+  eager: boolean
+}
+
+const { portrait, index, eager } = Astro.props
+// The picture develops from this copy (src/scripts/develop.ts).
+const tiny = await inlineImage(portrait.tiny)
+---
+
+<li>
+  <a
+    id={portrait.slug}
+    href={portrait.original}
+    class="portrait-frame"
+    data-index={index}
+    data-develop={tiny}
+  >
+    <span class="sr-only">View larger:</span>
+    <img
+      src={portrait.thumb.src}
+      srcset={portrait.thumb.srcset}
+      sizes={THUMB_SIZES}
+      alt={portrait.alt}
+      width="480"
+      height="480"
+      loading={eager ? "eager" : "lazy"}
+      fetchpriority={index < 2 ? "high" : undefined}
+      decoding="async"
+      style={portrait.lqip ? `background-image: url(${portrait.lqip})` : undefined}
+    />
+  </a>
+  <div class="mt-3 flex items-center justify-between gap-2">
+    <div class="min-w-0">
+      <h3 class="truncate font-semibold">{portrait.title}</h3>
+      <p class="font-mono text-xs text-soft">{portrait.meta}</p>
+    </div>
+    <a
+      href={portrait.download}
+      download
+      class="icon-button shrink-0"
+      aria-label={`Download ${portrait.title}, original ${portrait.meta}`}
+      title="Download original"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14"></path>
+      </svg>
+    </a>
+  </div>
+</li>

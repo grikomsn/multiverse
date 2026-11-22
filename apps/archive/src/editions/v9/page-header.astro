@@ -1,0 +1,14 @@
+---
+interface Props {
+  title?: string | null
+  description?: string | null
+  class?: string
+}
+
+const { title, description, class: className } = Astro.props
+---
+
+<div class:list={["prose prose-invert mb-16", className]}>
+  <h1>{title}</h1>
+  <p class="lead">{description}</p>
+</div>

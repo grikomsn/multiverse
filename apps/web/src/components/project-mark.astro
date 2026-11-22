@@ -1,0 +1,144 @@
+---
+/**
+ * A project's mark, drawn in dots: the shape of `project.icon` filled with the dither wave.
+ * It is still, in the text color. While the pointer is over the card (`data-mark-area`), it
+ * turns to the accent color and the wave moves through it. Decorative: the card names the
+ * project. A mark is drawn when it comes near the view. Without JavaScript the plain icon
+ * shows, in grey (the layout's <noscript> style).
+ */
+import { markSource } from "../lib/inline-image"
+
+interface Props {
+  icon?: { url: string | null; extension?: string | null } | null
+  class?: string
+}
+
+const { icon, class: className } = Astro.props
+const source = await markSource(icon)
+---
+
+{source && (
+  <div class:list={["dither-mark project-mark", className]} data-project-mark aria-hidden="true">
+    <img src={source} alt="" decoding="async" />
+    <canvas />
+  </div>
+)}
+
+<style>
+  .project-mark {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 5 / 2;
+    background-color: var(--color-sunk);
+    color: var(--color-fg);
+  }
+
+  .project-mark.is-live {
+    color: var(--color-accent);
+  }
+
+  /* The fallback: any icon as a flat grey shape, readable on both grounds. */
+  .project-mark img {
+    visibility: hidden;
+    position: absolute;
+    inset: 20%;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: grayscale(1) invert(0.5);
+  }
+
+  .project-mark canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+
+<script>
+  import {
+    fit,
+    inkOf,
+    markShape,
+    onThemeChange,
+    paintShape,
+    reducedMotion,
+  } from "@multiverse/ui/dither"
+
+  /** Dot size in CSS pixels, and the part of the tile the mark leaves free on each side. */
+  const DOT = 2
+  const INSET = 0.2
+  const FRAME = 1000 / 12
+
+  // A mark is drawn when it comes near the view, so marks far down the page cost nothing at load.
+  const starts = new Map<Element, () => void>()
+  const near = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+        near.unobserve(entry.target)
+        starts.get(entry.target)?.()
+      }
+    },
+    { rootMargin: "300px 0px" },
+  )
+
+  for (const mark of document.querySelectorAll<HTMLElement>("[data-project-mark]")) {
+    const image = mark.querySelector("img")!
+    const canvas = mark.querySelector("canvas")!
+    let shape: Float32Array | undefined
+    let grid = { columns: 0, rows: 0 }
+    let color = inkOf(mark)
+    let frame = 0
+
+    const draw = (time: number) => {
+      if (!shape) return
+      paintShape(canvas, shape, grid.columns, grid.rows, { px: DOT, color, time })
+    }
+    const prepare = () => {
+      grid = fit(canvas, DOT)
+      shape = markShape(image, grid.columns, grid.rows, INSET)
+      draw(0)
+      mark.classList.add("is-drawn")
+    }
+    const recolor = () => {
+      color = inkOf(mark)
+      draw(0)
+    }
+
+    starts.set(mark, () => {
+      image
+        .decode()
+        .then(() => {
+          prepare()
+          new ResizeObserver(prepare).observe(mark)
+          onThemeChange(recolor)
+        })
+        .catch(() => {})
+    })
+    near.observe(mark)
+
+    const area = mark.closest<HTMLElement>("[data-mark-area]") ?? mark
+    if (reducedMotion() || !matchMedia("(hover: hover) and (pointer: fine)").matches) continue
+    area.addEventListener("pointerenter", () => {
+      mark.classList.add("is-live")
+      color = inkOf(mark)
+      let last = 0
+      const started = performance.now()
+      const loop = (now: number) => {
+        frame = requestAnimationFrame(loop)
+        if (now - last < FRAME) return
+        last = now
+        draw((now - started) / 1000)
+      }
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(loop)
+    })
+    area.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(frame)
+      frame = 0
+      mark.classList.remove("is-live")
+      recolor()
+    })
+  }
+</script>

@@ -1,0 +1,18 @@
+---
+import { getEdition } from "../../lib/editions"
+import { assetOf } from "../../lib/live"
+import Layout from "../../editions/v3/layout.astro"
+
+const edition = await getEdition("v3")
+const gif = assetOf(edition, "404")
+---
+
+<Layout pageTitle="404">
+  <div class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <figure class="image">{gif?.url && <img src={gif.url} alt="404" />}</figure>
+      </div>
+    </div>
+  </div>
+</Layout>

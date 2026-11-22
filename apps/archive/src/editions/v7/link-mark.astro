@@ -1,0 +1,18 @@
+---
+import type { Mark } from "astro-portabletext/types"
+
+import { href } from "./paths"
+
+type Props = { node: Mark<{ href: string }> }
+
+// v7's Markdown `a`: Chakra link variant, external unless it is a #fragment.
+const url = Astro.props.node.markDef.href
+---
+
+<a
+  href={href(url)}
+  class="v7-link"
+  {...(!url.startsWith("#") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+>
+  <slot />
+</a>

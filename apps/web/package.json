@@ -1,0 +1,39 @@
+{
+  "name": "web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4321",
+    "build": "astro build",
+    "preview": "wrangler dev --port 4321",
+    "deploy": "astro build && wrangler deploy",
+    "lint": "eslint .",
+    "typecheck": "astro check && tsc -p tsconfig.worker.json",
+    "cf-typegen": "wrangler types --include-runtime=false"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "catalog:",
+    "@modelcontextprotocol/server": "catalog:",
+    "@multiverse/content": "workspace:*",
+    "@multiverse/sanity": "workspace:*",
+    "@multiverse/ui": "workspace:*",
+    "@sanity/image-url": "catalog:",
+    "agents": "catalog:",
+    "astro": "catalog:",
+    "astro-portabletext": "catalog:",
+    "groq": "catalog:",
+    "pdf-lib": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@astrojs/check": "catalog:",
+    "@cloudflare/workers-types": "catalog:",
+    "@multiverse/config": "workspace:*",
+    "@tailwindcss/vite": "catalog:",
+    "eslint": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "wrangler": "catalog:"
+  }
+}

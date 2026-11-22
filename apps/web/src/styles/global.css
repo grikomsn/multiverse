@@ -1,0 +1,195 @@
+@import "tailwindcss";
+@import "@multiverse/ui/styles.css";
+
+/*
+ * Home hero. The dither wave sits in the empty top right corner, from under the header, and
+ * fades out in every direction. The band itself runs the full width of the window, so the
+ * wave has no edge at any window size.
+ */
+.hero-wave {
+  top: -4.5rem;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: 22rem;
+  /* Down: full at the top, gone before the headline. Across: from the middle of the column to
+     full at its right edge, and gone again 30rem further, where a wide window has only ground. */
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 22%, transparent 92%),
+    linear-gradient(
+      to right,
+      transparent calc(50% - 4rem),
+      #000 calc(50% + 20rem),
+      #000 calc(50% + 32rem),
+      transparent calc(50% + 50rem)
+    );
+  mask-composite: intersect;
+}
+
+/* Each word of the headline sits in a clip box, so it can rise from the line below. */
+.hero-word {
+  display: inline-block;
+  overflow: clip;
+  /* Room for descenders. */
+  margin-bottom: -0.14em;
+  padding-bottom: 0.14em;
+  vertical-align: bottom;
+
+  & > span {
+    display: inline-block;
+  }
+}
+
+/* The marks are a layer behind the word, so they can swipe in like a highlighter. */
+.hero-mark {
+  position: relative;
+  z-index: 0;
+  background: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: var(--mark);
+    transform-origin: left center;
+  }
+}
+
+/*
+ * The hero entrance. It plays once in a browser session: the home page adds `.no-entrance` to
+ * <html> on later visits. Transform only, so no text is ever transparent.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.no-entrance) .hero {
+    & .hero-word > span {
+      animation: hero-rise 820ms var(--ease-snap) calc(120ms + var(--i) * 75ms) both;
+    }
+
+    & .hero-mark::before {
+      animation: hero-swipe 520ms var(--ease-snap) calc(760ms + var(--i) * 150ms) both;
+    }
+
+    & .hero-avatar {
+      animation: hero-pop 700ms var(--ease-snap) both;
+    }
+
+    & .hero-doodle path {
+      stroke-dasharray: 1;
+      animation: hero-draw 500ms ease-out 500ms both;
+    }
+
+    & .hero-doodle span {
+      animation: hero-pop 420ms var(--ease-snap) 900ms both;
+    }
+
+    & :is(.hero-tagline, .hero-intro, .hero-actions) {
+      animation: hero-slide 800ms var(--ease-snap) both;
+    }
+
+    & .hero-tagline {
+      animation-delay: 380ms;
+    }
+
+    & .hero-intro {
+      animation-delay: 460ms;
+    }
+
+    & .hero-actions {
+      animation-delay: 540ms;
+    }
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    translate: 0 115%;
+  }
+}
+
+@keyframes hero-swipe {
+  from {
+    scale: 0 1;
+  }
+}
+
+@keyframes hero-pop {
+  from {
+    scale: 0;
+    rotate: -14deg;
+  }
+}
+
+@keyframes hero-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes hero-slide {
+  from {
+    translate: 0 18px;
+  }
+}
+
+/* A picture while it develops (src/scripts/develop.ts): dots on a dark plate, over the image. */
+[data-develop] {
+  position: relative;
+  overflow: hidden;
+}
+
+canvas.develop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: var(--color-plate);
+  color: var(--color-plate-dot);
+  pointer-events: none;
+  transition: opacity 500ms var(--ease-out-quart);
+
+  &.is-done {
+    opacity: 0;
+  }
+}
+
+@media print {
+  canvas.develop {
+    display: none;
+  }
+}
+
+/*
+ * Charts and numbers that play once, when they enter the view. The layout script adds
+ * `.is-inview`; `.js-reveal` is on <html> only with JavaScript and without reduced motion.
+ */
+.js-reveal .sparkline[data-inview] {
+  & .sparkline-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  & .sparkline-area {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  &.is-inview .sparkline-line {
+    animation: sparkline-line 1100ms var(--ease-snap) 150ms both;
+  }
+
+  &.is-inview .sparkline-area {
+    animation: sparkline-area 1100ms var(--ease-snap) 150ms both;
+  }
+}
+
+@keyframes sparkline-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sparkline-area {
+  to {
+    clip-path: inset(0);
+  }
+}

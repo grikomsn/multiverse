@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string
+  description?: string | null
+  as?: "h1" | "h2"
+}
+
+const { title, description, as: Tag = "h2" } = Astro.props
+---
+
+<Tag class="v6-heading v6-heading-lg">{title}</Tag>
+{description && (
+  <p class="v6-heading-sm" style="font-weight: 400">
+    {description}
+  </p>
+)}

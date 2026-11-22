@@ -1,0 +1,17 @@
+---
+import { Code } from "astro:components"
+
+type Props = { node: { language?: string; code?: string } }
+
+// Unknown languages fall back to plaintext inside <Code>. The 2024 build's code colours were not
+// archived, so this uses a stock dark theme on the prose code background.
+const { language = "text", code = "" } = Astro.props.node
+---
+
+<Code code={code} lang={language as "plaintext"} theme="github-dark" />
+
+<style>
+  :global(.prose pre.astro-code) {
+    background-color: var(--tw-prose-pre-bg) !important;
+  }
+</style>

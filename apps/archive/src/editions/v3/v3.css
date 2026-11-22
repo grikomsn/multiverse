@@ -1,0 +1,95 @@
+@import "./original.css";
+@import "inter-ui/inter.css";
+
+/* styled-components from the 2019 build. */
+.v3-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.v3-icon {
+  margin-right: 1rem;
+}
+
+.v3-ainami {
+  max-width: 300px;
+  margin: auto;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transform: scale(1.02);
+  filter: drop-shadow(0 6px 3px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+}
+
+.v3-ainami:hover {
+  transform: scale(1.08) rotate(1deg);
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.2));
+}
+
+.v3-ainami:active {
+  transform: scale(1.04) rotate(0.5deg);
+}
+
+.v3-sig {
+  width: 100%;
+  max-width: 128px;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.v3-spoiler {
+  line-height: initial;
+}
+
+.v3-buttons {
+  justify-content: space-between;
+}
+
+.v3-buttons .button {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.v3-buttons .button small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* react-pose: content fades in after the header settles; on leave the header slides up. */
+@keyframes v3-enter {
+  from {
+    opacity: 0;
+  }
+}
+
+.v3-main {
+  animation: v3-enter 300ms 300ms both;
+}
+
+.v3-header,
+.v3-main {
+  transition:
+    transform 300ms,
+    opacity 300ms;
+}
+
+.v3-leaving .v3-header {
+  transform: translateY(-100%);
+}
+
+.v3-leaving .v3-main {
+  opacity: 0;
+}
+
+.content img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Today's profile URLs (a Bluesky DID, for one) are longer than 2019's. */
+.v3-main li a {
+  overflow-wrap: anywhere;
+}

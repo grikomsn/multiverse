@@ -1,0 +1,73 @@
+---
+import { getEdition } from "../../lib/editions"
+import EmailInquiry from "../../editions/v6/email-inquiry.astro"
+import Layout from "../../editions/v6/layout.astro"
+import { pageOf, trimProtocol } from "../../editions/v6/paths"
+import RichText from "../../editions/v6/rich-text.astro"
+import TitleSeparator from "../../editions/v6/title-separator.astro"
+import DoodleMobile from "../../editions/v6/doodle-mobile.svg"
+
+const edition = await getEdition("v6")
+const page = pageOf(edition, "about")
+---
+
+<Layout pageTitle={page?.title ?? "About Me"}>
+  <div class="v6-panel v6-panel-rounded v6-about" style="line-height: 1.625">
+    <div class="v6-about-intro">
+      <div class="v6-stack v6-about-copy" style="--gap: 1rem">
+        <h1 class="v6-heading">Hi, I&apos;m {edition.name}.</h1>
+        <div class="v6-stack" style="--gap: 1rem">
+          <RichText value={edition.bio} />
+        </div>
+        <p>{edition.email && <EmailInquiry email={edition.email} />}</p>
+      </div>
+      <div style="width: 100%; max-width: 20rem; margin: 0 auto">
+        {/* /me.jpg lived on Contentful and was not archived; the doodle stands in. */}
+        <DoodleMobile
+          class="v6-doodle"
+          style="border-radius: 9999px"
+          role="img"
+          aria-label={edition.name ?? ""}
+        />
+      </div>
+    </div>
+
+    <div class="v6-stack">
+      <TitleSeparator
+        title="Knowledge Base"
+        description="Here are the things I am proficient and/or currently use on a daily basis."
+      />
+      <div class="v6-kb">
+        {edition.skills?.map((group) => (
+          <div>
+            <h4 class="v6-heading-sm" style="font-weight: 700; padding-bottom: 0.5rem">
+              {group.title}
+            </h4>
+            <ul>
+              {group.items?.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="v6-stack">
+      <TitleSeparator
+        title="Social Presences"
+        description="Get in touch with me on various platforms and social medias."
+      />
+      <ul style="padding-top: 1rem">
+        {edition.links?.map((link) => (
+          <li>
+            {link.label} &ndash;{" "}
+            <a href={link.url} class="v6-link" target="_blank" rel="noopener noreferrer">
+              {trimProtocol(link.url ?? "")}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Layout>

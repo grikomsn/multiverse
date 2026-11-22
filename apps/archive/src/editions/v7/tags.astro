@@ -1,0 +1,15 @@
+---
+interface Props {
+  tags: string[] | null | undefined
+  justify?: "center" | "start"
+}
+
+// Tag chips linked to /tag/<slug> in v7; tag pages are not rebuilt, so they are plain chips.
+const { tags, justify = "center" } = Astro.props
+---
+
+<div class="v7-tags" style={`justify-content: ${justify === "center" ? "center" : "flex-start"}`}>
+  {tags?.map((tag) => (
+    <span class="v7-tag">{tag}</span>
+  ))}
+</div>

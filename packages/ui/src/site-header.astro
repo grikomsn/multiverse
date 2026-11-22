@@ -1,0 +1,78 @@
+---
+import ThemeToggle from "./theme-toggle.astro"
+
+interface Props {
+  /** `wide` lines up with full-width pages such as the media gallery. */
+  wide?: boolean
+  /** "" on nibras.co; "https://nibras.co" on the other sites, so the links go to the main site. */
+  origin?: string
+  name?: string
+  avatar?: string | null
+  /**
+   * Hide the avatar and name until the element marked `data-hero` scrolls under the header.
+   * For the home page, where the hero already shows both.
+   */
+  revealBrand?: boolean
+  /** Show how far the page is scrolled, as a line under the header. For posts. */
+  progress?: boolean
+}
+
+const { origin = "", name = "Griko Nibras", avatar, wide, revealBrand, progress } = Astro.props
+const path = Astro.url.pathname.replace(/\/$/, "") || "/"
+const NAV = [
+  { href: "/blog", label: "Blog" },
+  { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/now", label: "Now" },
+]
+const current = (href: string) =>
+  !origin && (path === href || path.startsWith(`${href}/`)) ? "page" : undefined
+---
+
+<div class="site-header sticky top-0 z-40" data-print="hide">
+  <div class="site-header-ground" aria-hidden="true"></div>
+  <header
+    class:list={[
+      "mx-auto flex w-full items-center justify-between gap-3 px-5 py-4",
+      wide ? "max-w-6xl" : "max-w-2xl",
+    ]}
+  >
+    <div class:list={[revealBrand && "brand-clip"]}>
+      <a
+        href={`${origin}/`}
+        class:list={[
+          "flex min-h-9 min-w-9 items-center gap-2.5 font-bold tracking-tight",
+          revealBrand && "brand-reveal",
+        ]}
+      >
+        {avatar && (
+          <img
+            src={`${avatar}?w=72&h=72&fit=crop&auto=format`}
+            width="28"
+            height="28"
+            alt=""
+            class="size-7 rounded-full border border-line bg-white"
+          />
+        )}
+        <span class:list={[avatar && "max-[25rem]:sr-only"]}>{name}</span>
+      </a>
+    </div>
+    <nav aria-label="Main" class="flex items-center gap-1">
+      <ul class="flex items-center text-[0.9375rem]">
+        {NAV.map((item) => (
+          <li>
+            <a
+              href={`${origin}${item.href}`}
+              aria-current={current(item.href)}
+              class="block rounded-md px-2 py-1.5 text-soft max-[22rem]:px-1 transition-colors hover:text-fg aria-[current=page]:text-fg aria-[current=page]:underline aria-[current=page]:decoration-accent aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-[6px]"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ThemeToggle />
+    </nav>
+  </header>
+  {progress && <div class="read-progress" aria-hidden="true" />}
+</div>

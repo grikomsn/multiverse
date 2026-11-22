@@ -1,0 +1,65 @@
+---
+import { getEdition } from "../../lib/editions"
+import Icon from "../../editions/v7/icon.astro"
+import Layout from "../../editions/v7/layout.astro"
+import { formatDate, pageOf } from "../../editions/v7/paths"
+import PostBody from "../../editions/v7/post-body.astro"
+
+// One of v7's generic DatoCMS `page` records, served from /[slug].
+const edition = await getEdition("v7")
+const page = pageOf(edition, "uses")
+
+type Node = { _type?: string; style?: string; children?: { text?: string }[] }
+const body = (page?.body ?? []) as Node[]
+const text = (node: Node) => node.children?.map((child) => child.text).join("") ?? ""
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^\w]+/g, "-")
+    .replace(/^-|-$/g, "")
+// remark-toc filled the list under "Table of contents" from the h2s that follow.
+const toc = body.filter((node) => node.style === "h2").map((node) => text(node))
+const tocIndex = body.findIndex((node) => text(node) === "Table of contents")
+const before = body.slice(0, tocIndex + 1)
+const after = body.slice(tocIndex + 1)
+---
+
+<Layout pageTitle={page?.title ?? "What I'm Using"} description={page?.description}>
+  <div class="v7-container v7-container-wide">
+    <div class="v7-center v7-stack">
+      <h1 class="v7-heading v7-heading-2xl">{page?.title}</h1>
+      <p class="v7-subtitle" style="max-width: 42rem; font-size: 1.125rem">
+        {page?.description}
+      </p>
+      <p>Last updated on {formatDate(page?.updatedAt)}</p>
+    </div>
+  </div>
+  <hr style="opacity: 0.6" />
+  <div class="v7-container v7-uses">
+    <PostBody value={before} />
+    <div class="v7-prose" style="margin: 1rem 0">
+      <ul>
+        {toc.map((heading) => (
+          <li>
+            <a href={`#${slugify(heading)}`}>{heading}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <PostBody value={after} />
+    <div style="display: flex; justify-content: center; padding-top: 2rem">
+      <button type="button" class="v7-button v7-button-solid v7-button-sm v7-muted" data-v7-top>
+        <Icon name="chevron-up" /> Back to top
+      </button>
+    </div>
+  </div>
+  <script>
+    // rehype-slug ids for the table of contents.
+    for (const heading of document.querySelectorAll<HTMLElement>(".v7-uses h2")) {
+      heading.id = (heading.textContent ?? "")
+        .toLowerCase()
+        .replace(/[^\w]+/g, "-")
+        .replace(/^-|-$/g, "")
+    }
+  </script>
+</Layout>

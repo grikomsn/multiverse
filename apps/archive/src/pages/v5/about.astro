@@ -1,0 +1,11 @@
+---
+import { getEdition } from "../../lib/editions"
+import About from "../../editions/v5/about.astro"
+import Layout from "../../editions/v5/layout.astro"
+
+const edition = await getEdition("v5")
+---
+
+<Layout pageTitle="About">
+  <About edition={edition} base={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/v5`} />
+</Layout>

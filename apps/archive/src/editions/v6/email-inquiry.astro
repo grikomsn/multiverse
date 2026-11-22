@@ -1,0 +1,19 @@
+---
+interface Props {
+  email: string
+}
+
+const { email } = Astro.props
+---
+
+For business inquiries, drop a mail at{" "}
+<button
+  type="button"
+  class="v6-email v6-tooltip"
+  data-label="Click to copy email address 📮"
+  data-v6-copy={email}
+  aria-label="Email address"
+>
+  {email}
+</button>{" "}
+and let&apos;s talk.

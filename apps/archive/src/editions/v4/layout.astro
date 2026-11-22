@@ -1,0 +1,99 @@
+---
+import "./v4.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, period } from "../../lib/editions"
+import A from "./a.astro"
+import { BASE } from "./paths"
+import { COLOPHON } from "../_kit/colophon"
+
+interface Props {
+  pageTitle?: string
+  grow?: boolean
+  class?: string
+}
+
+const { pageTitle, grow = true, class: className } = Astro.props
+const edition = await getEdition("v4")
+const siteTitle = edition.name ?? "Griko Nibras"
+const title = pageTitle ? `${siteTitle} • ${pageTitle}` : siteTitle
+const path = Astro.url.pathname.replace(/\/$/, "")
+const NAV = [
+  { href: `${BASE}/about`, label: "About" },
+  { href: `${BASE}/works`, label: "Works" },
+  { href: `${BASE}/contact`, label: "Contact" },
+]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1.0,user-scalable=yes" name="viewport" />
+    <title>{title}</title>
+    {edition.description && <meta name="description" content={edition.description} />}
+    <meta content="#357EDD" name="theme-color" />
+    {edition.avatar?.url && <link rel="icon" href={`${edition.avatar.url}?w=32&h=32`} />}
+    <ArchiveHead />
+  </head>
+  <body>
+    <div class="v4-blue-border fixed top-0 left-0 right-0 z-max"></div>
+    <div class="v4-wrapper center dark-gray flex flex-column justify-between min-vh-100 mw8 pa4 sans-serif">
+      <div class="fl mb4 w-100" style="padding-top: 0.5rem">
+        <div class="fl">
+          <a href={`${BASE}/`} class="b dark-gray dim link pv4 tracked-tight">
+            <span class="dib-l dn">{siteTitle}</span>
+            <span class="dn-l dib">GN</span>
+          </a>
+        </div>
+        <div class="fr tr">
+          {NAV.map((item, index) => (
+            <a
+              href={item.href}
+              class:list={[
+                path === item.href ? "gray" : "dark-gray",
+                "dim link pv4 pl2",
+                index === NAV.length - 1 ? "pr0" : "pr2",
+              ]}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <main class={className} style={grow ? "flex-grow: 1" : undefined}>
+        <slot />
+      </main>
+
+      <footer class="f7 gray lh-copy mt4">
+        <p>
+          Made with{" "}
+          <A class="dark-gray" href="https://tachyons.io">
+            Tachyons
+          </A>{" "}
+          and{" "}
+          <A class="dark-gray" href={COLOPHON.framework.url}>
+            {COLOPHON.framework.name}
+          </A>
+          . Hosted on{" "}
+          <A class="dark-gray" href={COLOPHON.host.url}>
+            {COLOPHON.host.name}
+          </A>
+          .
+          <br />
+          Source code licensed under the{" "}
+          <A class="dark-gray" href={COLOPHON.source("v4")}>
+            MIT License
+          </A>
+          .
+        </p>
+      </footer>
+    </div>
+    <ArchiveBanner
+      title={edition.title ?? "Version 4"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+  </body>
+</html>

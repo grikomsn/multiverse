@@ -1,0 +1,56 @@
+---
+import "./v2.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import { assetOf } from "../../lib/live"
+
+interface Props {
+  /** layouts/Layout.js `colorHex`: html, body and ::selection background per page. */
+  colorHex?: string
+}
+
+const { colorHex = "#fef380" } = Astro.props
+const edition = await getEdition("v2")
+const title = edition.description ?? "Griko Nibras"
+const icon = assetOf(edition, "icon")?.image?.url
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <title>{title}</title>
+    {icon && <link rel="icon" type="image/png" sizes="32x32" href={imageUrl(icon, 32)} />}
+    {icon && <link rel="apple-touch-icon" sizes="180x180" href={imageUrl(icon, 180)} />}
+    <meta name="description" content={title} />
+    <meta name="theme-color" content={colorHex} />
+    <ArchiveHead />
+    <script is:inline>
+      document.documentElement.classList.add("v2-js")
+    </script>
+    <style set:html={`html:root,html:root body,::selection{background-color:${colorHex}}`}></style>
+  </head>
+  <body>
+    <div class="v2-page">
+      <slot />
+    </div>
+    <ArchiveBanner
+      title={edition.title ?? "Version 2"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+    <script>
+      // react-lazyload + react-reveal Fade: fade images and the avatar in as they scroll into view.
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          entry.target.classList.add("is-revealed")
+          observer.unobserve(entry.target)
+        }
+      })
+      for (const element of document.querySelectorAll("[data-v2-fade]")) observer.observe(element)
+    </script>
+  </body>
+</html>

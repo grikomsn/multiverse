@@ -1,0 +1,11 @@
+---
+import { getEdition } from "../../lib/editions"
+import Works from "../../editions/v5/works.astro"
+import Layout from "../../editions/v5/layout.astro"
+
+const edition = await getEdition("v5")
+---
+
+<Layout pageTitle="Works">
+  <Works edition={edition} dark />
+</Layout>

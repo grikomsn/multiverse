@@ -1,0 +1,70 @@
+---
+import Icon from "../../editions/2023a/icon.astro"
+import Layout from "../../editions/2023a/layout.astro"
+import { getEdition, imageUrl } from "../../lib/editions"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+
+const edition = await getEdition("2023a")
+// GitHub, LinkedIn and Twitter; now the featured profiles. 2023a's own glyph where it has one,
+// a Simple Icons mark otherwise.
+const OWN = ["github", "linkedin"] as const
+const socials = (edition.links ?? []).filter((link) => link.featured && link.platform)
+---
+
+<Layout>
+  <div class="a-hero">
+    <div>
+      <h1 class="a-heading-2xl">{edition.name}</h1>
+      <p class="a-lede">{edition.description}</p>
+    </div>
+    <div class="a-socials">
+      {socials.map((link) => (
+        <a href={link.url} target="_blank" rel="me noopener" aria-label={link.label}>
+          {OWN.includes(link.platform as (typeof OWN)[number]) ? (
+            <Icon name={link.platform as (typeof OWN)[number]} />
+          ) : (
+            <Fragment set:html={brandSvg(link.platform!)} />
+          )}
+        </a>
+      ))}
+      <div>·</div>
+      <div>
+        <a href={`mailto:${edition.email}`}>{edition.email}</a>
+      </div>
+    </div>
+    <div class="a-grid">
+      {edition.projects?.map((item) => (
+        <div class="a-item">
+          <div class="a-shot">
+            {item.image?.url && (
+              <img
+                src={imageUrl(item.image.url, 1280)}
+                alt={item.title}
+                width={item.image.width ?? undefined}
+                height={item.image.height ?? undefined}
+                loading="lazy"
+              />
+            )}
+            {item.url && (
+              <a href={item.url} target="_blank" rel="noopener" aria-label={item.title} />
+            )}
+          </div>
+          <div class="a-item-title">{item.title}</div>
+          <div class="a-item-subtitle">{item.subtitle}</div>
+          {item.tags && (
+            <ul class="a-tags">
+              {item.tags.map((tag) => (
+                <li class="a-tag">{tag}</li>
+              ))}
+            </ul>
+          )}
+          {item.url && (
+            <a class="a-item-link" href={item.url} target="_blank" rel="noopener">
+              {item.url} <Icon name="arrow" />
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

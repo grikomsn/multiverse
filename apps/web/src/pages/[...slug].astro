@@ -1,0 +1,98 @@
+---
+import type { ROUTES_QUERY_RESULT } from "@multiverse/sanity/types"
+import type { GetStaticPaths } from "astro"
+
+import RichText from "../components/rich-text.astro"
+import BaseLayout from "../layouts/base.astro"
+import { isoDate, readingMinutes } from "@multiverse/content/format"
+import { ROUTES_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+
+/** Posts and pages keep their Bear Blog URLs: nibras.co/<slug>. */
+export const getStaticPaths = (async () => {
+  const routes = await sanity.fetch(ROUTES_QUERY)
+  // Listed posts, newest first, for the previous/next links at the end of each post.
+  const posts = routes
+    .filter((entry) => entry._type === "post" && entry.visibility === "listed")
+    .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""))
+  const link = (entry?: Entry) => entry && { title: entry.title, slug: entry.slug }
+  return routes.map((entry) => {
+    const index = posts.indexOf(entry)
+    return {
+      params: { slug: entry.slug ?? undefined },
+      props: {
+        entry,
+        newer: index > 0 ? link(posts[index - 1]) : undefined,
+        older: index >= 0 ? link(posts[index + 1]) : undefined,
+      },
+    }
+  })
+}) satisfies GetStaticPaths
+
+type Entry = ROUTES_QUERY_RESULT[number]
+type Neighbor = { title: string | null; slug: string | null } | undefined
+type Props = { entry: Entry; newer: Neighbor; older: Neighbor }
+
+const { entry, newer, older } = Astro.props
+const isPost = entry._type === "post"
+const date = isPost ? entry.publishedAt : entry.updatedAt
+---
+
+<BaseLayout
+  title={entry.title ?? undefined}
+  description={entry.excerpt}
+  lang={entry.lang}
+  noIndex={entry.visibility === "unlisted"}
+  canonical={entry.originalUrl}
+  type={isPost ? "article" : "website"}
+  image={entry.image && `${entry.image}?w=1200&fit=max`}
+  imageAlt={entry.imageAlt ?? undefined}
+  markdown={entry.visibility === "listed" ? `/${entry.slug}.md` : undefined}
+  progress={isPost}
+>
+  <article class="pt-10 pb-8 sm:pt-16">
+    <header class="mb-10 flex flex-col gap-3">
+      {isPost && (
+        <a href="/blog" class="w-fit py-1 text-sm text-soft hover:text-fg">
+          ← All posts
+        </a>
+      )}
+      <h1
+        class="text-[2rem] leading-tight font-bold tracking-tight text-balance sm:text-5xl"
+        style={isPost ? `view-transition-name: post-${entry.slug}` : undefined}
+      >
+        {entry.title}
+      </h1>
+      {date && (
+        <p class="font-mono text-[0.8125rem] text-soft">
+          {isPost ? "Published" : "Updated"} <time datetime={date}>{isoDate(date)}</time>
+          {isPost && <> · {readingMinutes(entry.body)} min read</>}
+        </p>
+      )}
+    </header>
+    <div class="prose">
+      <RichText value={entry.body} />
+    </div>
+  </article>
+  {isPost && (newer || older) && (
+    <nav class="grid gap-3 border-t border-line pt-8 sm:grid-cols-2" aria-label="More posts">
+      {older ? (
+        <a href={`/${older.slug}`} class="card card-link flex flex-col gap-1 px-4 py-3.5">
+          <span class="text-sm text-soft">← Older post</span>
+          <span class="font-semibold">{older.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+      {newer && (
+        <a
+          href={`/${newer.slug}`}
+          class="card card-link flex flex-col gap-1 px-4 py-3.5 text-right sm:col-start-2"
+        >
+          <span class="text-sm text-soft">Newer post →</span>
+          <span class="font-semibold">{newer.title}</span>
+        </a>
+      )}
+    </nav>
+  )}
+</BaseLayout>

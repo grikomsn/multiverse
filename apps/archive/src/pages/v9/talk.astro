@@ -1,0 +1,26 @@
+---
+import { getEdition } from "../../lib/editions"
+import Layout from "../../editions/v9/layout.astro"
+import PageHeader from "../../editions/v9/page-header.astro"
+import { pageOf } from "../../editions/v9/paths"
+import TalkItem from "../../editions/v9/talk-item.astro"
+
+const edition = await getEdition("v9")
+const page = pageOf(edition, "talk")
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="space-y-8">
+    <PageHeader
+      class="pt-[10vh] md:pt-[20vh]"
+      title={page?.title}
+      description={page?.description}
+    />
+    <hr class="border-neutral-500/50" />
+    <ul class="-mx-4 grid grid-cols-1 items-start gap-4 sm:grid-cols-2">
+      {edition.talks?.map((talk) => (
+        <TalkItem talk={talk} />
+      ))}
+    </ul>
+  </section>
+</Layout>

@@ -1,0 +1,24 @@
+---
+import Layout from "../../editions/2023a/layout.astro"
+import RichText from "../../editions/2023a/rich-text.astro"
+import { getEdition, imageUrl, pageOf } from "../../lib/editions"
+
+const edition = await getEdition("2023a")
+const page = pageOf(edition, "media")
+// Today's portraits; the 2023 page listed three of that year's.
+const images = edition.portraits.flatMap((portrait) =>
+  portrait.image.url ? [{ url: portrait.image.url, alt: portrait.image.alt ?? "me" }] : [],
+)
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <div class="a-markdown a-media-page">
+    <h1 class="a-heading-xl">{page?.title}</h1>
+    <RichText value={page?.body} />
+    <div class="a-media">
+      {images.map((image) => (
+        <img src={imageUrl(image.url, 1024)} alt={image.alt} loading="lazy" />
+      ))}
+    </div>
+  </div>
+</Layout>

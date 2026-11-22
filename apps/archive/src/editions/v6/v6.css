@@ -1,0 +1,622 @@
+/*
+ * v6 ran Chakra UI 1.0.1 in dark mode with Jost and Cousine. The chakra-1.0 toolchain compiles
+ * this file: the reset, global styles, component recipes and `token()` values come from
+ * @chakra-ui/theme 1.1.0 with v6's overrides (chakra.config.cjs). The rest is v6's layout.
+ */
+@toolchain "chakra-1.0" "./chakra.config.cjs";
+
+@import "@fontsource/jost/400.css";
+@import "@fontsource/jost/400-italic.css";
+@import "@fontsource/jost/500.css";
+@import "@fontsource/jost/600.css";
+@import "@fontsource/jost/700.css";
+@import "@fontsource/cousine/400.css";
+@import "@fontsource/cousine/700.css";
+
+@chakra reset;
+@chakra global;
+
+:root {
+  color-scheme: dark;
+}
+
+/* Layout */
+.v6-shell {
+  display: flex;
+  flex-direction: column;
+  max-width: 72rem;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+.v6-main {
+  flex-grow: 1;
+  animation: v6-enter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+/* framer-motion page variants: initial { opacity: 0, y: -80 } → enter { opacity: 1, y: 0 } */
+@keyframes v6-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v6-main {
+    animation: none;
+  }
+}
+
+/* Typography: <Heading size>, <Heading variant="link">, <Link variant="link">, <Link> */
+.v6-heading {
+  @chakra Heading;
+}
+.v6-heading-2xl {
+  @chakra Heading {
+    size: 2xl;
+  }
+}
+.v6-heading-lg {
+  @chakra Heading {
+    size: lg;
+  }
+}
+.v6-heading-md {
+  @chakra Heading {
+    size: md;
+  }
+}
+.v6-heading-sm {
+  @chakra Heading {
+    size: sm;
+  }
+}
+.v6-heading-xs {
+  @chakra Heading {
+    size: xs;
+  }
+}
+.v6-link-heading {
+  @chakra Heading {
+    variant: link;
+    only: variant;
+  }
+}
+.v6-link {
+  @chakra Link {
+    variant: link;
+  }
+}
+.v6-plain-link {
+  @chakra Link;
+}
+/* Style props from the original JSX: fontSize="sm|md|lg", bgColor="gray.700" */
+.v6-text-sm {
+  @chakra sx {
+    fontsize: sm;
+  }
+}
+.v6-text-md {
+  @chakra sx {
+    fontsize: md;
+  }
+}
+.v6-text-lg {
+  @chakra sx {
+    fontsize: lg;
+  }
+}
+.v6-bg-gray-700 {
+  @chakra sx {
+    bgcolor: gray.700;
+  }
+}
+.v6-muted {
+  color: token(colors.gray.400);
+}
+.v6-stack > * + * {
+  margin-top: var(--gap, 0.5rem);
+}
+
+/* Navbar */
+.v6-nav {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  font-size: token(fontSizes.md);
+}
+.v6-nav a.v6-nav-item {
+  padding: 1rem;
+}
+.v6-nav-routes {
+  display: none;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-nav-routes {
+    display: flex;
+  }
+}
+.v6-nav-socials {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v6-nav-socials {
+    gap: 0.5rem;
+  }
+}
+/* <IconButton as={Link} variant="link" icon={<Icon boxSize={5} />} /> */
+.v6-icon-button {
+  @chakra Button {
+    variant: link;
+  }
+  padding: 0;
+}
+.v6-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* Footer */
+.v6-footer {
+  padding: 2rem 0 4rem;
+}
+.v6-footer hr {
+  opacity: 0.6;
+  margin-bottom: 2rem;
+}
+.v6-footer-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+.v6-footer-routes {
+  display: none;
+  padding-left: 2rem;
+  text-align: right;
+}
+.v6-footer-routes > * + * {
+  margin-top: 0.25rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v6-footer-routes {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.v6-footer-socials {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  font-size: 1.25rem;
+}
+
+/* Panels and buttons */
+.v6-panel {
+  background: token(colors.gray.700);
+  padding: 2rem;
+}
+@media (min-width: token(breakpoints.lg)) {
+  .v6-panel-lg-rounded {
+    border-radius: token(radii.md);
+  }
+}
+.v6-panel-rounded {
+  border-radius: token(radii.md);
+}
+/* <Button as="a" rightIcon> */
+.v6-button {
+  @chakra Button;
+  gap: token(space.2);
+}
+/* <Button color="yellow.300" variant="link"> */
+.v6-email {
+  @chakra Button {
+    variant: link;
+  }
+  color: token(colors.yellow.300);
+}
+/* <Tooltip hasArrow placement="left">, drawn with ::after */
+.v6-tooltip {
+  position: relative;
+}
+.v6-tooltip::after {
+  @chakra Tooltip;
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+}
+.v6-tooltip:hover::after,
+.v6-tooltip:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* useToast({ status: "success" }): a solid success <Alert> */
+.v6-toast {
+  @chakra Alert.container {
+    variant: solid;
+    colorscheme: green;
+  }
+  position: fixed;
+  top: 0.5rem;
+  left: 50%;
+  z-index: token(zIndices.toast);
+  gap: 0.75rem;
+  align-items: flex-start;
+  min-width: 18rem;
+  padding-right: 2rem;
+  border-radius: token(radii.md);
+  box-shadow: token(shadows.lg);
+  transform: translate(-50%, -150%);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.v6-toast[data-open] {
+  transform: translate(-50%, 0);
+}
+.v6-toast strong {
+  @chakra Alert.title;
+  display: block;
+}
+
+/* Lists */
+.v6-row {
+  display: flex;
+  margin: 0 -1rem;
+  padding: 1rem;
+  border-radius: token(radii.md);
+  transition: background-color 150ms ease;
+}
+.v6-row:hover {
+  background: token(colors.whiteAlpha.100);
+}
+/* <Divider />: Chakra 1.0 styles it in the component, not the theme. */
+.v6-divider {
+  @chakra sx {
+    border: 0;
+    bordercolor: inherit;
+    borderstyle: solid;
+    borderbottomwidth: 1px;
+    opacity: 0.6;
+    width: 100%;
+  }
+}
+.v6-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding-top: 1rem;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+/* v6 let a tall screenshot peek out of a fixed-height card. Today's covers are wide social
+   images, so the card shows the whole image inside its padding, and the lift stays inside it. */
+.v6-project {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+  border-radius: token(radii.md);
+  background: token(colors.gray.600);
+  text-align: center;
+  transition: background-color 150ms ease;
+}
+.v6-project > * + * {
+  margin-top: 0.5rem;
+}
+.v6-project:hover {
+  background: token(colors.whiteAlpha.400);
+}
+.v6-project img {
+  width: 100%;
+  margin-top: auto;
+  aspect-ratio: 40 / 21;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.v6-project img,
+.v6-project .v6-missing {
+  transition: transform 150ms ease;
+}
+.v6-project:hover img,
+.v6-project:hover .v6-missing {
+  transform: translateY(-4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .v6-project:hover img,
+  .v6-project:hover .v6-missing {
+    transform: none;
+  }
+}
+.v6-missing {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 4px 4px 0 0;
+  background: token(colors.gray.700);
+  color: token(colors.gray.500);
+  font-size: token(fontSizes.xs);
+}
+
+/* Mobile drawer */
+.v6-fab {
+  position: fixed;
+  right: 0;
+  /* Lifted above the archive banner, which takes the same corner. */
+  bottom: 3.5rem;
+  z-index: 1;
+  padding: 1.25rem;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-fab {
+    display: none;
+  }
+}
+/* <IconButton isRound size="lg" /> */
+.v6-fab button {
+  @chakra Button {
+    size: lg;
+  }
+  padding: 0;
+  border-radius: token(radii.full);
+}
+/* <Drawer placement="right"> on a <dialog> */
+.v6-drawer {
+  @chakra Drawer.dialog {
+    size: xs;
+  }
+  position: fixed;
+  inset: 0 0 0 auto;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: token(fonts.body);
+}
+.v6-drawer[open] {
+  display: flex;
+  flex-direction: column;
+  animation: v6-slide 0.2s ease-out;
+}
+/* ModalContent's display: flex would otherwise show the closed <dialog>. */
+.v6-drawer:not([open]) {
+  display: none;
+}
+.v6-drawer::backdrop {
+  @chakra Drawer.overlay;
+}
+@keyframes v6-slide {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+/* Post body (react-markdown + postRenderer) */
+.v6-prose {
+  line-height: 1.625;
+  word-break: break-word;
+}
+.v6-prose > * + * {
+  margin-top: 2rem;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-prose {
+    font-size: token(fontSizes.lg);
+  }
+}
+.v6-prose a {
+  color: token(colors.yellow.300);
+}
+.v6-prose a:hover {
+  text-decoration: underline;
+}
+.v6-prose h2 {
+  font-size: token(fontSizes.2xl);
+  font-weight: 700;
+  line-height: 1.33;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-prose h2 {
+    font-size: token(fontSizes.3xl);
+    line-height: 1.2;
+  }
+}
+.v6-prose h3 {
+  font-size: token(fontSizes.2xl);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.v6-prose h4 {
+  font-size: token(fontSizes.xl);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.v6-prose ul {
+  list-style: disc;
+  padding-left: 1em;
+}
+.v6-prose ol {
+  list-style: decimal;
+  padding-left: 1em;
+}
+.v6-prose blockquote {
+  padding: 1rem 0 1rem 2rem;
+  border-left: 2px solid token(colors.gray.500);
+  color: token(colors.gray.300);
+}
+/* <Code> */
+.v6-prose :not(pre) > code {
+  @chakra Code;
+}
+.v6-prose pre {
+  padding: 1rem;
+  border-radius: 4px;
+  overflow: auto;
+  font-family: token(fonts.mono);
+  font-size: token(fontSizes.sm);
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-prose pre {
+    font-size: token(fontSizes.md);
+  }
+}
+.v6-prose pre code {
+  font-family: inherit;
+}
+.v6-snippet-label {
+  padding-right: 0.5rem;
+  color: token(colors.gray.500);
+  font-size: token(fontSizes.sm);
+  text-align: right;
+}
+.v6-prose figure img {
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+.v6-prose figcaption {
+  padding-top: 1rem;
+  font-size: token(fontSizes.sm);
+  text-align: center;
+}
+.v6-prose iframe {
+  max-width: 100%;
+  margin: 0 auto;
+}
+.v6-icon-5 {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.v6-icon-8 {
+  width: 2rem;
+  height: 2rem;
+}
+.v6-post-row {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.v6-post-row > :first-child {
+  padding-bottom: 0.5rem;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-post-row {
+    flex-direction: row;
+  }
+  .v6-post-row > :first-child,
+  .v6-post-row > :nth-child(2) {
+    width: 40%;
+  }
+  .v6-post-row > :nth-child(2) {
+    padding: 0 1rem;
+  }
+  .v6-post-date {
+    width: 20%;
+    text-align: right;
+  }
+  .v6-md-hide {
+    display: none;
+  }
+}
+
+/* Home hero and about */
+.v6-hero {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2rem 0;
+}
+.v6-hero-copy {
+  padding: 2rem 0;
+  line-height: 1.625;
+}
+.v6-doodle {
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+}
+.v6-doodle-mobile {
+  border-radius: 9999px;
+  background: token(colors.whiteAlpha.900);
+}
+.v6-doodle-desktop {
+  display: none;
+}
+@media (min-width: token(breakpoints.lg)) {
+  .v6-hero {
+    flex-direction: row;
+    padding-top: 0;
+  }
+  .v6-hero-copy {
+    max-width: 42rem;
+    padding: 1rem 0;
+  }
+  .v6-doodle-mobile {
+    display: none;
+  }
+  .v6-doodle-desktop {
+    display: block;
+  }
+}
+.v6-about > * + * {
+  margin-top: 4rem;
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-about {
+    font-size: token(fontSizes.md);
+  }
+}
+.v6-about-intro {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.v6-about-copy {
+  padding-top: 2rem;
+}
+@media (min-width: token(breakpoints.lg)) {
+  .v6-about-intro {
+    flex-direction: row;
+  }
+  .v6-about-copy {
+    padding: 0 2rem 0 0;
+  }
+}
+.v6-kb {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  padding-top: 1rem;
+}
+@media (min-width: token(breakpoints.sm)) {
+  .v6-kb {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: token(breakpoints.md)) {
+  .v6-kb {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: token(breakpoints.lg)) {
+  .v6-kb {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

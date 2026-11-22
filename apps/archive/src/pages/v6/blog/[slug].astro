@@ -1,0 +1,55 @@
+---
+import type { GetStaticPaths } from "astro"
+
+import { getEdition } from "../../../lib/editions"
+import { postAddress, shareOnX } from "../../../editions/_kit/share"
+import Layout from "../../../editions/v6/layout.astro"
+import { formatDate, postEntries, type PostEntry } from "../../../editions/v6/paths"
+import PostBody from "../../../editions/v6/post-body.astro"
+
+export const getStaticPaths = (async () => {
+  const edition = await getEdition("v6")
+  return postEntries(edition).map((entry) => ({ params: { slug: entry.slug }, props: { entry } }))
+}) satisfies GetStaticPaths
+
+const { entry } = Astro.props as { entry: PostEntry }
+const edition = await getEdition("v6")
+const url = postAddress(entry.slug)
+const discussUrl = `https://x.com/search?${new URLSearchParams({ q: url })}`
+const shareUrl = shareOnX(edition, entry.title, url)
+---
+
+<Layout pageTitle={entry.title} description={entry.subtitle}>
+  <article class="v6-panel-rounded v6-bg-gray-700">
+    <header
+      class="v6-stack"
+      style="--gap: 1rem; padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center"
+    >
+      <h1 class="v6-heading">{entry.title}</h1>
+      <p class="v6-heading-md" style="font-weight: 400; line-height: 1.5">
+        {entry.subtitle}
+      </p>
+      <p class="v6-muted v6-text-sm">Posted at {formatDate(entry.date)}</p>
+    </header>
+    <div style="padding: 1rem 2rem">
+      <hr class="v6-divider" />
+    </div>
+    <div style="padding: 2rem">
+      <PostBody value={entry.post?.body} />
+    </div>
+    <div style="display: flex; align-items: center; gap: 1rem; padding: 2rem">
+      <div style="flex-grow: 1">
+        <hr class="v6-divider" />
+      </div>
+      <div class="v6-text-sm" style="display: flex; gap: 0.5rem">
+        <a href={discussUrl} class="v6-link" target="_blank" rel="noopener noreferrer">
+          Discuss on X
+        </a>
+        <span>·</span>
+        <a href={shareUrl} class="v6-link" target="_blank" rel="noopener noreferrer">
+          Share on X
+        </a>
+      </div>
+    </div>
+  </article>
+</Layout>

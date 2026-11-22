@@ -1,0 +1,9 @@
+---
+import { highlight } from "./highlight"
+
+type Props = { node: { code?: string; language?: string } }
+
+const { code = "", language } = Astro.props.node
+---
+
+<Fragment set:html={highlight(code, language)} />

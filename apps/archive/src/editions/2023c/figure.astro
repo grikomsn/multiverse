@@ -1,0 +1,19 @@
+---
+import { assetSize, assetUrl } from "../_kit/assets"
+
+type Props = { node: { asset?: { _ref?: string }; alt?: string } }
+
+const { asset, alt } = Astro.props.node
+const size = assetSize(asset?._ref)
+---
+
+{asset?._ref && (
+  <img
+    class="mx-auto"
+    src={assetUrl(asset._ref, 1344)}
+    alt={alt ?? ""}
+    width={size.width}
+    height={size.height}
+    loading="lazy"
+  />
+)}

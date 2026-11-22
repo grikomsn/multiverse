@@ -1,0 +1,36 @@
+/* v4 shipped Tachyons 4.11 and Inter 3.9 (hinted), both pinned in the catalog. */
+@import "tachyons/css/tachyons.min.css";
+@import "inter-ui/inter-hinted.css";
+
+.v4-wrapper {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "avenir next",
+    avenir,
+    "helvetica neue",
+    helvetica,
+    ubuntu,
+    roboto,
+    noto,
+    "segoe ui",
+    arial,
+    sans-serif;
+}
+
+/* https://uigradients.com/#Hydrogen */
+.v4-blue-border {
+  height: 0.5rem;
+  background: #9cecfb;
+  background: linear-gradient(to right, #0052d4, #65c7f7, #9cecfb);
+}
+
+.v4-ellipsis::before {
+  content: "· · ·";
+}
+
+/* Today's profile URLs (a Bluesky DID, for one) are longer than 2019's. */
+main li a {
+  overflow-wrap: anywhere;
+}

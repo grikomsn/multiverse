@@ -1,0 +1,68 @@
+---
+import { formatCount, type Metrics } from "../lib/metrics"
+import Sparkline from "./sparkline.astro"
+
+/**
+ * Usage at a glance: a download trend with the monthly count, stars and installs, each with
+ * an icon. The words stay in the markup for screen readers.
+ */
+interface Props {
+  metrics?: Metrics
+  /** `row` is the smaller version for list rows. */
+  size?: "card" | "row"
+}
+
+const { metrics, size = "card" } = Astro.props
+const showDownloads = Boolean(metrics && metrics.downloads >= 100)
+const showStars = Boolean(metrics && metrics.stars >= 10)
+const showInstalls = Boolean(metrics && metrics.installs >= 100)
+const small = size === "row"
+---
+
+{metrics && (showDownloads || showStars || showInstalls) && (
+  <ul
+    class:list={[
+      "flex flex-wrap items-center font-mono text-xs text-soft",
+      small ? "gap-x-3 gap-y-1" : "gap-x-4 gap-y-2",
+    ]}
+    aria-label="Usage"
+  >
+    {showDownloads && (
+      <li class="flex items-center gap-2" title="npm downloads, weekly, last 12 months">
+        <Sparkline values={metrics.trend} width={small ? 48 : 88} height={small ? 16 : 26} />
+        <span>
+          <span class="font-semibold text-fg">{formatCount(metrics.downloads)}</span>
+          <span aria-hidden="true">/mo</span>
+          <span class="sr-only"> npm downloads a month</span>
+        </span>
+      </li>
+    )}
+    {showInstalls && (
+      <li class="flex items-center gap-1" title="VS Code Marketplace installs">
+        <svg class="size-3.5 text-accent" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path
+            d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M3 13h10"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="font-semibold text-fg">{formatCount(metrics.installs)}</span>
+        <span class="sr-only"> VS Code installs</span>
+      </li>
+    )}
+    {showStars && (
+      <li class="flex items-center gap-1" title="GitHub stars">
+        <svg class="size-3.5 text-accent" viewBox="0 0 16 16" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M8 1.2l2.06 4.18 4.6.67-3.33 3.25.79 4.59L8 11.72l-4.12 2.17.79-4.59L1.34 6.05l4.6-.67z"
+          />
+        </svg>
+        <span class="font-semibold text-fg">{formatCount(metrics.stars)}</span>
+        <span class="sr-only"> GitHub stars</span>
+      </li>
+    )}
+  </ul>
+)}

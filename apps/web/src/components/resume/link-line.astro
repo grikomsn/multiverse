@@ -1,0 +1,24 @@
+---
+import { displayUrl } from "../../lib/resume/resume"
+
+interface Props {
+  links: { label?: string; url: string }[]
+}
+
+/** Links as their own short URL text, so they are still useful on paper and in plain text. */
+const { links } = Astro.props
+---
+
+{links.length > 0 && (
+  <p class="entry__meta entry__links">
+    Links:{" "}
+    {links.map((link, index) => (
+      <>
+        {index > 0 && ", "}
+        <a class="link" href={link.url}>
+          {displayUrl(link.url)}
+        </a>
+      </>
+    ))}
+  </p>
+)}

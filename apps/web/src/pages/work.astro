@@ -1,0 +1,436 @@
+---
+import { formatRange, groupByOrganization, isoDate } from "@multiverse/content/format"
+import SectionHeading from "@multiverse/ui/section-heading.astro"
+
+import ProjectTile from "../components/project-tile.astro"
+import ProjectStats from "../components/project-stats.astro"
+import Sparkline from "../components/sparkline.astro"
+import BaseLayout from "../layouts/base.astro"
+import { markSource } from "../lib/inline-image"
+import { formatCount, getMetrics, totals } from "../lib/metrics"
+import { GROUPS, STATUS } from "../lib/projects"
+import { WORK_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+
+const { experience, projects, involvement, talks, education } = await sanity.fetch(WORK_QUERY)
+const stops = groupByOrganization(experience)
+const metrics = await getMetrics(projects)
+const sum = totals(metrics.values())
+const featured = projects.filter((project) => project.featured)
+const groups = GROUPS.map((group) => ({
+  ...group,
+  items: projects.filter(
+    (project) => !project.featured && group.kinds.includes(project.kind ?? "library"),
+  ),
+})).filter((group) => group.items.length > 0)
+// The mark that follows the pointer over a project row.
+const peeks = new Map(
+  await Promise.all(
+    projects.map(async (project) => [project._id, await markSource(project.icon)] as const),
+  ),
+)
+// Bullets shown per role before the rest fold into "Show more".
+const SHOWN = 2
+const TILES = [
+  { value: sum.stars, label: "GitHub stars" },
+  { value: sum.downloads, label: "npm downloads a month", trend: sum.trend },
+  { value: sum.installs, label: "VS Code installs" },
+].filter((tile) => tile.value > 0)
+---
+
+<BaseLayout
+  title="Work"
+  description="My experience, projects, community work and talks."
+  markdown="/work.md"
+>
+  <header class="pt-10 pb-8 sm:pt-16">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Work</h1>
+    <p class="mt-3 text-lg text-soft">
+      For a short version to print, go to the{" "}
+      <a class="link text-fg" href="/resume">
+        resume
+      </a>
+      .
+    </p>
+    {TILES.length > 0 && (
+      <dl class="mt-6 grid grid-cols-3 gap-3" aria-label="Project usage">
+        {TILES.map((tile) => (
+          <div class="flex flex-col gap-1 rounded-xl bg-sunk px-3 py-3 sm:px-4">
+            <dt class="text-xs leading-snug text-soft sm:text-sm">{tile.label}</dt>
+            <dd class="order-first flex flex-wrap items-end justify-between gap-x-3 gap-y-1">
+              <span class="text-2xl font-bold tracking-tight tabular-nums sm:text-3xl" data-count>
+                {formatCount(tile.value)}
+              </span>
+              {tile.trend && (
+                <Sparkline values={tile.trend} width={72} height={24} class="mb-1 max-sm:hidden" />
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    )}
+    <nav aria-label="On this page" class="mt-6">
+      <ul class="flex flex-wrap gap-2 text-sm">
+        {[
+          ["#experience", "Experience"],
+          ["#projects", "Projects"],
+          ["#community", "Community"],
+          ["#talks", "Talks"],
+        ].map(([href, label]) => (
+          <li>
+            <a class="button min-h-8 px-3 py-1 text-sm" href={href}>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </header>
+
+  <section id="experience" class="scroll-mt-6 border-t border-line py-10" data-reveal>
+    <SectionHeading title="Experience" icon="briefcase" />
+    <ol class="flex flex-col gap-10">
+      {stops.map((stop) => (
+        <li class="flex flex-col gap-5">
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <h3 class="text-xl font-bold tracking-tight">
+              {stop.organization?.url ? (
+                <a class="link" href={stop.organization.url}>
+                  {stop.organization.name}
+                </a>
+              ) : (
+                stop.organization?.name
+              )}
+            </h3>
+            <p class="font-mono text-[0.8125rem] text-soft">
+              {formatRange(stop.startDate, stop.endDate)}
+            </p>
+          </div>
+          {stop.roles.map((job) => (
+            <section class="flex flex-col gap-3 border-l-2 border-line pl-4">
+              <div>
+                <h4 class="font-semibold">{job.role}</h4>
+                <p class="text-sm text-soft">
+                  {[job.location, stop.roles.length > 1 && formatRange(job.startDate, job.endDate)]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              </div>
+              {job.highlights && job.highlights.length > 0 && (
+                <ul class="flex list-disc flex-col gap-1.5 pl-5 text-[0.9375rem] text-soft marker:text-line">
+                  {job.highlights.slice(0, SHOWN).map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              )}
+              {(job.highlights?.length ?? 0) > SHOWN && (
+                <details class="group -mt-1">
+                  <summary class="inline-flex min-h-6 cursor-pointer list-none items-center gap-1 text-sm font-semibold text-soft hover:text-fg [&::-webkit-details-marker]:hidden">
+                    <span class="group-open:hidden">
+                      Show {(job.highlights?.length ?? 0) - SHOWN} more
+                    </span>
+                    <span class="hidden group-open:inline">Show less</span>
+                    <svg
+                      class="size-3.5 transition-transform group-open:rotate-180"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M4 6l4 4 4-4"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </summary>
+                  <ul class="mt-2 flex list-disc flex-col gap-1.5 pl-5 text-[0.9375rem] text-soft marker:text-line">
+                    {job.highlights?.slice(SHOWN).map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+              {job.technologies && (
+                <ul class="flex flex-wrap gap-1.5" aria-label="Technologies">
+                  {job.technologies.map((tech) => (
+                    <li class="rounded-md bg-sunk px-2 py-0.5 font-mono text-xs text-soft">
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="projects" class="scroll-mt-6 border-t border-line py-10" data-reveal>
+    <SectionHeading title="Projects" icon="package" />
+    <ul class="grid gap-4 sm:grid-cols-2">
+      {featured.map((project) => (
+        <li>
+          <ProjectTile project={project} metrics={metrics.get(project._id)} />
+        </li>
+      ))}
+    </ul>
+    {groups.map((group) => (
+      <section class="mt-10">
+        <h3 class="label mb-2">{group.title}</h3>
+        <ul class="flex flex-col">
+          {group.items.map((project) => {
+            const href = project.url ?? project.repoUrl
+            return (
+              <li
+                class="grid gap-x-6 gap-y-2 border-b border-line py-3 last:border-b-0 sm:grid-cols-[1fr_auto]"
+                data-peek={peeks.get(project._id)}
+              >
+                <div>
+                  <p class="flex flex-wrap items-baseline gap-x-2">
+                    {href ? (
+                      <a
+                        class="link font-semibold decoration-transparent hover:decoration-accent"
+                        href={href}
+                      >
+                        {project.name}
+                      </a>
+                    ) : (
+                      <span class="font-semibold">{project.name}</span>
+                    )}
+                    {project.status && STATUS[project.status] && (
+                      <span class="font-mono text-xs text-soft">{STATUS[project.status]}</span>
+                    )}
+                    {project.organization?.name && (
+                      <span class="text-sm text-soft">at {project.organization.name}</span>
+                    )}
+                  </p>
+                  <p class="text-[0.9375rem] text-soft">{project.summary}</p>
+                </div>
+                <div class="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-1.5 sm:pt-1">
+                  <ProjectStats metrics={metrics.get(project._id)} size="row" />
+                  {project.startDate && (
+                    <span class="font-mono text-xs text-soft">{project.startDate.slice(0, 4)}</span>
+                  )}
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+    ))}
+  </section>
+
+  <section id="community" class="scroll-mt-6 border-t border-line py-10" data-reveal>
+    <SectionHeading title="Community" icon="users" />
+    <ul class="flex flex-col gap-4">
+      {involvement.map((item) => (
+        <li>
+          <p>
+            <span class="font-semibold">{item.role}</span>
+            <span class="text-soft">
+              {" "}
+              ·{" "}
+              {item.url ? (
+                <a class="link text-fg" href={item.url}>
+                  {item.organization?.name}
+                </a>
+              ) : (
+                item.organization?.name
+              )}
+            </span>
+          </p>
+          <p class="font-mono text-[0.8125rem] text-soft">
+            {item.endDate ? formatRange(item.startDate, item.endDate) : item.startDate?.slice(0, 4)}
+          </p>
+          {item.summary && <p class="mt-1 text-[0.9375rem] text-soft">{item.summary}</p>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="talks" class="scroll-mt-6 border-t border-line py-10" data-reveal>
+    <SectionHeading title="Talks" icon="mic" />
+    <ul class="flex flex-col">
+      {talks.map((talk) => (
+        <li class="grid gap-x-5 py-2.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline">
+          <time class="font-mono text-[0.8125rem] text-soft" datetime={talk.date}>
+            {isoDate(talk.date)}
+          </time>
+          <div>
+            <p>
+              {talk.slidesUrl || talk.recordingUrl ? (
+                <a
+                  class="link font-semibold decoration-transparent hover:decoration-accent"
+                  href={talk.slidesUrl ?? talk.recordingUrl ?? undefined}
+                >
+                  {talk.title}
+                </a>
+              ) : (
+                <span class="font-semibold">{talk.title}</span>
+              )}
+              {talk.event && <span class="text-soft"> · {talk.event}</span>}
+            </p>
+            {talk.summary && <p class="mt-0.5 text-[0.9375rem] text-soft">{talk.summary}</p>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {education.length > 0 && (
+    <section id="education" class="scroll-mt-6 border-t border-line py-10" data-reveal>
+      <SectionHeading title="Education" icon="graduation-cap" />
+      <ul class="flex flex-col gap-3">
+        {education.map((item) => (
+          <li>
+            <p class="font-semibold">{item.organization?.name}</p>
+            <p class="text-soft">
+              {item.degree}
+              {item.field && `, ${item.field}`} · {formatRange(item.startDate, item.endDate)}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+  {/* The mark that follows the pointer over a project row. It is outside the sections: a section
+      that settles on scroll would become the box a fixed element is placed in. */}
+  <div class="peek" data-peek-box aria-hidden="true">
+    <div class="dither-mark peek-tile">
+      <canvas></canvas>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* A project's mark that follows the pointer over its row. Pointer devices only. */
+  .peek {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    width: 13.75rem;
+    margin: -8.75rem 0 0 1.5rem;
+    pointer-events: none;
+  }
+
+  .peek-tile {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 2 / 1;
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    background-color: var(--color-card);
+    color: var(--color-accent);
+    box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.45);
+    scale: 0.82;
+    opacity: 0;
+    transition:
+      scale 260ms var(--ease-snap),
+      opacity 180ms var(--ease-out-quart);
+  }
+
+  .peek.is-open .peek-tile {
+    scale: 1;
+    opacity: 1;
+  }
+
+  .peek canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+
+<script>
+  import { fit, inkOf, markShape, paintShape, reducedMotion } from "@multiverse/ui/dither"
+
+  const DOT = 2
+  const FRAME = 1000 / 12
+  const box = document.querySelector<HTMLElement>("[data-peek-box]")
+  const rows = document.querySelectorAll<HTMLElement>("[data-peek]")
+
+  if (
+    box &&
+    rows.length > 0 &&
+    !reducedMotion() &&
+    matchMedia("(hover: hover) and (pointer: fine)").matches
+  ) {
+    const tile = box.querySelector<HTMLElement>(".peek-tile")!
+    const canvas = box.querySelector("canvas")!
+    const images = new Map<string, HTMLImageElement>()
+    let shape: Float32Array | undefined
+    let grid = { columns: 0, rows: 0 }
+    let current: HTMLElement | undefined
+    let open = false
+    let frame = 0
+    let last = 0
+    let x = 0
+    let y = 0
+    let targetX = 0
+    let targetY = 0
+    let tilt = 0
+    let color = inkOf(tile)
+
+    const loop = (now: number) => {
+      const dx = targetX - x
+      x += dx * 0.16
+      y += (targetY - y) * 0.16
+      // The tile leans into the move, like a card pulled by one corner.
+      tilt += (Math.max(-7, Math.min(7, dx * 0.18)) - tilt) * 0.2
+      box.style.translate = `${x}px ${y}px`
+      box.style.rotate = `${tilt}deg`
+      if (shape && now - last >= FRAME) {
+        last = now
+        paintShape(canvas, shape, grid.columns, grid.rows, {
+          px: DOT,
+          color,
+          time: now / 1000,
+        })
+      }
+      frame = open || Math.abs(dx) > 0.2 ? requestAnimationFrame(loop) : 0
+    }
+
+    document.addEventListener(
+      "pointermove",
+      (event) => {
+        targetX = event.clientX
+        targetY = event.clientY
+      },
+      { passive: true },
+    )
+
+    for (const row of rows) {
+      row.addEventListener("pointerenter", async (event) => {
+        current = row
+        const source = row.dataset.peek!
+        let image = images.get(source)
+        if (!image) {
+          image = new Image()
+          image.src = source
+          images.set(source, image)
+        }
+        await image.decode().catch(() => {})
+        if (current !== row) return
+        color = inkOf(tile)
+        grid = fit(canvas, DOT)
+        shape = markShape(image, grid.columns, grid.rows, 0.2)
+        if (!open) {
+          x = targetX = event.clientX
+          y = targetY = event.clientY
+        }
+        open = true
+        box.classList.add("is-open")
+        if (!frame) frame = requestAnimationFrame(loop)
+      })
+      row.addEventListener("pointerleave", () => {
+        if (current === row) current = undefined
+        open = false
+        box.classList.remove("is-open")
+      })
+    }
+  }
+</script>

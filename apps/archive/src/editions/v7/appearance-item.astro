@@ -1,0 +1,40 @@
+---
+import type { Edition } from "../../lib/editions"
+import Icon from "./icon.astro"
+import type { IconName } from "./icons"
+import { formatDate, trimProtocol } from "./paths"
+import Tags from "./tags.astro"
+
+interface Props {
+  talk: NonNullable<Edition["talks"]>[number]
+}
+
+const { talk } = Astro.props
+const ICONS: Record<string, IconName> = {
+  "lightning-talk": "bolt",
+  podcast: "microphone",
+  talk: "comment-alt",
+  workshop: "chalkboard",
+}
+---
+
+<article class="v7-card">
+  <div class="v7-appearance">
+    <Icon name={ICONS[talk.category ?? ""] ?? "globe-asia"} />
+    <div class="v7-stack" style="--gap: 0.5rem">
+      <p class="v7-muted" style="font-size: 0.875rem">
+        {formatDate(talk.date)}
+      </p>
+      <h2 class="v7-heading v7-heading-lg">{talk.title}</h2>
+      <p>{talk.subtitle}</p>
+      {talk.url && (
+        <p style="padding-bottom: 1rem; font-size: 0.875rem">
+          <a href={talk.url} class="v7-link v7-overlay" target="_blank" rel="noopener noreferrer">
+            {trimProtocol(talk.url)}
+          </a>
+        </p>
+      )}
+      <Tags tags={talk.tags} justify="start" />
+    </div>
+  </div>
+</article>

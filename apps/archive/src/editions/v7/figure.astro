@@ -1,0 +1,15 @@
+---
+import { assetUrl } from "./paths"
+
+type Props = { node: { asset?: { _ref?: string }; alt?: string; caption?: string } }
+
+const { asset, alt, caption } = Astro.props.node
+const label = caption ?? alt
+---
+
+{asset?._ref && (
+  <figure class="v7-figure">
+    <img src={assetUrl(asset._ref, 1600)} alt={alt ?? ""} loading="lazy" />
+    {label && <figcaption>{label}</figcaption>}
+  </figure>
+)}

@@ -1,0 +1,34 @@
+---
+import { getEdition, imageUrl } from "../../lib/editions"
+import Layout from "../../editions/v9/layout.astro"
+import { pageOf } from "../../editions/v9/paths"
+import Portable from "../../editions/v9/portable.astro"
+
+// A DatoCMS `page` with showHeader off. Its cover photo was lost; today's first photo portrait
+// takes its place.
+const edition = await getEdition("v9")
+const page = pageOf(edition, "about")
+const cover = edition.portraits.find((portrait) => portrait.kind === "photo")
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="space-y-16">
+    {cover?.image?.url && (
+      <div class="overflow-hidden rounded-lg">
+        <img
+          alt={cover.image.alt ?? "cover"}
+          src={imageUrl(cover.image.url, 1536, 1024)}
+          width="1536"
+          height="1024"
+          class="aspect-[3/2] w-full object-cover"
+          style={
+            cover.image.lqip ? `background: url(${cover.image.lqip}) center / cover` : undefined
+          }
+        />
+      </div>
+    )}
+    <article class="prose prose-invert">
+      <Portable value={edition.bio} />
+    </article>
+  </section>
+</Layout>

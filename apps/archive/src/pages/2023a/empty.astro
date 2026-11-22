@@ -1,0 +1,12 @@
+---
+import Layout from "../../editions/2023a/layout.astro"
+import { getEdition } from "../../lib/editions"
+
+const edition = await getEdition("2023a")
+---
+
+<Layout bare>
+  <div class="a-center">
+    <div class="a-empty">{edition.name}</div>
+  </div>
+</Layout>

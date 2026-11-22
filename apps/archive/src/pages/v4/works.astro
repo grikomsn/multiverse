@@ -1,0 +1,42 @@
+---
+import { getEdition, imageUrl, pageOf } from "../../lib/editions"
+import A from "../../editions/v4/a.astro"
+import Layout from "../../editions/v4/layout.astro"
+import { trimProtocol } from "../../editions/v4/paths"
+
+const edition = await getEdition("v4")
+const page = pageOf(edition, "works")
+---
+
+<Layout pageTitle="Works" class="tc">
+  <h1 class="f2-l f3 lh-title mt0 tracked-tight">{page?.title}</h1>
+
+  <p class="lh-copy mb4">{page?.description}</p>
+
+  {edition.projects?.map((work) => (
+    <div class="mb4">
+      {work.url && work.image?.url && (
+        <A href={work.url}>
+          <img
+            class="db w-100 h-auto"
+            src={imageUrl(work.image.url, 1600)}
+            srcset={`${imageUrl(work.image.url, 800)} 800w, ${imageUrl(work.image.url, 1600)} 1600w`}
+            sizes="(min-width: 64rem) 60rem, 100vw"
+            width={work.image.width ?? undefined}
+            height={work.image.height ?? undefined}
+            alt={work.image.alt ?? work.title}
+            loading="lazy"
+            decoding="async"
+            style={
+              work.image.lqip ? `background: url(${work.image.lqip}) center / cover` : undefined
+            }
+          />
+        </A>
+      )}
+      <p class="lh-copy">
+        {work.title} <br />
+        {work.url && <A href={work.url}>{trimProtocol(work.url)}</A>}
+      </p>
+    </div>
+  ))}
+</Layout>

@@ -1,0 +1,23 @@
+---
+import { getEdition } from "../../lib/editions"
+import Layout from "../../editions/v9/layout.astro"
+import PageHeader from "../../editions/v9/page-header.astro"
+import { pageOf } from "../../editions/v9/paths"
+import Portable from "../../editions/v9/portable.astro"
+
+const page = pageOf(await getEdition("v9"), "contact")
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="space-y-16">
+    <PageHeader
+      class="pt-[10vh] md:pt-[20vh]"
+      title={page?.title}
+      description={page?.description}
+    />
+    <hr class="grow border-neutral-500/50" />
+    <article class="prose prose-invert">
+      <Portable value={page?.body} />
+    </article>
+  </section>
+</Layout>

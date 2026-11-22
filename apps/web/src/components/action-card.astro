@@ -1,0 +1,88 @@
+---
+import Icon from "@multiverse/ui/icon.astro"
+
+/**
+ * A card with one action per row: a title, a short note and a button. Buttons either open a link
+ * (`href`) or copy text (`copy`).
+ */
+export interface Action {
+  title: string
+  note: string
+  label: string
+  href?: string
+  /** Text to put on the clipboard instead of opening a link. */
+  copy?: string
+  /** `download` saves the file; `external` opens a new tab. */
+  kind?: "download" | "external"
+}
+
+interface Props {
+  actions: Action[]
+  label?: string
+}
+
+const { actions, label } = Astro.props
+const ICON = {
+  download: "download",
+  external: "arrow-up-right",
+  copy: "copy",
+  link: "arrow-right",
+} as const
+---
+
+<div class="card" role="group" aria-label={label} data-action-card>
+  <ul class="divide-y divide-line">
+    {actions.map((action) => {
+      const icon = action.copy ? ICON.copy : action.kind ? ICON[action.kind] : ICON.link
+      return (
+        <li class="flex items-center justify-between gap-4 px-4 py-3">
+          <div class="min-w-0">
+            <p class="font-semibold">{action.title}</p>
+            <p class="text-sm text-pretty text-soft">{action.note}</p>
+          </div>
+          {action.copy ? (
+            <button type="button" class="button shrink-0" data-copy={action.copy}>
+              <span data-copy-label>{action.label}</span>
+              <Icon name={icon} class="size-4 text-accent-ink" />
+            </button>
+          ) : (
+            <a
+              class="button shrink-0"
+              href={action.href}
+              {...(action.kind === "download" ? { download: "" } : {})}
+              {...(action.kind === "external" ? { target: "_blank", rel: "noopener" } : {})}
+            >
+              {action.label}
+              {action.kind === "external" && <span class="sr-only"> (opens in a new tab)</span>}
+              <Icon name={icon} class="size-4 text-accent-ink" />
+            </a>
+          )}
+        </li>
+      )
+    })}
+  </ul>
+  <p class="sr-only" role="status" data-copy-status></p>
+</div>
+
+<script>
+  for (const card of document.querySelectorAll<HTMLElement>("[data-action-card]")) {
+    const status = card.querySelector<HTMLElement>("[data-copy-status]")
+    for (const button of card.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+      const label = button.querySelector<HTMLElement>("[data-copy-label]")
+      const original = label?.textContent ?? ""
+      button.addEventListener("click", async () => {
+        let text = "Copied"
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy ?? "")
+        } catch {
+          text = "Copy failed"
+        }
+        if (label) label.textContent = text
+        if (status) status.textContent = text
+        setTimeout(() => {
+          if (label) label.textContent = original
+        }, 2000)
+      })
+    }
+  }
+</script>

@@ -1,0 +1,23 @@
+---
+/** Ghost's image card. */
+import { assetSize, assetUrl } from "./paths"
+
+type Props = { node: { asset?: { _ref?: string }; alt?: string; caption?: string } }
+
+const { asset, alt, caption } = Astro.props.node
+const size = assetSize(asset?._ref)
+---
+
+{asset?._ref && (
+  <figure class="kg-card kg-image-card">
+    <img
+      src={assetUrl(asset._ref, 2000)}
+      class="kg-image"
+      alt={alt ?? ""}
+      width={size.width}
+      height={size.height}
+      loading="lazy"
+    />
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+)}

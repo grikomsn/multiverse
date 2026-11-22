@@ -1,0 +1,30 @@
+---
+import { getEdition, pageOf } from "../../lib/editions"
+import A from "../../editions/v4/a.astro"
+import Layout from "../../editions/v4/layout.astro"
+import { trimProtocol } from "../../editions/v4/paths"
+import RichText from "../../editions/v4/rich-text.astro"
+
+const edition = await getEdition("v4")
+const page = pageOf(edition, "contact")
+const groups = Map.groupBy(edition.links ?? [], (link) => link.group ?? "")
+---
+
+<Layout pageTitle="Contact" class="lh-copy">
+  <h1 class="f2-l f3 lh-title mt0 tracked-tight">{page?.title}</h1>
+
+  <RichText value={page?.body} paragraphClass="measure" />
+
+  {[...groups].map(([name, links]) => (
+    <>
+      <b>{name}</b>
+      <ul class="list pl0">
+        {links.map((link) => (
+          <li>
+            {link.label} - <A href={link.url}>{trimProtocol(link.url)}</A>
+          </li>
+        ))}
+      </ul>
+    </>
+  ))}
+</Layout>

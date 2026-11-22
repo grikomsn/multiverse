@@ -1,0 +1,22 @@
+---
+import { assetUrl } from "./paths"
+
+type Props = { node: { asset?: { _ref?: string }; alt?: string; caption?: string } }
+
+// ui/core/img-figure.tsx: alt text doubles as the caption; every image zooms (medium-zoom).
+const { asset, alt, caption } = Astro.props.node
+const label = caption ?? alt
+---
+
+{asset?._ref && (
+  <figure class="text-center">
+    <img
+      src={assetUrl(asset._ref, 1600)}
+      alt={alt ?? ""}
+      class="z-10 mx-auto w-full max-w-2xl"
+      loading="lazy"
+      data-zoomable
+    />
+    {label && <figcaption class="break-words">{label}</figcaption>}
+  </figure>
+)}

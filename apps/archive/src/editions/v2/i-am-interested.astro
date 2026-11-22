@@ -1,0 +1,28 @@
+---
+/** components/IAmInterested.js: the CTA in the contact modal and at the bottom of the home page. */
+import type { Edition } from "../../lib/editions"
+import { pageOf } from "../../lib/editions"
+import { linksOf } from "./data"
+import { emojify } from "./emoji"
+import RichText from "./rich-text.astro"
+
+type Props = { edition: Edition }
+
+const { edition } = Astro.props
+const page = pageOf(edition, "contact")
+const BUTTONS = ["button is-info is-primary", "button is-light"]
+const EMOJI = ["wave_tone1", "eyes"]
+---
+
+<div class="content has-text-dark">
+  <h1 set:html={emojify(page?.title)} />
+  <RichText value={page?.body} />
+  <br />
+  <div class="buttons" style="justify-content: center">
+    {linksOf(edition, "Email").map((link, index) => (
+      <a href={link.url} class={BUTTONS[index]}>
+        <i class={`e1a-${EMOJI[index]}`} /> &nbsp; {link.label}
+      </a>
+    ))}
+  </div>
+</div>

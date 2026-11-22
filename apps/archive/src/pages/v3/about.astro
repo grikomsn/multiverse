@@ -1,0 +1,32 @@
+---
+import { toPlainText } from "astro-portabletext"
+import { getEdition, imageUrl } from "../../lib/editions"
+import { assetOf } from "../../lib/live"
+import Layout from "../../editions/v3/layout.astro"
+import RichText from "../../editions/v3/rich-text.astro"
+
+const edition = await getEdition("v3")
+const [heading, ...bio] = edition.bio ?? []
+const headingText = heading ? toPlainText([heading]) : ""
+const signature = assetOf(edition, "signature")?.image
+---
+
+<Layout pageTitle="About">
+  <section class="section">
+    <div class="container content">
+      <h1 class="title">{headingText}</h1>
+      <RichText value={bio} />
+      <div class="has-text-centered">
+        {signature?.url && (
+          <img
+            class="v3-sig"
+            src={imageUrl(signature.url, 256)}
+            alt={signature.alt ?? "Signature"}
+            width={signature.width ?? undefined}
+            height={signature.height ?? undefined}
+          />
+        )}
+      </div>
+    </div>
+  </section>
+</Layout>

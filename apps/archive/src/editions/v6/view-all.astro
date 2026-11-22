@@ -1,0 +1,17 @@
+---
+import Icon from "./icon.astro"
+
+interface Props {
+  title: string
+  href: string
+}
+
+const { title, href } = Astro.props
+---
+
+<div style="display: flow-root">
+  <a href={href} class="v6-button" style="float: right">
+    {title}
+    <Icon name="arrow-right" />
+  </a>
+</div>

@@ -1,0 +1,64 @@
+/*
+ * v8b's styles/tailwind.css on Tailwind 3.0.23 (see tailwind.config.cjs). Unchanged except:
+ * Fontsource fonts, `color-scheme`, the zoom overlay's z-index above the sticky header, and
+ * no Twemoji or Shiki highlight rules (the rebuild uses neither).
+ */
+@toolchain "tailwind-3.0";
+
+@import "@fontsource/lexend/300.css";
+@import "@fontsource/lexend/400.css";
+@import "@fontsource/lexend/500.css";
+@import "@fontsource/lexend/600.css";
+@import "@fontsource/lexend/700.css";
+@import "@fontsource/lexend/800.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
+/* tailwind styles */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .focus-ring {
+    @apply ring-offset-body absolute inset-0 rounded-full bg-current ring-current transition group-hover:ring-2 group-hover:ring-offset-4;
+  }
+}
+
+/* base styles */
+
+html {
+  cursor: default;
+  text-rendering: optimizeLegibility;
+  color-scheme: dark;
+  @apply selection:bg-opacity-50 selection:bg-primary text-text bg-body font-sans underline-offset-2 antialiased;
+}
+
+code,
+pre {
+  @apply subpixel-antialiased;
+}
+
+/* prose overrides */
+
+.prose pre {
+  @apply relative shadow-2xl;
+}
+.prose pre > code {
+  @apply grid;
+}
+.prose pre > code .line {
+  min-height: 1.5em;
+}
+
+/* vendor styles */
+
+.medium-zoom-overlay {
+  @apply bg-opacity-75 bg-black backdrop-blur-sm;
+  z-index: 60;
+}
+.medium-zoom-image--opened {
+  @apply max-w-none;
+  z-index: 61;
+}

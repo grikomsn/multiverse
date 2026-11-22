@@ -1,0 +1,31 @@
+---
+import { getEdition, imageUrl } from "../../lib/editions"
+import { assetOf } from "../../lib/live"
+import Layout from "../../editions/v8/layout.astro"
+import Portable from "../../editions/v8/portable.astro"
+import Prose from "../../editions/v8/prose.astro"
+
+const edition = await getEdition("v8")
+const cover = assetOf(edition, "cover")
+---
+
+<Layout pageTitle="About Me">
+  <Prose class="v8-about">
+    {cover?.image?.url && (
+      <img
+        src={imageUrl(cover.image.url, 1792)}
+        alt={cover.image.alt ?? ""}
+        width={cover.image.width ?? undefined}
+        height={cover.image.height ?? undefined}
+        style={`background: url(${cover.image.lqip}) center / cover`}
+      />
+    )}
+    <Portable value={edition.bio} />
+  </Prose>
+  <script>
+    // <Underline> around the bold names in the first paragraph.
+    for (const name of document.querySelectorAll(".v8-about > p:first-of-type strong")) {
+      name.setAttribute("data-underline", "")
+    }
+  </script>
+</Layout>

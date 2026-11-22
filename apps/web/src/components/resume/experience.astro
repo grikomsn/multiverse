@@ -1,0 +1,47 @@
+---
+import type { ExperienceEntry } from "../../lib/resume/resume"
+import LinkLine from "./link-line.astro"
+import Section from "./section.astro"
+
+interface Props {
+  entries: ExperienceEntry[]
+}
+
+const { entries } = Astro.props
+---
+
+{entries.length > 0 && (
+  <Section id="experience" title="Experience">
+    {entries.map((entry) => (
+      <article class="entry entry--long">
+        <div class="entry__head">
+          <h3 class="entry__title">
+            {entry.role} at{" "}
+            {entry.url ? (
+              <a class="link" href={entry.url}>
+                {entry.organization}
+              </a>
+            ) : (
+              entry.organization
+            )}
+          </h3>
+          <p class="entry__period">
+            {entry.period}
+            {entry.location && <> · {entry.location}</>}
+          </p>
+        </div>
+        {entry.bullets.length > 0 && (
+          <ul class="entry__bullets">
+            {entry.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        )}
+        {entry.technologies.length > 0 && (
+          <p class="entry__meta entry__tech">Technologies: {entry.technologies.join(", ")}</p>
+        )}
+        <LinkLine links={entry.links} />
+      </article>
+    ))}
+  </Section>
+)}

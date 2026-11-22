@@ -1,0 +1,123 @@
+---
+import "../styles/media.css"
+
+import Lightbox from "../components/media/lightbox.astro"
+import PortraitCard from "../components/media/portrait-card.astro"
+import BaseLayout from "../layouts/base.astro"
+import { THUMB_SIZES, toGalleryPortrait } from "../lib/portraits"
+import { MEDIA_PAGE_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+
+const { profile, portraits: rows } = await sanity.fetch(MEDIA_PAGE_QUERY)
+
+const name = profile?.shortName ?? "Griko Nibras"
+const title = "Media"
+const description = `Photos and illustrations of ${name}. You can use them for talks, articles and profiles.`
+
+const portraits = rows.map(toGalleryPortrait)
+// The first card is the LCP element; start its download before the grid is parsed.
+const first = portraits[0]
+const sections = [
+  { id: "photos", heading: "Photos", items: portraits.filter((p) => p.kind === "photo") },
+  {
+    id: "illustrations",
+    heading: "Illustrations",
+    items: portraits.filter((p) => p.kind === "illustration"),
+  },
+].filter((section) => section.items.length > 0)
+// Page order (photos, then illustrations) drives the lightbox's prev/next.
+const ordered = sections.flatMap((section) => section.items)
+
+/** Cards in the first row on the widest layout (5 columns). */
+const EAGER_COUNT = 5
+
+const origin = Astro.site?.origin ?? "https://nibras.co"
+const personId = `${origin}/#person`
+const pageUrl = new URL("/media", origin).href
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      name,
+      alternateName: profile?.name !== name ? profile?.name : undefined,
+      url: origin,
+      jobTitle: profile?.headline ?? undefined,
+      image: ordered[0]?.original,
+    },
+    {
+      "@type": "ImageGallery",
+      "@id": `${pageUrl}#gallery`,
+      url: pageUrl,
+      name: title,
+      description,
+      author: { "@id": personId },
+      image: ordered.map((p) => ({
+        "@type": "ImageObject",
+        name: p.title,
+        description: p.alt,
+        contentUrl: p.original,
+        width: p.width,
+        height: p.height,
+        creator: p.credit
+          ? { "@type": "Person", name: p.credit, url: p.creditUrl ?? undefined }
+          : undefined,
+        copyrightHolder: { "@id": personId },
+      })),
+    },
+  ],
+}
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={ordered[0]?.full.src}
+  imageAlt={`Portraits of ${name}`}
+  structuredData={structuredData}
+  markdown="/media.md"
+  wide
+>
+  {first && (
+    <link
+      slot="head"
+      rel="preload"
+      as="image"
+      imagesrcset={first.thumb.srcset}
+      imagesizes={THUMB_SIZES}
+      fetchpriority="high"
+    />
+  )}
+
+  <header class="pt-10 pb-4 sm:pt-16">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Media</h1>
+    <p class="mt-3 max-w-2xl text-lg text-pretty text-soft">{description}</p>
+    <p class="mt-2 max-w-2xl text-soft">
+      Select a portrait to see it larger. Select the download button to get the original file.
+    </p>
+  </header>
+
+  <div id="gallery" class="space-y-14 pt-8">
+    {sections.length === 0 ? (
+      <p class="text-soft">No portraits yet. Check back soon.</p>
+    ) : (
+      sections.map((section) => (
+        <section aria-labelledby={section.id} class="border-t border-line pt-6" data-reveal>
+          <h2 id={section.id} class="label mb-6 flex items-baseline gap-2">
+            {section.heading}
+            <span class="font-mono font-normal tracking-normal">{section.items.length}</span>
+          </h2>
+          <ul class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-6 lg:grid-cols-4 xl:grid-cols-5">
+            {section.items.map((portrait) => {
+              const index = ordered.indexOf(portrait)
+              return <PortraitCard portrait={portrait} index={index} eager={index < EAGER_COUNT} />
+            })}
+          </ul>
+        </section>
+      ))
+    )}
+  </div>
+
+  {ordered.length > 0 && <Lightbox portraits={ordered} />}
+</BaseLayout>

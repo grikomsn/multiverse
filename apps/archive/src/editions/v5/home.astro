@@ -1,0 +1,147 @@
+---
+/** pages/index.tsx: draggable Memoji and the hero with colored framework pills. */
+import type { Edition } from "../../lib/editions"
+import { imageUrl } from "../../lib/editions"
+import Main from "./main.astro"
+
+type Props = { edition: Edition; class?: string }
+
+const { edition, class: className } = Astro.props
+const [hero, cta] = edition.intro ?? []
+
+/** Mark colors by framework, the signature of this hero. */
+const COLORS: Record<string, string> = {
+  "laravel.com": "bg-red-600 hover:bg-red-700",
+  "nodejs.org": "bg-green-600 hover:bg-green-700",
+  "reactjs.org": "bg-blue-600 hover:bg-blue-700",
+  // Today's stack, for the current-content build.
+  "react.dev": "bg-blue-600 hover:bg-blue-700",
+  "vuejs.org": "bg-green-600 hover:bg-green-700",
+  "typescriptlang.org": "bg-blue-600 hover:bg-blue-700",
+  "nestjs.com": "bg-red-600 hover:bg-red-700",
+  "nextjs.org": "bg-gray-800 hover:bg-gray-900",
+  "tauri.app": "bg-yellow-600 hover:bg-yellow-700",
+}
+
+type Part = { text: string; href?: string }
+
+const partsOf = (block: typeof hero): Part[] =>
+  block?._type !== "block"
+    ? []
+    : (block.children ?? []).map((child) => {
+        const text = "text" in child ? (child.text ?? "") : ""
+        const mark = "marks" in child ? child.marks?.[0] : undefined
+        const def = block?.markDefs?.find((markDef) => markDef._key === mark)
+        return { text, href: def && "href" in def ? (def.href as string) : undefined }
+      })
+
+const colorOf = (href: string) => {
+  try {
+    return COLORS[new URL(href).hostname]
+  } catch {
+    return undefined
+  }
+}
+---
+
+<Main class={className}>
+  <div class="flex flex-col md:flex-row items-center justify-center">
+    {edition.avatar?.url && (
+      <img
+        class="v4b-memoji cursor-move object-contain px-8 pb-8 md:pb-0 w-48 lg:w-64"
+        src={imageUrl(edition.avatar.url, 512)}
+        alt={edition.avatar.alt ?? "me"}
+        width={edition.avatar.width ?? undefined}
+        height={edition.avatar.height ?? undefined}
+        draggable="false"
+        data-v4b-drag
+      />
+    )}
+
+    <div>
+      <div class="font-bold leading-tight mb-8 text-2xl sm:text-3xl lg:text-4xl tracking-tighter">
+        {partsOf(hero).map((part) =>
+          part.href ? (
+            <div class="inline-block v4b-lift-4">
+              <a
+                href={part.href}
+                class:list={["no-underline p-1 transition-colors", colorOf(part.href)]}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {part.text}
+              </a>
+            </div>
+          ) : (
+            part.text.split("\n").map((line, index) => (
+              <>
+                {index > 0 && <br class="hidden md:block" />}
+                {line.includes("great day") ? (
+                  <>
+                    {line.split("day")[0]}
+                    <span data-v4b-day>day</span>
+                    {line.split("day").slice(1).join("day")}
+                  </>
+                ) : (
+                  line
+                )}
+              </>
+            ))
+          ),
+        )}
+      </div>
+
+      <div>
+        {partsOf(cta).map((part) =>
+          part.href ? (
+            <div class="inline-block v4b-lift-4">
+              <a
+                href={part.href}
+                class="no-underline p-1 transition-colors bg-yellow-800 hover:bg-yellow-900 font-bold mx-1 tracking-tighter"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {part.text}
+              </a>
+            </div>
+          ) : (
+            part.text
+          ),
+        )}
+      </div>
+    </div>
+  </div>
+</Main>
+
+<script>
+  const days = "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" ")
+  for (const element of document.querySelectorAll("[data-v4b-day]")) {
+    element.textContent = days[new Date().getDay()] ?? "day"
+  }
+
+  // motion.img drag: constraints at the origin with dragElastic 0.2, so it stretches a fifth of
+  // the pointer distance and springs back on release.
+  for (const image of document.querySelectorAll<HTMLElement>("[data-v4b-drag]")) {
+    let start: { x: number; y: number } | undefined
+    image.addEventListener("pointerdown", (event) => {
+      start = { x: event.clientX, y: event.clientY }
+      image.setPointerCapture(event.pointerId)
+      image.classList.add("is-dragging")
+    })
+    image.addEventListener("pointermove", (event) => {
+      if (!start) return
+      image.style.setProperty("--x", `${(event.clientX - start.x) * 0.2}px`)
+      image.style.setProperty("--y", `${(event.clientY - start.y) * 0.2}px`)
+    })
+    const release = () => {
+      start = undefined
+      image.classList.remove("is-dragging")
+      image.style.transition = "transform 400ms cubic-bezier(0.3, 1.6, 0.5, 1)"
+      image.style.removeProperty("--x")
+      image.style.removeProperty("--y")
+      setTimeout(() => image.style.removeProperty("transition"), 400)
+    }
+    image.addEventListener("pointerup", release)
+    image.addEventListener("pointercancel", release)
+  }
+</script>

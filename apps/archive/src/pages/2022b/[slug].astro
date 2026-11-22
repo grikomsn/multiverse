@@ -1,0 +1,157 @@
+---
+import type { GetStaticPaths } from "astro"
+
+import FeaturedIcon from "../../editions/2022b/featured-icon.astro"
+import Layout from "../../editions/2022b/layout.astro"
+import { assetUrl, BASE, formatDate } from "../../editions/2022b/paths"
+import PostCard from "../../editions/2022b/post-card.astro"
+import { postsOf } from "../../editions/2022b/posts"
+import RichText from "../../editions/2022b/rich-text.astro"
+import { getEdition, imageUrl } from "../../lib/editions"
+
+/** Ghost serves posts and pages from the root: /<slug>/. */
+export const getStaticPaths = (async () => {
+  const edition = await getEdition("2022b")
+  const posts = postsOf(edition)
+  return [
+    ...posts.map((post) => ({
+      params: { slug: post.slug },
+      props: { kind: "post" as const, slug: post.slug },
+    })),
+    ...(edition.pages ?? []).map((page) => ({
+      params: { slug: page.slug! },
+      props: { kind: "page" as const, slug: page.slug! },
+    })),
+  ]
+}) satisfies GetStaticPaths
+
+const { kind, slug } = Astro.props
+const edition = await getEdition("2022b")
+const posts = postsOf(edition)
+const post = kind === "post" ? posts.find((entry) => entry.slug === slug) : undefined
+const page = kind === "page" ? edition.pages?.find((entry) => entry.slug === slug) : undefined
+const author = edition.extras?.find((extra) => extra.category === "author")
+const readMore = posts.filter((entry) => entry.slug !== slug).slice(0, 3)
+
+// Pages keep their cover as the first body figure.
+const pageCover = page?.body?.[0]?._type === "figure" ? page.body[0] : undefined
+const pageCoverRef = pageCover && "asset" in pageCover ? pageCover.asset?._ref : undefined
+const pageBody = pageCover ? page?.body?.slice(1) : page?.body
+---
+
+{post && (
+  <Layout
+    pageTitle={post.title}
+    description={post.description}
+    bodyClass={["post-template", ...post.tags.map((tag) => `tag-${tag.slug}`)].join(" ")}
+  >
+    <main id="site-main" class="site-main">
+      <article
+        class:list={[
+          "article post",
+          ...post.tags.map((tag) => `tag-${tag.slug}`),
+          post.featured && "featured",
+          "image-small",
+        ]}
+      >
+        <header class="article-header gh-canvas">
+          <div class="article-tag post-card-tags">
+            {post.tags[0] && (
+              <span class="post-card-primary-tag">
+                <a href={`${BASE}/tag/${post.tags[0].slug}/`}>{post.tags[0].name}</a>
+              </span>
+            )}
+            {post.featured && (
+              <span class="post-card-featured">
+                <FeaturedIcon /> Featured
+              </span>
+            )}
+          </div>
+          <h1 class="article-title">{post.title}</h1>
+          {post.description && <p class="article-excerpt">{post.description}</p>}
+          <div class="article-byline">
+            <section class="article-byline-content">
+              <ul class="author-list">
+                <li class="author-list-item">
+                  <a href={`${BASE}/author/griko/`} class="author-avatar">
+                    <img
+                      class="author-profile-image"
+                      src={imageUrl(author?.image?.url, 250)}
+                      alt={author?.title}
+                    />
+                  </a>
+                </li>
+              </ul>
+              <div class="article-byline-meta">
+                <h4 class="author-name">
+                  <a href={`${BASE}/author/griko/`}>{author?.title}</a>
+                </h4>
+                <div class="byline-meta-content">
+                  {post.date && (
+                    <time class="byline-meta-date" datetime={post.date}>
+                      {formatDate(post.date)}
+                    </time>
+                  )}
+                  {post.subtitle && (
+                    <span class="byline-reading-time">
+                      <span class="bull">&bull;</span> {post.subtitle}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </section>
+          </div>
+          {post.image?.url && (
+            <figure class="article-image">
+              <img
+                srcset={[300, 600, 1000, 2000]
+                  .map((width) => `${imageUrl(post.image!.url, width)} ${width}w`)
+                  .join(", ")}
+                sizes="(min-width: 1400px) 1400px, 92vw"
+                src={imageUrl(post.image.url, 2000)}
+                alt={post.image.alt ?? post.title}
+              />
+            </figure>
+          )}
+        </header>
+        <section class="gh-content gh-canvas">
+          <RichText value={post.post?.body} />
+        </section>
+      </article>
+    </main>
+    <aside class="read-more-wrap outer">
+      <div class="read-more inner">
+        {readMore.map((entry) => (
+          <PostCard post={entry} showTag={false} />
+        ))}
+      </div>
+    </aside>
+  </Layout>
+)}
+{page && (
+  <Layout
+    pageTitle={page.title}
+    description={page.description}
+    bodyClass={`page-template page-${slug}`}
+  >
+    <main id="site-main" class="site-main">
+      <article class:list={["article post", !pageCoverRef && "no-image"]}>
+        <header class="article-header gh-canvas">
+          <h1 class="article-title">{page.title}</h1>
+          {pageCoverRef && (
+            <figure class="article-image">
+              <img
+                sizes="(min-width: 1400px) 1400px, 92vw"
+                src={assetUrl(pageCoverRef, 2000)}
+                alt={page.title}
+              />
+            </figure>
+          )}
+        </header>
+        <section class="gh-content gh-canvas">
+          <RichText value={pageBody} />
+        </section>
+      </article>
+    </main>
+  </Layout>
+)}

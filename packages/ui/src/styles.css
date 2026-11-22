@@ -1,0 +1,727 @@
+/*
+ * Shared design for nibras.co and the archive index. Import after `tailwindcss`.
+ *
+ * The look follows what the site's earlier versions share (docs/redesign.md): one grotesque
+ * sans, a narrow column, amber link underlines, light and dark. Colors use light-dark(), so
+ * the system setting and the theme toggle (`data-theme` on <html>) both work with one rule.
+ */
+@source "./";
+
+@theme {
+  --color-bg: light-dark(#fbfaf7, #17181c);
+  --color-fg: light-dark(#18181b, #ececf1);
+  --color-soft: light-dark(#5b5b66, #a1a1ad);
+  --color-line: light-dark(#e7e5e0, #2b2d34);
+  --color-card: light-dark(#ffffff, #1e2025);
+  --color-sunk: light-dark(#f2f0eb, #121316);
+  /* Underlines and markers. Not for text: use accent-ink. */
+  --color-accent: light-dark(#eab308, #facc15);
+  --color-accent-ink: light-dark(#8a5a00, #facc15);
+  /* Stack-word highlights, after the v4–v5 "Laravel, Node, and React" marks. */
+  --color-mark-red: light-dark(#fde2e1, #5b2422);
+  --color-mark-green: light-dark(#dcf3e4, #1f4a33);
+  --color-mark-blue: light-dark(#dde9fb, #1f3a63);
+  /* "Now" dot on the current role. */
+  --color-mark-green-ink: light-dark(#16a34a, #4ade80);
+  /* Dots of the footer band: the accent, thinner on the dark ground. */
+  --color-dither: light-dark(rgb(234 179 8 / 0.55), rgb(250 204 21 / 0.38));
+  /* A picture while it develops: light dots on a dark plate, in both themes. */
+  --color-plate: light-dark(#18181b, #0f1013);
+  --color-plate-dot: light-dark(#fbfaf7, #ececf1);
+
+  --font-sans: var(--font-timeless-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  /* Quick start, soft stop. For reveals and small hover moves. */
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Cross-document view transitions: no JavaScript, ignored where unsupported. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
+/*
+ * Header brand on the home page: out of sight while the hero avatar is in view, then it slides
+ * up from under the header as the avatar scrolls away (the header is 4.5rem tall).
+ * Scroll-linked, so it is not motion that plays by itself; browsers without scroll timelines
+ * show the brand all the time.
+ */
+.brand-clip {
+  overflow: clip;
+  /* Room for the focus ring. */
+  margin: -0.375rem;
+  padding: 0.375rem;
+}
+
+@supports (animation-timeline: view()) {
+  :root:has(.brand-reveal) {
+    timeline-scope: --hero;
+  }
+
+  [data-hero] {
+    view-timeline: --hero block;
+    view-timeline-inset: 4.5rem 0;
+  }
+
+  .brand-reveal {
+    animation: brand-reveal linear both;
+    animation-timeline: --hero;
+    animation-range: exit 0% exit 100%;
+  }
+
+  @keyframes brand-reveal {
+    from {
+      translate: 0 150%;
+      visibility: hidden;
+    }
+
+    to {
+      translate: 0 0;
+      visibility: visible;
+    }
+  }
+}
+
+/*
+ * Reading progress on a post: an accent line under the header that grows with the page scroll.
+ * Scroll-linked and transform only. Without scroll timelines there is no line.
+ */
+.read-progress {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transform-origin: left;
+  scale: 0 1;
+}
+
+@supports (animation-timeline: scroll()) {
+  .read-progress {
+    animation: read-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  @keyframes read-progress {
+    to {
+      scale: 1 1;
+    }
+  }
+}
+
+/*
+ * Tooltip from `data-tooltip`, for icon-only links. Shows on hover and keyboard focus. The
+ * element still needs an accessible name (aria-label), because ::after text is not read.
+ */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 0.375rem);
+  left: 50%;
+  translate: -50% 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 120ms var(--ease-out-quart),
+    translate 120ms var(--ease-out-quart);
+}
+
+[data-tooltip]:is(:hover, :focus-visible)::after {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tooltip]::after {
+    translate: -50% 0;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/*
+ * Settle on scroll: sections marked `data-reveal` move the last few pixels into place while
+ * they enter the view, and move back when they leave it. Tied to the scroll position, so
+ * nothing plays by itself and no script runs. Transform only: text never fades out of reach.
+ * Without scroll timelines, or with reduced motion, nothing moves.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0px entry 14rem;
+    }
+  }
+}
+
+@keyframes settle {
+  from {
+    translate: 0 1.5rem;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@media print {
+  [data-reveal] {
+    animation: none !important;
+    translate: none !important;
+  }
+}
+
+/*
+ * Theme change: the new theme opens as a circle from the toggle (theme-toggle.astro). The
+ * class is on <html> only while that one transition runs, so page navigation keeps its fade.
+ */
+:root.theme-switch::view-transition-old(root),
+:root.theme-switch::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+:root.theme-switch::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Named parts would cross-fade on top of the circle. */
+:root.theme-switch * {
+  view-transition-name: none !important;
+}
+
+/*
+ * Progressive blur (progressive-blur.astro): five backdrop blurs, each twice the last, each
+ * masked to its own band. Together they ease from no blur to the full blur at one edge, with no
+ * line where the blur starts. The tint is the page ground, strongest at the same edge.
+ */
+.progressive-blur {
+  --blur-to: to bottom;
+  --blur-tint: 50%;
+  --blur-step: 20%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    var(--blur-to),
+    transparent,
+    color-mix(in oklab, var(--color-bg) var(--blur-tint), transparent) calc(var(--blur-step) * 5)
+  );
+
+  &[data-edge="top"] {
+    --blur-to: to top;
+  }
+
+  & > div {
+    position: absolute;
+    inset: 0;
+  }
+
+  & > div:nth-child(1) {
+    backdrop-filter: blur(1px);
+    mask-image: linear-gradient(
+      var(--blur-to),
+      transparent 0%,
+      #000 var(--blur-step),
+      #000 calc(var(--blur-step) * 2),
+      transparent calc(var(--blur-step) * 3)
+    );
+  }
+
+  & > div:nth-child(2) {
+    backdrop-filter: blur(2px);
+    mask-image: linear-gradient(
+      var(--blur-to),
+      transparent var(--blur-step),
+      #000 calc(var(--blur-step) * 2),
+      #000 calc(var(--blur-step) * 3),
+      transparent calc(var(--blur-step) * 4)
+    );
+  }
+
+  & > div:nth-child(3) {
+    backdrop-filter: blur(4px);
+    mask-image: linear-gradient(
+      var(--blur-to),
+      transparent calc(var(--blur-step) * 2),
+      #000 calc(var(--blur-step) * 3),
+      #000 calc(var(--blur-step) * 4),
+      transparent calc(var(--blur-step) * 5)
+    );
+  }
+
+  & > div:nth-child(4) {
+    backdrop-filter: blur(8px);
+    mask-image: linear-gradient(
+      var(--blur-to),
+      transparent calc(var(--blur-step) * 3),
+      #000 calc(var(--blur-step) * 4),
+      #000 calc(var(--blur-step) * 5),
+      transparent calc(var(--blur-step) * 5 + 1px)
+    );
+  }
+
+  & > div:nth-child(5) {
+    backdrop-filter: blur(16px);
+    mask-image: linear-gradient(
+      var(--blur-to),
+      transparent calc(var(--blur-step) * 4),
+      #000 calc(var(--blur-step) * 5)
+    );
+  }
+}
+
+/* People who ask for less transparency get the tint alone, a little stronger. */
+@media (prefers-reduced-transparency: reduce) {
+  .progressive-blur {
+    --blur-tint: 96%;
+
+    & > div {
+      display: none;
+    }
+  }
+}
+
+/*
+ * The header's ground: the page color at 85% over a blur, so content stays readable under the
+ * links. It is off at the top of the page, where nothing is under the header, and comes in
+ * over the first 1.5rem of scroll. Without scroll timelines it is always on.
+ */
+.site-header {
+  isolation: isolate;
+}
+
+.site-header-ground {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: color-mix(in oklab, var(--color-bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+@supports (animation-timeline: scroll()) {
+  .site-header-ground {
+    animation: site-header-ground linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 1.5rem;
+  }
+
+  @keyframes site-header-ground {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-header-ground {
+    background-color: var(--color-bg);
+    backdrop-filter: none;
+  }
+}
+
+/*
+ * The lower edge of the window: content blurs out as it leaves. The footer script turns it off
+ * while the footer's dither band is in view, so the band stays sharp.
+ */
+.page-end-blur {
+  --blur-tint: 45%;
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 30;
+  height: 5rem;
+  transition: opacity 300ms var(--ease-out-quart);
+
+  &.is-off {
+    opacity: 0;
+  }
+
+  @media (min-width: 40rem) {
+    height: 6.5rem;
+  }
+}
+
+@media print {
+  .progressive-blur {
+    display: none !important;
+  }
+}
+
+/*
+ * Dither: the site's one visual motif. The hero wave is a WebGL shader (dither-wave.ts); the
+ * footer band, project marks, developing pictures and the 404 number are 2D canvases
+ * (dither.ts). A canvas holds one pixel for each dot, so it must scale without smoothing.
+ */
+.dither-wave {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  color: var(--color-accent);
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out-quart);
+
+  &.is-ready {
+    opacity: 0.6;
+  }
+
+  & canvas {
+    display: block;
+  }
+}
+
+.dither-band {
+  position: relative;
+  height: 5rem;
+  overflow: hidden;
+  color: var(--color-dither);
+
+  @media (min-width: 40rem) {
+    height: 6rem;
+  }
+}
+
+:is(.dither-band, .dither-mark, .develop) canvas,
+canvas.develop {
+  display: block;
+  image-rendering: pixelated;
+}
+
+@media print {
+  .dither-wave,
+  .dither-band {
+    display: none !important;
+  }
+}
+
+/* A utility, not a component class, so variants work: `[&_a]:link`. */
+@utility link {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness 150ms var(--ease-out-quart);
+
+  &:hover {
+    text-decoration-thickness: 3px;
+  }
+}
+
+@layer components {
+  /* Small uppercase label above a list or section. */
+  .label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-soft);
+  }
+
+  .mark {
+    padding: 0 0.18em;
+    border-radius: 0.25rem;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .card {
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    background-color: var(--color-card);
+  }
+
+  .card-link {
+    transition:
+      border-color 150ms var(--ease-out-quart),
+      translate 150ms var(--ease-out-quart);
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: color-mix(in oklab, var(--color-fg) 30%, var(--color-line));
+      }
+    }
+
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      &:hover {
+        translate: 0 -2px;
+      }
+    }
+  }
+
+  /*
+   * A light on the border and the ground that follows the pointer. The layout script sets
+   * --spot-x and --spot-y on the card under the pointer.
+   */
+  .card-spot {
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: inherit;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 250ms var(--ease-out-quart);
+    }
+
+    &::before {
+      inset: -1px;
+      padding: 1px;
+      background: radial-gradient(
+        12rem circle at var(--spot-x, -20rem) var(--spot-y, -20rem),
+        var(--color-accent),
+        transparent 72%
+      );
+      mask:
+        linear-gradient(#000 0 0) content-box exclude,
+        linear-gradient(#000 0 0);
+    }
+
+    &::after {
+      inset: 0;
+      background: radial-gradient(
+        16rem circle at var(--spot-x, -20rem) var(--spot-y, -20rem),
+        color-mix(in oklab, var(--color-accent) 9%, transparent),
+        transparent 70%
+      );
+    }
+
+    @media (hover: hover) {
+      &:hover::before,
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background-color: var(--color-card);
+    font-weight: 600;
+    transition:
+      border-color 150ms var(--ease-out-quart),
+      translate 200ms var(--ease-snap),
+      scale 200ms var(--ease-snap);
+
+    &:hover {
+      border-color: color-mix(in oklab, var(--color-fg) 35%, var(--color-line));
+    }
+
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      &:hover {
+        translate: 0 -2px;
+      }
+
+      &:active {
+        translate: 0 0;
+        scale: 0.97;
+      }
+    }
+  }
+
+  .button-primary {
+    border-color: var(--color-fg);
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+
+    &:hover {
+      border-color: var(--color-fg);
+      background-color: color-mix(in oklab, var(--color-fg) 85%, var(--color-bg));
+    }
+  }
+}
+
+/* Long-form text from Sanity. */
+@layer components {
+  .prose {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    overflow-wrap: break-word;
+
+    & > * + * {
+      margin-top: 1.25em;
+    }
+
+    & :is(h2, h3, h4) {
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      margin-top: 2em;
+      text-wrap: balance;
+    }
+
+    & h2 {
+      font-size: 1.5rem;
+    }
+
+    & h3 {
+      font-size: 1.25rem;
+    }
+
+    & h4 {
+      font-size: 1.0625rem;
+    }
+
+    & a {
+      overflow-wrap: anywhere;
+      text-decoration-line: underline;
+      text-decoration-color: var(--color-accent);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    & :is(ul, ol) {
+      padding-left: 1.5em;
+    }
+
+    & ul {
+      list-style: disc;
+    }
+
+    & ol {
+      list-style: decimal;
+    }
+
+    & li + li {
+      margin-top: 0.4em;
+    }
+
+    & li::marker {
+      color: var(--color-soft);
+    }
+
+    & blockquote {
+      padding-left: 1.25em;
+      border-left: 3px solid var(--color-accent);
+      color: var(--color-soft);
+    }
+
+    & hr {
+      border-color: var(--color-line);
+      margin-block: 2.5em;
+    }
+
+    & :not(pre) > code {
+      padding: 0.1em 0.35em;
+      border-radius: 0.3rem;
+      background-color: var(--color-sunk);
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+    }
+
+    & pre {
+      overflow-x: auto;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--color-line);
+      border-radius: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    & figure img {
+      border-radius: 0.75rem;
+    }
+
+    & figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--color-soft);
+      text-align: center;
+    }
+
+    & table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+
+    & :is(td, th) {
+      padding: 0.375rem 0.5rem;
+      border-bottom: 1px solid var(--color-line);
+      text-align: left;
+    }
+  }
+
+  /* Shiki dual themes: astro <Code themes> writes both palettes as variables. */
+  .astro-code,
+  .astro-code span {
+    color: light-dark(var(--shiki-light), var(--shiki-dark)) !important;
+    background-color: light-dark(var(--shiki-light-bg), var(--shiki-dark-bg)) !important;
+  }
+}
+
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  [data-print="hide"] {
+    display: none !important;
+  }
+}

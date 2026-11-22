@@ -1,0 +1,22 @@
+---
+import Layout from "../../editions/2024/layout.astro"
+import RichText from "../../editions/2024/rich-text.astro"
+import { getEdition, imageUrl } from "../../lib/editions"
+
+const edition = await getEdition("2024")
+---
+
+<Layout bodyClass="home">
+  {edition.avatar?.url && (
+    <p>
+      <img
+        src={imageUrl(edition.avatar.url, 240, 240)}
+        alt={edition.avatar.alt ?? edition.name ?? ""}
+        width="120"
+        height="120"
+        style="width:120px;height:120px;border-radius:50%;object-fit:cover;float:right;margin-left:1em;margin-bottom:1em;"
+      />
+    </p>
+  )}
+  <RichText value={edition.intro} />
+</Layout>

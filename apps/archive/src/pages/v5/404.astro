@@ -1,0 +1,8 @@
+---
+import ErrorPage from "../../editions/v5/error.astro"
+import Layout from "../../editions/v5/layout.astro"
+---
+
+<Layout pageTitle="404: Not Found">
+  <ErrorPage base={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/v5`} />
+</Layout>

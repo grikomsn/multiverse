@@ -1,0 +1,226 @@
+---
+import { toPlainText } from "astro-portabletext"
+import { faTerminal } from "@fortawesome/free-solid-svg-icons"
+
+import { getEdition, imageUrl, pageOf } from "../../lib/editions"
+import { extrasOf, linksOf, projectLinks, projectsOf } from "../../editions/v2/data"
+import { assetOf } from "../../lib/live"
+import { emojify } from "../../editions/v2/emoji"
+import { faSvg } from "../../editions/v2/fa"
+import Footer from "../../editions/v2/footer.astro"
+import IAmInterested from "../../editions/v2/i-am-interested.astro"
+import Layout from "../../editions/v2/layout.astro"
+import Navbar from "../../editions/v2/navbar.astro"
+import RichText from "../../editions/v2/rich-text.astro"
+
+const edition = await getEdition("v2")
+const wordmark = assetOf(edition, "wordmark")
+const [heading, ...bio] = edition.bio ?? []
+const headingText = heading ? toPlainText([heading]) : ""
+const terminal = faSvg(faTerminal)
+const works = pageOf(edition, "works")
+const plugs = pageOf(edition, "plugs")
+
+const cards = (entries: typeof edition.extras) =>
+  (entries ?? []).map((entry) => ({ ...entry, footer: linksOf(edition, entry.title) }))
+---
+
+<Layout>
+  <div class="hero is-fullheight is-warning">
+    <div class="hero-head">
+      <Navbar edition={edition} />
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="v2-bounce-top">
+          {wordmark?.image?.url && (
+            <img
+              src={wordmark.image.url}
+              id="g-spring"
+              alt={edition.name}
+              width={wordmark.image.width ?? undefined}
+              height={wordmark.image.height ?? undefined}
+            />
+          )}
+        </div>
+        <div class="subtitle">{toPlainText(edition.intro ?? [])}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="has-background-warning v2-first">
+    <section class="section">
+      <div class="container">
+        <div
+          id="avatar"
+          data-v2-fade
+          style={
+            edition.avatar?.url
+              ? `background-image: url(${imageUrl(edition.avatar.url, 384)})`
+              : undefined
+          }
+        ></div>
+        <div class="card g-max-width">
+          <div class="card-content has-text-centered">
+            <div class="content">
+              <h1 set:html={emojify(headingText, { terminal })} />
+              <RichText value={bio} paragraphStyle="max-width: 800px; margin: 0 auto" />
+            </div>
+            <hr />
+            <div>
+              <div class="columns content">
+                {extrasOf(edition, "specialty").map((specialty) => (
+                  <div class="column">
+                    <Fragment
+                      set:html={specialty.tags
+                        ?.map((tag) => emojify(tag).replace('class="', 'class="e1a-lg '))
+                        .join("")}
+                    />
+                    <h3>{specialty.title}</h3>
+                    <p>{specialty.description}</p>
+                  </div>
+                ))}
+              </div>
+              <br />
+              <div class="columns content">
+                {edition.skills?.map((group) => (
+                  <div class="column">
+                    <h6>{group.title}</h6>
+                    <ul class="list-unstyled">
+                      {group.items?.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <hr />
+            <div class="content">
+              <h1 set:html={emojify(works?.title)} />
+              <RichText value={works?.body} />
+            </div>
+            <br />
+            <div class="columns is-multiline">
+              {projectsOf(edition, "work").map((work) => (
+                <div class="column is-half">
+                  <div class="card">
+                    <div class="card-image">
+                      <figure class="image">
+                        {work.image?.url && (
+                          <img
+                            src={imageUrl(work.image.url, 1280)}
+                            alt={work.image.alt ?? work.title}
+                            width={work.image.width ?? undefined}
+                            height={work.image.height ?? undefined}
+                            loading="lazy"
+                            data-v2-fade
+                          />
+                        )}
+                      </figure>
+                    </div>
+                    <div class="card-content">
+                      <h4 class="title is-4">{work.title}</h4>
+                      <p class="subtitle is-6">{work.subtitle}</p>
+                      {work.body ? <RichText value={work.body} /> : <p>{work.description}</p>}
+                    </div>
+                    <div class="card-footer">
+                      {projectLinks(work).map((link) => (
+                        <a
+                          href={link.url}
+                          class="card-footer-item"
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="has-background-dark" id="g-section-separator"></div>
+  </div>
+
+  <div class="v2-second">
+    <section class="section has-background-dark">
+      <div class="container">
+        <div class="card is-shadowless g-max-width">
+          <div class="card-content has-text-centered has-text-light">
+            <div class="content">
+              <h1 class="has-text-light" set:html={emojify(plugs?.title)} />
+              <p>{plugs?.description}</p>
+            </div>
+            <br />
+            <div class="columns">
+              {cards(extrasOf(edition, "plug")).map((plug) => (
+                <div class="column">
+                  <div class="card">
+                    <div class="card-image">
+                      <figure class="image">
+                        {plug.image?.url && (
+                          <img
+                            src={imageUrl(plug.image.url, 1280)}
+                            alt={plug.image.alt ?? plug.title}
+                            width={plug.image.width ?? undefined}
+                            height={plug.image.height ?? undefined}
+                            loading="lazy"
+                            data-v2-fade
+                          />
+                        )}
+                      </figure>
+                    </div>
+                    <div class="card-content">
+                      <h4 class="title is-4">{plug.title}</h4>
+                      <p class="subtitle is-6">{plug.subtitle}</p>
+                      <p>{plug.description}</p>
+                    </div>
+                    <div class="card-footer">
+                      {plug.footer.map((link) => (
+                        <a
+                          href={link.url}
+                          class="card-footer-item"
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="v2-third">
+    <section class="section has-background-dark">
+      <div class="container">
+        <div class="card g-max-width">
+          <div class="card-content has-text-centered">
+            <IAmInterested edition={edition} />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <Footer edition={edition} />
+</Layout>
+
+<script>
+  // Spring.js: clicking the wordmark scrolls one viewport down.
+  document.getElementById("g-spring")?.addEventListener("click", () => {
+    window.scroll({ top: window.innerHeight, behavior: "smooth" })
+  })
+</script>

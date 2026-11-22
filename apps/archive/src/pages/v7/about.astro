@@ -1,0 +1,70 @@
+---
+import { getEdition, imageUrl } from "../../lib/editions"
+import { assetOf } from "../../lib/live"
+import Layout from "../../editions/v7/layout.astro"
+import { pageOf, trimProtocol } from "../../editions/v7/paths"
+import RichText from "../../editions/v7/rich-text.astro"
+
+const edition = await getEdition("v7")
+const page = pageOf(edition, "about")
+const cover = assetOf(edition, "cover")
+---
+
+<Layout pageTitle={page?.title ?? "About me"} description={page?.description}>
+  <div class="v7-container">
+    {cover?.image?.url && (
+      <div style="padding-bottom: 2rem">
+        <img
+          src={imageUrl(cover.image.url, 1920)}
+          alt={cover.image.alt ?? ""}
+          width={cover.image.width ?? undefined}
+          height={cover.image.height ?? undefined}
+        />
+      </div>
+    )}
+    <div class="v7-stack v7-about-preface" style="padding-bottom: 2rem; line-height: 1.625">
+      <RichText value={edition.bio} />
+    </div>
+    <div class="v7-kb">
+      {edition.skills?.map((group) => (
+        <div>
+          <h2 class="v7-heading v7-heading-md" style="padding-bottom: 1rem">
+            {group.title}
+          </h2>
+          <ul class="v7-stack" style="--gap: 0.25rem; font-size: 0.875rem">
+            {group.items?.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div style="height: 2rem"></div>
+    <p style="padding-bottom: 0.5rem">
+      You can reach out via email at{" "}
+      <a href={`mailto:${edition.email}`} class="v7-link">
+        {edition.email}
+      </a>
+      , or via socials below:
+    </p>
+    <ul class="v7-stack" style="--gap: 0.25rem">
+      {edition.links?.map((link) => (
+        <li>
+          {link.label} -{" "}
+          <a href={link.url} class="v7-link" target="_blank" rel="noopener noreferrer">
+            {trimProtocol(link.url ?? "")}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Layout>
+
+<style is:global>
+  .v7-about-preface a {
+    color: var(--chakra-colors-yellow-200);
+  }
+  .v7-about-preface strong {
+    font-weight: 700;
+  }
+</style>

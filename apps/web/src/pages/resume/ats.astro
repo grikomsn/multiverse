@@ -1,0 +1,39 @@
+---
+import "../../styles/global.css"
+import "../../styles/resume.css"
+import "../../styles/print.css"
+
+import { Font } from "astro:assets"
+
+import Document from "../../components/resume/document.astro"
+import { getResume } from "../../lib/resume/content"
+
+/**
+ * What `/resume.pdf` renders: the resume alone, light, without the site header, footer, avatar
+ * or actions. Printing `/resume` gives the same pages through print.css.
+ */
+const resume = await getResume()
+const { profile, site, skills } = resume
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Also the PDF title. -->
+    <title>{profile.name} – Resume</title>
+    <meta name="description" content={site.description} />
+    <meta name="author" content={profile.name} />
+    <meta name="keywords" content={skills.flatMap((group) => group.skills).join(", ")} />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="color-scheme" content="light" />
+    <link rel="canonical" href={site.url} />
+    <Font cssVariable="--font-timeless-sans" preload />
+  </head>
+  <body class="bg-bg text-fg">
+    <main class="resume-shell mx-auto max-w-3xl px-5">
+      <Document resume={resume} />
+    </main>
+  </body>
+</html>

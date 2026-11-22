@@ -1,0 +1,86 @@
+---
+import type { GetStaticPaths } from "astro"
+
+import { getEdition, imageUrl } from "../../../lib/editions"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+import { postAddress, shareOnX } from "../../../editions/_kit/share"
+import A from "../../../editions/v9/a.astro"
+import Icon from "../../../editions/v9/icon.astro"
+import Layout from "../../../editions/v9/layout.astro"
+import PageHeader from "../../../editions/v9/page-header.astro"
+import {
+  formatDate,
+  href,
+  isPlaceholder,
+  pageOf,
+  postEntries,
+  type PostEntry,
+} from "../../../editions/v9/paths"
+import Portable from "../../../editions/v9/portable.astro"
+
+export const getStaticPaths = (async () => {
+  const edition = await getEdition("v9")
+  return postEntries(edition).map((entry) => ({
+    params: { slug: entry.slug },
+    // The favicons-compiled post only exists in this edition, so its body is an edition page.
+    props: { entry, body: entry.post?.body ?? pageOf(edition, `blog/${entry.slug}`)?.body },
+  }))
+}) satisfies GetStaticPaths
+
+const { entry, body } = Astro.props as { entry: PostEntry; body: unknown[] | null | undefined }
+const url = postAddress(entry.slug)
+const intent = shareOnX(await getEdition("v9"), entry.title, url)
+const lqip = isPlaceholder(entry.cover?.alt)
+---
+
+<Layout pageTitle={entry.title} description={entry.description}>
+  {entry.redirect && <meta http-equiv="refresh" content={`0; url=${entry.redirect}`} />}
+  <section class="space-y-16">
+    <div class="space-y-8">
+      {entry.cover?.url && (
+        <div class="overflow-hidden rounded-lg">
+          <img
+            alt="cover"
+            src={imageUrl(entry.cover.url, lqip ? 64 : 1792)}
+            width={entry.cover.width ?? undefined}
+            height={entry.cover.height ?? undefined}
+            class:list={["w-full", { "aspect-video scale-110 blur-md": lqip }]}
+          />
+        </div>
+      )}
+      <PageHeader
+        class:list={{ "pt-[10vh] md:pt-[20vh]": !entry.cover?.url }}
+        title={entry.title}
+        description={entry.description}
+      />
+      <div class="flex items-center justify-between">
+        <span class="text-xs">Posted on {formatDate(entry.date)}</span>
+        <div class="flex animate-fade-in items-center gap-4 text-neutral-400">
+          <button
+            type="button"
+            title="Share this post"
+            data-share={entry.title}
+            data-url={url}
+            hidden
+          >
+            <Icon name="share-ios" class="h-5 w-5 hover:text-neutral-300" />
+          </button>
+          <A href={intent} title="Post this on X">
+            <Fragment set:html={brandSvg("x", 'class="h-5 w-5 hover:text-neutral-300"')} />
+          </A>
+          <a
+            href={href(`/blog/${entry.slug}`)}
+            title="Copy post link to clipboard"
+            data-copy-url={url}
+          >
+            <Icon name="link" class="h-5 w-5 hover:text-neutral-300" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr class="grow border-neutral-500/50" />
+    <article class="prose prose-invert relative cursor-auto">
+      <Portable value={body} />
+    </article>
+  </section>
+</Layout>

@@ -1,0 +1,16 @@
+---
+/** Footer copy with bold `A` links, rendered from parts so formatting never adds stray spaces. */
+import A from "./a.astro"
+
+type Props = { parts: (string | [label: string, href: string])[] }
+---
+
+{Astro.props.parts.map((part) =>
+  typeof part === "string" ? (
+    part
+  ) : (
+    <A href={part[1]} bold>
+      {part[0]}
+    </A>
+  ),
+)}

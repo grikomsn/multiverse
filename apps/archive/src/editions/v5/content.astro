@@ -1,0 +1,10 @@
+---
+/** components/content.tsx */
+type Props = { compact?: boolean; isBlogPost?: boolean; class?: string }
+
+const { compact = true, isBlogPost = false, class: className } = Astro.props
+---
+
+<article class:list={[compact && "max-w-3xl mx-auto", isBlogPost && "blog-post", className]}>
+  <slot />
+</article>

@@ -1,0 +1,13 @@
+{
+  "name": "@archive/tailwind-1.1",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.cjs",
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "catalog:tailwind-1.1",
+    "postcss": "catalog:tailwind-1.1",
+    "tailwindcss": "catalog:tailwind-1.1",
+    "tailwindcss-transitions": "catalog:tailwind-1.1"
+  }
+}

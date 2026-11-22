@@ -1,0 +1,10 @@
+---
+import { Code } from "astro:components"
+
+type Props = { node: { language?: string; code?: string } }
+
+// mdx-pretty-code with Shiki github-dark, as v9 configured it.
+const { language = "text", code = "" } = Astro.props.node
+---
+
+<Code code={code} lang={language as "plaintext"} theme="github-dark" />

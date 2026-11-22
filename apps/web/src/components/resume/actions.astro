@@ -1,0 +1,100 @@
+---
+import ClaudeIcon from "./icons/claude-icon.astro"
+import CopyIcon from "./icons/copy-icon.astro"
+import DownloadIcon from "./icons/download-icon.astro"
+import OpenAiIcon from "./icons/openai-icon.astro"
+import PrintIcon from "./icons/print-icon.astro"
+
+interface Props {
+  name: string
+  origin: string
+}
+
+const { name, origin } = Astro.props
+const prompt = encodeURIComponent(
+  `Read ${origin}/resume.md, the resume of ${name}. Then answer my questions about it. Use only facts from the resume.`,
+)
+---
+
+<nav class="actions" aria-label="Resume actions">
+  <div class="actions__group">
+    <a class="action action--primary" href="/resume.pdf" download="resume.pdf">
+      <DownloadIcon aria-hidden="true" />
+      Download PDF
+    </a>
+    <button class="action" type="button" data-action="print">
+      <PrintIcon aria-hidden="true" />
+      Print
+    </button>
+  </div>
+  <div class="actions__group" role="group" aria-labelledby="ask-ai">
+    <span id="ask-ai" class="actions__label">
+      Ask AI
+    </span>
+    <a
+      class="action action--icon"
+      href={`https://claude.ai/new?q=${prompt}`}
+      rel="noopener"
+      target="_blank"
+      aria-label="Ask Claude about this resume (opens in a new tab)"
+      data-tooltip="Ask Claude"
+    >
+      <ClaudeIcon aria-hidden="true" />
+    </a>
+    <a
+      class="action action--icon"
+      href={`https://chatgpt.com/?q=${prompt}`}
+      rel="noopener"
+      target="_blank"
+      aria-label="Ask ChatGPT about this resume (opens in a new tab)"
+      data-tooltip="Ask ChatGPT"
+    >
+      <OpenAiIcon aria-hidden="true" />
+    </a>
+    <button
+      class="action action--icon"
+      type="button"
+      data-action="copy-markdown"
+      aria-label="Copy the resume as Markdown"
+      data-tooltip="Copy as Markdown"
+    >
+      <CopyIcon aria-hidden="true" />
+    </button>
+  </div>
+  <p class="sr-only" role="status" data-status></p>
+</nav>
+
+<script>
+  document.querySelector("[data-action=print]")?.addEventListener("click", () => window.print())
+
+  const copy = document.querySelector<HTMLButtonElement>("[data-action=copy-markdown]")
+  const status = document.querySelector<HTMLElement>("[data-status]")
+
+  const announce = (text: string) => {
+    if (copy) copy.dataset.tooltip = text
+    if (status) status.textContent = text
+    setTimeout(() => {
+      if (copy) copy.dataset.tooltip = "Copy as Markdown"
+    }, 2000)
+  }
+
+  copy?.addEventListener("click", async () => {
+    const text = fetch("/resume.md").then((response) => {
+      if (!response.ok) throw new Error(String(response.status))
+      return response.text()
+    })
+    try {
+      // Safari needs the clipboard write to start inside the click, so pass a promise.
+      if ("ClipboardItem" in window) {
+        const blob = text.then((value) => new Blob([value], { type: "text/plain" }))
+        await navigator.clipboard.write([new ClipboardItem({ "text/plain": blob })])
+      } else {
+        await navigator.clipboard.writeText(await text)
+      }
+      announce("Copied")
+    } catch {
+      announce("Copy failed")
+      window.open("/resume.md", "_blank", "noopener")
+    }
+  })
+</script>

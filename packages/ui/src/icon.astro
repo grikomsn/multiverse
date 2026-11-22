@@ -1,0 +1,67 @@
+---
+/**
+ * Line icons from Lucide, inlined at build time. Decorative: always pair one with text.
+ * Add a name to ICONS before using it, so only the icons in use reach the bundle.
+ */
+import {
+  AppWindow,
+  ArrowRight,
+  ArrowUpRight,
+  Bot,
+  Briefcase,
+  Building2,
+  CalendarDays,
+  Copy,
+  Download,
+  FileText,
+  GraduationCap,
+  Image,
+  Mail,
+  MicVocal,
+  Package,
+  PenLine,
+  Plug,
+  Puzzle,
+  Rss,
+  Users,
+} from "lucide-static"
+
+const ICONS = {
+  "app-window": AppWindow,
+  "arrow-right": ArrowRight,
+  "arrow-up-right": ArrowUpRight,
+  bot: Bot,
+  briefcase: Briefcase,
+  building: Building2,
+  calendar: CalendarDays,
+  copy: Copy,
+  download: Download,
+  "file-text": FileText,
+  "graduation-cap": GraduationCap,
+  image: Image,
+  mail: Mail,
+  mic: MicVocal,
+  package: Package,
+  pen: PenLine,
+  plug: Plug,
+  puzzle: Puzzle,
+  rss: Rss,
+  users: Users,
+}
+
+interface Props {
+  name: keyof typeof ICONS
+  class?: string
+  /** Stroke width; Lucide's default is 2. */
+  stroke?: number
+}
+
+const { name, class: className = "size-4", stroke = 1.75 } = Astro.props
+const svg = ICONS[name]
+  .replace(/\s*class="[^"]*"/, "")
+  .replace(/\s*width="24"\s*height="24"/, "")
+  .replace('stroke-width="2"', `stroke-width="${stroke}"`)
+  .replace("<svg", `<svg aria-hidden="true" focusable="false" class="shrink-0 ${className}"`)
+---
+
+<Fragment set:html={svg} />

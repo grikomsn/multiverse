@@ -1,0 +1,24 @@
+---
+/**
+ * A blur that eases from full at one edge to none at the other, with a light tint of the page
+ * ground. It is five stacked backdrop blurs, each masked to its own band (styles.css).
+ * Decorative: it sits over the page and takes no pointer events.
+ *
+ * The parent or `class` gives it a position and a size. `edge` is the side with the full blur.
+ * The footer puts one at the lower edge of the window.
+ */
+interface Props {
+  edge: "top" | "bottom"
+  class?: string
+}
+
+const { edge, class: className } = Astro.props
+---
+
+<div class:list={["progressive-blur", className]} data-edge={edge} aria-hidden="true">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>

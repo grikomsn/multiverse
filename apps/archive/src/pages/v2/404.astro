@@ -1,0 +1,24 @@
+---
+/** v2 had Next 7's default error page; this keeps the site chrome around the same message. */
+import { getEdition } from "../../lib/editions"
+import Footer from "../../editions/v2/footer.astro"
+import Layout from "../../editions/v2/layout.astro"
+import Navbar from "../../editions/v2/navbar.astro"
+
+const edition = await getEdition("v2")
+---
+
+<Layout>
+  <div class="hero is-fullheight is-warning">
+    <div class="hero-head">
+      <Navbar edition={edition} />
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">404</h1>
+        <p class="subtitle">This page could not be found.</p>
+      </div>
+    </div>
+  </div>
+  <Footer edition={edition} />
+</Layout>

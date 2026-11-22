@@ -1,0 +1,39 @@
+---
+import { getEdition } from "../../lib/editions"
+import A from "../../editions/v9/a.astro"
+import Layout from "../../editions/v9/layout.astro"
+import PageHeader from "../../editions/v9/page-header.astro"
+import { pageOf } from "../../editions/v9/paths"
+import ProjectImage from "../../editions/v9/project-image.astro"
+
+const edition = await getEdition("v9")
+const page = pageOf(edition, "work")
+---
+
+<Layout pageTitle={page?.title} description={page?.description}>
+  <section class="space-y-16">
+    <PageHeader
+      class="pt-[10vh] md:pt-[20vh]"
+      title={page?.title}
+      description={page?.description}
+    />
+    <hr class="border-neutral-500/50" />
+    <ul class="grid grid-flow-row space-y-16">
+      {edition.projects?.map((item) => (
+        <li class="group relative grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <ProjectImage image={item.image} alt={item.title} class="sm:order-last" />
+          <div>
+            <h3 class="mb-2 text-xl font-bold">{item.title}</h3>
+            <p class="mb-4 leading-relaxed text-neutral-400">{item.description}</p>
+            <A
+              class="text-primary-500 before:inset-0 hover:underline sm:before:absolute"
+              href={item.url ?? ""}
+            >
+              Visit website &nbsp; →
+            </A>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>

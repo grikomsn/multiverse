@@ -1,0 +1,26 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // nbr.st: short links, the successor of `r7s-worker`. Deploys: docs/deploy.md.
+  "name": "multiverse-links",
+  "account_id": "e02a25d4d8f0bacceba5cb29bcaa74de",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-28",
+  // The `r7s` namespace that nbr.st reads today. The Worker only reads it. `remote` makes
+  // `wrangler dev` read the same links.
+  "kv_namespaces": [
+    { "binding": "LINKS", "id": "34836cb010b34b729d34d18050f7f9e8", "remote": true },
+  ],
+  "vars": {
+    // Where nbr.st/ goes.
+    "HOME_URL": "https://nibras.co",
+  },
+  "observability": { "enabled": true },
+  "workers_dev": true,
+  "preview_urls": true,
+  // A custom domain makes its own proxied DNS record and certificate, so no request waits on an
+  // origin.
+  "routes": [
+    { "pattern": "nbr.st", "custom_domain": true },
+    { "pattern": "www.nbr.st", "custom_domain": true },
+  ],
+}

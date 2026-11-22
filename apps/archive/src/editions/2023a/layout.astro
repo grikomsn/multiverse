@@ -1,0 +1,95 @@
+---
+import "./2023a.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import BasementGradient from "./basement-gradient.astro"
+import { BASE } from "./paths"
+import Signature from "./signature.astro"
+import { assetOf } from "../../lib/live"
+import { copyright } from "../_kit/colophon"
+
+interface Props {
+  pageTitle?: string
+  description?: string | null
+  /** The (basement) route group and not-found: just the gradient, no nav or footer. */
+  bare?: boolean
+}
+
+const { pageTitle, description, bare = false } = Astro.props
+const edition = await getEdition("2023a")
+const name = edition.name ?? "Griko Nibras"
+const title = pageTitle ? `${pageTitle} | ${name}` : name
+const path = Astro.url.pathname.replace(/\/$/, "")
+const isHome = path === BASE
+const nav = edition.links?.filter((link) => link.group === "nav") ?? []
+const fallback = imageUrl(assetOf(edition, "gradient")?.image?.url, 2920)
+const noise = imageUrl(assetOf(edition, "noise")?.image?.url, 1512)
+---
+
+<!doctype html>
+<!-- ColorModeScript and ChakraProvider marked the page dark. -->
+<html lang="en" data-theme="dark" style="color-scheme: dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    <meta name="theme-color" content="#D69E2E" />
+    {edition.avatar?.url && <link rel="icon" href={imageUrl(edition.avatar.url, 192)} />}
+    <ArchiveHead />
+  </head>
+  <body
+    class="chakra-ui-dark"
+    data-basement-gradient-fallback="true"
+    style={fallback ? `--basement-fallback: url(${fallback})` : undefined}
+  >
+    {bare ? (
+      <slot />
+    ) : (
+      <div class="a-container">
+        <nav class="a-nav">
+          {!isHome && (
+            <a class="a-home" href={`${BASE}/`}>
+              {name}
+            </a>
+          )}
+          <div class="a-spacer" />
+          <a href={`${BASE}/about`}>About</a>
+          <a href={`${BASE}/contact`}>Contact</a>
+          {nav.map((link) => (
+            <a href={link.url} target="_blank" rel="noopener">
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <main class="a-main">
+          <slot />
+        </main>
+        <footer class="a-footer">
+          <a href={`${BASE}/media`} aria-label="Media assets">
+            <Signature class="a-signature" />
+          </a>
+          <div class="a-spacer" />
+          <div class="a-copyright">
+            &copy; {copyright()} {name}.
+          </div>
+        </footer>
+      </div>
+    )}
+    <BasementGradient noise={noise} />
+    <ArchiveBanner title={edition.title} period={period(edition.startDate, edition.endDate)} />
+    <script>
+      import Lenis from "lenis"
+
+      // app/(main)/layout.tsx: Lenis with wheel normalization, driven by rAF.
+      const lenis = new Lenis()
+      const raf = (time: number) => {
+        lenis.raf(time)
+        requestAnimationFrame(raf)
+      }
+      requestAnimationFrame(raf)
+    </script>
+  </body>
+</html>

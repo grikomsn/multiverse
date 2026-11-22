@@ -1,0 +1,117 @@
+---
+/**
+ * ui/basement-gradient.tsx: blurred blobs over #1C1C1C with a noise overlay; the color-dodge
+ * group follows the mouse. Hidden on Safari, as the original did.
+ */
+interface Props {
+  noise?: string
+}
+
+const { noise } = Astro.props
+---
+
+<div class="a-basement" id="a-basement" hidden>
+  {noise && <img class="a-noise" src={noise} alt="" />}
+  <svg fill="none" viewBox="0 0 1512 982" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g clip-path="url(#clip0_878_1737)">
+      <rect fill="#1C1C1C" height="982" width="1512"></rect>
+      <g filter="url(#filter0_f_878_1737)">
+        <path
+          d="M984 217.5C984 359 658.5 387.756 583 456.5C507.5 525.244 158.359 964 -19.5 964C-162.829 1141.33 -139 1008 -52.805 933.553C-174.626 933.553 -103.184 -0.252945 -103.184 -97.0044C-103.184 -193.756 355.031 -40.2318 476.852 -40.2318C763.466 -126.742 984 120.749 984 217.5Z"
+          fill="#A390CE"
+        ></path>
+      </g>
+      <g filter="url(#filter1_f_878_1737)">
+        <ellipse cx="983.5" cy="-15.5" fill="#8EADD9" rx="332.5" ry="263.5"></ellipse>
+      </g>
+      <g
+        filter="url(#filter2_f_878_1737)"
+        id="a-basement-follow"
+        style="mix-blend-mode: color-dodge"
+      >
+        <path
+          d="M145.315 -7.65351C122.208 154.962 385.107 134.277 519.445 103.607C555.57 82.7502 509.545 -26.117 443.829 -95.7139C378.113 -165.311 548.881 -294.712 484.481 -387.158C420.081 -479.603 174.199 -210.923 145.315 -7.65351Z"
+          fill="#F838CD"
+        ></path>
+        <path
+          d="M233.221 -116.853C162.602 -177.782 -362.623 426.665 -182.463 523.08C-19.1196 610.495 401.825 195.226 451.222 153.295C512.968 100.882 321.496 -40.6913 233.221 -116.853Z"
+          fill="#7A81BD"
+        ></path>
+        <path
+          d="M98.7067 -164.626C43.8658 -288.255 -143.801 -301.321 -235.873 -301.321C-327.946 -301.321 -513.6 -280.817 -519.637 -198.8C-527.184 -96.2787 -414.484 -88.7404 -414.484 128.363C-414.484 345.467 -216.754 206.259 23.2375 206.259C215.231 206.259 153.548 -40.9977 98.7067 -164.626Z"
+          fill="#F1972C"
+        ></path>
+      </g>
+    </g>
+    <defs>
+      <filter
+        color-interpolation-filters="sRGB"
+        filterUnits="userSpaceOnUse"
+        height="1780.99"
+        id="filter0_f_878_1737"
+        width="1708"
+        x="-424"
+        y="-429"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape"></feBlend>
+        <feGaussianBlur
+          result="effect1_foregroundBlur_878_1737"
+          stdDeviation="100"
+        ></feGaussianBlur>
+      </filter>
+      <filter
+        color-interpolation-filters="sRGB"
+        filterUnits="userSpaceOnUse"
+        height="1127"
+        id="filter1_f_878_1737"
+        width="1265"
+        x="351"
+        y="-579"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape"></feBlend>
+        <feGaussianBlur
+          result="effect1_foregroundBlur_878_1737"
+          stdDeviation="100"
+        ></feGaussianBlur>
+      </filter>
+      <filter
+        color-interpolation-filters="sRGB"
+        filterUnits="userSpaceOnUse"
+        height="1821.06"
+        id="filter2_f_878_1737"
+        width="1932.12"
+        x="-960"
+        y="-845.921"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape"></feBlend>
+        <feGaussianBlur
+          result="effect1_foregroundBlur_878_1737"
+          stdDeviation="150"
+        ></feGaussianBlur>
+      </filter>
+      <clipPath id="clip0_878_1737">
+        <rect fill="white" height="982" width="1512"></rect>
+      </clipPath>
+    </defs>
+  </svg>
+</div>
+
+<script>
+  const root = document.getElementById("a-basement")
+  const svg = root?.querySelector("svg")
+  const group = document.getElementById("a-basement-follow")
+  const isSafari = /^(?:(?!chrome|android).)*safari/i.test(navigator.userAgent)
+
+  if (root && svg instanceof SVGSVGElement && group && !isSafari) {
+    root.hidden = false
+    window.addEventListener("mousemove", (event) => {
+      const matrix = svg.getScreenCTM()?.inverse()
+      if (!matrix) return
+      const { x, y } = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix)
+      group.setAttribute("transform", `translate(${x}, ${y})`)
+    })
+  }
+</script>

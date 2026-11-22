@@ -1,0 +1,46 @@
+---
+import type { GetStaticPaths } from "astro"
+
+import Layout from "../../../editions/2022b/layout.astro"
+import PostCard from "../../../editions/2022b/post-card.astro"
+import { postsOf } from "../../../editions/2022b/posts"
+import { getEdition } from "../../../lib/editions"
+
+export const getStaticPaths = (async () => {
+  const posts = postsOf(await getEdition("2022b"))
+  const tags = new Map(
+    posts.flatMap((post) => post.tags.map((tag) => [tag.slug, tag.name] as const)),
+  )
+  return [...tags].map(([slug, name]) => ({
+    params: { slug },
+    props: { name, posts: posts.filter((post) => post.tags.some((tag) => tag.slug === slug)) },
+  }))
+}) satisfies GetStaticPaths
+
+const { slug } = Astro.params
+const { name, posts } = Astro.props
+---
+
+<Layout pageTitle={`${name} - Griko Nibras`} bodyClass={`tag-template tag-${slug}`}>
+  <main id="site-main" class="site-main outer">
+    <div class="inner posts">
+      <div class="post-feed">
+        <section class="post-card post-card-large">
+          <div class="post-card-content">
+            <div class="post-card-content-link">
+              <header class="post-card-header">
+                <h2 class="post-card-title">{name}</h2>
+              </header>
+              <div class="post-card-excerpt">
+                A collection of {posts.length} {posts.length === 1 ? "post" : "posts"}
+              </div>
+            </div>
+          </div>
+        </section>
+        {posts.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

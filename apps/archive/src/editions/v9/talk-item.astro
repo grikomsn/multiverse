@@ -1,0 +1,30 @@
+---
+import type { Edition } from "../../lib/editions"
+import A from "./a.astro"
+import Icon from "./icon.astro"
+import { formatDate } from "./paths"
+
+interface Props {
+  talk: NonNullable<Edition["talks"]>[number]
+}
+
+const { talk } = Astro.props
+---
+
+<li class="group relative flex flex-col p-4 sm:rounded-xl sm:hover:bg-neutral-800">
+  <h4 class="mb-2 line-clamp-3 text-lg font-bold">{talk.title}</h4>
+  <p class="mb-4 line-clamp-3 max-w-2xl text-neutral-400">{talk.description}</p>
+  <div class="mb-2 flex items-center gap-2">
+    <Icon name="calendar" class="h-3 w-3 text-neutral-400" />
+    <span class="text-xs text-neutral-400">{formatDate(talk.date)}</span>
+  </div>
+  <A
+    class="flex items-center gap-2 before:inset-0 before:content-[''] sm:before:absolute"
+    href={talk.url ?? ""}
+  >
+    <Icon name="internet" class="h-3 w-3 text-neutral-400" />
+    <span class="line-clamp-1 text-xs text-primary-500 hover:underline sm:group-hover:underline">
+      {talk.url}
+    </span>
+  </A>
+</li>

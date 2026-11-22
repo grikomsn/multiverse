@@ -1,0 +1,238 @@
+---
+import "./v6.css"
+
+import ArchiveBanner from "../../shell/archive-banner.astro"
+import ArchiveHead from "../../shell/archive-head.astro"
+import { getEdition, imageUrl, period } from "../../lib/editions"
+import { brandSvg } from "@multiverse/ui/brand-marks"
+import { COLOPHON } from "../_kit/colophon"
+import Icon from "./icon.astro"
+import { ICONS, type IconName } from "./icons"
+import { BASE } from "./paths"
+
+interface Props {
+  /** Page title; rendered as "<title> · Griko Nibras" like next-seo's titleTemplate. */
+  pageTitle?: string
+  description?: string | null
+}
+
+const { pageTitle, description } = Astro.props
+const edition = await getEdition("v6")
+const siteTitle = edition.name ?? "Griko Nibras"
+const title = pageTitle ? `${pageTitle} · ${siteTitle}` : siteTitle
+
+const ROUTES = [
+  ["Blog", `${BASE}/blog`],
+  ["Appearances", `${BASE}/appearances`],
+  ["Projects", `${BASE}/projects`],
+  ["About", `${BASE}/about`],
+] as const
+
+// src/hooks/app.ts useSocials() picked Discord, GitHub and Twitter; now the featured profiles.
+// v6's own icons where it has one, a Simple Icons mark otherwise.
+const socials = (edition.links ?? [])
+  .filter((link) => link.featured && link.platform)
+  .map((link) => ({
+    label: link.label,
+    url: link.url,
+    platform: link.platform!,
+    icon: link.platform! in ICONS ? (link.platform as IconName) : null,
+    mark: brandSvg(link.platform!, 'class="v6-icon"'),
+  }))
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description ?? edition.description ?? ""} />
+    <meta name="theme-color" content="#1A202C" />
+    {edition.avatar?.url && <link rel="icon" href={imageUrl(edition.avatar.url, 32)} />}
+    <ArchiveHead />
+  </head>
+  <body>
+    <div class="v6-shell">
+      <nav class="v6-nav">
+        <a href={`${BASE}/`} class="v6-link v6-nav-item" style="font-weight: 700">
+          {siteTitle}
+        </a>
+        <div class="v6-nav-routes">
+          {ROUTES.map(([text, href]) => (
+            <a href={href} class="v6-plain-link v6-nav-item">
+              {text}
+            </a>
+          ))}
+        </div>
+        <div class="v6-nav-socials">
+          {socials.map((social) => (
+            <a
+              class="v6-icon-button"
+              href={social.url}
+              aria-label={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {social.icon ? (
+                <Icon name={social.icon} class="v6-icon-5" />
+              ) : (
+                <Fragment set:html={brandSvg(social.platform, 'class="v6-icon v6-icon-5"')} />
+              )}
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      <main class="v6-main">
+        <slot />
+      </main>
+
+      <footer class="v6-footer">
+        <hr />
+        <div class="v6-footer-row">
+          <div>
+            <p>
+              Contents licensed under{" "}
+              <a
+                class="v6-link"
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                CC BY-NC-SA 4.0
+              </a>
+              .<br />
+              Made using{" "}
+              <a
+                class="v6-link"
+                href={COLOPHON.framework.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {COLOPHON.framework.name}
+              </a>
+              ,{" "}
+              <a
+                class="v6-link"
+                href="https://next.chakra-ui.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chakra UI
+              </a>
+              , and{" "}
+              <a
+                class="v6-link"
+                href="https://www.sanity.io"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Sanity
+              </a>
+              . Hosted on{" "}
+              <a class="v6-link" href={COLOPHON.host.url} target="_blank" rel="noopener noreferrer">
+                {COLOPHON.host.name}
+              </a>
+              .<br />
+              <br /> MIT License &copy; {COLOPHON.since}&ndash;present{" "}
+              <a class="v6-link" href={`${BASE}/`}>
+                {siteTitle}
+              </a>
+              .
+            </p>
+            <div class="v6-footer-socials">
+              {socials.map((social) => (
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                >
+                  {social.icon ? <Icon name={social.icon} /> : <Fragment set:html={social.mark} />}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div class="v6-footer-routes">
+            {ROUTES.map(([text, href]) => (
+              <a href={href} class="v6-plain-link">
+                {text}
+              </a>
+            ))}
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div class="v6-fab">
+      <button type="button" aria-label="Open menu" data-v6-drawer-open>
+        <Icon name="bars" />
+      </button>
+    </div>
+    <dialog class="v6-drawer" id="v6-drawer" aria-label="Menu">
+      <header style="padding: 2rem; font-size: 1.25rem; font-weight: 600">
+        <a href={`${BASE}/`} class="v6-link">
+          {siteTitle}
+        </a>
+      </header>
+      <div
+        class="v6-stack"
+        style="--gap: 1rem; display: flex; flex: 1; flex-direction: column; justify-content: center; padding: 2rem; font-size: 20px"
+      >
+        {[["Home", `${BASE}/`] as const, ...ROUTES].map(([text, href]) => (
+          <a href={href} class="v6-plain-link">
+            {text}
+          </a>
+        ))}
+      </div>
+      <footer style="display: flex; padding: 2rem 1rem">
+        {socials.map((social) => (
+          <a
+            class="v6-icon-button"
+            style="min-width: 3rem; height: 3rem; font-size: 1.5rem"
+            href={social.url}
+            aria-label={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {social.icon ? <Icon name={social.icon} /> : <Fragment set:html={social.mark} />}
+          </a>
+        ))}
+      </footer>
+    </dialog>
+
+    <div class="v6-toast" role="status" aria-live="polite" id="v6-toast">
+      <div>
+        <strong>Copied!</strong>Email copied to clipboard.
+      </div>
+    </div>
+
+    <ArchiveBanner
+      title={edition.title ?? "Version 6"}
+      period={period(edition.startDate, edition.endDate)}
+    />
+
+    <script>
+      const drawer = document.getElementById("v6-drawer") as HTMLDialogElement | null
+      document
+        .querySelector("[data-v6-drawer-open]")
+        ?.addEventListener("click", () => drawer?.showModal())
+      drawer?.addEventListener("click", (event) => {
+        if (event.target === drawer) drawer.close()
+      })
+
+      // src/hooks/app.ts useEmail(): copy the address and show a success toast.
+      const toast = document.getElementById("v6-toast")
+      let timer: ReturnType<typeof setTimeout> | undefined
+      for (const button of document.querySelectorAll<HTMLElement>("[data-v6-copy]")) {
+        button.addEventListener("click", () => {
+          void navigator.clipboard?.writeText(button.dataset.v6Copy ?? "")
+          toast?.setAttribute("data-open", "")
+          clearTimeout(timer)
+          timer = setTimeout(() => toast?.removeAttribute("data-open"), 5000)
+        })
+      }
+    </script>
+  </body>
+</html>

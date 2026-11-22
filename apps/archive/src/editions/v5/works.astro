@@ -1,0 +1,55 @@
+---
+/** pages/works.tsx (v5 centered the grid and set heading links in light gray). */
+import type { Edition } from "../../lib/editions"
+import { imageUrl, pageOf } from "../../lib/editions"
+import A from "./a.astro"
+import Content from "./content.astro"
+import Main from "./main.astro"
+
+type Props = { edition: Edition; dark?: boolean }
+
+const { edition, dark } = Astro.props
+const page = pageOf(edition, "works")
+---
+
+<Main>
+  <Content class="text-center" compact={false}>
+    <h1>{page?.title}</h1>
+    <p>{page?.description}</p>
+
+    <br />
+
+    <div class:list={["flex flex-wrap -mx-4", dark && "justify-center"]}>
+      {edition.projects?.map(({ title, description, image, url, tags }) => (
+        <div class="w-full lg:w-1/2 mb-12 px-4">
+          {url && image?.url && (
+            <div class="v4b-lift-6 v5-work-shot mb-4">
+              <A href={url}>
+                <img
+                  src={imageUrl(image.url, 1280)}
+                  srcset={`${imageUrl(image.url, 800)} 800w, ${imageUrl(image.url, 1280)} 1280w`}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  alt={title}
+                  width={image.width ?? undefined}
+                  height={image.height ?? undefined}
+                  loading="lazy"
+                />
+              </A>
+            </div>
+          )}
+          {url && (
+            <A href={url} class={dark ? "text-gray-100 hover:text-gray-100 underline" : undefined}>
+              <h3>{title}</h3>
+            </A>
+          )}
+          <p class="max-w-lg mx-auto">{description}</p>
+          <div class="flex flex-wrap justify-center text-gray-500 text-xs">
+            {tags?.map((tag) => (
+              <span class="border border-gray-600 mx-1 mb-2 px-2 py-1 rounded">{tag}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </Content>
+</Main>

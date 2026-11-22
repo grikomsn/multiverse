@@ -1,0 +1,8 @@
+---
+/** Bear's Pygments output carries classes but no colors under this stylesheet. */
+type Props = { node: { code?: string } }
+---
+
+<div class="highlight">
+  <pre>{Astro.props.node.code}</pre>
+</div>

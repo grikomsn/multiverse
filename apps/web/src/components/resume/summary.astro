@@ -1,0 +1,21 @@
+---
+import Section from "./section.astro"
+
+interface Props {
+  summary: string
+}
+
+const { summary } = Astro.props
+const paragraphs = summary
+  .split(/\n\s*\n/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean)
+---
+
+{paragraphs.length > 0 && (
+  <Section id="summary" title="Summary">
+    {paragraphs.map((paragraph) => (
+      <p class="summary">{paragraph}</p>
+    ))}
+  </Section>
+)}

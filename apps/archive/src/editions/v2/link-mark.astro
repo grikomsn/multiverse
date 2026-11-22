@@ -1,0 +1,14 @@
+---
+import type { Mark } from "astro-portabletext/types"
+
+import { href as resolve } from "./brands"
+
+type Props = { node: Mark<{ href: string }> }
+
+const { href } = Astro.props.node.markDef
+const external = /^https?:/.test(href)
+---
+
+<a href={resolve(href)} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>
+  <slot />
+</a>

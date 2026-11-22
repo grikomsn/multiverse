@@ -1,0 +1,121 @@
+---
+/**
+ * Griko's handwritten signature. When it scrolls into view, it writes itself stroke by stroke.
+ *
+ * `src/data/signature.json` comes from a trace of the original drawing: `fill` is the ink outline,
+ * and `strokes` are the pen's centre lines in writing order. Thick strokes in a mask uncover the
+ * ink along those lines, so the shape stays exactly as drawn. Without JavaScript, or with
+ * reduced motion, the full signature shows at once.
+ */
+import signature from "../data/signature.json"
+
+interface Props {
+  class?: string
+  label?: string
+}
+
+const { class: className, label = "Griko" } = Astro.props
+
+/** Time to write the whole signature, without pen lifts. */
+const WRITE_MS = 1200
+/** Pause when the pen lifts and moves far away, as for the dot on the i and the underline. */
+const LIFT_MS = 90
+/** Shorter jumps are joins inside a letter; the pen does not pause for them. */
+const LIFT_PX = 80
+
+const start = (d: string) => d.slice(1).split("L")[0]!.split(" ").map(Number)
+const end = (d: string) => d.split("L").at(-1)!.replace("M", "").split(" ").map(Number)
+
+let clock = 0
+let previous: number[] | undefined
+const strokes = signature.strokes.map((stroke) => {
+  const [x, y] = start(stroke.d)
+  if (previous && Math.hypot(x! - previous[0]!, y! - previous[1]!) > LIFT_PX) clock += LIFT_MS
+  const duration = Math.max(20, Math.round((stroke.len / signature.total) * WRITE_MS))
+  const timing = `--delay: ${clock}ms; --duration: ${duration}ms`
+  clock += duration
+  previous = end(stroke.d)
+  return { d: stroke.d, timing }
+})
+
+// One mask per page is enough; the id only has to be unique.
+const maskId = "signature-ink"
+---
+
+<svg
+  class:list={["signature", className]}
+  viewBox={signature.viewBox}
+  role="img"
+  aria-label={label}
+  data-signature
+>
+  <mask id={maskId} maskUnits="userSpaceOnUse">
+    {strokes.map((stroke) => (
+      <path class="signature__stroke" d={stroke.d} pathLength="1" style={stroke.timing} />
+    ))}
+  </mask>
+  <path d={signature.fill} fill="currentColor" mask={`url(#${maskId})`} />
+</svg>
+
+<style>
+  .signature {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  .signature__stroke {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 28;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+  }
+
+  /* The layout adds `.js-reveal` only with JavaScript and without reduced motion. */
+  :global(.js-reveal) .signature__stroke {
+    animation: signature-write var(--duration) linear var(--delay) both paused;
+  }
+
+  :global(.js-reveal) .signature.is-signing .signature__stroke {
+    animation-play-state: running;
+  }
+
+  /* Hidden until its turn, so round caps do not leave a dot at each stroke's start. */
+  @keyframes signature-write {
+    0% {
+      stroke-dashoffset: 1;
+      stroke-opacity: 0;
+    }
+    0.1% {
+      stroke-opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      stroke-opacity: 1;
+    }
+  }
+
+  @media print {
+    .signature__stroke {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  if (document.documentElement.classList.contains("js-reveal")) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          entry.target.classList.add("is-signing")
+          observer.unobserve(entry.target)
+        }
+      },
+      { threshold: 0.6 },
+    )
+    for (const element of document.querySelectorAll("[data-signature]")) observer.observe(element)
+  }
+</script>

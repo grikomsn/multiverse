@@ -1,0 +1,9 @@
+{
+  "extends": "@multiverse/config/tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    "types": ["@cloudflare/workers-types"]
+  },
+  "include": ["worker-configuration.d.ts", "src"],
+  "exclude": ["src/**/*.test.ts"]
+}

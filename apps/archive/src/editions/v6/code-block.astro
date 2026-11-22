@@ -1,0 +1,15 @@
+---
+import { Code } from "astro:components"
+
+import { oceanicNext } from "./code-theme"
+
+type Props = { node: { language?: string; code?: string } }
+
+// Unknown languages fall back to plaintext inside <Code>.
+const { language = "text", code = "" } = Astro.props.node
+---
+
+<div>
+  <Code code={code} lang={language as "plaintext"} theme={oceanicNext} />
+  <div class="v6-snippet-label">{language} snippet</div>
+</div>

@@ -1,0 +1,45 @@
+---
+import { getEdition, pageOf } from "../../lib/editions"
+import Icon from "../../editions/2023c/icon.astro"
+import Layout from "../../editions/2023c/layout.astro"
+
+const edition = await getEdition("2023c")
+const page = pageOf(edition, "projects")
+const trim = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "")
+---
+
+<Layout pageTitle="Projects" description={page?.description}>
+  <section class="container fade-bottom py-8 lg:py-16">
+    <h1 class="max-w-screen-sm text-4xl font-bold">{page?.title}</h1>
+    <p class="max-w-screen-sm space-y-4 text-neutral-700 dark:text-neutral-300">
+      {page?.description}
+    </p>
+    <br />
+    <br />
+    <ul class="grid grid-cols-1 gap-12 sm:max-w-screen-sm sm:grid-cols-2 lg:max-w-screen-lg lg:grid-cols-3">
+      {edition.projects?.map((project) => (
+        <li class="group relative flex-col items-start text-sm before:absolute before:-inset-4 before:-z-10 before:rounded-lg before:bg-neutral-500/5 before:opacity-0 before:transition-[opacity,inset] hover:before:-inset-6 hover:before:opacity-100 sm:flex dark:before:bg-neutral-500/10">
+          <div class="float-right mb-2 rounded-full border border-neutral-500/25 bg-neutral-500/5 [&>*]:m-1 [&>*]:h-8 [&>*]:w-8 [&>*]:rounded-full [&>*]:object-cover [&>svg]:p-1">
+            <Icon name={project.url?.includes("github.com") ? "github" : "braces"} />
+          </div>
+          <div class="mb-2 text-lg font-bold">{project.title}</div>
+          <div class="mb-4 line-clamp-2 h-auto text-neutral-700 sm:h-16 dark:text-neutral-300">
+            {project.description}
+          </div>
+          <div class="mb-4 text-neutral-500">{project.subtitle}</div>
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-x-2 text-primary-600 before:absolute before:-inset-4 hover:underline dark:text-primary-500"
+            >
+              <Icon name="link" class="h-3 w-3" />
+              <span class="line-clamp-1">{trim(project.url)}</span>
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>

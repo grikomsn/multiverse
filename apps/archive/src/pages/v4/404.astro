@@ -1,0 +1,16 @@
+---
+import Layout from "../../editions/v4/layout.astro"
+---
+
+<Layout pageTitle="404">
+  <h1 class="f-headline solid tracked-tight">404 Not Found</h1>
+  <p>
+    <code class="ba b--gray bg-gray br2 ph2 pv1 white" id="v4-location">
+      {Astro.url.pathname}
+    </code>{" "}
+    does not contain anything. Bummer.
+  </p>
+  <script is:inline>
+    document.getElementById("v4-location").textContent = location.href
+  </script>
+</Layout>

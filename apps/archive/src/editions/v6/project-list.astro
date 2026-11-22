@@ -1,0 +1,32 @@
+---
+import type { Edition } from "../../lib/editions"
+import { imageUrl } from "../../lib/editions"
+
+interface Props {
+  projects: NonNullable<Edition["projects"]>
+}
+
+const { projects } = Astro.props
+---
+
+<div class="v6-grid">
+  {projects.map((project) => (
+    <a
+      href={project.url ?? undefined}
+      class="v6-project"
+      role="group"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <h3 class="v6-heading-md v6-link-heading" style="font-weight: 700">
+        {project.title}
+      </h3>
+      <p>{project.tags?.join(", ")}</p>
+      {project.image?.url ? (
+        <img src={imageUrl(project.image.url, 1280)} alt={project.title} loading="lazy" />
+      ) : (
+        <div class="v6-missing">Screenshot not archived</div>
+      )}
+    </a>
+  ))}
+</div>

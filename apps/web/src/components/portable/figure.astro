@@ -1,0 +1,48 @@
+---
+import { imageUrl, srcset } from "@multiverse/content/format"
+
+import { DEVELOP_PARAMS, inlineImage } from "../../lib/inline-image"
+
+type Props = {
+  /** Block position in the body; images near the top are likely the LCP and load eagerly. */
+  index: number
+  node: {
+    alt?: string | null
+    caption?: string | null
+    image?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      lqip?: string | null
+    } | null
+  }
+}
+
+const { alt, caption, image } = Astro.props.node
+const eager = Astro.props.index < 3
+// The picture develops from this tiny copy (src/scripts/develop.ts). An SVG has no small copy.
+const tiny =
+  image?.url && !image.url.endsWith(".svg")
+    ? await inlineImage(image.url, DEVELOP_PARAMS)
+    : undefined
+---
+
+{image?.url && (
+  <figure>
+    <span class="block rounded-xl" data-develop={tiny}>
+      <img
+        src={imageUrl(image.url, 1400)}
+        srcset={srcset(image.url, [480, 800, 1400])}
+        sizes="(min-width: 48rem) 68ch, 100vw"
+        width={image.width ?? undefined}
+        height={image.height ?? undefined}
+        alt={alt ?? ""}
+        loading={eager ? "eager" : "lazy"}
+        fetchpriority={eager ? "high" : undefined}
+        decoding="async"
+        style={image.lqip ? `background: url(${image.lqip}) center / cover` : undefined}
+      />
+    </span>
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+)}

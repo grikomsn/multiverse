@@ -1,0 +1,45 @@
+/*
+ * 2023c: the Keystatic-era Next.js site (Tailwind 3 + typography, shadcn-style container,
+ * next-themes), on Tailwind 3.4.3 (see tailwind.config.cjs). Its December 2023 stylesheet
+ * wasn't archived; the config comes from the June 2024 build, which shares the markup.
+ */
+@toolchain "tailwind-3.4";
+
+@import "@fontsource-variable/figtree";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The original used Tailwind's `beams.png`; approximated here with soft radial glows. */
+.beams::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 22rem at 30% -4rem, rgb(56 189 248 / 0.18), transparent 70%),
+    radial-gradient(36rem 20rem at 55% -6rem, rgb(129 140 248 / 0.2), transparent 70%),
+    radial-gradient(30rem 18rem at 75% -2rem, rgb(244 114 182 / 0.14), transparent 70%);
+}
+
+.dark .beams::before {
+  opacity: 0.6;
+}
+
+/* `before:bg-gradient-to-t` fade above the floating nav. */
+.fade-bottom::before {
+  content: "";
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  height: 6rem;
+  pointer-events: none;
+  background: linear-gradient(to top, theme("colors.neutral.50"), transparent);
+}
+
+.dark .fade-bottom::before {
+  background: linear-gradient(to top, theme("colors.neutral.900"), transparent);
+}

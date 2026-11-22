@@ -1,0 +1,7 @@
+---
+/** Shared head tags for archived pages: canonical to the archive URL, never indexed. */
+const canonical = new URL(Astro.url.pathname, Astro.site)
+---
+
+<meta name="robots" content="noindex" />
+<link rel="canonical" href={canonical} />

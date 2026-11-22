@@ -1,0 +1,38 @@
+---
+import { imageUrl } from "../../lib/editions"
+import { BASE, formatDate, type PostEntry } from "./paths"
+import Tags from "./tags.astro"
+
+interface Props {
+  post: PostEntry
+}
+
+const { post } = Astro.props
+---
+
+<article class="v7-card" style="width: 100%; overflow: hidden">
+  {post.cover?.url && (
+    <div class="v7-cover">
+      <img
+        style="width: 100%; aspect-ratio: 2 / 1; object-fit: cover"
+        src={imageUrl(post.cover.url, 960, 480)}
+        alt={post.cover.alt ?? ""}
+        width="960"
+        height="480"
+        loading="lazy"
+      />
+    </div>
+  )}
+  <div class="v7-center v7-stack v7-post-item" style="--gap: 0.5rem">
+    <p class="v7-muted" style="font-size: 0.875rem">
+      {formatDate(post.date)}
+    </p>
+    <a href={`${BASE}/blog/${post.slug}`} class="v7-overlay">
+      <h2 class="v7-heading v7-heading-lg">{post.title}</h2>
+    </a>
+    <p class="v7-subtitle" style="padding-bottom: 1rem">
+      {post.subtitle}
+    </p>
+    <Tags tags={post.tags} />
+  </div>
+</article>

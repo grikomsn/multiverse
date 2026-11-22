@@ -1,0 +1,66 @@
+---
+/** Casper's partials/post-card.hbs. */
+import { imageUrl } from "../../lib/editions"
+import FeaturedIcon from "./featured-icon.astro"
+import { formatDate, href } from "./paths"
+import type { GhostPost } from "./posts"
+
+interface Props {
+  post: GhostPost
+  /** Read-more cards hide the primary tag. */
+  showTag?: boolean
+}
+
+const { post, showTag = true } = Astro.props
+const link = href(post.url ?? "/")
+const classes = [
+  "post-card post",
+  ...post.tags.map((tag) => `tag-${tag.slug}`),
+  post.featured && "featured",
+  // The 2022 site kept each cover's own ratio (Casper's "keep ratio"). Today's covers vary,
+  // so the cards use Casper's fixed frame instead.
+]
+---
+
+<article class:list={classes}>
+  {post.image?.url && (
+    <a class="post-card-image-link" href={link}>
+      <img
+        class="post-card-image"
+        srcset={[300, 600, 1000, 2000]
+          .map((width) => `${imageUrl(post.image!.url, width)} ${width}w`)
+          .join(", ")}
+        sizes="(max-width: 1000px) 400px, 800px"
+        src={imageUrl(post.image.url, 600)}
+        alt={post.title}
+        loading="lazy"
+      />
+    </a>
+  )}
+  <div class="post-card-content">
+    <a class="post-card-content-link" href={link}>
+      <header class="post-card-header">
+        <div class="post-card-tags">
+          {showTag && post.tags[0] && (
+            <span class="post-card-primary-tag">{post.tags[0].name}</span>
+          )}
+          {post.featured && (
+            <span class="post-card-featured">
+              <FeaturedIcon /> Featured
+            </span>
+          )}
+        </div>
+        <h2 class="post-card-title">{post.title}</h2>
+      </header>
+      {post.description && <div class="post-card-excerpt">{post.description}</div>}
+    </a>
+    <footer class="post-card-meta">
+      {post.date && (
+        <time class="post-card-meta-date" datetime={post.date}>
+          {formatDate(post.date)}
+        </time>
+      )}
+      {post.subtitle && <span class="post-card-meta-length">{post.subtitle}</span>}
+    </footer>
+  </div>
+</article>

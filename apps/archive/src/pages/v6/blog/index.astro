@@ -1,0 +1,17 @@
+---
+import { getEdition } from "../../../lib/editions"
+import Layout from "../../../editions/v6/layout.astro"
+import { pageOf, postEntries } from "../../../editions/v6/paths"
+import PostList from "../../../editions/v6/post-list.astro"
+import TitleSeparator from "../../../editions/v6/title-separator.astro"
+
+const edition = await getEdition("v6")
+const page = pageOf(edition, "blog")
+---
+
+<Layout pageTitle={page?.title ?? "Blog Posts"} description={page?.description}>
+  <div class="v6-panel v6-panel-rounded v6-stack" style="--gap: 1rem">
+    <TitleSeparator as="h1" title={page?.title ?? "Blog Posts"} description={page?.description} />
+    <PostList posts={postEntries(edition)} />
+  </div>
+</Layout>
