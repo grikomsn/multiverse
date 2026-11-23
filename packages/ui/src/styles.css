@@ -860,3 +860,319 @@ canvas.develop {
     display: none !important;
   }
 }
+
+/*
+ * The command bar (`command-bar.astro`): a dialog near the top of the window. The page goes
+ * behind a veil of dots in the page color, the site's one motif: two gradients, no canvas.
+ * The panel moves in with `translate` only, so its text is never transparent.
+ */
+.command-bar {
+  --command-gap: clamp(0.75rem, 11vh, 6rem);
+  width: min(35rem, calc(100vw - 1.5rem));
+  max-width: none;
+  max-height: none;
+  margin: var(--command-gap) auto auto;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: none;
+  color: var(--color-fg);
+}
+
+.command-bar::backdrop {
+  background:
+    radial-gradient(circle at 1px 1px, var(--color-bg) 1px, transparent 1.3px) 0 0 / 4px 4px,
+    radial-gradient(circle at 1px 1px, var(--color-bg) 1px, transparent 1.3px) 2px 2px / 4px 4px,
+    color-mix(in oklab, var(--color-bg) 38%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .command-bar[open] {
+    animation: command-in 180ms var(--ease-snap);
+  }
+
+  .command-bar[open]::backdrop {
+    animation: command-veil 180ms linear;
+  }
+
+  @keyframes command-in {
+    from {
+      translate: 0 -0.5rem;
+    }
+  }
+
+  @keyframes command-veil {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+.command-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 0.875rem;
+  background-color: var(--color-card);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.05),
+    0 1.125rem 3rem -0.75rem light-dark(rgb(24 24 27 / 0.22), rgb(0 0 0 / 0.7));
+}
+
+.command-field {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.625rem;
+  height: 3.25rem;
+  padding: 0 0.5rem 0 0.875rem;
+}
+
+.command-lead {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  color: var(--color-soft);
+}
+
+/* The mascot in place of the search icon. */
+.command-lead-face {
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.command-field input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  /* 16px or more, so a phone does not zoom in on the field. */
+  font-size: 1.0625rem;
+  outline: none;
+}
+
+.command-field input::placeholder {
+  color: var(--color-soft);
+}
+
+/* The list that is open inside the bar. A click goes back to the first list. */
+.command-chip {
+  flex: none;
+  padding: 0.3125rem 0.4375rem;
+  border-radius: 0.375rem;
+  background-color: var(--color-sunk);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.command-bar kbd {
+  padding: 0.1875rem 0.3125rem;
+  border: 1px solid var(--color-line);
+  border-bottom-width: 2px;
+  border-radius: 0.3125rem;
+  background-color: var(--color-bg);
+  color: var(--color-soft);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.command-close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  color: var(--color-soft);
+  cursor: pointer;
+}
+
+.command-close:hover {
+  color: var(--color-fg);
+}
+
+/* A keyboard shows the key; a touch screen shows a cross. */
+.command-close svg {
+  display: none;
+}
+
+@media (hover: none) {
+  .command-close kbd {
+    display: none;
+  }
+
+  .command-close svg {
+    display: block;
+  }
+}
+
+.command-list {
+  /* The window, less the space above the bar, the field and a margin below. */
+  max-height: min(23.5rem, calc(var(--command-view, 100dvh) - var(--command-gap) - 7.5rem));
+  padding: 0.375rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--color-line);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+.command-group {
+  padding: 0.75rem 0.625rem 0.375rem;
+  color: var(--color-soft);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.command-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.5rem;
+  padding: 0.4375rem 0.625rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.command-row-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--color-soft);
+}
+
+.command-row-more {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-soft);
+}
+
+.command-row[aria-selected="true"] {
+  background-color: var(--color-sunk);
+}
+
+.command-row[aria-selected="true"]::before {
+  content: "";
+  position: absolute;
+  inset: 0.625rem auto 0.625rem 0;
+  width: 2px;
+  border-radius: 2px;
+  background-color: var(--color-accent);
+}
+
+.command-row[aria-selected="true"] .command-row-icon {
+  color: var(--color-fg);
+}
+
+.command-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.command-row-title,
+.command-row-snippet {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-row-title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.command-row-snippet {
+  margin-top: 1px;
+  color: var(--color-soft);
+  font-size: 0.8125rem;
+}
+
+/* A match shows as the site's links do: an amber underline. */
+.command-row mark {
+  background: none;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.command-row-meta {
+  flex: none;
+  color: var(--color-soft);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.command-empty {
+  padding: 1.625rem 1rem 1.25rem;
+  color: var(--color-soft);
+  font-size: 0.9375rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.command-empty strong {
+  color: var(--color-fg);
+  font-weight: 500;
+}
+
+.command-foot {
+  display: flex;
+  flex: none;
+  gap: 0.875rem;
+  padding: 0.5rem 0.875rem;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-soft);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+}
+
+.command-foot > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+
+/* No keys to explain on a touch screen, and a taller row for a finger. */
+@media (hover: none) {
+  .command-foot {
+    display: none;
+  }
+
+  .command-row {
+    min-height: 2.75rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .command-bar {
+    --command-gap: 0.75rem;
+  }
+}
+
+/*
+ * A narrow header has no room for the search button and the theme button. The search button
+ * stays, and the bar has the theme as an action.
+ */
+@media (max-width: 30rem) {
+  .site-header:has([data-command-open]:not([hidden])) [data-theme-toggle] {
+    display: none;
+  }
+}

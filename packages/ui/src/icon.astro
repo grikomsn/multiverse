@@ -23,8 +23,12 @@ import {
   Plug,
   Puzzle,
   Rss,
+  Search,
   Users,
+  X,
 } from "lucide-static"
+
+import { lineIcon } from "./line-icon"
 
 const ICONS = {
   "app-window": AppWindow,
@@ -46,7 +50,9 @@ const ICONS = {
   plug: Plug,
   puzzle: Puzzle,
   rss: Rss,
+  search: Search,
   users: Users,
+  x: X,
 }
 
 interface Props {
@@ -57,11 +63,7 @@ interface Props {
 }
 
 const { name, class: className = "size-4", stroke = 1.75 } = Astro.props
-const svg = ICONS[name]
-  .replace(/\s*class="[^"]*"/, "")
-  .replace(/\s*width="24"\s*height="24"/, "")
-  .replace('stroke-width="2"', `stroke-width="${stroke}"`)
-  .replace("<svg", `<svg aria-hidden="true" focusable="false" class="shrink-0 ${className}"`)
+const svg = lineIcon(ICONS[name], className, stroke)
 ---
 
 <Fragment set:html={svg} />

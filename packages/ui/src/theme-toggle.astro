@@ -3,6 +3,10 @@
  * Switches between light and dark and remembers the choice. Without JavaScript the system
  * setting applies. Where the browser has view transitions, the new theme opens as a circle
  * from the button; with reduced motion it changes at once.
+ *
+ * A reader who made a choice goes back to the system setting from the command bar. The bar
+ * sends a `theme:set` event with "light", "dark" or "system", and the script here does the
+ * change, so the circle and the saved choice have one place.
  */
 ---
 
@@ -24,46 +28,67 @@
   {
     const root = document.documentElement
     const dark = matchMedia("(prefers-color-scheme: dark)")
-    const current = () => root.dataset.theme ?? (dark.matches ? "dark" : "light")
-    for (const button of document.querySelectorAll("[data-theme-toggle]")) {
-      const sync = () => button.setAttribute("aria-pressed", String(current() === "dark"))
-      button.hidden = false
-      sync()
-      dark.addEventListener("change", sync)
-      button.addEventListener("click", () => {
-        const next = current() === "dark" ? "light" : "dark"
-        const apply = () => {
-          root.dataset.theme = next
-          try {
-            localStorage.setItem("theme", next)
-          } catch {}
-          sync()
-        }
-        if (
-          !document.startViewTransition ||
-          matchMedia("(prefers-reduced-motion: reduce)").matches
-        ) {
-          apply()
-          return
-        }
-        const box = button.getBoundingClientRect()
-        const x = box.left + box.width / 2
-        const y = box.top + box.height / 2
-        const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
-        root.classList.add("theme-switch")
-        const transition = document.startViewTransition(apply)
-        transition.ready.then(() => {
-          root.animate(
-            { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
-            {
-              duration: 520,
-              easing: "cubic-bezier(0.2, 0, 0, 1)",
-              pseudoElement: "::view-transition-new(root)",
-            },
-          )
-        })
-        transition.finished.finally(() => root.classList.remove("theme-switch"))
-      })
+    const system = () => (dark.matches ? "dark" : "light")
+    const current = () => root.dataset.theme ?? system()
+    const buttons = [...document.querySelectorAll("[data-theme-toggle]")]
+    const sync = () => {
+      for (const button of buttons) {
+        button.setAttribute("aria-pressed", String(current() === "dark"))
+      }
     }
+    // Sets "light", "dark" or "system". The new theme opens as a circle from `from`.
+    const setTheme = (choice, from) => {
+      const apply = () => {
+        try {
+          if (choice === "system") {
+            delete root.dataset.theme
+            localStorage.removeItem("theme")
+          } else {
+            root.dataset.theme = choice
+            localStorage.setItem("theme", choice)
+          }
+        } catch {}
+        sync()
+      }
+      if (
+        (choice === "system" ? system() : choice) === current() ||
+        !document.startViewTransition ||
+        matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        apply()
+        return
+      }
+      // A hidden button has no place on the screen: the circle opens from the top centre.
+      const box = from?.getClientRects().length ? from.getBoundingClientRect() : null
+      const x = box ? box.left + box.width / 2 : innerWidth / 2
+      const y = box ? box.top + box.height / 2 : 0
+      const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
+      root.classList.add("theme-switch")
+      const transition = document.startViewTransition(apply)
+      transition.ready.then(() => {
+        root.animate(
+          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+          {
+            duration: 520,
+            easing: "cubic-bezier(0.2, 0, 0, 1)",
+            pseudoElement: "::view-transition-new(root)",
+          },
+        )
+      })
+      transition.finished.finally(() => root.classList.remove("theme-switch"))
+    }
+    for (const button of buttons) {
+      button.hidden = false
+      button.addEventListener("click", () =>
+        setTheme(current() === "dark" ? "light" : "dark", button),
+      )
+    }
+    sync()
+    dark.addEventListener("change", sync)
+    document.addEventListener("theme:set", (event) => {
+      if (!["light", "dark", "system"].includes(event.detail)) return
+      const shown = (button) => button.getClientRects().length > 0
+      setTheme(event.detail, buttons.find(shown) ?? document.querySelector("[data-command-open]"))
+    })
   }
 </script>

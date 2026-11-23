@@ -1,0 +1,104 @@
+---
+/**
+ * The command bar: one field that searches the site and runs its actions. ⌘K, Ctrl K or `/`
+ * opens it, and so does a button marked `data-command-open` (the header has one).
+ *
+ * This file is only the dialog. The first request for the bar loads `command-bar.ts`, which
+ * fills the list, so a page pays about 1 KB for a bar that most readers never open. Without
+ * JavaScript the dialog stays shut and the button stays hidden.
+ */
+import Icon from "./icon.astro"
+
+interface Props {
+  /** "" on nibras.co; its address on the other sites, where the bar reads its list from. */
+  origin?: string
+  /** Show the mascot in the field in place of the search icon. It reacts to the search. */
+  mascot?: boolean
+}
+
+const { origin = "", mascot } = Astro.props
+---
+
+<dialog
+  class="command-bar"
+  aria-label="Search"
+  closedby="any"
+  data-command-bar
+  data-origin={origin}
+  data-mascot={mascot ? "" : undefined}
+  data-print="hide"
+>
+  <div class="command-panel">
+    <div class="command-field">
+      <span class="command-lead" data-command-lead>
+        <Icon name="search" class="size-5" />
+      </span>
+      <button type="button" class="command-chip" data-command-chip hidden></button>
+      <input
+        type="text"
+        role="combobox"
+        aria-label="Search or run a command"
+        aria-expanded="true"
+        aria-controls="command-list"
+        aria-autocomplete="list"
+        placeholder="Search or run a command"
+        autocomplete="off"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        enterkeyhint="go"
+        autofocus
+        data-command-input
+      />
+      <button type="button" class="command-close" aria-label="Close" data-command-close>
+        <kbd>esc</kbd>
+        <Icon name="x" class="size-5" />
+      </button>
+    </div>
+    <div
+      class="command-list"
+      id="command-list"
+      role="listbox"
+      aria-label="Results"
+      data-command-list
+    ></div>
+    <p class="command-foot" aria-hidden="true">
+      <span>
+        <kbd>↑</kbd>
+        <kbd>↓</kbd> Move
+      </span>
+      <span>
+        <kbd>↵</kbd> <span data-command-verb>Open</span>
+      </span>
+    </p>
+    <p class="sr-only" role="status" data-command-status></p>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>("[data-command-bar]")
+  if (dialog && "showModal" in dialog) {
+    const load = () => import("./command-bar")
+    const prepare = () => void load().then((bar) => bar.prepareCommandBar(dialog))
+    const toggle = () => void load().then((bar) => bar.toggleCommandBar(dialog))
+    // The list loads when the pointer or the focus reaches the button, before the click.
+    for (const button of document.querySelectorAll<HTMLElement>("[data-command-open]")) {
+      button.addEventListener("click", toggle)
+      for (const hint of ["pointerenter", "focus", "touchstart"]) {
+        button.addEventListener(hint, prepare, { once: true, passive: true })
+      }
+    }
+    const typing = (target: EventTarget | null) =>
+      target instanceof HTMLElement &&
+      (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))
+    addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.altKey) return
+      const modifier = event.metaKey || event.ctrlKey
+      const keys = modifier && !event.shiftKey && event.key.toLowerCase() === "k"
+      const slash = event.key === "/" && !modifier && !typing(event.target)
+      if (!keys && !slash) return
+      event.preventDefault()
+      toggle()
+    })
+  }
+</script>

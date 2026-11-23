@@ -21,6 +21,7 @@ The resume and the gallery were separate sites (resume.nibras.co, media.nibras.c
 | `/llms.txt`, `/llms-full.txt`                      | asset          | An index of every Markdown page, and all of them in one file                                                               |
 | `/<page>.md`                                       | asset          | Markdown copy of each post, page, `/resume`, `/work`, `/blog` and `/media`                                                 |
 | `/llms.json`                                       | asset          | Every document as JSON. The MCP server reads it                                                                            |
+| `/commands.json`                                   | asset          | Titles and addresses for the command bar (`src/lib/commands.ts`). The archive reads it too, so `public/_headers` allows it |
 | `/feed.xml`, `/rss.xml`, `/atom.xml`, `/feed.json` | asset          | Listed posts as RSS 2.0, Atom and JSON Feed (`src/lib/feed.ts`). Version 9 served `/rss.xml`, `/atom.xml` and `/feed.json` |
 | `/mcp`                                             | Worker         | Stateless Streamable HTTP (`agents/mcp/server`, MCP SDK v2). No sign-in                                                    |
 
@@ -28,7 +29,7 @@ The resume and the gallery were separate sites (resume.nibras.co, media.nibras.c
 
 `src/lib/llms.ts` builds one index of the site at build time: top-level documents (resume, Work, blog, media, each page and post) and one entry per role, project, talk, community role and school. Posts and pages go through `src/lib/markdown.ts` (Portable Text to Markdown). The resume text comes from `src/lib/resume/markdown.ts`, the same text as the page and the PDF.
 
-The MCP server (`src/worker/mcp.ts`) reads `/llms.json` from the deployed assets, so its answers match the pages. Tools: `search`, `get_document`, `list_documents`, `get_resume`. Prompt: `assess_fit`. Resources: `nibras://llms.txt`, `nibras://resume.md`. Search lives in `src/lib/site-index.ts`, which has no Astro or Sanity imports so the Worker can use it.
+The MCP server (`src/worker/mcp.ts`) reads `/llms.json` from the deployed assets, so its answers match the pages. Tools: `search`, `get_document`, `list_documents`, `get_resume`. Prompt: `assess_fit`. Resources: `nibras://llms.txt`, `nibras://resume.md`. Search lives in `packages/content/src/site-index.ts`, which has no Astro or Sanity imports. The Worker uses it, and so does the command bar in the browser (see [redesign.md](../redesign.md#command-bar)), so both give the same results.
 
 ## Resume data
 

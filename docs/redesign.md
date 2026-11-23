@@ -270,3 +270,22 @@ Decided on 2026-11-22, after a look at every list on Home, Blog and Work. It rep
 - Buttons, cards that are one link, icons and the header navigation have their own shapes and take no underline.
 - A range that starts and ends in the same year shows one year: `2019`, not `2019 – 2019`.
 - The resume keeps its own styles, because it is also the printed document.
+
+## Command bar
+
+Decided on 2026-11-23, from a board with five choices. The owner chose a dialog in the centre, an icon in the header, the dither veil, the mascot in the field and the full depth.
+
+- ⌘K, Ctrl K or `/` opens the bar, and so does the search button in the header. The bar is in the shared header, so nibras.co and the archive index have it. The older versions keep their original look and have no bar.
+- `packages/ui/src/command-bar.astro` is the dialog: a native `<dialog>`, so the browser keeps the focus inside and Escape closes it. `command-bar.ts` loads the first time someone asks for the bar. A page carries about 1.5 KB for it (gzip); the script is 8 KB (Brotli) and most readers never load it.
+- No library. `cmdk` needs React, and these sites send none.
+- The bar reads two files from nibras.co. `/commands.json` (2 KB) has the title and the address of every page, post, role, project and talk, the older versions and the profile links. `/llms.json` (42 KB) has the text of every page; it loads at the second letter of a search.
+- Titles are ranked in `command-index.ts`: the start of the title counts most, then the start of a word, then any place in the title, then a keyword. A group shows five rows at most. The text search is `searchDocuments()` from `@multiverse/content/site-index`, which the MCP server uses too, so both give the same results.
+- With no search, the bar shows four suggestions (the latest post, "Book a call", "Copy the email address", the theme), then the pages, the actions and the links to other places. "Older versions", "Ask AI" and "Change theme" open a second list; Escape, Backspace or the label in the field goes back.
+- "Change theme" has three choices: light, dark and system. The button in the header only switches between light and dark, so the bar is the way back to the system setting. The bar sends a `theme:set` event, and `theme-toggle.astro` does the change: one place for the circle and for the saved choice.
+- A search with no result offers to ask Claude about the site.
+- A row that opens an address is a link, so a click with ⌘ opens a new tab as on any link.
+- The veil behind the bar is dither: two CSS gradients of dots in the page color, no canvas. The panel moves in with `translate` only.
+- The mascot sits in the field where its site shows it. It thinks while the reader types, is sad when nothing matches, and winks when a row runs. A move plays once, as in every other place.
+- On a screen narrower than 30rem the header has no room for two buttons. The search button stays, the theme button goes, and the bar has the theme as an action.
+- Each role, project and talk on `/work` has its own address, such as `/work#project-graz` (`apps/web/src/lib/anchors.ts`). An entry that a link opened shows an amber frame for two seconds.
+- nbr.st links are not in the bar: they live only in KV.

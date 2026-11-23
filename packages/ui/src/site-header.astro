@@ -1,5 +1,7 @@
 ---
+import CommandBar from "./command-bar.astro"
 import Gri from "./gri.astro"
+import Icon from "./icon.astro"
 import ThemeToggle from "./theme-toggle.astro"
 
 interface Props {
@@ -92,11 +94,32 @@ const current = (href: string) =>
           </li>
         ))}
       </ul>
+      <button
+        type="button"
+        class="grid size-9 cursor-pointer place-items-center rounded-full text-soft transition-colors hover:bg-sunk hover:text-fg"
+        aria-label="Search"
+        aria-haspopup="dialog"
+        aria-keyshortcuts="Meta+K Control+K /"
+        data-command-open
+        hidden
+      >
+        <Icon name="search" class="size-[1.125rem]" stroke={2} />
+      </button>
+      {/* Shows the button before the first paint, so the links do not move. Without
+          JavaScript, or in a browser with no dialog element, there is no bar and no button. */}
+      <script is:inline>
+        if (window.HTMLDialogElement && "showModal" in HTMLDialogElement.prototype) {
+          for (const button of document.querySelectorAll("[data-command-open]")) {
+            button.hidden = false
+          }
+        }
+      </script>
       <ThemeToggle />
     </nav>
   </header>
   {progress && <div class="read-progress" aria-hidden="true" />}
 </div>
+<CommandBar origin={origin} mascot={mascot} />
 {revealBrand && <script is:inline>
   // States the two ends of the brand reveal (styles.css). Between them the scroll timeline
   // moves the brand; where no timeline runs, the brand waits until the avatar is gone.

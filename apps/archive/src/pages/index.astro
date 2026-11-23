@@ -1,6 +1,7 @@
 ---
 import "../styles/archive.css"
 
+import { MASCOT_ID } from "@multiverse/sanity/constants"
 import SiteFooter from "@multiverse/ui/site-footer.astro"
 import SiteHeader from "@multiverse/ui/site-header.astro"
 import ThemeHead from "@multiverse/ui/theme-head.astro"
@@ -34,7 +35,7 @@ const timeline = [...editions].reverse()
     <ThemeHead />
   </head>
   <body class="flex min-h-dvh flex-col bg-bg text-fg">
-    <SiteHeader origin={WEB_ORIGIN} avatar={avatar} />
+    <SiteHeader origin={WEB_ORIGIN} avatar={avatar?.url} mascot={avatar?._id === MASCOT_ID} />
     <main class="mx-auto w-full max-w-2xl flex-1 px-5">
       <header class="pt-10 pb-8 sm:pt-16">
         <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Older versions</h1>

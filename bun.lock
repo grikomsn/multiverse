@@ -258,12 +258,14 @@
       "name": "@multiverse/ui",
       "version": "0.0.0",
       "dependencies": {
+        "@multiverse/content": "workspace:*",
         "@paper-design/shaders": "catalog:",
         "lucide-static": "catalog:",
         "simple-icons": "catalog:",
       },
       "devDependencies": {
         "@multiverse/config": "workspace:*",
+        "@types/node": "catalog:",
         "astro": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:",

@@ -18,19 +18,24 @@
     "./dither-wave.astro": "./src/dither-wave.astro",
     "./gri": "./src/gri.ts",
     "./gri.astro": "./src/gri.astro",
-    "./gri-moods": "./src/gri-moods.ts"
+    "./gri-moods": "./src/gri-moods.ts",
+    "./command-bar.astro": "./src/command-bar.astro",
+    "./command-index": "./src/command-index.ts"
   },
   "scripts": {
     "lint": "eslint .",
-    "typecheck": "tsc"
+    "typecheck": "tsc && tsc -p tsconfig.test.json",
+    "test": "bun test"
   },
   "devDependencies": {
     "@multiverse/config": "workspace:*",
+    "@types/node": "catalog:",
     "astro": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:"
   },
   "dependencies": {
+    "@multiverse/content": "workspace:*",
     "@paper-design/shaders": "catalog:",
     "lucide-static": "catalog:",
     "simple-icons": "catalog:"

@@ -33,5 +33,5 @@ export const ARCHIVE_SHELL_QUERY = defineQuery(`{
   "profile": *[_id == "profile"][0] {
     name, email, scheduleUrl, socialLinks[] { platform, label, url, featured }
   },
-  "avatar": ${ICON}.image.asset->url
+  "avatar": ${ICON} { _id, "url": image.asset->url }
 }`)

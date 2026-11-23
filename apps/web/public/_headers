@@ -4,3 +4,10 @@
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# The command bar on archive.nibras.co reads these two. Both are public, like the pages.
+/commands.json
+  Access-Control-Allow-Origin: *
+
+/llms.json
+  Access-Control-Allow-Origin: *

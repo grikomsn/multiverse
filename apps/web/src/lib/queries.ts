@@ -21,6 +21,11 @@ export const SITE_SHELL_QUERY = defineQuery(`{
   "versions": count(*[_type == "edition"])
 }`)
 
+/** Older versions for the command bar, newest first. The archive index has the details. */
+export const VERSIONS_QUERY = defineQuery(`*[_type == "edition"] | order(startDate desc) {
+  title, "key": key.current, startDate
+}`)
+
 export const HOME_QUERY = defineQuery(`{
   "site": *[_id == "site"][0] { tagline, "intro": intro[] { ..., ${MARK_DEFS} } },
   "timeZone": *[_id == "profile"][0].timeZone,
