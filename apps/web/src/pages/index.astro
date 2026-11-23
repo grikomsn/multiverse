@@ -1,12 +1,13 @@
 ---
 import DitherWave from "@multiverse/ui/dither-wave.astro"
-import { MOODS } from "@multiverse/ui/gri"
+import { MOODS, type Mood } from "@multiverse/ui/gri"
 import Gri from "@multiverse/ui/gri.astro"
 import Icon from "@multiverse/ui/icon.astro"
 import { formatRange, groupByOrganization, imageUrl, isoDate } from "@multiverse/content/format"
 import SectionHeading from "@multiverse/ui/section-heading.astro"
 import { MASCOT_ID } from "@multiverse/sanity/constants"
 
+import DotIcon from "../components/dot-icon.astro"
 import EntryRow from "../components/entry-row.astro"
 import ProjectCard from "../components/project-card.astro"
 import RichText from "../components/rich-text.astro"
@@ -16,22 +17,33 @@ import { getMetrics } from "../lib/metrics"
 import { HOME_QUERY, SITE_SHELL_QUERY } from "../lib/queries"
 import { sanity } from "../lib/sanity"
 
-const [{ profile, avatar }, { site, experience, posts, projects, talks }] = await Promise.all([
-  sanity.fetch(SITE_SHELL_QUERY),
-  sanity.fetch(HOME_QUERY),
-])
+const [{ profile, avatar }, { site, timeZone, experience, posts, projects, talks }] =
+  await Promise.all([sanity.fetch(SITE_SHELL_QUERY), sanity.fetch(HOME_QUERY)])
 
 const metrics = await getMetrics(projects)
 // While the profile's icon is the mascot, the hero draws it in the page: it winks under the
 // pointer, shows the next mood on a click, and answers the links marked `data-gri`.
 const mascot = avatar?._id === MASCOT_ID
 const current = experience[0]
+// A current role at another organization, such as part-time teaching. The intro names it.
+const sideJob = experience.find(
+  (job) => !job.endDate && job.organization?.name !== current?.organization?.name,
+)
 const stops = groupByOrganization(experience)
 // The highlighted line, as on the 2019–2020 versions. Words in [brackets] get a mark; split()
 // with a capture group puts them at the odd indexes.
 const TAGLINE = "I make [useful], [fast], and [friendly] things."
 const tagline = (site?.tagline || TAGLINE).split(/\[([^\]]+)\]/)
 const MARKS = ["--color-mark-red", "--color-mark-green", "--color-mark-blue"]
+// What a marked word does under the pointer: the mascot's mood, and an effect around the word
+// (global.css). A word that is not here puts stars in the mascot's eyes.
+const REACTIONS: Record<string, { mood: Mood; effect: "tools" | "speed" | "hearts" }> = {
+  useful: { mood: "think", effect: "tools" },
+  fast: { mood: "wow", effect: "speed" },
+  friendly: { mood: "love", effect: "hearts" },
+}
+// The city of the profile's location: "Tangerang" of "Tangerang, Indonesia".
+const city = profile?.location?.split(",")[0]?.trim()
 // One clip box for each word of the headline, so the words can rise in one after another.
 const headline = `Hey there, I’m ${profile?.givenName ?? "Griko"}.`.split(" ")
 // Where the fallback intro's links go: every repository, and the npm packages for coding agents.
@@ -81,6 +93,9 @@ const structuredData = profile?.name && {
             aria-label={`${avatar.alt ?? "Cartoon face of Griko"}. Press it to change its mood.`}
             data-hero
             data-face
+            data-time-zone={timeZone}
+            data-city={city}
+            data-name={profile?.givenName ?? "Griko"}
           >
             <Gri moods={MOODS} />
           </button>
@@ -114,8 +129,33 @@ const structuredData = profile?.name && {
               stroke-linejoin="round"
             />
           </svg>
-          <span class="-mb-1 inline-block -rotate-6 text-sm font-semibold">that’s me</span>
+          <span class="-mb-1 inline-block -rotate-6 text-sm font-semibold" data-doodle>
+            that’s me
+          </span>
         </p>
+        {mascot && timeZone && <script is:inline define:vars={{ timeZone }}>
+          // Before the first paint: from midnight to 05:00 at home, the face sleeps. No move
+          // plays, because the drawing is not live yet.
+          try {
+            const clock = new Intl.DateTimeFormat("en-GB", {
+              hour: "2-digit",
+              minute: "2-digit",
+              hourCycle: "h23",
+              timeZone,
+            }).format(new Date())
+            const button = document.querySelector("[data-face]")
+            const face = button?.querySelector("svg.gri")
+            if (button && face && Number(clock.slice(0, 2)) < 5) {
+              face.dataset.mood = face.dataset.rest = "sleepy"
+              const { city, name } = button.dataset
+              button.title = `It is ${clock}${city ? ` in ${city}` : ""}. ${name} is probably asleep.`
+              const doodle = document.querySelector("[data-doodle]")
+              if (doodle) doodle.textContent = "asleep now"
+            }
+          } catch {
+            // An unknown time zone: the face smiles.
+          }
+        </script>}
       </div>
     )}
     <h1 class="text-[2.5rem] leading-[1.05] font-bold tracking-tight text-balance sm:text-6xl">
@@ -132,10 +172,28 @@ const structuredData = profile?.name && {
         index % 2 ? (
           <mark
             class="mark hero-mark text-fg"
-            data-gri="starstruck"
+            data-gri={REACTIONS[part.toLowerCase()]?.mood ?? "starstruck"}
+            data-effect={REACTIONS[part.toLowerCase()]?.effect}
             style={`--mark: var(${MARKS[((index - 1) / 2) % MARKS.length]}); --i: ${(index - 1) / 2}`}
           >
             {part}
+            {REACTIONS[part.toLowerCase()]?.effect === "tools" && (
+              <span class="hero-pops" aria-hidden="true">
+                <DotIcon name="terminal" style="--i: 0; --turn: -8deg" />
+                <DotIcon name="wrench" style="--i: 1; --turn: 6deg" />
+                <DotIcon name="box" style="--i: 2; --turn: 14deg" />
+              </span>
+            )}
+            {REACTIONS[part.toLowerCase()]?.effect === "hearts" && (
+              <span class="hero-pops hero-hearts" aria-hidden="true">
+                <DotIcon name="heart" style="--i: 0; --turn: -12deg" />
+                <DotIcon name="heart" style="--i: 1; --turn: 6deg" />
+                <DotIcon name="heart" style="--i: 2; --turn: 14deg" />
+              </span>
+            )}
+            {REACTIONS[part.toLowerCase()]?.effect === "speed" && (
+              <span class="hero-speed" aria-hidden="true" />
+            )}
           </mark>
         ) : (
           part
@@ -154,9 +212,47 @@ const structuredData = profile?.name && {
             ) : (
               current.organization?.name
             )}
+            {sideJob?.organization?.name && (
+              <>
+                {" "}
+                and teach new developers at{" "}
+                {sideJob.organization.url ? (
+                  <a href={sideJob.organization.url}>{sideJob.organization.name}</a>
+                ) : (
+                  sideJob.organization.name
+                )}
+              </>
+            )}
             . I also make <a href={TOOLS_URL}>developer tools</a> for humans, and lately for{" "}
             <a href={AGENTS_URL}>AI agents</a> too.
-            {profile?.location && <> I live in {profile.location}.</>}
+            {profile?.location &&
+              (timeZone ? (
+                <>
+                  {" "}
+                  I live in{" "}
+                  <span class="place">
+                    <button
+                      type="button"
+                      data-place
+                      data-time-zone={timeZone}
+                      aria-describedby="place-time"
+                    >
+                      {profile.location}
+                    </button>
+                    <span class="place-time" id="place-time" role="tooltip">
+                      <DotIcon name="sun" class="place-sun" />
+                      <DotIcon name="moon" class="place-moon" />
+                      <span>
+                        <b data-clock /> there now
+                        <small data-zone />
+                      </span>
+                    </span>
+                  </span>
+                  .
+                </>
+              ) : (
+                <> I live in {profile.location}.</>
+              ))}
           </p>
         )
       )}
@@ -261,6 +357,7 @@ const structuredData = profile?.name && {
 </BaseLayout>
 
 <script>
+  import { reducedMotion } from "@multiverse/ui/dither"
   import { faces, showMood } from "@multiverse/ui/gri-moods"
 
   // The face in the hero. `data-rest` holds the mood that a click chose.
@@ -276,9 +373,11 @@ const structuredData = profile?.name && {
         ),
       ),
     ]
+    // True while the face is dizzy from too many clicks: nothing else changes its mood.
+    let dizzy = false
     const rest = () => face.dataset.rest ?? "smile"
     const show = (mood: string) => {
-      if (face.dataset.mood !== mood) showMood(face, mood)
+      if (!dizzy && face.dataset.mood !== mood) showMood(face, mood)
     }
     /** A mood while the pointer or the keyboard focus is on `item`. */
     const answer = (item: HTMLElement, mood: () => string | undefined) => {
@@ -297,13 +396,106 @@ const structuredData = profile?.name && {
 
     // A wink under the pointer, until a click has chosen a different mood.
     answer(button, () => (rest() === "smile" ? "wink" : undefined))
+
+    // A click shows the next mood. A click also wakes a face that sleeps at night. Five quick
+    // clicks make the face dizzy, then grumpy, and it ignores clicks until it smiles again.
+    const doodle = hero.querySelector<HTMLElement>("[data-doodle]")
+    const label = doodle?.textContent
+    let pokes = 0
+    let poked = 0
     button.addEventListener("click", () => {
-      const next = moods[(moods.indexOf(rest()) + 1) % moods.length] ?? "smile"
-      face.dataset.rest = next
-      showMood(face, next)
+      if (dizzy) return
+      button.removeAttribute("title")
+      if (doodle && label) doodle.textContent = label
+      const now = performance.now()
+      pokes = now - poked < 600 ? pokes + 1 : 1
+      poked = now
+      if (pokes < 5) {
+        const next = moods[(moods.indexOf(rest()) + 1) % moods.length] ?? "smile"
+        face.dataset.rest = next
+        showMood(face, next)
+        return
+      }
+      pokes = 0
+      dizzy = true
+      delete face.dataset.rest
+      showMood(face, "dizzy")
+      window.setTimeout(() => showMood(face, "grumpy"), 1700)
+      window.setTimeout(() => {
+        dizzy = false
+        showMood(face, "smile")
+      }, 4200)
     })
     for (const item of hero.querySelectorAll<HTMLElement>("[data-gri]")) {
       answer(item, () => item.dataset.gri)
+    }
+
+    // The head and the eyes lean toward the pointer while it is over the hero (`gri.css`).
+    // Like the lean of the wave, this is for a mouse, and reduced motion stops it.
+    if (matchMedia("(hover: hover) and (pointer: fine)").matches && !reducedMotion()) {
+      /** Moods that do not look around. */
+      const still = new Set(["sleepy", "dizzy"])
+      const at = { x: 0, y: 0 }
+      const to = { x: 0, y: 0 }
+      let frame = 0
+      const step = () => {
+        at.x += (to.x - at.x) * 0.2
+        at.y += (to.y - at.y) * 0.2
+        const near = Math.abs(to.x - at.x) + Math.abs(to.y - at.y) < 0.004
+        if (near) Object.assign(at, to)
+        face.style.setProperty("--gri-look-x", at.x.toFixed(3))
+        face.style.setProperty("--gri-look-y", at.y.toFixed(3))
+        frame = near ? 0 : requestAnimationFrame(step)
+      }
+      const look = (x: number, y: number) => {
+        to.x = Math.max(-1, Math.min(1, x))
+        to.y = Math.max(-1, Math.min(1, y))
+        frame ||= requestAnimationFrame(step)
+      }
+      hero.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse" || still.has(face.dataset.mood ?? "")) return look(0, 0)
+        const box = face.getBoundingClientRect()
+        look(
+          (event.clientX - box.left - box.width / 2) / 260,
+          (event.clientY - box.top - box.height / 2) / 180,
+        )
+      })
+      hero.addEventListener("pointerleave", () => look(0, 0))
+    }
+  }
+
+  // The city in the intro shows the time there, with a sun from 06:00 to 18:00 and a moon
+  // at night.
+  const place = document.querySelector<HTMLElement>("[data-place]")
+  const tip = place?.parentElement?.querySelector<HTMLElement>(".place-time")
+  const timeZone = place?.dataset.timeZone
+  if (place && tip && timeZone) {
+    const fill = () => {
+      const now = new Date()
+      const clock = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+        timeZone,
+      }).format(now)
+      const offset = new Intl.DateTimeFormat("en", { timeZone, timeZoneName: "shortOffset" })
+        .formatToParts(now)
+        .find((part) => part.type === "timeZoneName")
+        ?.value.replace("GMT", "UTC")
+      const hour = Number(clock.slice(0, 2))
+      const day = hour >= 6 && hour < 18
+      tip.dataset.part = day ? "day" : "night"
+      tip.querySelector("[data-clock]")!.textContent = clock
+      tip.querySelector("[data-zone]")!.textContent = [day ? "Day" : "Night", offset]
+        .filter(Boolean)
+        .join(" · ")
+    }
+    try {
+      fill()
+      for (const type of ["pointerenter", "focus"]) place.addEventListener(type, fill)
+      place.parentElement!.dataset.ready = ""
+    } catch {
+      // An unknown time zone: the city stays plain text.
     }
   }
 </script>

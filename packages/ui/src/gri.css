@@ -37,6 +37,23 @@
   transform-origin: center;
 }
 
+/*
+ * The look: the head and the eyes lean toward a point. A script sets `--gri-look-x` and
+ * `--gri-look-y` on the drawing, from -1 to 1. These are the `translate` and `rotate`
+ * properties, so the look adds to the pose of a mood and to its move.
+ */
+.gri .hm {
+  translate: calc(var(--gri-look-x, 0) * 3px) calc(var(--gri-look-y, 0) * 3px);
+}
+
+.gri .hr {
+  rotate: calc(var(--gri-look-x, 0) * 8deg);
+}
+
+.gri .eye {
+  translate: calc(var(--gri-look-x, 0) * 6px) calc(var(--gri-look-y, 0) * 4px);
+}
+
 .gri .ground {
   transition: fill 400ms;
 }

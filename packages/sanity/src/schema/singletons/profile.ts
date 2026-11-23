@@ -52,6 +52,15 @@ export const profile = defineType({
     }),
     defineField({ name: "location", type: "string", group: "identity" }),
     defineField({
+      name: "timeZone",
+      type: "string",
+      group: "identity",
+      description:
+        "The IANA name of the time zone at the location, e.g. Asia/Jakarta. The home page shows the local time from it.",
+      validation: (rule) =>
+        rule.regex(/^[A-Za-z_]+(\/[A-Za-z0-9_+-]+)+$/, { name: "IANA time zone" }),
+    }),
+    defineField({
       name: "countryCode",
       type: "string",
       group: "identity",

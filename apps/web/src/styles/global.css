@@ -132,6 +132,187 @@
   }
 }
 
+/*
+ * A marked word under the pointer. Small pictures made of dots pop up over the word, or dotted
+ * lines trail it. They show with :hover, so they need no script, and a tap shows them too.
+ * The word itself moves with transform only.
+ */
+.hero-pops {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  display: none;
+  align-items: flex-end;
+  gap: 0.4rem;
+  translate: -50% 0;
+  color: var(--color-accent);
+  pointer-events: none;
+
+  & > svg {
+    flex: none;
+    rotate: var(--turn, 0deg);
+  }
+}
+
+/* The red of the hearts around the mascot (`gri.ts`). */
+.hero-hearts {
+  color: #e5484d;
+}
+
+.hero-speed {
+  position: absolute;
+  top: 18%;
+  right: calc(100% + 1px);
+  display: none;
+  width: 1.5rem;
+  height: 64%;
+  background: radial-gradient(circle at 1.5px 1.5px, var(--color-accent) 1.2px, transparent 1.5px) 0
+    0 / 5px 6px;
+  mask-image: linear-gradient(to left, #000, transparent);
+  transform-origin: right center;
+  pointer-events: none;
+}
+
+.hero-mark[data-effect="speed"] {
+  display: inline-block;
+}
+
+.hero-mark:hover {
+  & .hero-pops {
+    display: flex;
+  }
+
+  & .hero-speed {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-mark[data-effect="speed"] {
+    transition: transform 150ms var(--ease-snap);
+
+    &:hover {
+      transform: skewX(-12deg) translateX(4px);
+    }
+  }
+
+  .hero-mark:hover {
+    & .hero-pops > svg {
+      animation: hero-pop-up 420ms cubic-bezier(0.3, 1.5, 0.5, 1) calc(var(--i) * 70ms) both;
+    }
+
+    & .hero-hearts > svg {
+      animation: hero-float 950ms ease-out calc(var(--i) * 130ms) both;
+    }
+
+    & .hero-speed {
+      animation: hero-sweep 350ms var(--ease-snap) both;
+    }
+  }
+}
+
+@keyframes hero-pop-up {
+  from {
+    translate: 0 10px;
+    scale: 0;
+  }
+}
+
+@keyframes hero-float {
+  0% {
+    translate: 0 12px;
+    scale: 0;
+  }
+
+  35% {
+    translate: 0 -2px;
+    scale: 1;
+  }
+
+  100% {
+    translate: 0 -12px;
+  }
+}
+
+@keyframes hero-sweep {
+  from {
+    scale: 0 1;
+  }
+}
+
+/*
+ * The city in the intro. Under the pointer or the keyboard focus, a label shows the time there.
+ * The home page script fills the label and sets `data-ready`; without it the city is plain text.
+ */
+.place {
+  position: relative;
+  display: inline-block;
+
+  & > button {
+    color: var(--color-fg);
+  }
+
+  &[data-ready] > button {
+    text-decoration: underline dotted var(--color-accent) 2px;
+    text-underline-offset: 4px;
+    cursor: help;
+  }
+}
+
+.place-time {
+  position: absolute;
+  bottom: calc(100% + 0.4rem);
+  left: 50%;
+  z-index: 10;
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+  translate: -50% 0;
+  border: 1px solid var(--color-line);
+  border-radius: 0.6rem;
+  background-color: var(--color-card);
+  padding: 0.4rem 0.7rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  white-space: nowrap;
+  color: var(--color-fg);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.12);
+
+  & svg {
+    flex: none;
+    color: var(--color-accent);
+  }
+
+  & small {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-soft);
+  }
+
+  &[data-part="day"] .place-moon,
+  &[data-part="night"] .place-sun {
+    display: none;
+  }
+}
+
+.place[data-ready]:is(:hover, :focus-within) .place-time {
+  display: flex;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .place[data-ready]:is(:hover, :focus-within) .place-time {
+    animation: place-pop 200ms var(--ease-snap) both;
+  }
+}
+
+@keyframes place-pop {
+  from {
+    translate: -50% 5px;
+    scale: 0.94;
+  }
+}
+
 /* A picture while it develops (src/scripts/develop.ts): dots on a dark plate, over the image. */
 [data-develop] {
   position: relative;

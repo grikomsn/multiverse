@@ -2372,6 +2372,13 @@
         },
         "optional": true
       },
+      "timeZone": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "countryCode": {
         "type": "objectAttribute",
         "value": {

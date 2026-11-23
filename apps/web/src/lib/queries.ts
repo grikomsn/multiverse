@@ -23,6 +23,7 @@ export const SITE_SHELL_QUERY = defineQuery(`{
 
 export const HOME_QUERY = defineQuery(`{
   "site": *[_id == "site"][0] { tagline, "intro": intro[] { ..., ${MARK_DEFS} } },
+  "timeZone": *[_id == "profile"][0].timeZone,
   "experience": *[_type == "experience"] | order(orderRank) { ${EXPERIENCE} },
   "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {
     _id, title, "slug": slug.current, publishedAt, excerpt

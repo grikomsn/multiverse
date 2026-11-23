@@ -1,0 +1,31 @@
+---
+/**
+ * A small picture made of square dots, in the current text color. Decoration only: it is
+ * hidden from assistive technology.
+ */
+import type { HTMLAttributes } from "astro/types"
+
+import { DOT_ICONS, dotPath, type DotIconName } from "../lib/dot-icons"
+
+interface Props extends HTMLAttributes<"svg"> {
+  name: DotIconName
+  /** The size of one dot in CSS pixels. */
+  dot?: number
+}
+
+const { name, dot = 2, ...rest } = Astro.props
+const rows: readonly string[] = DOT_ICONS[name]
+const width = rows[0]?.length ?? 0
+---
+
+<svg
+  width={width * dot}
+  height={rows.length * dot}
+  viewBox={`0 0 ${width} ${rows.length}`}
+  fill="currentColor"
+  shape-rendering="crispEdges"
+  aria-hidden="true"
+  {...rest}
+>
+  <path d={dotPath(rows)}></path>
+</svg>
