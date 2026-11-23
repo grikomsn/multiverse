@@ -5,7 +5,7 @@ import ClaudeIcon from "../components/resume/icons/claude-icon.astro"
 import OpenAiIcon from "../components/resume/icons/openai-icon.astro"
 import BaseLayout from "../layouts/base.astro"
 import { getSiteIndex } from "../lib/llms"
-import { searchDocuments } from "../lib/site-index"
+import { searchDocuments } from "@multiverse/content/site-index"
 
 const { origin, name, documents } = await getSiteIndex()
 const mcpUrl = `${origin}/mcp`

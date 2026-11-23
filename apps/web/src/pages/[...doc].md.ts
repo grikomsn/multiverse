@@ -1,7 +1,7 @@
+import type { SiteDocument } from "@multiverse/content/site-index"
 import type { APIRoute, GetStaticPaths } from "astro"
 
 import { getSiteIndex } from "../lib/llms"
-import type { SiteDocument } from "../lib/site-index"
 
 /** A Markdown copy of each top-level page: `/resume.md`, `/work.md`, `/<post>.md`… */
 export const getStaticPaths = (async () => {

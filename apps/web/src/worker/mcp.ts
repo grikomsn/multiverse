@@ -1,9 +1,9 @@
 import { McpServer } from "@modelcontextprotocol/server"
+import { DOCUMENT_KINDS, searchDocuments, type SiteDocument } from "@multiverse/content/site-index"
 import { createMcpHandler } from "agents/mcp/server"
 import { z } from "zod"
 
 import { RESUME_SECTIONS } from "../lib/resume/sections"
-import { DOCUMENT_KINDS, searchDocuments, type SiteDocument } from "../lib/site-index"
 import { loadIndex } from "./data"
 
 /*

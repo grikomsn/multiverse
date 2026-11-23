@@ -1,4 +1,5 @@
 import { isoDate } from "@multiverse/content/format"
+import type { SiteDocument, SiteIndex } from "@multiverse/content/site-index"
 import type { MEDIA_PAGE_QUERY_RESULT } from "@multiverse/sanity/types"
 
 import { toMarkdown } from "./markdown"
@@ -17,7 +18,6 @@ import {
 } from "./resume/markdown"
 import { allSkills, formatPeriod, type Resume } from "./resume/resume"
 import { sanity } from "./sanity"
-import type { SiteDocument, SiteIndex } from "./site-index"
 
 /*
  * The whole site as Markdown, built once per build. Feeds /llms.txt, /llms-full.txt, the `.md`

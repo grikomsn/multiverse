@@ -8,7 +8,8 @@
     "./format": "./src/format.ts",
     "./fragments": "./src/fragments.ts",
     "./github": "./src/github.ts",
-    "./live": "./src/live.ts"
+    "./live": "./src/live.ts",
+    "./site-index": "./src/site-index.ts"
   },
   "scripts": {
     "lint": "eslint .",

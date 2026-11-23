@@ -1,4 +1,4 @@
-import type { SiteIndex } from "../lib/site-index"
+import type { SiteIndex } from "@multiverse/content/site-index"
 
 /*
  * /llms.json, read from the static assets of this deploy. The MCP server and the PDF metadata

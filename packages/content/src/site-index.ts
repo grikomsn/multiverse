@@ -1,6 +1,7 @@
 /*
- * The shape of /llms.json and search over it. No Astro or Sanity imports: the Worker
- * (src/worker/mcp.ts) uses this file too.
+ * The shape of nibras.co/llms.json and search over it. No Astro or Sanity imports: the MCP
+ * Worker (apps/web/src/worker/mcp.ts) and the command bar in the browser
+ * (packages/ui/src/command-bar.ts) use this file too, so both give the same results.
  */
 
 export const DOCUMENT_KINDS = [
