@@ -62,13 +62,13 @@ const links: FooterLink[] = [
     {email && (
       <p>
         Send an email to{" "}
-        <a class="link text-fg" href={`mailto:${email}`}>
+        <a class="quiet-link text-fg" href={`mailto:${email}`}>
           {email}
         </a>
         {scheduleUrl ? (
           <>
             , or{" "}
-            <a class="link text-fg" href={scheduleUrl}>
+            <a class="quiet-link text-fg" href={scheduleUrl}>
               book a call
             </a>
             .
@@ -105,7 +105,7 @@ const links: FooterLink[] = [
       <span>
         © {new Date().getFullYear()} {name ?? "Griko Nibras"}
       </span>
-      <span class="[&_a]:link [&_a]:hover:text-fg">
+      <span class="[&_a]:quiet-link [&_a]:hover:text-fg">
         Made with <a href="https://astro.build">Astro</a> and{" "}
         <a href="https://www.sanity.io">Sanity</a>. Hosted on{" "}
         <a href="https://www.cloudflare.com">Cloudflare</a>.

@@ -466,7 +466,10 @@ canvas.develop {
   }
 }
 
-/* A utility, not a component class, so variants work: `[&_a]:link`. */
+/*
+ * A link that stands alone: "All posts", "Older versions", the resume. A utility, not a component
+ * class, so variants work: `[&_a]:link`.
+ */
 @utility link {
   text-decoration-line: underline;
   text-decoration-color: var(--color-accent);
@@ -492,6 +495,110 @@ canvas.develop {
 
   &:hover {
     text-decoration-color: var(--color-accent);
+  }
+}
+
+/*
+ * A link in running text. The line is thin and grey, so a paragraph with many links stays calm.
+ * It turns amber under the pointer. The line is the only sign of a link, so it always shows.
+ */
+@utility quiet-link {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in oklab, var(--color-soft) 55%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition:
+    text-decoration-color 150ms var(--ease-out-quart),
+    text-decoration-thickness 150ms var(--ease-out-quart);
+
+  &:hover {
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+  }
+}
+
+/*
+ * A list row that is one link: the title's link covers the whole row. Put `row-link` on the row,
+ * `data-row` on the title's link, `data-row-arrow` on its arrow and `data-row-end` on the part at
+ * the right edge (the date). Under the pointer the row gets a tint, the title underlines, the end
+ * moves left, and the arrow shows in its place: → for a page here, ↗ for another site. At rest
+ * the end lines up with the column, as in a list that does not open.
+ */
+@utility row-link {
+  position: relative;
+  margin-inline: -0.75rem;
+  padding-inline: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: background-color 150ms var(--ease-out-quart);
+
+  & [data-row]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  & [data-row]:focus-visible {
+    outline: none;
+  }
+
+  &:has([data-row]:focus-visible) {
+    outline: 2px solid var(--color-accent-ink);
+  }
+
+  & [data-row-arrow] {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    translate: 0 -50%;
+    font-weight: 400;
+    color: var(--color-accent-ink);
+    opacity: 0;
+    transition:
+      opacity 150ms var(--ease-out-quart),
+      transform 150ms var(--ease-out-quart);
+  }
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--color-accent) 9%, transparent);
+
+    & [data-row] {
+      text-decoration-color: var(--color-accent);
+    }
+
+    & [data-row-arrow] {
+      opacity: 1;
+    }
+  }
+
+  &:has([data-row]:focus-visible) [data-row-arrow] {
+    opacity: 1;
+  }
+
+  /* Without hover, the arrow is the sign that the row opens, so it always shows. */
+  @media (hover: none) {
+    & [data-row-arrow] {
+      opacity: 0.7;
+    }
+  }
+
+  /*
+   * The arrow has its own space on the right. Only when the end is a column on the right (from
+   * `sm`, as the rows' grids) and there is hover does the end give its place to the arrow: at rest
+   * it lines up with the column. On a narrow screen the end is under the title, and must not move.
+   */
+  @media (hover: hover) and (width >= 40rem) {
+    padding-right: 0.75rem;
+
+    &:is(:hover, :has([data-row]:focus-visible)) [data-row-end] {
+      transform: translateX(-1.25rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    & [data-row-end] {
+      transition: transform 150ms var(--ease-out-quart);
+    }
   }
 }
 
@@ -659,11 +766,8 @@ canvas.develop {
     }
 
     & a {
+      @apply quiet-link;
       overflow-wrap: anywhere;
-      text-decoration-line: underline;
-      text-decoration-color: var(--color-accent);
-      text-decoration-thickness: 2px;
-      text-underline-offset: 4px;
     }
 
     & :is(ul, ol) {

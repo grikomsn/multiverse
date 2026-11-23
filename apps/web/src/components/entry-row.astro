@@ -1,14 +1,13 @@
 ---
 /**
  * One dated row of a list: a post, a talk, a role, a school. The title and the summary are on
- * the left, and the date is on the right. On a narrow screen the date goes under the title.
+ * the left, and the date is on the right. On a narrow screen the date goes under the title. With
+ * a link, the whole row opens it (`row-link`).
  */
 interface Props {
   title: string
-  /** Where the title goes. Without it the title is plain text. */
+  /** Where the row goes. Without it the title is plain text. */
   href?: string | null
-  /** The whole row opens the link. Only for a row with no other link in it. */
-  stretch?: boolean
   /** A second fact after the title: the roles, the event. */
   detail?: string | null
   /** The date as the row shows it: "2025-07-21", "2020 – 2023". */
@@ -22,28 +21,22 @@ interface Props {
   transition?: string
 }
 
-const { title, href, stretch, detail, date, datetime, current, summary, transition } = Astro.props
+const { title, href, detail, date, datetime, current, summary, transition } = Astro.props
 const style = transition ? `view-transition-name: ${transition}` : undefined
+// ↗ for another site, → for a page on this one.
+const arrow = href && /^[a-z]+:/i.test(href) ? "↗" : "→"
 ---
 
 <li
-  class:list={[
-    "grid gap-x-6 py-2.5 sm:grid-cols-[1fr_auto] sm:items-baseline",
-    href && stretch && "relative",
-  ]}
+  class:list={["grid gap-x-6 py-2.5 sm:grid-cols-[1fr_auto] sm:items-baseline", href && "row-link"]}
 >
   <p>
     {href ? (
-      <a
-        class:list={[
-          // The padding makes the tap target 24 px tall. It is inline, so the row keeps its height.
-          "title-link py-1 font-semibold",
-          stretch && "after:absolute after:inset-0",
-        ]}
-        href={href}
-        style={style}
-      >
+      <a class="title-link font-semibold" href={href} style={style} data-row>
         {title}
+        <span aria-hidden="true" data-row-arrow>
+          {arrow}
+        </span>
       </a>
     ) : (
       <span class="font-semibold" style={style}>
@@ -53,7 +46,10 @@ const style = transition ? `view-transition-name: ${transition}` : undefined
     {detail && <span class="text-soft"> · {detail}</span>}
   </p>
   {date && (
-    <p class="flex shrink-0 items-center gap-2 font-mono text-[0.8125rem] whitespace-nowrap text-soft">
+    <p
+      class="flex shrink-0 items-center gap-2 font-mono text-[0.8125rem] whitespace-nowrap text-soft"
+      data-row-end
+    >
       {current && (
         <span class="relative flex size-2" title="Current role">
           <span class="absolute inline-flex size-full rounded-full bg-mark-green-ink opacity-60 motion-safe:animate-ping" />

@@ -49,7 +49,7 @@ const TILES = [
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Work</h1>
     <p class="mt-3 text-lg text-soft">
       For a short version to print, go to the{" "}
-      <a class="link text-fg" href="/resume">
+      <a class="quiet-link text-fg" href="/resume">
         resume
       </a>
       .
@@ -98,8 +98,15 @@ const TILES = [
           <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
             <h3 class="text-xl font-bold tracking-tight">
               {stop.organization?.url ? (
-                <a class="link" href={stop.organization.url}>
+                <a class="title-link group/org" href={stop.organization.url}>
                   {stop.organization.name}
+                  {/* Takes no width, so the heading does not move when it shows. */}
+                  <span
+                    class="inline-block w-0 pl-1 align-[0.35em] text-[0.7em] font-normal text-accent-ink opacity-0 transition-opacity group-hover/org:opacity-100 group-focus-visible/org:opacity-100"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
                 </a>
               ) : (
                 stop.organization?.name
@@ -188,14 +195,23 @@ const TILES = [
             const href = project.url ?? project.repoUrl
             return (
               <li
-                class="grid gap-x-6 gap-y-2 border-b border-line py-3 last:border-b-0 sm:grid-cols-[1fr_auto]"
+                class:list={[
+                  "relative grid gap-x-6 gap-y-2 py-3 sm:grid-cols-[1fr_auto]",
+                  // The rule between rows. A row that opens is wider than the column (`row-link`),
+                  // so the rule is drawn inside it, the width of the column.
+                  "before:absolute before:bottom-0 before:h-px before:bg-line last:before:hidden",
+                  href ? "row-link before:inset-x-3" : "before:inset-x-0",
+                ]}
                 data-peek={peeks.get(project._id)}
               >
                 <div>
                   <p class="flex flex-wrap items-baseline gap-x-2">
                     {href ? (
-                      <a class="title-link font-semibold" href={href}>
+                      <a class="title-link font-semibold" href={href} data-row>
                         {project.name}
+                        <span aria-hidden="true" data-row-arrow>
+                          ↗
+                        </span>
                       </a>
                     ) : (
                       <span class="font-semibold">{project.name}</span>
@@ -209,7 +225,10 @@ const TILES = [
                   </p>
                   <p class="text-[0.9375rem] text-soft">{project.summary}</p>
                 </div>
-                <div class="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-1.5 sm:pt-1">
+                <div
+                  class="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-1.5 sm:pt-1"
+                  data-row-end
+                >
                   <ProjectStats metrics={metrics.get(project._id)} size="row" />
                   {project.startDate && (
                     <span class="font-mono text-xs text-soft">{project.startDate.slice(0, 4)}</span>

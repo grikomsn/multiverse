@@ -30,7 +30,6 @@ const years = Map.groupBy(posts, (post) => isoDate(post.publishedAt).slice(0, 4)
             <EntryRow
               title={post.title ?? ""}
               href={`/${post.slug}`}
-              stretch
               date={isoDate(post.publishedAt)}
               datetime={post.publishedAt}
               summary={post.excerpt}

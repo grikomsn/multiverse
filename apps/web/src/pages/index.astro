@@ -200,7 +200,7 @@ const structuredData = profile?.name && {
         ),
       )}
     </p>
-    <div class="hero-intro mt-8 flex flex-col gap-3 text-lg leading-relaxed text-soft [&_a]:link [&_a]:text-fg">
+    <div class="hero-intro mt-8 flex flex-col gap-3 text-lg leading-relaxed text-soft [&_a]:quiet-link [&_a]:text-fg">
       {site?.intro ? (
         <RichText value={site.intro} />
       ) : (
@@ -321,7 +321,6 @@ const structuredData = profile?.name && {
         <EntryRow
           title={post.title ?? ""}
           href={`/${post.slug}`}
-          stretch
           date={isoDate(post.publishedAt)}
           datetime={post.publishedAt}
           transition={`post-${post.slug}`}
@@ -337,7 +336,7 @@ const structuredData = profile?.name && {
     >
       Have something in mind? I am happy to talk about work, open source, or anything on this site.
     </h2>
-    <p class="mt-5 text-lg leading-relaxed text-soft [&_a]:link [&_a]:text-fg">
+    <p class="mt-5 text-lg leading-relaxed text-soft [&_a]:quiet-link [&_a]:text-fg">
       {profile?.email && (
         <>
           Send an email to <a href={`mailto:${profile.email}`}>{profile.email}</a>

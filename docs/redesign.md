@@ -263,9 +263,10 @@ Decided on 2026-11-22, after a look at every list on Home, Blog and Work. It rep
 
 - A dated row is `apps/web/src/components/entry-row.astro`: posts, talks, home experience, community roles and schools. The title and the summary are on the left. The date is on the right, in monospace. On narrow screens the date goes under the title.
 - A row starts with the name that its link opens. Experience, community roles and schools start with the organization; the role or the degree comes second.
-- The amber underline shows all the time (the `link` utility) on a link in a sentence, on a link that stands alone ("All posts"), and on the organization headings in Experience on Work.
-- The title of a row or a card shows the underline on hover (the `title-link` utility): a post, a talk, a project, and an organization or a school in a list. An underline on each title, and on the small links of each project card, was tried on 2026-11-22 and was too much.
+- A link in a sentence (the `quiet-link` utility, and every link in `.prose`) has a thin grey underline that turns amber and thicker on hover. The line always shows, because it is the only sign of a link. On 2026-11-23 the About page had 14 amber links in four paragraphs, which was too loud.
+- A link that stands alone, such as "All posts" or "Older versions", keeps the amber underline all the time (the `link` utility).
+- The title of a row or a card shows the underline on hover (the `title-link` utility): a post, a talk, a project, an organization or a school in a list, and the organization headings in Experience on Work. A Work heading also shows ↗ on hover. An underline on each title, and on the small links of each project card, was tried on 2026-11-22 and was too much.
+- A row with a link opens it from any point in the row (the `row-link` utility): every dated row, and the project lists on Work. Under the pointer the row gets an amber tint and an arrow: → for a page on the site, ↗ for another site. Where the date is a column on the right, it moves left to make room for the arrow, so at rest it lines up with the column. On narrow screens the date is under the title and does not move; the row keeps room for the arrow. Without hover (phones), the arrow always shows. Decided on 2026-11-23; before that, only post rows did this.
 - Buttons, cards that are one link, icons and the header navigation have their own shapes and take no underline.
-- A post row opens its post from any point in the row. Other rows open from the title only.
 - A range that starts and ends in the same year shows one year: `2019`, not `2019 – 2019`.
 - The resume keeps its own styles, because it is also the printed document.
