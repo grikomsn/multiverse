@@ -8,6 +8,7 @@ import ProjectTile from "../components/project-tile.astro"
 import ProjectStats from "../components/project-stats.astro"
 import Sparkline from "../components/sparkline.astro"
 import BaseLayout from "../layouts/base.astro"
+import { roleAnchor } from "../lib/anchors"
 import { markSource } from "../lib/inline-image"
 import { formatCount, getMetrics, totals } from "../lib/metrics"
 import { GROUPS, STATUS } from "../lib/projects"
@@ -117,7 +118,10 @@ const TILES = [
             </p>
           </div>
           {stop.roles.map((job) => (
-            <section class="flex flex-col gap-3 border-l-2 border-line pl-4">
+            <section
+              id={roleAnchor(stop.organization?.name, job.role)}
+              class="entry-target flex flex-col gap-3 border-l-2 border-line pl-4"
+            >
               <div>
                 <h4 class="font-semibold">{job.role}</h4>
                 <p class="text-sm text-soft">
@@ -182,7 +186,7 @@ const TILES = [
     <SectionHeading title="Projects" icon="package" />
     <ul class="grid gap-4 sm:grid-cols-2">
       {featured.map((project) => (
-        <li>
+        <li id={project._id} class="entry-target rounded-xl">
           <ProjectTile project={project} metrics={metrics.get(project._id)} />
         </li>
       ))}
@@ -195,8 +199,9 @@ const TILES = [
             const href = project.url ?? project.repoUrl
             return (
               <li
+                id={project._id}
                 class:list={[
-                  "relative grid gap-x-6 gap-y-2 py-3 sm:grid-cols-[1fr_auto]",
+                  "entry-target relative grid gap-x-6 gap-y-2 py-3 sm:grid-cols-[1fr_auto]",
                   // The rule between rows. A row that opens is wider than the column (`row-link`),
                   // so the rule is drawn inside it, the width of the column.
                   "before:absolute before:bottom-0 before:h-px before:bg-line last:before:hidden",
@@ -264,6 +269,7 @@ const TILES = [
     <ul class="flex flex-col">
       {talks.map((talk) => (
         <EntryRow
+          id={talk._id}
           title={talk.title ?? ""}
           href={talk.slidesUrl ?? talk.recordingUrl}
           detail={talk.event}

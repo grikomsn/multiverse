@@ -2,6 +2,7 @@ import { isoDate } from "@multiverse/content/format"
 import type { SiteDocument, SiteIndex } from "@multiverse/content/site-index"
 import type { MEDIA_PAGE_QUERY_RESULT } from "@multiverse/sanity/types"
 
+import { roleAnchor, slug } from "./anchors"
 import { toMarkdown } from "./markdown"
 import { getMetrics, type Metrics } from "./metrics"
 import { KIND, STATUS } from "./projects"
@@ -33,13 +34,6 @@ const bullets = (items: (string | false | null | undefined)[]) =>
     .map((item) => `- ${item}`)
     .join("\n")
 const exact = (value: number) => value.toLocaleString("en-US")
-/** Readable ids for entries: `Wayfindr Engineering Manager` → `wayfindr-engineering-manager`. */
-const slug = (value: string) =>
-  value
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
 const technologies = (list: string[] | null | undefined) =>
   list?.length ? `Technologies: ${list.join(", ")}` : ""
 
@@ -270,7 +264,7 @@ async function buildIndex(): Promise<SiteIndex> {
       id: `experience/${slug(`${entry.organization} ${entry.role}`)}`,
       kind: "experience",
       title: `${entry.role} at ${entry.organization}`,
-      url: `${origin}/work#experience`,
+      url: `${origin}/work#${roleAnchor(entry.organization, entry.role)}`,
       date: entry.startDate,
       summary: entry.period,
       markdown: experienceMarkdown([entry]),
@@ -281,7 +275,7 @@ async function buildIndex(): Promise<SiteIndex> {
       id: `project/${project._id.replace(/^project-/, "")}`,
       kind: "project",
       title: project.name ?? "",
-      url: `${origin}/work#projects`,
+      url: `${origin}/work#${project._id}`,
       date: project.startDate ?? undefined,
       summary: project.summary ?? undefined,
       markdown: projectMarkdown(project, work.metrics.get(project._id)),
@@ -292,7 +286,7 @@ async function buildIndex(): Promise<SiteIndex> {
       id: `talk/${talk._id.replace(/^talk-/, "")}`,
       kind: "talk",
       title: talk.title ?? "",
-      url: `${origin}/work#talks`,
+      url: `${origin}/work#${talk._id}`,
       date: talk.date ?? undefined,
       summary: talk.summary ?? undefined,
       markdown: talkMarkdown(talk),

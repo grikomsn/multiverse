@@ -386,3 +386,36 @@ canvas.develop {
     clip-path: inset(0);
   }
 }
+
+/*
+ * An entry on /work that a link opened, such as /work#project-graz from the command bar. An
+ * amber frame shows which entry it is, and fades out after two seconds. It plays once. With
+ * reduced motion the frame stays.
+ */
+.entry-target {
+  /* Room for the frame under the header. */
+  scroll-margin-top: 1rem;
+}
+
+.entry-target:target {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .entry-target:target {
+    animation: entry-target 2.6s var(--ease-out-quart) forwards;
+  }
+
+  @keyframes entry-target {
+    0%,
+    70% {
+      outline-color: var(--color-accent);
+    }
+
+    100% {
+      outline-color: transparent;
+    }
+  }
+}

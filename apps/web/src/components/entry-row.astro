@@ -5,6 +5,8 @@
  * a link, the whole row opens it (`row-link`).
  */
 interface Props {
+  /** The row's `id`, so a link can open the page at this row. */
+  id?: string
   title: string
   /** Where the row goes. Without it the title is plain text. */
   href?: string | null
@@ -21,14 +23,19 @@ interface Props {
   transition?: string
 }
 
-const { title, href, detail, date, datetime, current, summary, transition } = Astro.props
+const { id, title, href, detail, date, datetime, current, summary, transition } = Astro.props
 const style = transition ? `view-transition-name: ${transition}` : undefined
 // ↗ for another site, → for a page on this one.
 const arrow = href && /^[a-z]+:/i.test(href) ? "↗" : "→"
 ---
 
 <li
-  class:list={["grid gap-x-6 py-2.5 sm:grid-cols-[1fr_auto] sm:items-baseline", href && "row-link"]}
+  id={id}
+  class:list={[
+    "grid gap-x-6 py-2.5 sm:grid-cols-[1fr_auto] sm:items-baseline",
+    id && "entry-target",
+    href && "row-link",
+  ]}
 >
   <p>
     {href ? (
