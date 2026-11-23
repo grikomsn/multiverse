@@ -69,6 +69,8 @@ The resume (`/resume`), the gallery (`/media`), `llms.txt` and the MCP server al
 
 Short links (nbr.st) are `apps/links`: how to add a link or a pattern rule, the caches and the cutover are in [docs/apps/links.md](docs/apps/links.md).
 
+Outside profiles (LinkedIn, GitHub, Bluesky and others) copy their facts from Sanity. Sync them only when the user asks, and follow [.claude/skills/sync-profiles/SKILL.md](.claude/skills/sync-profiles/SKILL.md).
+
 ## Content model
 
 See [docs/content-model.md](docs/content-model.md).
