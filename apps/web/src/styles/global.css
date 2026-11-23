@@ -182,6 +182,18 @@ canvas.develop {
   }
 }
 
+/* A number that counts up (components/count-up.astro) shows its start until the count begins. */
+.js-reveal [data-count]:not(.is-inview) {
+  &::before {
+    content: attr(data-start);
+    grid-area: 1 / 1;
+  }
+
+  & > [data-count-value] {
+    visibility: hidden;
+  }
+}
+
 @keyframes sparkline-line {
   to {
     stroke-dashoffset: 0;

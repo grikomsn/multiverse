@@ -1,0 +1,27 @@
+---
+/**
+ * A number that counts up once when it enters the view, e.g. "113.3k". The layout script
+ * counts it. With `.js-reveal`, the CSS (global.css) shows the start ("0.0k") from the first
+ * paint, so the end value never shows before the count. A hidden copy of the end value holds
+ * the width, so nothing around the number moves. Without the script, the end value shows.
+ */
+interface Props {
+  text: string
+  class?: string
+}
+
+const { text, class: className } = Astro.props
+// "113.3k" starts at "0.0k". The layout script reads the text the same way.
+const start = text.replace(/^\d+(?:\.(\d+))?/, (_, decimals?: string) =>
+  (0).toFixed(decimals?.length ?? 0),
+)
+---
+
+<span class:list={["inline-grid tabular-nums", className]} data-count data-start={start}>
+  <span class="invisible col-start-1 row-start-1" aria-hidden="true">
+    {text}
+  </span>
+  <span class="col-start-1 row-start-1" data-count-value>
+    {text}
+  </span>
+</span>

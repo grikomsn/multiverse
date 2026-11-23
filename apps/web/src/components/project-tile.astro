@@ -3,6 +3,7 @@ import Icon from "@multiverse/ui/icon.astro"
 
 import { formatCount, type Metrics } from "../lib/metrics"
 import { KIND, KIND_ICON, linkLabel, STATUS } from "../lib/projects"
+import CountUp from "./count-up.astro"
 import ProjectMark from "./project-mark.astro"
 import Sparkline from "./sparkline.astro"
 
@@ -61,9 +62,7 @@ const stat =
     {stat && (
       <div class="mt-auto flex items-end justify-between gap-3 pt-2">
         <p class="flex flex-col">
-          <span class="text-3xl font-bold tracking-tight tabular-nums" data-count>
-            {stat.value}
-          </span>
+          <CountUp class="text-3xl font-bold tracking-tight" text={stat.value} />
           <span class="text-xs text-soft">{stat.label}</span>
         </p>
         {stat.trend && <Sparkline values={stat.trend} width={96} height={32} />}

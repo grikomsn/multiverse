@@ -2,8 +2,9 @@
 # Subsets the licensed fonts in assets/fonts to Latin and writes WOFF2 files to
 # assets/fonts/web/ (gitignored, like everything in assets/). Variable axes are kept. Of the
 # OpenType layout features, the common ones stay: contextual forms, fractions and the number
-# styles (tabular numbers). The 14 stylistic sets, case forms, ordinals and rare ligatures go,
-# because no page asks for them: the file is 38 KB where it was 50 KB. Needs uv (runs fonttools
+# styles. pyftsubset drops the number styles unless asked, and the counters need tabular numbers
+# to keep their width. The 14 stylistic sets, case forms, ordinals and rare ligatures go, because
+# no page asks for them: the file is 40 KB where it was 50 KB. Needs uv (runs fonttools
 # ephemerally). After it, run ./scripts/r2-fonts.sh put, so deploys get the new file.
 #   ./scripts/subset-fonts.sh
 set -eu
@@ -26,7 +27,7 @@ subset() {
   tmp="web/.$out.ttf"
   $FONTTOOLS fonttools varLib.instancer "$src" "$@" -q -o "$tmp"
   $FONTTOOLS pyftsubset "$tmp" \
-    --unicodes="$LATIN" --flavor=woff2 --output-file="web/$out"
+    --layout-features+=tnum,pnum --unicodes="$LATIN" --flavor=woff2 --output-file="web/$out"
   rm "$tmp"
   echo "web/$out $(wc -c < "web/$out" | tr -d ' ') bytes (from $(wc -c < "$src" | tr -d ' '))"
 }

@@ -2,6 +2,7 @@
 import { formatRange, groupByOrganization, isoDate } from "@multiverse/content/format"
 import SectionHeading from "@multiverse/ui/section-heading.astro"
 
+import CountUp from "../components/count-up.astro"
 import EntryRow from "../components/entry-row.astro"
 import ProjectTile from "../components/project-tile.astro"
 import ProjectStats from "../components/project-stats.astro"
@@ -58,12 +59,13 @@ const TILES = [
         {TILES.map((tile) => (
           <div class="flex flex-col gap-1 rounded-xl bg-sunk px-3 py-3 sm:px-4">
             <dt class="text-xs leading-snug text-soft sm:text-sm">{tile.label}</dt>
-            <dd class="order-first flex flex-wrap items-end justify-between gap-x-3 gap-y-1">
-              <span class="text-2xl font-bold tracking-tight tabular-nums sm:text-3xl" data-count>
-                {formatCount(tile.value)}
-              </span>
+            <dd class="order-first flex flex-wrap items-end justify-between gap-x-2 gap-y-1">
+              <CountUp
+                class="text-2xl font-bold tracking-tight sm:text-3xl"
+                text={formatCount(tile.value)}
+              />
               {tile.trend && (
-                <Sparkline values={tile.trend} width={72} height={24} class="mb-1 max-sm:hidden" />
+                <Sparkline values={tile.trend} width={56} height={24} class="mb-1 max-sm:hidden" />
               )}
             </dd>
           </div>

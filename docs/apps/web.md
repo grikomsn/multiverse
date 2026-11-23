@@ -55,7 +55,7 @@ Measured on 2026-11-22 with mobile Lighthouse 13.6.0: a slow 4G network and a sl
 What made the difference:
 
 - The CSS is inside each page (`build.inlineStylesheets` in `astro.config.ts`). A page is about 9 KB larger, and the first paint does not wait for a style sheet.
-- The font keeps only the common OpenType features: 38 KB where it was 50 KB (`scripts/subset-fonts.sh`). It is the largest download on most pages.
+- The font keeps only the common OpenType features, with tabular numbers: 40 KB where it was 50 KB (`scripts/subset-fonts.sh`). It is the largest download on most pages.
 - The console greeting is a constant in the script that every page shares, not text in each page.
 - A frame from a different site loads only near the view (`components/portable/embed.astro`).
 - Two code colors were too faint and are now one step clearer (`components/portable/code-block.astro`).

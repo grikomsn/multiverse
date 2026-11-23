@@ -169,19 +169,22 @@ const profiles = (shell.profile?.socialLinks ?? [])
         { passive: true },
       )
 
-      // Count a number up from zero. The text is e.g. "116.7k": digits, then a unit.
+      // Count a number up from zero (components/count-up.astro). The text is e.g. "116.7k":
+      // digits, then a unit.
       function countUp(element: HTMLElement) {
-        const match = element.textContent?.trim().match(/^(\d+(?:\.(\d+))?)(.*)$/)
-        if (!match) return
+        const value = element.querySelector<HTMLElement>("[data-count-value]")
+        const match = value?.textContent?.trim().match(/^(\d+(?:\.(\d+))?)(.*)$/)
+        if (!value || !match) return
         const end = Number(match[1])
         const digits = match[2]?.length ?? 0
-        // Keep the final width, so the row does not move while the number grows.
-        element.style.display = "inline-block"
-        element.style.minWidth = `${element.getBoundingClientRect().width}px`
+        const show = (progress: number) => {
+          value.textContent = (end * (1 - (1 - progress) ** 4)).toFixed(digits) + match[3]
+        }
+        show(0)
         const started = performance.now()
         const step = (now: number) => {
           const progress = Math.min(1, (now - started) / 1100)
-          element.textContent = (end * (1 - (1 - progress) ** 4)).toFixed(digits) + match[3]
+          show(progress)
           if (progress < 1) requestAnimationFrame(step)
         }
         requestAnimationFrame(step)
@@ -195,8 +198,8 @@ const profiles = (shell.profile?.socialLinks ?? [])
             for (const entry of entries) {
               if (!entry.isIntersecting) continue
               observer.unobserve(entry.target)
-              entry.target.classList.add("is-inview")
               if (entry.target.hasAttribute("data-count")) countUp(entry.target as HTMLElement)
+              entry.target.classList.add("is-inview")
             }
           },
           { rootMargin: "0px 0px -10% 0px" },
