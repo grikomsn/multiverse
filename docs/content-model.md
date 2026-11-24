@@ -47,7 +47,7 @@ Sanity has no redirect type. Each address has one owner:
 
 Each script named here ran once and was then deleted.
 
-Imported 2026-11-15 by `apps/studio/scripts/migrate-zp0drmxt.ts` (148 documents, 61 images; all valid). The old project already contained the Bear Blog export, so it was the only source besides `redirects.jsonl`.
+Imported 2026-11-15 by `apps/studio/scripts/migrate-zp0drmxt.ts` (148 documents, 61 images; all valid). The old project already contained the Bear Blog export, so it was the only source besides `redirects.jsonl`. The project `zp0drmxt` was deleted on 2026-11-24. Its last export (83 documents, 61 images) is `tmp/zp0drmxt-production-2026-11-24.tar.gz`, which is local only.
 
 | From                         | Into                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

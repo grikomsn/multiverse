@@ -78,4 +78,6 @@ Deleted: the Workers `web`, `archive`, `r7s-worker`, `resume` and `amhere-server
 
 Still to drop: the Bear Blog (keep its export first), then `tools/sync-bearblog.ts` and its docs.
 
-Not touched: the Pages projects `multiverse-v2`, `stickers` and `react-state-mgmt-examples`, the wildcard `*.nibras.co` to Vercel, and `blob1` with blobs.nibras.co.
+Not touched: the Pages projects `stickers` and `react-state-mgmt-examples`, the wildcard `*.nibras.co` to Vercel, and `blob1` with blobs.nibras.co.
+
+Removed on 2026-11-24: the Pages project `multiverse-v2` and its record v2.nibras.co (archive.nibras.co/v2/ replaces it), the old Sanity project `zp0drmxt`, the records of curhat.space, and the empty zone copymarky.site. The zone amhere.fyi has no records but stays, because Cloudflare cannot delete a zone that its Registrar holds. The name bear-assets.nibras.co stays: posts still link to Bear Blog images through it.
