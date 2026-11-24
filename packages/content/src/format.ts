@@ -1,4 +1,8 @@
-/** Dates were entered in Indonesia (UTC+7); in UTC, a post from midnight shows the day before. */
+/**
+ * The time zone the dates were entered in (UTC+7). In UTC, a post from midnight shows the day
+ * before. This is not `profile.timeZone`: that one says where Griko lives now, and a move must
+ * not change the day of an old post.
+ */
 const TIME_ZONE = "Asia/Jakarta"
 const DATE = new Intl.DateTimeFormat("en", {
   year: "numeric",
