@@ -47,9 +47,12 @@ const city = profile?.location?.split(",")[0]?.trim()
 // One clip box for each word of the headline, so the words can rise in one after another.
 const givenName = profile?.givenName ?? FALLBACK_GIVEN_NAME
 const headline = `Hey there, I’m ${givenName}.`.split(" ")
-// Where the fallback intro's links go: every repository, and the npm packages for coding agents.
-const TOOLS_URL = "https://github.com/grikomsn"
-const AGENTS_URL = "https://www.npmjs.com/~grikomsn"
+// Where the fallback intro's links go: the GitHub profile (every repository) and the npm
+// profile (the packages for coding agents). Without that profile link, the words stay plain.
+const profileUrl = (platform: string) =>
+  profile?.socialLinks?.find((link) => link.platform === platform)?.url
+const toolsUrl = profileUrl("github")
+const agentsUrl = profileUrl("npm")
 
 // The same Person `@id` as /resume and /media, so search engines join them.
 const origin = Astro.site?.origin ?? "https://nibras.co"
@@ -224,8 +227,9 @@ const structuredData = profile?.name && {
                 )}
               </>
             )}
-            . I also make <a href={TOOLS_URL}>developer tools</a> for humans, and lately for{" "}
-            <a href={AGENTS_URL}>AI agents</a> too.
+            . I also make {toolsUrl ? <a href={toolsUrl}>developer tools</a> : "developer tools"}{" "}
+            for humans, and lately for {agentsUrl ? <a href={agentsUrl}>AI agents</a> : "AI agents"}{" "}
+            too.
             {profile?.location &&
               (timeZone ? (
                 <>
