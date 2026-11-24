@@ -625,23 +625,26 @@ export type EDITION_QUERY_RESULT = {
 
 // Source: ../archive/src/lib/queries.ts
 // Variable: ARCHIVE_SHELL_QUERY
-// Query: {  "profile": *[_id == "profile"][0] {    name, email, scheduleUrl, socialLinks[] { platform, label, url, featured }  },  "avatar": *[_id == "profile"][0].icon-> { _id, "url": image.asset->url }}
+// Query: {  "profile": *[_id == "profile"][0] {    name, "shortName": coalesce(givenName + " " + familyName, name), email, scheduleUrl, socialLinks[] { platform, label, url, featured }  },  "avatar": *[_id == "profile"][0].icon-> { _id, "url": image.asset->url }}
 export type ARCHIVE_SHELL_QUERY_RESULT = {
   profile:
     | {
         name: null
+        shortName: null
         email: null
         scheduleUrl: null
         socialLinks: null
       }
     | {
         name: string
+        shortName: string
         email: null
         scheduleUrl: null
         socialLinks: null
       }
     | {
         name: string
+        shortName: string
         email: string
         scheduleUrl: string | null
         socialLinks: Array<{
@@ -2081,7 +2084,7 @@ declare global {
   interface SanityQueries {
     '*[_type == "edition"] | order(startDate asc) {\n  _id,\n  title,\n  "key": key.current,\n  status,\n  domain,\n  startDate,\n  endDate,\n  stack,\n  summary,\n  sourceUrl,\n  waybackUrl,\n  "screenshot": screenshots[0] { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip }\n}': EDITIONS_QUERY_RESULT
     '*[_type == "edition" && key.current == $key][0] {\n  title,\n  "key": key.current,\n  status,\n  domain,\n  startDate,\n  endDate,\n  sourceUrl,\n  assets[] { _key, name, url, "image": image { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }\n}': EDITION_QUERY_RESULT
-    '{\n  "profile": *[_id == "profile"][0] {\n    name, email, scheduleUrl, socialLinks[] { platform, label, url, featured }\n  },\n  "avatar": *[_id == "profile"][0].icon-> { _id, "url": image.asset->url }\n}': ARCHIVE_SHELL_QUERY_RESULT
+    '{\n  "profile": *[_id == "profile"][0] {\n    name, "shortName": coalesce(givenName + " " + familyName, name), email, scheduleUrl, socialLinks[] { platform, label, url, featured }\n  },\n  "avatar": *[_id == "profile"][0].icon-> { _id, "url": image.asset->url }\n}': ARCHIVE_SHELL_QUERY_RESULT
     '{\n  "site": *[_id == "site"][0] { description },\n  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured } },\n  "avatar": *[_id == "profile"][0].icon-> { _id, alt, "url": image.asset->url },\n  "versions": count(*[_type == "edition"])\n}': SITE_SHELL_QUERY_RESULT
     '*[_type == "edition"] | order(startDate desc) {\n  title, "key": key.current, startDate\n}': VERSIONS_QUERY_RESULT
     '{\n  "site": *[_id == "site"][0] { tagline, "intro": intro[] { ..., markDefs[] { ..., _type == "link" && defined(internal) => { "href": "/" + internal->slug.current } } } },\n  "timeZone": *[_id == "profile"][0].timeZone,\n  "experience": *[_type == "experience"] | order(orderRank) { _id, role, startDate, endDate, "location": select(workMode == "remote" => "Remote", workMode == "hybrid" => "Hybrid", workMode == "onsite" => "On-site"), technologies, highlights, "organization": organization-> { name, url } },\n  "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {\n    _id, title, "slug": slug.current, publishedAt, excerpt\n  },\n  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) [0...4] {\n    _id, name, "slug": slug.current, role, status, kind, featured, url, summary, technologies, startDate, "repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]), "metrics": { "github": repositories, "npm": packages[registry == "npm"].name, "vscode": packages[registry == "vscode"].name }, "icon": icon.asset-> { url, extension, "width": metadata.dimensions.width, "height": metadata.dimensions.height }\n  },\n  "talks": *[_type == "talk"] | order(date desc) [0...4] { _id, title, kind, event, date, summary, slidesUrl, recordingUrl }\n}': HOME_QUERY_RESULT

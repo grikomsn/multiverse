@@ -11,7 +11,7 @@ const author = edition.extras?.find((extra) => extra.category === "author")
 const socials = edition.links?.filter((link) => link.group === "author") ?? []
 ---
 
-<Layout pageTitle={`${author?.title} - Griko Nibras`} bodyClass="author-template author-griko">
+<Layout pageTitle={`${author?.title} - ${edition.name}`} bodyClass="author-template author-griko">
   <main id="site-main" class="site-main outer">
     <div class="post-feed inner">
       <section class="post-card post-card-large">

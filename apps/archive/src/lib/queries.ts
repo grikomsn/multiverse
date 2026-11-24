@@ -31,7 +31,7 @@ export const EDITION_QUERY = defineQuery(`*[_type == "edition" && key.current ==
 /** Header and footer of the archive index (the editions themselves never read this). */
 export const ARCHIVE_SHELL_QUERY = defineQuery(`{
   "profile": *[_id == "profile"][0] {
-    name, email, scheduleUrl, socialLinks[] { platform, label, url, featured }
+    name, "shortName": coalesce(givenName + " " + familyName, name), email, scheduleUrl, socialLinks[] { platform, label, url, featured }
   },
   "avatar": ${ICON} { _id, "url": image.asset->url }
 }`)

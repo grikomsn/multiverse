@@ -1,4 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/server"
+import { FALLBACK_NAME } from "@multiverse/sanity/constants"
 import { DOCUMENT_KINDS, searchDocuments, type SiteDocument } from "@multiverse/content/site-index"
 import { createMcpHandler } from "agents/mcp/server"
 import { z } from "zod"
@@ -13,7 +14,10 @@ import { loadIndex } from "./data"
 
 const text = (value: string) => ({ content: [{ type: "text" as const, text: value }] })
 
-const INSTRUCTIONS = `Facts about Griko Nibras from nibras.co: resume, work and projects (with usage numbers), blog posts, talks and photos.
+/** `name` is Profile's, read from /llms.json, so a new name needs no change here. */
+const instructions = (
+  name: string,
+) => `Facts about ${name} from nibras.co: resume, work and projects (with usage numbers), blog posts, talks and photos.
 - Start with \`search\` for a topic, or \`get_resume\` for career questions.
 - \`get_document\` returns the full Markdown of one result. \`list_documents\` lists posts, projects, talks and more.
 - Quote facts as written. Do not add numbers, titles or dates. Link to the page URL you used.`
@@ -29,11 +33,11 @@ function line(doc: SiteDocument) {
     .join("")
 }
 
-function createServer(env: Env, request: Request) {
+function createServer(env: Env, request: Request, name: string) {
   const index = () => loadIndex(env, request)
   const server = new McpServer(
     { name: "nibras.co", version: "3.0.0" },
-    { instructions: INSTRUCTIONS },
+    { instructions: instructions(name) },
   )
 
   server.registerResource(
@@ -153,7 +157,7 @@ function createServer(env: Env, request: Request) {
           role: "user" as const,
           content: {
             type: "text" as const,
-            text: `Use get_resume and search on the nibras.co server to compare Griko Nibras with this role. List the requirements he meets, with the resume line that shows each one, and the requirements the resume does not show. Do not guess.\n\nRole:\n${job}`,
+            text: `Use get_resume and search on the nibras.co server to compare ${name} with this role. List the requirements he meets, with the resume line that shows each one, and the requirements the resume does not show. Do not guess.\n\nRole:\n${job}`,
           },
         },
       ],
@@ -164,6 +168,16 @@ function createServer(env: Env, request: Request) {
 }
 
 /** Stateless Streamable HTTP at /mcp; every request gets a fresh server. */
-export function mcpHandler(request: Request, env: Env, ctx: ExecutionContext) {
-  return createMcpHandler(() => createServer(env, request), { route: "/mcp" })(request, env, ctx)
+export async function mcpHandler(request: Request, env: Env, ctx: ExecutionContext) {
+  // The index is cached per isolate. If it cannot be read, the tools fail on their own, and
+  // the server still starts.
+  const name = await loadIndex(env, request).then(
+    (site) => site.name,
+    () => FALLBACK_NAME,
+  )
+  return createMcpHandler(() => createServer(env, request, name), { route: "/mcp" })(
+    request,
+    env,
+    ctx,
+  )
 }

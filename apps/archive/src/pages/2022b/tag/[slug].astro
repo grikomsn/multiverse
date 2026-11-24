@@ -19,9 +19,10 @@ export const getStaticPaths = (async () => {
 
 const { slug } = Astro.params
 const { name, posts } = Astro.props
+const edition = await getEdition("2022b")
 ---
 
-<Layout pageTitle={`${name} - Griko Nibras`} bodyClass={`tag-template tag-${slug}`}>
+<Layout pageTitle={`${name} - ${edition.name}`} bodyClass={`tag-template tag-${slug}`}>
   <main id="site-main" class="site-main outer">
     <div class="inner posts">
       <div class="post-feed">
