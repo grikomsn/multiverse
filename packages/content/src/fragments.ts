@@ -9,8 +9,11 @@ export const IMAGE = `{ alt, "url": asset->url, "width": asset->metadata.dimensi
 /** Links to a post or page store a reference; resolve it to the page's address on this site. */
 export const MARK_DEFS = `markDefs[] { ..., _type == "link" && defined(internal) => { "href": "/" + internal->slug.current } }`
 
-/** The same, for sites on another host (the archive): links point at nibras.co. */
-export const MARK_DEFS_ABSOLUTE = `markDefs[] { ..., _type == "link" && defined(internal) => { "href": "https://nibras.co/" + internal->slug.current } }`
+/**
+ * The same, for sites on another host (the archive): links point at nibras.co. That includes a
+ * path such as "/resume", which on the archive would stay inside the edition.
+ */
+export const MARK_DEFS_ABSOLUTE = `markDefs[] { ..., _type == "link" && string::startsWith(href, "/") => { "href": "https://nibras.co" + href }, _type == "link" && defined(internal) => { "href": "https://nibras.co/" + internal->slug.current } }`
 
 /** Figure images expanded and `profileLinks` filled from Profile, for any body projection. */
 const BODY_NODES = `_type == "figure" => { ..., "image": ${IMAGE} }, _type == "profileLinks" => { "email": *[_id == "profile"][0].email, "links": *[_id == "profile"][0].socialLinks[defined(url)] { platform, label, url, featured } }`
