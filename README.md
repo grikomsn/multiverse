@@ -5,6 +5,7 @@ The sites of Griko Nibras and the Sanity CMS that feeds them.
 - **[nibras.co](https://nibras.co)**: the blog, work, resume and photos, with Markdown and MCP access for AI tools.
 - **archive.nibras.co**: every past version of the site, rebuilt in its original design.
 - **nbr.st**: short links.
+- **`npx grikomsn`**: the home page as a card in a terminal.
 
 This repository held each earlier version of the site from 2018 on. The archive app now rebuilds all of them in one place. [docs/legacy](docs/legacy/README.md) tells the history of each version. The `legacy/*` tags keep the source of each old version: `legacy/v2` to `legacy/v9`.
 
@@ -16,6 +17,7 @@ This repository held each earlier version of the site from 2018 on. The archive 
 | `apps/archive`     | archive.nibras.co: each past version under `/<edition>/`                   |
 | `apps/links`       | nbr.st: short links, one Worker that reads KV                              |
 | `apps/studio`      | Sanity Studio, and scripts that write content                              |
+| `apps/cli`         | `npx grikomsn`: the home page as a card in a terminal                      |
 | `packages/sanity`  | Schema, Studio structure and generated types                               |
 | `packages/content` | Sanity client and format helpers                                           |
 | `packages/ui`      | Shared design: tokens, fonts, header, footer                               |

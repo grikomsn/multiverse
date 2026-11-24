@@ -10,6 +10,7 @@ Monorepo for Griko Nibras's sites and the Sanity CMS that feeds them. Becomes th
 | `apps/archive`                 | archive.nibras.co — every past version, rebuilt, under `/<edition>/`            |
 | `apps/links`                   | nbr.st — short links; one Worker that reads KV, with caching and pattern rules  |
 | `apps/studio`                  | Sanity Studio (project `lboasusv`, dataset `production`); one-off `scripts/`    |
+| `apps/cli`                     | `npx grikomsn` — the home page as a terminal card (Ink), one file with no deps  |
 | `packages/sanity`              | Schema, Studio structure, singletons, constants, generated `sanity.types.ts`    |
 | `packages/content`             | Shared Sanity client factory and format helpers (dates, image URLs, grouping)   |
 | `packages/config`              | Shared tsconfig and ESLint flat configs                                         |
@@ -25,7 +26,7 @@ Bun 1.4.4, Node ≥ 22.23.4. Run from the root unless noted.
 bun install
 ./scripts/subset-fonts.sh         # once: licensed fonts → assets/fonts/web (gitignored)
 ./scripts/r2-fonts.sh put         # after subset-fonts.sh: copy the fonts to R2 for deploys
-./scripts/make-icons.sh           # after packages/ui/src/gri.ts changes: mascot.svg and favicons for every app
+./scripts/make-icons.sh           # after packages/ui/src/gri.ts changes: mascot.svg, favicons for every app, the CLI's pixels
 bun run dev                      # all apps via Turbo
 bun run --filter web dev         # http://localhost:4321
 GITHUB_TOKEN=$(gh auth token) bun run --filter web dev  # project stars without GitHub's 60/hour limit
@@ -34,6 +35,7 @@ bun run --filter archive dev     # http://localhost:4322 (Astro 7 daemonizes; `a
 bun run --filter studio dev      # http://localhost:3333
 # In dev, web and archive link to each other on :4321 and :4322; PUBLIC_WEB_URL / PUBLIC_ARCHIVE_URL override
 bun run --filter links dev       # http://localhost:4323 (needs a Cloudflare login; reads the real KV)
+bun apps/cli/scripts/dev.ts      # the terminal card (`npx grikomsn`), from the source, with today's facts
 bun run check                    # lint, typecheck and tests everywhere
 bun run build
 bun run format
@@ -59,7 +61,7 @@ bun run --filter studio typegen  # after schema or GROQ changes
 - **Interface copy** (labels, headings, buttons, descriptions, docs) follows ASD-STE100 Simplified Technical English: sentences of 20 words or fewer, one idea per sentence, active voice, common words, one term per thing ("Blog" and "posts", not also "Writing" and "articles"). Text says what things are. Posts and legacy editions keep their original wording.
 - **Quality bar** for new pages: no horizontal overflow at 320 px, tap targets at least 24 px, mobile Lighthouse 95+ in every category, motion that follows the rules in [docs/redesign.md](docs/redesign.md#motion-and-dither) and stops for `prefers-reduced-motion`.
 - **Design** follows what the earlier versions share (see [docs/redesign.md](docs/redesign.md)): Timeless Sans, a narrow column, amber link underlines, light and dark through `light-dark()` tokens. Shared parts live in `packages/ui`; an app keeps only components that no other app uses. Dither is the one visual motif: the hero wave is a shader (`@multiverse/ui/dither-wave.astro`), and everything else draws through `@multiverse/ui/dither`.
-- **Mascot**: Gri, a cartoon face of Griko on the site's amber. `packages/ui/src/gri.ts` is the one drawing, with 16 moods. `@multiverse/ui/gri.astro` draws it in a page, and `showMood()` from `@multiverse/ui/gri-moods` changes its mood; a mood's move plays once and nothing loops (see [docs/redesign.md](docs/redesign.md#mascot-and-icons)). `./scripts/make-icons.sh` (needs rsvg-convert and ImageMagick) writes `mascot.svg` and every app's favicons from the drawing; commit what it writes. The smile is also the `portrait-gri` document, which the profile's `icon` points at. Legacy editions keep their own icons.
+- **Mascot**: Gri, a cartoon face of Griko on the site's amber. `packages/ui/src/gri.ts` is the one drawing, with 16 moods. `@multiverse/ui/gri.astro` draws it in a page, and `showMood()` from `@multiverse/ui/gri-moods` changes its mood; a mood's move plays once and nothing loops (see [docs/redesign.md](docs/redesign.md#mascot-and-icons)). `./scripts/make-icons.sh` (needs rsvg-convert and ImageMagick) writes `mascot.svg`, every app's favicons and the CLI's pixels (`apps/cli/src/faces.gen.ts`) from the drawing; commit what it writes. The smile is also the `portrait-gri` document, which the profile's `icon` points at. Legacy editions keep their own icons.
 - **Command bar** (⌘K, Ctrl K or `/`): `@multiverse/ui/command-bar.astro`, in the shared header. It lists what `apps/web/src/lib/commands.ts` puts in `/commands.json`, so a new page that is not a Sanity document needs a line there. A new action is a row in `packages/ui/src/command-bar.ts`. See [docs/redesign.md](docs/redesign.md#command-bar).
 - **Canvases cannot read Sanity images.** `cdn.sanity.io` answers 403 to a cross-origin read from an origin that is not on the project's allow-list. A page that draws a picture on a canvas inlines a small copy at build time (`apps/web/src/lib/inline-image.ts`).
 - **Legacy editions** keep their original look; the shared design applies to web and the archive index. Every edition shows today's content, and no fact comes from the period. `src/lib/live.ts` builds each edition from current documents. `src/editions/<key>/live.ts` holds the design's interface copy (page headings, nav labels) and how it phrases facts. The `edition` document holds only what the index lists and the design assets (`assets`). Footers state today's stack and host through `src/editions/_kit/colophon.ts`. The archive build fails if a page states a period fact (`scripts/check-period-facts.ts`). Edition code builds paths from `import.meta.env.BASE_URL`, and helpers shared by editions live in `src/editions/_kit/`. See [docs/legacy/README.md](docs/legacy/README.md) and [docs/redesign.md](docs/redesign.md).
@@ -67,6 +69,8 @@ bun run --filter studio typegen  # after schema or GROQ changes
 ## Apps
 
 The resume (`/resume`), the gallery (`/media`), `llms.txt` and the MCP server all live in `apps/web`. See [docs/apps/web.md](docs/apps/web.md).
+
+The terminal card (`npx grikomsn`) is `apps/cli`. It reads its facts from `/card.json` on nibras.co (`getCard()` in `@multiverse/content/card`), and holds no fact of its own. How it maps the site's design and motion to a terminal, the build and the release are in [docs/apps/cli.md](docs/apps/cli.md). Publish to npm only when the user asks.
 
 Short links (nbr.st) are `apps/links`: how to add a link or a pattern rule, the caches and the cutover are in [docs/apps/links.md](docs/apps/links.md).
 

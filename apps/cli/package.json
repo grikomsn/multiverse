@@ -1,0 +1,52 @@
+{
+  "name": "grikomsn",
+  "version": "2.0.0",
+  "description": "Griko Nibras in your terminal: npx grikomsn",
+  "homepage": "https://nibras.co",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grikomsn/multiverse.git",
+    "directory": "apps/cli"
+  },
+  "license": "MIT",
+  "author": "Griko Nibras (https://nibras.co)",
+  "type": "module",
+  "bin": {
+    "grikomsn": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "bun scripts/dev.ts",
+    "build": "bun scripts/build.ts",
+    "prepublishOnly": "bun scripts/build.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc && tsc -p tsconfig.test.json",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@multiverse/config": "workspace:*",
+    "@multiverse/content": "workspace:*",
+    "@multiverse/sanity": "workspace:*",
+    "@multiverse/ui": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "eslint": "catalog:",
+    "ink": "catalog:",
+    "react": "catalog:",
+    "sharp": "catalog:",
+    "typescript": "catalog:"
+  },
+  "keywords": [
+    "grikomsn",
+    "griko",
+    "nibras",
+    "card",
+    "cli",
+    "ink"
+  ]
+}

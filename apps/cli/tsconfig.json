@@ -1,0 +1,9 @@
+{
+  "extends": "@multiverse/config/tsconfig/react.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["node"]
+  },
+  "include": ["src", "scripts"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
+}

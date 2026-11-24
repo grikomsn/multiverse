@@ -21,6 +21,7 @@ The resume and the gallery were separate sites (resume.nibras.co, media.nibras.c
 | `/llms.txt`, `/llms-full.txt`                      | asset          | An index of every Markdown page, and all of them in one file                                                               |
 | `/<page>.md`                                       | asset          | Markdown copy of each post, page, `/resume`, `/work`, `/blog` and `/media`                                                 |
 | `/llms.json`                                       | asset          | Every document as JSON. The MCP server reads it                                                                            |
+| `/card.json`                                       | asset          | The facts that `npx grikomsn` shows (`getCard()` in `@multiverse/content/card`). See [cli.md](cli.md)                      |
 | `/commands.json`                                   | asset          | Titles and addresses for the command bar (`src/lib/commands.ts`). The archive reads it too, so `public/_headers` allows it |
 | `/feed.xml`, `/rss.xml`, `/atom.xml`, `/feed.json` | asset          | Listed posts as RSS 2.0, Atom and JSON Feed (`src/lib/feed.ts`). Version 9 served `/rss.xml`, `/atom.xml` and `/feed.json` |
 | `/mcp`                                             | Worker         | Stateless Streamable HTTP (`agents/mcp/server`, MCP SDK v2). No sign-in                                                    |

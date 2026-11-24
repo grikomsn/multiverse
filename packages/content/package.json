@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./card": "./src/card.ts",
     "./client": "./src/client.ts",
     "./format": "./src/format.ts",
     "./fragments": "./src/fragments.ts",

@@ -13,6 +13,7 @@
 #                                          and favicon-asleep.svg, favicon-asleep.ico: the tab
 #                                          icon while the tab is in the background
 #   apps/studio/static                     the names Sanity Studio looks for
+#   apps/cli/src/faces.gen.ts              every mood as pixels, for `npx grikomsn`
 #
 # nbr.st (apps/links) has no files: its Worker sends favicon requests to nibras.co.
 set -euo pipefail
@@ -72,5 +73,7 @@ circle 96 "$out/favicon-96.png"
 circle 192 "$out/favicon-192.png"
 circle 512 "$out/favicon-512.png"
 square 180 "$out/apple-touch-icon.png"
+
+bun apps/cli/scripts/make-faces.ts
 
 echo "Mascot and icons written from packages/ui/src/gri.ts"

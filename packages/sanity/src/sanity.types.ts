@@ -1551,6 +1551,155 @@ export type COVER_LETTERS_QUERY_RESULT = Array<{
 // Query: *[_type in ["post", "page"] && visibility == "unlisted"].slug.current
 export type UNLISTED_SLUGS_QUERY_RESULT = Array<string>
 
+// Source: ../../packages/content/src/card.ts
+// Variable: CARD_QUERY
+// Query: {  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured }, timeZone },  "site": *[_id == "site"][0] { tagline },  "experience": *[_type == "experience"] | order(orderRank) {    role, startDate, endDate, "organization": organization-> { name, url }  },  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) [0...4] {    _id, name, "slug": slug.current, role, status, kind, featured, url, summary, technologies, startDate, "repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]), "metrics": { "github": repositories, "npm": packages[registry == "npm"].name, "vscode": packages[registry == "vscode"].name }  },  "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {    title, "slug": slug.current, publishedAt, excerpt  },  "talks": *[_type == "talk"] | order(date desc) [0...4] { _id, title, kind, event, date, summary, slidesUrl, recordingUrl },  "versions": count(*[_type == "edition"])}
+export type CARD_QUERY_RESULT = {
+  profile:
+    | {
+        name: null
+        givenName: null
+        familyName: null
+        headline: null
+        location: null
+        summary: null
+        email: null
+        scheduleUrl: null
+        socialLinks: null
+        timeZone: null
+      }
+    | {
+        name: null
+        givenName: null
+        familyName: null
+        headline: null
+        location: null
+        summary: string | null
+        email: null
+        scheduleUrl: null
+        socialLinks: null
+        timeZone: null
+      }
+    | {
+        name: string
+        givenName: null
+        familyName: null
+        headline: null
+        location: null
+        summary: null
+        email: null
+        scheduleUrl: null
+        socialLinks: null
+        timeZone: null
+      }
+    | {
+        name: string
+        givenName: null
+        familyName: null
+        headline: null
+        location: null
+        summary: string
+        email: null
+        scheduleUrl: null
+        socialLinks: null
+        timeZone: null
+      }
+    | {
+        name: string
+        givenName: string | null
+        familyName: string | null
+        headline: string
+        location: string | null
+        summary: string
+        email: string
+        scheduleUrl: string | null
+        socialLinks: Array<{
+          _key: string
+          platform:
+            | "bluesky"
+            | "deviantart"
+            | "devto"
+            | "docker"
+            | "email"
+            | "github"
+            | "gitlab"
+            | "gravatar"
+            | "hackernews"
+            | "keybase"
+            | "linkedin"
+            | "mastodon"
+            | "matrix"
+            | "medium"
+            | "npm"
+            | "other"
+            | "soundcloud"
+            | "steam"
+            | "telegram"
+            | "twitch"
+            | "website"
+            | "x"
+          label: string | null
+          url: string
+          featured: boolean | null
+        }> | null
+        timeZone: string | null
+      }
+    | null
+  site:
+    | {
+        tagline: null
+      }
+    | {
+        tagline: string | null
+      }
+    | null
+  experience: Array<{
+    role: string
+    startDate: PartialDate
+    endDate: PartialDate | null
+    organization: {
+      name: string
+      url: string | null
+    }
+  }>
+  projects: Array<{
+    _id: string
+    name: string
+    slug: string
+    role: string | null
+    status: "active" | "archived" | "discontinued" | "maintained"
+    kind: "app" | "extension" | "library" | "work" | null
+    featured: boolean | null
+    url: string | null
+    summary: string
+    technologies: Array<string> | null
+    startDate: PartialDate | null
+    repoUrl: string | null
+    metrics: {
+      github: Array<string> | null
+      npm: Array<string> | null
+      vscode: Array<string> | null
+    }
+  }>
+  posts: Array<{
+    title: string
+    slug: string
+    publishedAt: string
+    excerpt: string | null
+  }>
+  talks: Array<{
+    _id: string
+    title: string
+    kind: "interview" | "livestream" | "panel" | "podcast" | "talk" | "workshop"
+    event: string
+    date: string
+    summary: string | null
+    slidesUrl: string | null
+    recordingUrl: string | null
+  }>
+  versions: number
+}
+
 // Source: ../../packages/content/src/live.ts
 // Variable: LIVE_SITE_QUERY
 // Query: {  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured } },  "avatar": *[_id == "profile"][0].icon-> { alt, "url": image.asset->url, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height, "lqip": image.asset->metadata.lqip },  "portrait": *[_id == "profile"][0].avatar-> { alt, "url": image.asset->url, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height, "lqip": image.asset->metadata.lqip },  "portraits": *[_type == "portrait"] | order(orderRank) {    _id, title, kind, caption, credit, creditUrl, "image": @ { alt, "url": image.asset->url, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height, "lqip": image.asset->metadata.lqip }  },  "experience": *[_type == "experience"] | order(orderRank) { _id, role, startDate, endDate, "location": select(workMode == "remote" => "Remote", workMode == "hybrid" => "Hybrid", workMode == "onsite" => "On-site"), technologies, highlights, "organization": organization-> { name, url } },  "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) {    _id, title, "slug": slug.current, publishedAt, excerpt, originalUrl, tags,    "cover": cover { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip },    body[] { ..., _type == "figure" => { ..., "image": { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }, _type == "profileLinks" => { "email": *[_id == "profile"][0].email, "links": *[_id == "profile"][0].socialLinks[defined(url)] { platform, label, url, featured } }, markDefs[] { ..., _type == "link" && string::startsWith(href, "/") => { "href": "https://nibras.co" + href }, _type == "link" && defined(internal) => { "href": "https://nibras.co/" + internal->slug.current } } }  },  "projects": *[_type == "project" && status != "discontinued"] | order(orderRank) {    _id, name, "slug": slug.current, role, status, kind, featured, url, summary, technologies, startDate, "repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]), "metrics": { "github": repositories, "npm": packages[registry == "npm"].name, "vscode": packages[registry == "vscode"].name }, "cover": cover { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip }  },  "talks": *[_type == "talk"] | order(date desc) { _id, title, kind, event, date, summary, slidesUrl, recordingUrl, "cover": cover { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } },  "skills": *[_type == "skillGroup"] | order(orderRank) { _id, name, skills },  "pages": *[_type == "page" && visibility == "listed"] {    _id, title, "slug": slug.current, updatedAt, body[] { ..., _type == "figure" => { ..., "image": { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }, _type == "profileLinks" => { "email": *[_id == "profile"][0].email, "links": *[_id == "profile"][0].socialLinks[defined(url)] { platform, label, url, featured } }, markDefs[] { ..., _type == "link" && string::startsWith(href, "/") => { "href": "https://nibras.co" + href }, _type == "link" && defined(internal) => { "href": "https://nibras.co/" + internal->slug.current } } }  }}
@@ -1966,6 +2115,7 @@ declare global {
     '{\n  "updatedAt": *[\n    _id == "profile" ||\n    (_type in ["experience", "education", "skillGroup", "project", "involvement", "talk"] && onResume != false)\n  ] | order(_updatedAt desc)[0]._updatedAt,\n  "profile": *[_id == "profile"][0]{\n    name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured },\n    handle,\n    countryCode,\n    languages,\n    "avatar": avatar->{ alt, "url": image.asset->url }\n  },\n  "experience": *[_type == "experience" && onResume != false] | order(orderRank) {\n    _id, role, startDate, endDate, "location": select(workMode == "remote" => "Remote", workMode == "hybrid" => "Hybrid", workMode == "onsite" => "On-site"), technologies, highlights, "organization": organization-> { name, url }, links\n  },\n  "education": *[_type == "education" && onResume != false] | order(orderRank) { _id, degree, field, startDate, endDate, highlights, "organization": organization-> { name, url } },\n  "skills": *[_type == "skillGroup" && onResume != false] | order(orderRank) {\n    _id,\n    name,\n    skills\n  },\n  "projects": *[_type == "project" && onResume != false] | order(orderRank) {\n    _id,\n    name,\n    role,\n    status,\n    url,\n    "repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]),\n    technologies,\n    summary,\n    highlights,\n    "vscode": packages[registry == "vscode"].name\n  },\n  "involvements": *[_type == "involvement" && onResume != false] | order(orderRank) {\n    _id, role, startDate, endDate, summary, highlights, "url": coalesce(url, organization->url), "organization": organization-> { name, url }\n  },\n  "talks": *[_type == "talk" && onResume != false] | order(date desc) { _id, title, kind, event, date, summary, slidesUrl, recordingUrl }\n}': RESUME_QUERY_RESULT
     '*[_type == "coverLetter" && defined(slug.current)] | order(_createdAt asc) {\n  _id,\n  _updatedAt,\n  title,\n  "slug": slug.current,\n  "company": organization->name,\n  jobPostUrl,\n  body[] { ..., _type == "figure" => { ..., "image": { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }, _type == "profileLinks" => { "email": *[_id == "profile"][0].email, "links": *[_id == "profile"][0].socialLinks[defined(url)] { platform, label, url, featured } }, markDefs[] { ..., _type == "link" && defined(internal) => { "href": "/" + internal->slug.current } } }\n}': COVER_LETTERS_QUERY_RESULT
     '*[_type in ["post", "page"] && visibility == "unlisted"].slug.current': UNLISTED_SLUGS_QUERY_RESULT
+    '{\n  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured }, timeZone },\n  "site": *[_id == "site"][0] { tagline },\n  "experience": *[_type == "experience"] | order(orderRank) {\n    role, startDate, endDate, "organization": organization-> { name, url }\n  },\n  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) [0...4] {\n    _id, name, "slug": slug.current, role, status, kind, featured, url, summary, technologies, startDate, "repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]), "metrics": { "github": repositories, "npm": packages[registry == "npm"].name, "vscode": packages[registry == "vscode"].name }\n  },\n  "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {\n    title, "slug": slug.current, publishedAt, excerpt\n  },\n  "talks": *[_type == "talk"] | order(date desc) [0...4] { _id, title, kind, event, date, summary, slidesUrl, recordingUrl },\n  "versions": count(*[_type == "edition"])\n}': CARD_QUERY_RESULT
     '{\n  "profile": *[_id == "profile"][0] { name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured } },\n  "avatar": *[_id == "profile"][0].icon-> { alt, "url": image.asset->url, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height, "lqip": image.asset->metadata.lqip },\n  "portrait": *[_id == "profile"][0].avatar-> { alt, "url": image.asset->url, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height, "lqip": image.asset->metadata.lqip },\n  "portraits": *[_type == "portrait"] | order(orderRank) {\n    _id, title, kind, caption, credit, creditUrl, "image": @ { alt, "url": image.asset->url, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height, "lqip": image.asset->metadata.lqip }\n  },\n  "experience": *[_type == "experience"] | order(orderRank) { _id, role, startDate, endDate, "location": select(workMode == "remote" => "Remote", workMode == "hybrid" => "Hybrid", workMode == "onsite" => "On-site"), technologies, highlights, "organization": organization-> { name, url } },\n  "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) {\n    _id, title, "slug": slug.current, publishedAt, excerpt, originalUrl, tags,\n    "cover": cover { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip },\n    body[] { ..., _type == "figure" => { ..., "image": { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }, _type == "profileLinks" => { "email": *[_id == "profile"][0].email, "links": *[_id == "profile"][0].socialLinks[defined(url)] { platform, label, url, featured } }, markDefs[] { ..., _type == "link" && string::startsWith(href, "/") => { "href": "https://nibras.co" + href }, _type == "link" && defined(internal) => { "href": "https://nibras.co/" + internal->slug.current } } }\n  },\n  "projects": *[_type == "project" && status != "discontinued"] | order(orderRank) {\n    _id, name, "slug": slug.current, role, status, kind, featured, url, summary, technologies, startDate, "repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]), "metrics": { "github": repositories, "npm": packages[registry == "npm"].name, "vscode": packages[registry == "vscode"].name }, "cover": cover { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip }\n  },\n  "talks": *[_type == "talk"] | order(date desc) { _id, title, kind, event, date, summary, slidesUrl, recordingUrl, "cover": cover { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } },\n  "skills": *[_type == "skillGroup"] | order(orderRank) { _id, name, skills },\n  "pages": *[_type == "page" && visibility == "listed"] {\n    _id, title, "slug": slug.current, updatedAt, body[] { ..., _type == "figure" => { ..., "image": { alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height, "lqip": asset->metadata.lqip } }, _type == "profileLinks" => { "email": *[_id == "profile"][0].email, "links": *[_id == "profile"][0].socialLinks[defined(url)] { platform, label, url, featured } }, markDefs[] { ..., _type == "link" && string::startsWith(href, "/") => { "href": "https://nibras.co" + href }, _type == "link" && defined(internal) => { "href": "https://nibras.co/" + internal->slug.current } } }\n  }\n}': LIVE_SITE_QUERY_RESULT
   }
 }
