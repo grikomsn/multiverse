@@ -3,7 +3,7 @@ import "./v8.css"
 
 import ArchiveBanner from "../../shell/archive-banner.astro"
 import ArchiveHead from "../../shell/archive-head.astro"
-import { getEdition, period } from "../../lib/editions"
+import { getEdition, imageUrl, period } from "../../lib/editions"
 import { web } from "../../lib/web"
 import A from "./a.astro"
 import Icon from "./icon.astro"
@@ -128,10 +128,8 @@ const actions: KbarAction[] = [
     <title>{title}</title>
     <meta name="description" content={description ?? edition.description ?? ""} />
     <meta name="theme-color" content="#171717" />
-    <link
-      rel="icon"
-      href="https://cdn.sanity.io/images/lboasusv/production/fcf6257d9d07ad9c7fd4f55f6d27c8bd509604ef-400x400.png?w=32"
-    />
+    {/* v8's own favicon, the DatoCMS memoji, is gone. Like v9, it shows the profile's icon. */}
+    {edition.avatar?.url && <link rel="icon" href={imageUrl(edition.avatar.url, 32)} />}
     <ArchiveHead />
   </head>
   <body>
