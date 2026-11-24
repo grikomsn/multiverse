@@ -4,98 +4,24 @@ import ActionCard, { type Action } from "../components/action-card.astro"
 import ClaudeIcon from "../components/resume/icons/claude-icon.astro"
 import OpenAiIcon from "../components/resume/icons/openai-icon.astro"
 import BaseLayout from "../layouts/base.astro"
-import { getSiteIndex } from "../lib/llms"
-import { searchDocuments } from "@multiverse/content/site-index"
+import { getAiPage } from "../lib/ai"
 
-const { origin, name, documents } = await getSiteIndex()
-const mcpUrl = `${origin}/mcp`
-const prompt = encodeURIComponent(
-  `Read ${origin}/llms.txt and the pages it links to. Then answer my questions about ${name}. Use only facts from the site.`,
-)
-const counts = {
-  posts: documents.filter((doc) => doc.kind === "post").length,
-  projects: documents.filter((doc) => doc.kind === "project").length,
-  talks: documents.filter((doc) => doc.kind === "talk").length,
-}
-
-const vscode = JSON.stringify({ servers: { nibras: { type: "http", url: mcpUrl } } }, null, 2)
-const cursor = JSON.stringify({ mcpServers: { nibras: { url: mcpUrl } } }, null, 2)
-const SETUP: Action[] = [
-  {
-    title: "Claude Code",
-    note: "Copy the command, then run it in a terminal.",
-    label: "Copy",
-    copy: `claude mcp add --transport http nibras ${mcpUrl}`,
-  },
-  {
-    title: "Claude",
-    note: "Settings → Connectors → Add custom connector. Paste the URL.",
-    label: "Copy URL",
-    copy: mcpUrl,
-  },
-  { title: "VS Code", note: "Paste into .vscode/mcp.json.", label: "Copy", copy: vscode },
-  { title: "Cursor", note: "Paste into ~/.cursor/mcp.json.", label: "Copy", copy: cursor },
-]
-
-// Real answers from this build, so the samples show what the tools return.
-const hits = searchDocuments(documents, "cosmos", { limit: 2 })
-const talks = documents.filter((doc) => doc.kind === "talk")
-const roles = documents.filter((doc) => doc.kind === "experience")
-const TOOLS = [
-  {
-    tool: "search",
-    text: "Finds roles, projects, talks, posts and pages by keyword.",
-    call: `search("cosmos")`,
-    result: hits.map((hit) => hit.title).join(", "),
-  },
-  {
-    tool: "get_document",
-    text: "Gives the full Markdown of one result.",
-    call: `get_document("work")`,
-    result: "# Work, with every role, project and talk",
-  },
-  {
-    tool: "list_documents",
-    text: "Lists posts, projects, talks and more, with dates and links.",
-    call: `list_documents("talk")`,
-    result: `${talks.length} talks, newest: ${talks[0]?.title ?? ""}`,
-  },
-  {
-    tool: "get_resume",
-    text: "Gives the resume, or one section of it.",
-    call: `get_resume("experience")`,
-    result: roles[0]?.title ?? "",
-  },
-  {
-    tool: "assess_fit",
-    text: "A prompt. Paste a job description to get matches and gaps.",
-    call: `assess_fit(job)`,
-    result: "Requirements met, with proof, and what the resume does not show",
-  },
-]
-
-const FILES = [
-  { href: "/llms.txt", label: "llms.txt", text: "What is on this site, with a link to each page." },
-  { href: "/llms-full.txt", label: "llms-full.txt", text: "All pages and posts in one file." },
-  { href: "/resume.md", label: "resume.md", text: "The resume. Same text as the PDF." },
-  {
-    href: "/work.md",
-    label: "work.md",
-    text: "Experience, projects with usage numbers and talks.",
-  },
-  { href: "/blog.md", label: "blog.md", text: "A list of every post." },
-]
+const page = await getAiPage()
+const { mcpUrl, vscode, cursor } = page
+const prompt = encodeURIComponent(page.prompt)
+const SETUP: Action[] = page.setup
+const TOOLS = page.tools
+const FILES = page.files
 ---
 
 <BaseLayout
   title="AI tools"
-  description={`Use ${name}'s site with an AI assistant: llms.txt, Markdown pages and an MCP server.`}
+  description={`Use ${page.name}'s site with an AI assistant: llms.txt, Markdown pages and an MCP server.`}
+  markdown="/ai.md"
 >
   <header class="pt-10 pb-8 sm:pt-16">
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">AI tools</h1>
-    <p class="mt-3 text-lg text-pretty text-soft">
-      {`Ask an AI assistant about my work. It can read this site as Markdown or connect to its MCP server. Both have the same text as the pages: ${counts.posts} posts, ${counts.projects} projects, ${counts.talks} talks and the resume.`}
-    </p>
+    <p class="mt-3 text-lg text-pretty text-soft">{page.intro}</p>
     <div class="mt-6 flex flex-wrap gap-2">
       <a
         class="button button-primary"
