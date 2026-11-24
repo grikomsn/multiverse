@@ -59,18 +59,20 @@ const lqip = isPlaceholder(entry.cover?.alt)
           <button
             type="button"
             title="Share this post"
+            aria-label="Share this post"
             data-share={entry.title}
             data-url={url}
             hidden
           >
             <Icon name="share-ios" class="h-5 w-5 hover:text-neutral-300" />
           </button>
-          <A href={intent} title="Post this on X">
+          <A href={intent} title="Post this on X" aria-label="Post this on X">
             <Fragment set:html={brandSvg("x", 'class="h-5 w-5 hover:text-neutral-300"')} />
           </A>
           <a
             href={href(`/blog/${entry.slug}`)}
             title="Copy post link to clipboard"
+            aria-label="Copy post link to clipboard"
             data-copy-url={url}
           >
             <Icon name="link" class="h-5 w-5 hover:text-neutral-300" />
