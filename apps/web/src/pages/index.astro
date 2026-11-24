@@ -5,7 +5,7 @@ import Gri from "@multiverse/ui/gri.astro"
 import Icon from "@multiverse/ui/icon.astro"
 import { formatRange, groupByOrganization, imageUrl, isoDate } from "@multiverse/content/format"
 import SectionHeading from "@multiverse/ui/section-heading.astro"
-import { MASCOT_ID } from "@multiverse/sanity/constants"
+import { FALLBACK_GIVEN_NAME, MASCOT_ID } from "@multiverse/sanity/constants"
 
 import DotIcon from "../components/dot-icon.astro"
 import EntryRow from "../components/entry-row.astro"
@@ -45,7 +45,8 @@ const REACTIONS: Record<string, { mood: Mood; effect: "tools" | "speed" | "heart
 // The city of the profile's location: "Tangerang" of "Tangerang, Indonesia".
 const city = profile?.location?.split(",")[0]?.trim()
 // One clip box for each word of the headline, so the words can rise in one after another.
-const headline = `Hey there, I’m ${profile?.givenName ?? "Griko"}.`.split(" ")
+const givenName = profile?.givenName ?? FALLBACK_GIVEN_NAME
+const headline = `Hey there, I’m ${givenName}.`.split(" ")
 // Where the fallback intro's links go: every repository, and the npm packages for coding agents.
 const TOOLS_URL = "https://github.com/grikomsn"
 const AGENTS_URL = "https://www.npmjs.com/~grikomsn"
@@ -90,12 +91,12 @@ const structuredData = profile?.name && {
           <button
             type="button"
             class="hero-avatar size-24 cursor-pointer overflow-hidden rounded-full border border-line transition-[scale] duration-150 active:scale-95 sm:size-28"
-            aria-label={`${avatar.alt ?? "Cartoon face of Griko"}. Press it to change its mood.`}
+            aria-label={`${avatar.alt ?? `Cartoon face of ${givenName}`}. Press it to change its mood.`}
             data-hero
             data-face
             data-time-zone={timeZone}
             data-city={city}
-            data-name={profile?.givenName ?? "Griko"}
+            data-name={givenName}
           >
             <Gri moods={MOODS} />
           </button>
@@ -105,7 +106,7 @@ const structuredData = profile?.name && {
             srcset={`${imageUrl(avatar.url, 120, 120)} 1x, ${imageUrl(avatar.url, 240, 240)} 2x`}
             width="112"
             height="112"
-            alt={avatar.alt ?? "Cartoon face of Griko"}
+            alt={avatar.alt ?? `Cartoon face of ${givenName}`}
             class="hero-avatar size-24 rounded-full border border-line bg-white sm:size-28"
             data-hero
             fetchpriority="high"
@@ -351,7 +352,7 @@ const structuredData = profile?.name && {
       )}
       You can also <a href="/ai">ask an AI about me</a>.
     </p>
-    <Signature class="mt-8 w-40 sm:w-44" label={profile?.givenName ?? "Griko"} />
+    <Signature class="mt-8 w-40 sm:w-44" label={givenName} />
   </section>
 </BaseLayout>
 

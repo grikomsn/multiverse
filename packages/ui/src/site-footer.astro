@@ -1,4 +1,6 @@
 ---
+import { FALLBACK_NAME } from "@multiverse/sanity/constants"
+
 import BrandIcon from "./brand-icon.astro"
 import DitherBand from "./dither-band.astro"
 import Icon from "./icon.astro"
@@ -103,7 +105,7 @@ const links: FooterLink[] = [
     </div>
     <p class="mt-9 flex flex-col gap-1 text-sm">
       <span>
-        © {new Date().getFullYear()} {name ?? "Griko Nibras"}
+        © {new Date().getFullYear()} {name ?? FALLBACK_NAME}
       </span>
       <span class="[&_a]:quiet-link [&_a]:hover:text-fg">
         Made with <a href="https://astro.build">Astro</a> and{" "}

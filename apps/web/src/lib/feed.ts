@@ -1,3 +1,5 @@
+import { FALLBACK_NAME } from "@multiverse/sanity/constants"
+
 import { FEED_QUERY, SITE_SHELL_QUERY } from "./queries"
 import { sanity } from "./sanity"
 import { siteDescription, siteTitle } from "./site"
@@ -17,7 +19,7 @@ export async function getFeed(site?: URL) {
     title: siteTitle(profile),
     description: siteDescription({ site: settings, profile }),
     home: base.href,
-    author: profile?.name ?? "Griko Nibras",
+    author: profile?.name ?? FALLBACK_NAME,
     url: (path: string) => new URL(path, base).href,
     items: posts.map((post) => ({
       title: post.title ?? "",

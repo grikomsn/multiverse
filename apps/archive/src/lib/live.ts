@@ -9,7 +9,7 @@ import type { LiveSite } from "@multiverse/content/live"
 import { groupByOrganization } from "@multiverse/content/format"
 import type { EDITION_QUERY_RESULT, PartialDate, RichText } from "@multiverse/sanity/types"
 
-import { platformLabel } from "@multiverse/sanity/constants"
+import { FALLBACK_NAME, platformLabel } from "@multiverse/sanity/constants"
 
 export type Block = RichText[number]
 type TextBlock = Extract<Block, { _type: "block" }>
@@ -178,7 +178,7 @@ export function facts(live: LiveSite): Facts {
     .map(org)
     .filter((item): item is NonNullable<typeof item> => !!item)
   const name =
-    [live.profile?.givenName, live.profile?.familyName].filter(Boolean).join(" ") || "Griko Nibras"
+    [live.profile?.givenName, live.profile?.familyName].filter(Boolean).join(" ") || FALLBACK_NAME
   return {
     name,
     fullName: live.profile?.name ?? name,

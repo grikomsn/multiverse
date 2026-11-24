@@ -1,5 +1,6 @@
 import { isoDate } from "@multiverse/content/format"
 import type { SiteDocument, SiteIndex } from "@multiverse/content/site-index"
+import { FALLBACK_NAME, KEY_PAGES } from "@multiverse/sanity/constants"
 import type { MEDIA_PAGE_QUERY_RESULT } from "@multiverse/sanity/types"
 
 import { roleAnchor, slug } from "./anchors"
@@ -159,7 +160,7 @@ function mediaMarkdown(media: MEDIA_PAGE_QUERY_RESULT, origin: string) {
   )
   return `${paragraphs(
     "# Media",
-    `Photos and illustrations of ${media.profile?.shortName ?? "Griko Nibras"}. You can use them for talks, articles and profiles. Give credit when a credit is listed.`,
+    `Photos and illustrations of ${media.profile?.shortName ?? FALLBACK_NAME}. You can use them for talks, articles and profiles. Give credit when a credit is listed.`,
     `Gallery: ${origin}/media`,
     ...items,
   )}\n`
@@ -348,7 +349,7 @@ export async function llmsText(): Promise<string> {
   const pages = docs.filter(
     (doc) => doc.kind === "page" && !["work", "blog"].includes(doc.id) && doc.markdownUrl,
   )
-  const main = KEY_PAGES.flatMap((id) => pages.filter((doc) => doc.id === id))
+  const main = KEY_PAGE_IDS.flatMap((id) => pages.filter((doc) => doc.id === id))
   const other = pages.filter((doc) => !main.includes(doc))
   const contact = [
     ["Website", profile.website],
@@ -402,8 +403,8 @@ export async function llmsText(): Promise<string> {
   )}\n`
 }
 
-/** Pages that say the most about Griko, in this order; other pages go under Optional. */
-const KEY_PAGES = ["page/about", "page/now", "page/uses"]
+/** The key pages, in their order. Other pages go under Optional. */
+const KEY_PAGE_IDS: string[] = KEY_PAGES.map((page) => `page/${page.slug}`)
 
 /** /llms-full.txt: every top-level document, resume first, then work, pages, posts and media. */
 export async function llmsFullText(): Promise<string> {

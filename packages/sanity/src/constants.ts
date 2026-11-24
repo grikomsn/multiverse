@@ -61,3 +61,20 @@ export const MASCOT_ID = "portrait-gri"
 
 /** The public repository that holds these sites. */
 export const REPOSITORY_URL = "https://github.com/grikomsn/multiverse"
+
+/**
+ * The name that pages show when Profile cannot be read. Profile holds the real name; these are
+ * only safety nets, so a build without Sanity still names the site.
+ */
+export const FALLBACK_NAME = "Griko Nibras"
+export const FALLBACK_GIVEN_NAME = "Griko"
+
+/**
+ * The pages that say the most, in this order, by slug. The header links the ones marked `nav`
+ * after Blog and Work. The command bar and llms.txt list all of them before other pages.
+ */
+export const KEY_PAGES = [
+  { slug: "about", label: "About", nav: true },
+  { slug: "now", label: "Now", nav: true },
+  { slug: "uses", label: "Uses", nav: false },
+] as const

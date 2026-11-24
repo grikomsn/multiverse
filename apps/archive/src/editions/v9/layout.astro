@@ -18,7 +18,7 @@ interface Props {
 
 const { pageTitle, description } = Astro.props
 const edition = await getEdition("v9")
-const name = edition.name ?? "Griko Nibras"
+const name = edition.name
 const title = pageTitle ? `${pageTitle} - ${name}` : name
 const path = Astro.url.pathname
 // The footer linked GitHub, Mastodon and Twitter; now the featured profiles, with v9's GitHub

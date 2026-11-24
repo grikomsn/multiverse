@@ -18,7 +18,7 @@ interface Props {
 
 const { pageTitle, description } = Astro.props
 const edition = await getEdition("v7")
-const siteName = edition.name ?? "Griko Nibras"
+const siteName = edition.name
 const title = pageTitle ? `${pageTitle} · ${siteName}` : siteName
 const path = Astro.url.pathname.replace(/\/$/, "") || BASE
 

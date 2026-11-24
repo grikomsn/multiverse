@@ -17,7 +17,7 @@ interface Props {
 
 const { pageTitle, description, bodyClass } = Astro.props
 const edition = await getEdition("2024")
-const name = edition.name ?? "Griko Nibras"
+const name = edition.name
 const nav = edition.links?.filter((link) => link.group === "nav") ?? []
 ---
 

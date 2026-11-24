@@ -1,4 +1,6 @@
 ---
+import { FALLBACK_NAME, KEY_PAGES } from "@multiverse/sanity/constants"
+
 import CommandBar from "./command-bar.astro"
 import Gri from "./gri.astro"
 import Icon from "./icon.astro"
@@ -27,7 +29,7 @@ interface Props {
 
 const {
   origin = "",
-  name = "Griko Nibras",
+  name = FALLBACK_NAME,
   avatar,
   mascot,
   wide,
@@ -39,8 +41,10 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/"
 const NAV = [
   { href: "/blog", label: "Blog" },
   { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/now", label: "Now" },
+  ...KEY_PAGES.filter((page) => page.nav).map((page) => ({
+    href: `/${page.slug}`,
+    label: page.label,
+  })),
 ]
 const current = (href: string) =>
   !origin && (path === href || path.startsWith(`${href}/`)) ? "page" : undefined

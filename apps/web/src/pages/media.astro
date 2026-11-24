@@ -1,6 +1,8 @@
 ---
 import "../styles/media.css"
 
+import { FALLBACK_NAME } from "@multiverse/sanity/constants"
+
 import Lightbox from "../components/media/lightbox.astro"
 import PortraitCard from "../components/media/portrait-card.astro"
 import BaseLayout from "../layouts/base.astro"
@@ -10,7 +12,7 @@ import { sanity } from "../lib/sanity"
 
 const { profile, portraits: rows } = await sanity.fetch(MEDIA_PAGE_QUERY)
 
-const name = profile?.shortName ?? "Griko Nibras"
+const name = profile?.shortName ?? FALLBACK_NAME
 const title = "Media"
 const description = `Photos and illustrations of ${name}. You can use them for talks, articles and profiles.`
 

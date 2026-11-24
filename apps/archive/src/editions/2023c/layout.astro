@@ -16,7 +16,7 @@ interface Props {
 
 const { pageTitle, description, backToTop = false } = Astro.props
 const edition = await getEdition("2023c")
-const name = edition.name ?? "Griko Nibras"
+const name = edition.name
 const title = pageTitle ? `${pageTitle} | ${name}` : name
 const path = Astro.url.pathname.replace(/\/$/, "")
 const NAV: { href: string; label: string; external?: boolean }[] = [

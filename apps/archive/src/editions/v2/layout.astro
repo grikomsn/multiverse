@@ -13,7 +13,7 @@ interface Props {
 
 const { colorHex = "#fef380" } = Astro.props
 const edition = await getEdition("v2")
-const title = edition.description ?? "Griko Nibras"
+const title = edition.description ?? edition.name
 const icon = assetOf(edition, "icon")?.image?.url
 ---
 

@@ -7,6 +7,8 @@
  * ink along those lines, so the shape stays exactly as drawn. Without JavaScript, or with
  * reduced motion, the full signature shows at once.
  */
+import { FALLBACK_GIVEN_NAME } from "@multiverse/sanity/constants"
+
 import signature from "../data/signature.json"
 
 interface Props {
@@ -14,7 +16,7 @@ interface Props {
   label?: string
 }
 
-const { class: className, label = "Griko" } = Astro.props
+const { class: className, label = FALLBACK_GIVEN_NAME } = Astro.props
 
 /** Time to write the whole signature, without pen lifts. */
 const WRITE_MS = 1200

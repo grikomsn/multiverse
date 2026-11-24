@@ -1,3 +1,4 @@
+import { FALLBACK_NAME } from "@multiverse/sanity/constants"
 import type { SITE_SHELL_QUERY_RESULT } from "@multiverse/sanity/types"
 
 /** The site's title: the short name from Profile, "Griko Nibras". */
@@ -5,7 +6,7 @@ export function siteTitle(profile: SITE_SHELL_QUERY_RESULT["profile"]) {
   return (
     [profile?.givenName, profile?.familyName].filter(Boolean).join(" ") ||
     profile?.name ||
-    "Griko Nibras"
+    FALLBACK_NAME
   )
 }
 

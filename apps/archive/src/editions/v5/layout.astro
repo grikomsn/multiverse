@@ -24,7 +24,7 @@ const icon = edition.avatar?.url
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{`${pageTitle} • ${edition.name ?? "Griko Nibras"}`}</title>
+    <title>{`${pageTitle} • ${edition.name}`}</title>
     <meta name="description" content={description ?? edition.description} />
     <meta name="theme-color" content="#1A202C" />
     {icon && <link rel="icon" type="image/png" sizes="32x32" href={imageUrl(icon, 32)} />}

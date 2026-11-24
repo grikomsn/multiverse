@@ -16,7 +16,7 @@ interface Props {
 
 const { pageTitle, grow = true, class: className } = Astro.props
 const edition = await getEdition("v4")
-const siteTitle = edition.name ?? "Griko Nibras"
+const siteTitle = edition.name
 const title = pageTitle ? `${siteTitle} • ${pageTitle}` : siteTitle
 const path = Astro.url.pathname.replace(/\/$/, "")
 const NAV = [

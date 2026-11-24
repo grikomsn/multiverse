@@ -17,7 +17,7 @@ interface Props {
 
 const { pageTitle, description, class: className, hideFooter } = Astro.props
 const edition = await getEdition("v3")
-const siteTitle = edition.name ?? "Griko Nibras"
+const siteTitle = edition.name
 const title = pageTitle ? `${siteTitle} • ${pageTitle}` : siteTitle
 const icon = assetOf(edition, "icon")?.image?.url
 const ROUTES = [

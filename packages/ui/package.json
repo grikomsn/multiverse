@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@multiverse/content": "workspace:*",
+    "@multiverse/sanity": "workspace:*",
     "@paper-design/shaders": "catalog:",
     "lucide-static": "catalog:",
     "simple-icons": "catalog:"

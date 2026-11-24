@@ -18,7 +18,7 @@ interface Props {
 
 const { pageTitle, description } = Astro.props
 const edition = await getEdition("v6")
-const siteTitle = edition.name ?? "Griko Nibras"
+const siteTitle = edition.name
 const title = pageTitle ? `${pageTitle} · ${siteTitle}` : siteTitle
 
 const ROUTES = [

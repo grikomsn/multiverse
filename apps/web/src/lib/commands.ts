@@ -1,4 +1,4 @@
-import { platformLabel, REPOSITORY_URL } from "@multiverse/sanity/constants"
+import { KEY_PAGES, platformLabel, REPOSITORY_URL } from "@multiverse/sanity/constants"
 import type { CommandIndex, CommandItem, CommandKind } from "@multiverse/ui/command-index"
 
 import { ARCHIVE_ORIGIN } from "./archive"
@@ -23,8 +23,8 @@ const LAST: CommandItem[] = [
   { kind: "page", title: "Media", path: "/media", keywords: "photos avatars pictures" },
   { kind: "page", title: "For AI tools", path: "/ai", keywords: "mcp llms markdown" },
 ]
-/** Pages in the header come first, in its order. */
-const ORDER = ["/about", "/now", "/uses"]
+/** The key pages come first, in their order: the header links the first of them. */
+const ORDER: string[] = KEY_PAGES.map((page) => `/${page.slug}`)
 
 const KINDS: Record<string, CommandKind> = {
   post: "post",
