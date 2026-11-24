@@ -32,11 +32,6 @@ export const site = defineType({
           return true
         }),
     }),
-    defineField({
-      name: "intro",
-      type: "richText",
-      description: "The front page intro. Empty uses the intro written in code.",
-    }),
   ],
   preview: {
     select: { subtitle: "description" },

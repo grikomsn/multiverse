@@ -6,7 +6,6 @@ import {
   EXPERIENCE,
   ICON,
   IMAGE,
-  MARK_DEFS_ABSOLUTE,
   PORTRAIT_IMAGE,
   PROFILE,
   PROJECT,
@@ -24,7 +23,6 @@ export const LIVE_SITE_QUERY = defineQuery(`{
   "portraits": *[_type == "portrait"] | order(orderRank) {
     _id, title, kind, caption, credit, creditUrl, "image": @ ${PORTRAIT_IMAGE}
   },
-  "home": *[_id == "site"][0] { "intro": intro[] { ..., ${MARK_DEFS_ABSOLUTE} } },
   "experience": *[_type == "experience"] | order(orderRank) { ${EXPERIENCE} },
   "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) {
     _id, title, "slug": slug.current, publishedAt, excerpt, originalUrl, tags,

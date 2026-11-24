@@ -10,7 +10,6 @@ import { FALLBACK_GIVEN_NAME, MASCOT_ID } from "@multiverse/sanity/constants"
 import DotIcon from "../components/dot-icon.astro"
 import EntryRow from "../components/entry-row.astro"
 import ProjectCard from "../components/project-card.astro"
-import RichText from "../components/rich-text.astro"
 import Signature from "../components/signature.astro"
 import BaseLayout from "../layouts/base.astro"
 import { getMetrics } from "../lib/metrics"
@@ -47,7 +46,7 @@ const city = profile?.location?.split(",")[0]?.trim()
 // One clip box for each word of the headline, so the words can rise in one after another.
 const givenName = profile?.givenName ?? FALLBACK_GIVEN_NAME
 const headline = `Hey there, I’m ${givenName}.`.split(" ")
-// Where the fallback intro's links go: the GitHub profile (every repository) and the npm
+// Where the intro's links go: the GitHub profile (every repository) and the npm
 // profile (the packages for coding agents). Without that profile link, the words stay plain.
 const profileUrl = (platform: string) =>
   profile?.socialLinks?.find((link) => link.platform === platform)?.url
@@ -205,61 +204,56 @@ const structuredData = profile?.name && {
       )}
     </p>
     <div class="hero-intro mt-8 flex flex-col gap-3 text-lg leading-relaxed text-soft [&_a]:quiet-link [&_a]:text-fg">
-      {site?.intro ? (
-        <RichText value={site.intro} />
-      ) : (
-        current && (
-          <p>
-            I lead engineering at{" "}
-            {current.organization?.url ? (
-              <a href={current.organization.url}>{current.organization.name}</a>
-            ) : (
-              current.organization?.name
-            )}
-            {sideJob?.organization?.name && (
+      {current && (
+        <p>
+          I lead engineering at{" "}
+          {current.organization?.url ? (
+            <a href={current.organization.url}>{current.organization.name}</a>
+          ) : (
+            current.organization?.name
+          )}
+          {sideJob?.organization?.name && (
+            <>
+              {" "}
+              and teach new developers at{" "}
+              {sideJob.organization.url ? (
+                <a href={sideJob.organization.url}>{sideJob.organization.name}</a>
+              ) : (
+                sideJob.organization.name
+              )}
+            </>
+          )}
+          . I also make {toolsUrl ? <a href={toolsUrl}>developer tools</a> : "developer tools"} for
+          humans, and lately for {agentsUrl ? <a href={agentsUrl}>AI agents</a> : "AI agents"} too.
+          {profile?.location &&
+            (timeZone ? (
               <>
                 {" "}
-                and teach new developers at{" "}
-                {sideJob.organization.url ? (
-                  <a href={sideJob.organization.url}>{sideJob.organization.name}</a>
-                ) : (
-                  sideJob.organization.name
-                )}
-              </>
-            )}
-            . I also make {toolsUrl ? <a href={toolsUrl}>developer tools</a> : "developer tools"}{" "}
-            for humans, and lately for {agentsUrl ? <a href={agentsUrl}>AI agents</a> : "AI agents"}{" "}
-            too.
-            {profile?.location &&
-              (timeZone ? (
-                <>
-                  {" "}
-                  I live in{" "}
-                  <span class="place">
-                    <button
-                      type="button"
-                      data-place
-                      data-time-zone={timeZone}
-                      aria-describedby="place-time"
-                    >
-                      {profile.location}
-                    </button>
-                    <span class="place-time" id="place-time" role="tooltip">
-                      <DotIcon name="sun" class="place-sun" />
-                      <DotIcon name="moon" class="place-moon" />
-                      <span>
-                        <b data-clock /> there now
-                        <small data-zone />
-                      </span>
+                I live in{" "}
+                <span class="place">
+                  <button
+                    type="button"
+                    data-place
+                    data-time-zone={timeZone}
+                    aria-describedby="place-time"
+                  >
+                    {profile.location}
+                  </button>
+                  <span class="place-time" id="place-time" role="tooltip">
+                    <DotIcon name="sun" class="place-sun" />
+                    <DotIcon name="moon" class="place-moon" />
+                    <span>
+                      <b data-clock /> there now
+                      <small data-zone />
                     </span>
                   </span>
-                  .
-                </>
-              ) : (
-                <> I live in {profile.location}.</>
-              ))}
-          </p>
-        )
+                </span>
+                .
+              </>
+            ) : (
+              <> I live in {profile.location}.</>
+            ))}
+        </p>
       )}
     </div>
     <nav class="hero-actions mt-6 flex flex-wrap gap-2" aria-label="Shortcuts">

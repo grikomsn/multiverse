@@ -395,7 +395,7 @@ export function toEdition(meta: Meta, live: LiveSite, settings: LiveSettings): E
     // A design drawn around a mascot (v3's anime girl, the animojis) keeps it.
     avatar:
       meta.assets?.find((asset) => asset.name === "mascot")?.image ?? live.avatar ?? live.portrait,
-    intro: (settings.intro?.(f, live) ?? live.home?.intro ?? null) as RichText | null,
+    intro: (settings.intro?.(f, live) ?? null) as RichText | null,
     bio: (settings.bio
       ? settings.bio(f, live)
       : textOf(about?.body as Block[] | undefined)) as RichText | null,

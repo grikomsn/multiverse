@@ -4,7 +4,6 @@ import {
   EXPERIENCE,
   ICON,
   INVOLVEMENT,
-  MARK_DEFS,
   PROFILE,
   PROJECT,
   TALK,
@@ -27,7 +26,7 @@ export const VERSIONS_QUERY = defineQuery(`*[_type == "edition"] | order(startDa
 }`)
 
 export const HOME_QUERY = defineQuery(`{
-  "site": *[_id == "site"][0] { tagline, "intro": intro[] { ..., ${MARK_DEFS} } },
+  "site": *[_id == "site"][0] { tagline },
   "timeZone": *[_id == "profile"][0].timeZone,
   "experience": *[_type == "experience"] | order(orderRank) { ${EXPERIENCE} },
   "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {
