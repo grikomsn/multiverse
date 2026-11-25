@@ -1,0 +1,3 @@
+[submodule "github-readme"]
+	path = github-readme
+	url = https://github.com/grikomsn/grikomsn.git

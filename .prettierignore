@@ -11,3 +11,4 @@ tmp/
 **/sanity.types.ts
 **/schema.json
 **/worker-configuration.d.ts
+github-readme/
