@@ -8,14 +8,14 @@
  *   bun scripts/make-readme.ts
  *
  * The facts come from `getCard()`, the same as `npx grikomsn`. The sentences come from the
- * card's `content.ts`, in the words of the home page. Gri comes from `packages/ui/src/gri.ts`
- * and the signature from the home page's trace. So the readme holds no fact of its own.
+ * card's `content.ts`, in the words of the home page, and the signature from the home page's
+ * trace. So the readme holds no fact of its own. It has no picture of Gri: the GitHub profile
+ * shows its own avatar next to it.
  */
 import { mkdir, writeFile } from "node:fs/promises"
 
 import { type Card, getCard } from "@multiverse/content/card"
 import { createSanityClient } from "@multiverse/content/client"
-import { griSvg, type Mood } from "@multiverse/ui/gri"
 
 import { headline, intro, tagline } from "../apps/cli/src/content"
 import signature from "../apps/web/src/data/signature.json"
@@ -24,47 +24,19 @@ const OUT = new URL("../github-readme/", import.meta.url)
 
 /** GitHub shows one picture of each pair: the one for the reader's theme. */
 const THEMES = {
-  light: { fg: "#18181b", line: "#e7e5e0", mood: "smile" },
-  dark: { fg: "#ececf1", line: "#2b2d34", mood: "cool" },
-} as const satisfies Record<string, { fg: string; line: string; mood: Mood }>
+  light: { fg: "#18181b" },
+  dark: { fg: "#ececf1" },
+} as const
 type Theme = keyof typeof THEMES
 
-// The moves play once, as on the site, and not at all with reduced motion. Without the
-// animations each picture shows its last frame, so a viewer that ignores them is still right.
+// The signature writes itself once, as on the site, and not at all with reduced motion.
+// Without the animation it shows in full, so a viewer that ignores it is still right.
 const MOTION = `
 @media (prefers-reduced-motion: no-preference) {
-  .pop { transform-box: fill-box; transform-origin: 50% 50%; animation: pop 520ms cubic-bezier(.3,1.5,.5,1) both; }
-  .peek { animation: peek 900ms 1600ms both; }
-  .unpeek { animation: unpeek 900ms 1600ms both; }
   .ink path { animation: write var(--l) linear var(--d) both; }
 }
-.peek { opacity: 0; }
-@keyframes pop { from { opacity: 0; transform: scale(.4); } }
-@keyframes peek { 0%, 100% { opacity: 0; } 3%, 97% { opacity: 1; } }
-@keyframes unpeek { 0%, 100% { opacity: 1; } 3%, 97% { opacity: 0; } }
 @keyframes write { 0% { stroke-dashoffset: 1; stroke-opacity: 0; } 0.1% { stroke-opacity: 1; } 100% { stroke-dashoffset: 0; stroke-opacity: 1; } }
 `
-
-/** Gri in a circle: the mood of the theme, with one wink a moment after it shows. */
-function gri(theme: Theme) {
-  const { line, mood } = THEMES[theme]
-  const size = 240
-  const face = (m: Mood) =>
-    griSvg({ moods: [m] }).replace("<svg ", `<svg x="0" y="0" width="${size}" height="${size}" `)
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="Gri, a cartoon face of Griko">
-<title>Gri, a cartoon face of Griko</title>
-<style>${MOTION}</style>
-<clipPath id="circle"><circle cx="${size / 2}" cy="${size / 2}" r="${size / 2}"/></clipPath>
-<g class="pop">
-<g clip-path="url(#circle)">
-<g class="unpeek">${face(mood)}</g>
-<g class="peek">${face("wink")}</g>
-</g>
-<circle cx="${size / 2}" cy="${size / 2}" r="${size / 2 - 1.5}" fill="none" stroke="${line}" stroke-width="3"/>
-</g>
-</svg>
-`
-}
 
 /** The signature of the home page, which writes itself stroke by stroke (`signature.astro`). */
 function signed(theme: Theme, label: string) {
@@ -126,10 +98,6 @@ function readme(card: Card) {
 
   return `<!-- Written by scripts/make-readme.ts in grikomsn/multiverse, from the facts on nibras.co. Change it there. -->
 
-<a href="${card.website}">
-${picture("gri", "Gri, a cartoon face of Griko", 'align="right" width="120"')}
-</a>
-
 ### ${headline(card)}
 
 ${tagline(card).join("")} ${about}
@@ -146,7 +114,6 @@ const card = await getCard(createSanityClient())
 await mkdir(new URL("assets/", OUT), { recursive: true })
 await writeFile(new URL("README.md", OUT), readme(card))
 for (const theme of Object.keys(THEMES) as Theme[]) {
-  await writeFile(new URL(`assets/gri-${theme}.svg`, OUT), gri(theme))
   await writeFile(new URL(`assets/signature-${theme}.svg`, OUT), signed(theme, card.givenName))
 }
-console.log("Wrote github-readme/README.md and its pictures.")
+console.log("Wrote github-readme/README.md and its signature.")

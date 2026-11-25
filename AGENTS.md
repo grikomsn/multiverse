@@ -74,7 +74,7 @@ The resume (`/resume`), the gallery (`/media`), `llms.txt` and the MCP server al
 
 The terminal card (`npx grikomsn`) is `apps/cli`. It reads its facts from `/card.json` on nibras.co (`getCard()` in `@multiverse/content/card`), and holds no fact of its own. How it maps the site's design and motion to a terminal, the build and the release are in [docs/apps/cli.md](docs/apps/cli.md). Publish to npm only when the user asks.
 
-The GitHub profile readme is `github-readme/`, a submodule of `grikomsn/grikomsn` (`git submodule update --init` on a fresh clone). Do not edit it by hand: `bun scripts/make-readme.ts` writes `README.md` and its pictures from the card, Gri and the home page's signature. Commit and push in the submodule, then commit the new pointer here.
+The GitHub profile readme is `github-readme/`, a submodule of `grikomsn/grikomsn` (`git submodule update --init` on a fresh clone). Do not edit it by hand: `bun scripts/make-readme.ts` writes `README.md` from the card, and the signature pictures from the home page's trace. Commit and push in the submodule, then commit the new pointer here.
 
 Short links (nbr.st) are `apps/links`: how to add a link or a pattern rule, the caches and the cutover are in [docs/apps/links.md](docs/apps/links.md).
 
