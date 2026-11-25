@@ -21,6 +21,8 @@ const STATIC_RULES = [
   "/posts /blog 301",
   "/writings /blog 301",
   "/works /work 301",
+  // The mascot's page has the mascot's name.
+  "/mascot /gri 301",
   // The CMS of the day: Keystatic, then the Bear Blog dashboard, now Sanity Studio.
   "/keystatic https://nibras.sanity.studio 302",
   `/author/griko ${ARCHIVE}/2022b/author/griko 301`,

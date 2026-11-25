@@ -20,6 +20,18 @@ export const GROUND = "#eab308"
 /** The ground of the tab icon while the tab is in the background. */
 export const ASLEEP_GROUND = "#c4c3bd"
 
+/** Every color of the drawing, by the part that it paints. */
+export const PALETTE = {
+  ground: GROUND,
+  ink: INK,
+  paper: PAPER,
+  blush: BLUSH,
+  heart: HEART,
+  water: WATER,
+  tongue: TONGUE,
+  asleep: ASLEEP_GROUND,
+} as const
+
 /** In the order that a click on the home face shows them. */
 export const MOODS = [
   "smile",
@@ -78,11 +90,28 @@ const EARS = `<circle cx="44" cy="120" r="10"/><circle cx="156" cy="120" r="10"/
 const LENSES = `<rect x="50" y="99" width="45" height="37" rx="13"/><rect x="105" y="99" width="45" height="37" rx="13"/>`
 const BRIDGE = `<path d="M95 111.95 Q100 106.95 105 111.95"/>`
 
+const round = (value: number) => Math.round(value * 10) / 10
+
+const VIEW_BOX = "-15 -14 230 230"
+const SKIN = `<g fill="${PAPER}" stroke="${INK}" stroke-width="6" stroke-linejoin="round">${EARS}<path d="${HEAD}"/></g>`
+const TUFT = `<path d="${HAIR}" fill="${INK}" stroke="${INK}" stroke-width="6" stroke-linejoin="round"/>`
+const FRAMES = `<g fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">${LENSES}${BRIDGE}</g>`
+const blushOf = (size: number) => {
+  const rx = round(9.5 * size)
+  const ry = round(5.5 * size)
+  return `<ellipse cx="64" cy="147" rx="${rx}" ry="${ry}" fill="${BLUSH}"/><ellipse cx="136" cy="147" rx="${rx}" ry="${ry}" fill="${BLUSH}"/>`
+}
+/** The groups that move and turn the head, around `parts`: one line for each part. */
+const posed = (parts: string[], [turn, drop]: readonly [number, number]) => [
+  `<g class="hm" transform="translate(0 ${drop})"><g transform="translate(100 108)"><g class="hr" transform="rotate(${turn})"><g transform="translate(-100 -110)">`,
+  ...parts,
+  `</g></g></g></g>`,
+]
+
 const line = (inner: string, width = 5.5, color = INK) =>
   `<g fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round">${inner}</g>`
 const solid = (inner: string, color = INK) => `<g fill="${color}">${inner}</g>`
 const both = (eye: (x: number) => string): [string, string] => [eye(LEFT), eye(RIGHT)]
-const round = (value: number) => Math.round(value * 10) / 10
 
 // Eyes. Each takes the centre of its lens.
 const arcUp = (x: number) =>
@@ -233,6 +262,32 @@ const PARTS: Record<Mood, Parts> = {
   },
 }
 
+/** The mood whose extra part belongs to its mouth: the tongue. Every other extra part belongs to the head. */
+const TONGUE_MOOD: Mood = "cheeky"
+
+/** The moods that differ in one part: the first mood of each different drawing. */
+const distinct = (key: (part: Parts, mood: Mood) => string) => {
+  const seen = new Set<string>()
+  return MOODS.filter((mood) => {
+    const drawing = key(PARTS[mood], mood)
+    return !seen.has(drawing) && seen.add(drawing)
+  })
+}
+
+/**
+ * The parts of a mixed face: eyes from one mood, the mouth from a second, and the blush and
+ * the marks from a third. Each list holds one mood for each different drawing of that part,
+ * so no two mixed faces look the same.
+ */
+export const MIX = {
+  eyes: distinct((part) => (part.lens ?? "") + part.eyes.join("")),
+  mouth: distinct((part, mood) => part.mouth + (mood === TONGUE_MOOD ? part.extra : "")),
+  extra: distinct(
+    (part, mood) =>
+      `${part.blush ?? 1}${mood === TONGUE_MOOD ? "" : (part.extra ?? "")}${(part.marks ?? []).join("")}`,
+  ),
+} as const
+
 interface GriOptions {
   /** The moods the drawing can show. The first one shows at the start. */
   moods: readonly Mood[]
@@ -247,6 +302,11 @@ interface GriOptions {
    * page, whose mood changes. A file does not need them.
    */
   rules?: boolean
+  /**
+   * A face that a page mixes from three moods (`MIX`). `data-eyes`, `data-mouth` and
+   * `data-extra` on the <svg> name them, and `data-mood` is empty. Give it every mood.
+   */
+  mix?: boolean
 }
 
 /**
@@ -266,6 +326,7 @@ export function griSvg({
   ground = GROUND,
   attrs = "",
   rules = false,
+  mix = false,
 }: GriOptions) {
   const first = moods[0] ?? "smile"
   const hide = (mood: Mood) => (mood === first ? "" : ` display="none"`)
@@ -276,11 +337,7 @@ export function griSvg({
     const part = PARTS[mood]
     const size = part.blush ?? 1
     if (size) {
-      const rx = round(9.5 * size)
-      const ry = round(5.5 * size)
-      blush.push(
-        `<g data-m="${mood}"${hide(mood)}><g class="blush"><ellipse cx="64" cy="147" rx="${rx}" ry="${ry}" fill="${BLUSH}"/><ellipse cx="136" cy="147" rx="${rx}" ry="${ry}" fill="${BLUSH}"/></g></g>`,
-      )
+      blush.push(`<g data-m="${mood}"${hide(mood)}><g class="blush">${blushOf(size)}</g></g>`)
     }
     faces.push(
       `<g data-m="${mood}"${hide(mood)}>` +
@@ -299,21 +356,16 @@ export function griSvg({
       )
     }
   }
-  const [turn, drop] = POSE[first]
+  const shown = mix
+    ? `data-mood="" data-eyes="${first}" data-mouth="${first}" data-extra="${first}"`
+    : `data-mood="${first}"`
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -14 230 230" class="gri" data-mood="${first}"${attrs ? ` ${attrs}` : ""}>`,
-    rules ? `<style>${griStyle(moods)}</style>` : "",
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VIEW_BOX}" class="gri" ${shown}${attrs ? ` ${attrs}` : ""}>`,
+    rules || mix ? `<style>${mix ? mixStyle() : griStyle(moods)}</style>` : "",
     ground
       ? `<rect class="ground" x="-15" y="-14" width="230" height="230" fill="${ground}"/>`
       : "",
-    `<g class="hm" transform="translate(0 ${drop})"><g transform="translate(100 108)"><g class="hr" transform="rotate(${turn})"><g transform="translate(-100 -110)">`,
-    `<g fill="${PAPER}" stroke="${INK}" stroke-width="6" stroke-linejoin="round">${EARS}<path d="${HEAD}"/></g>`,
-    blush.join(""),
-    `<path d="${HAIR}" fill="${INK}" stroke="${INK}" stroke-width="6" stroke-linejoin="round"/>`,
-    faces.join(""),
-    `<g fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">${LENSES}${BRIDGE}</g>`,
-    around.join(""),
-    `</g></g></g></g>`,
+    ...posed([SKIN, blush.join(""), TUFT, faces.join(""), FRAMES, around.join("")], POSE[first]),
     `</svg>`,
   ]
     .filter(Boolean)
@@ -330,12 +382,62 @@ const griStyle = (moods: readonly Mood[]) =>
     )
     .join("")
 
+/** The style rules that show the three parts of a mixed face. */
+const mixStyle = () =>
+  [
+    ...MIX.eyes.map((mood) => `.gri[data-eyes="${mood}"] [data-m="${mood}"]>:is(.eye,.lens)`),
+    ...MIX.mouth.map(
+      (mood) =>
+        `.gri[data-mouth="${mood}"] [data-m="${mood}"]>${mood === TONGUE_MOOD ? ":is(.mouth,.extra)" : ".mouth"}`,
+    ),
+    ...MIX.extra.map(
+      (mood) =>
+        `.gri[data-extra="${mood}"] [data-m="${mood}"]>${mood === TONGUE_MOOD ? ":is(.blush,.mark)" : ":is(.blush,.mark,.extra)"}`,
+    ),
+  ].join(",") + "{display:inline}"
+
 /** One mood as an SVG file. `mascot.svg` is the smile. */
 export const griFile = (
   mood: Mood = "smile",
-  options: Omit<GriOptions, "moods" | "attrs" | "rules"> = {},
+  options: Omit<GriOptions, "moods" | "attrs" | "rules" | "mix"> = {},
 ) =>
   griSvg({ ...options, moods: [mood], attrs: `width="1024" height="1024"` }).replace(
     "\n",
     "\n<title>Griko Nibras</title>\n",
   ) + "\n"
+
+/** The layers of the drawing, from the back to the front. */
+export const LAYERS = ["ground", "head", "blush", "hair", "face", "glasses", "marks"] as const
+
+export type Layer = (typeof LAYERS)[number]
+
+/**
+ * One mood as separate drawings, one for each layer, all in the same box. For a view that
+ * pulls the layers apart. A layer that the mood leaves empty has no drawing.
+ */
+export function griLayers(mood: Mood = "smile"): Partial<Record<Layer, string>> {
+  const part = PARTS[mood]
+  const size = part.blush ?? 1
+  const inner: Record<Layer, string> = {
+    ground: "",
+    head: SKIN,
+    blush: size ? blushOf(size) : "",
+    hair: TUFT,
+    face:
+      (part.lens ? `<g fill="${part.lens}">${LENSES}</g>` : "") +
+      part.eyes.join("") +
+      (part.extra ?? "") +
+      part.mouth,
+    glasses: FRAMES,
+    marks: (part.marks ?? []).join(""),
+  }
+  const open = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VIEW_BOX}" aria-hidden="true">`
+  const layers: Partial<Record<Layer, string>> = {
+    // The ground as a disc: the round frame that the site cuts from the square.
+    ground: `${open}<circle cx="100" cy="101" r="115" fill="${GROUND}"/></svg>`,
+  }
+  for (const layer of LAYERS) {
+    if (inner[layer]) layers[layer] = `${open}${posed([inner[layer]], POSE[mood]).join("")}</svg>`
+  }
+  return layers
+}

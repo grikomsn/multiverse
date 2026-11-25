@@ -1,0 +1,777 @@
+/*
+ * /gri: the mascot's page. Imported by that page only. The script is `scripts/gri.ts`.
+ *
+ * The page keeps the motion rules of docs/redesign.md: transform only for text, nothing that
+ * needs a script to show content, and no motion under `prefers-reduced-motion`. See "The
+ * mascot's page" there for the two rules it bends.
+ */
+
+/* The headline: each word rises from a clip line, as on the home page. */
+.gri-word {
+  display: inline-block;
+  overflow: clip;
+  /* Room for descenders. */
+  margin-bottom: -0.14em;
+  padding-bottom: 0.14em;
+  vertical-align: bottom;
+
+  & > span {
+    display: inline-block;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gri-word > span {
+    animation: hero-rise 820ms var(--ease-snap) calc(120ms + var(--i) * 75ms) both;
+  }
+
+  .gri-hero :is(.gri-lede, .gri-stage, .gri-actions, .gri-stats) {
+    animation: hero-slide 800ms var(--ease-snap) both;
+  }
+
+  .gri-lede {
+    animation-delay: 300ms;
+  }
+
+  .gri-stage {
+    animation-delay: 380ms;
+  }
+
+  .gri-actions {
+    animation-delay: 460ms;
+  }
+
+  .gri-stats {
+    animation-delay: 540ms;
+  }
+
+  .gri-stage-face {
+    animation: hero-pop 700ms var(--ease-snap) 450ms both;
+  }
+}
+
+/* Text that rolls in a one-line window: the name of a mood. Transform only. */
+.gri-roll {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: bottom;
+
+  & > b {
+    display: inline-block;
+  }
+}
+
+/*
+ * The stage: a face to play with. Rings of dots spread from the face (a canvas), and the
+ * script moves `.gri-stage-body` while the pointer pulls the face.
+ */
+.gri-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+  background-color: var(--color-sunk);
+
+  @media (min-width: 40rem) {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+.gri-stage-rings {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  color: var(--color-dither);
+
+  & canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.gri-stage-body {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.gri-stage-face {
+  width: clamp(9rem, 44%, 14rem);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  box-shadow: 0 1.25rem 2.5rem -1.25rem rgb(0 0 0 / 0.45);
+  cursor: grab;
+  pointer-events: auto;
+  /* A finger that moves up or down scrolls the page; one that moves sideways pulls the face. */
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.gri-stage-readout,
+.gri-stage-hint {
+  position: absolute;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: var(--color-soft);
+}
+
+.gri-stage-readout {
+  bottom: 0.75rem;
+  left: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+
+  & b {
+    font-size: 1rem;
+    color: var(--color-fg);
+  }
+}
+
+.gri-stage-hint {
+  top: 0.75rem;
+  right: 1rem;
+}
+
+/* The moods: one tile for each. The script plays a tile's move under the pointer. */
+.gri-moods {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+
+  @media (min-width: 30rem) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.gri-mood {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.1rem 0.4rem;
+  width: 100%;
+  padding: 0.55rem 0.6rem 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.9rem;
+  background-color: var(--color-card);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 150ms var(--ease-out-quart),
+    translate 200ms var(--ease-snap);
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-fg) 30%, var(--color-line));
+  }
+
+  &[aria-pressed="true"] {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent);
+  }
+}
+
+.gri-mood-face {
+  display: block;
+  flex: none;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 0.4rem;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: scale 300ms cubic-bezier(0.3, 1.45, 0.5, 1);
+}
+
+.gri-mood-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.gri-mood-turn {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-soft);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .gri-mood:hover {
+    translate: 0 -2px;
+  }
+
+  .gri-mood:hover .gri-mood-face {
+    scale: 1.05;
+  }
+
+  .gri-mood:active .gri-mood-face {
+    scale: 0.95;
+  }
+}
+
+/*
+ * Faces and colors pop in, one after another, when their list enters the view. The layout
+ * script adds `.is-inview`; `.js-reveal` is on <html> only with JavaScript and without reduced
+ * motion. Pictures only: the names stay where they are.
+ */
+.js-reveal [data-inview]:not(.is-inview) :is(.gri-mood-face, .gri-color-dot) {
+  scale: 0;
+}
+
+.js-reveal .is-inview :is(.gri-mood-face, .gri-color-dot) {
+  animation: gri-pop-in 520ms cubic-bezier(0.3, 1.45, 0.5, 1) calc(var(--i) * 55ms) both;
+}
+
+@keyframes gri-pop-in {
+  from {
+    scale: 0;
+    rotate: -30deg;
+  }
+}
+
+/*
+ * The layers. `--gri-apart` is 0 when the drawing is whole and 1 when its layers are apart.
+ * It follows the scroll position (a view timeline, no script). Without scroll timelines, or
+ * with reduced motion, the layers are apart all the time, because that view says the most.
+ */
+@property --gri-apart {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.gri-layers {
+  display: grid;
+  gap: 1.25rem;
+
+  @media (min-width: 40rem) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+.gri-layers-view {
+  --size: clamp(8.5rem, 38vw, 11.5rem);
+  --gap: calc(var(--size) * 0.25);
+  display: grid;
+  place-items: center;
+  height: calc(var(--size) * 1.55);
+  perspective: 60rem;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .gri-layers-view {
+      animation: gri-apart linear both;
+      animation-timeline: view();
+      animation-range: entry 70% cover 52%;
+    }
+  }
+}
+
+@keyframes gri-apart {
+  from {
+    --gri-apart: 0;
+  }
+
+  to {
+    --gri-apart: 1;
+  }
+}
+
+.gri-layers-stack {
+  position: relative;
+  width: var(--size);
+  aspect-ratio: 1;
+  transform: rotateX(calc(var(--gri-apart) * 10deg)) rotateY(calc(var(--gri-apart) * 46deg));
+  transform-style: preserve-3d;
+}
+
+.gri-layer {
+  position: absolute;
+  inset: 0;
+  /* The middle layer stays in place, and the others move away from it on both sides. */
+  transform: translateZ(calc(var(--gri-apart) * (var(--i) - 3) * var(--gap)));
+  transition:
+    opacity 200ms var(--ease-out-quart),
+    translate 250ms var(--ease-snap);
+
+  /* The edge of each sheet. It shows only while the layers are apart. */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px dashed color-mix(in oklab, var(--color-fg) 40%, transparent);
+    border-radius: 50%;
+    opacity: calc(var(--gri-apart) * 1.4 - 0.4);
+  }
+
+  & > svg {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* A layer that the list names: the others go faint, and it lifts. */
+.gri-layers[data-active] .gri-layer:not(.is-active) {
+  opacity: 0.16;
+}
+
+.gri-layer.is-active {
+  translate: 0 -0.5rem;
+}
+
+.gri-layers-list {
+  display: flex;
+  flex-direction: column;
+
+  & button {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border-radius: 0.6rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 150ms var(--ease-out-quart);
+  }
+
+  & button:is(:hover, :focus-visible, [aria-pressed="true"]) {
+    background-color: color-mix(in oklab, var(--color-accent) 16%, transparent);
+  }
+
+  & b {
+    font-weight: 600;
+  }
+}
+
+.gri-layers-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-soft);
+}
+
+.gri-layers-text {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--color-soft);
+}
+
+/* The mixer: a face from three moods, and one reel for each part. */
+.gri-mixer {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+
+  @media (min-width: 40rem) {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1.75rem;
+    padding: 1.5rem;
+  }
+}
+
+.gri-mixer-face {
+  width: min(100%, 13rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+}
+
+.gri-reel {
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.4rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.gri-reel-window {
+  height: 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 1.0625rem;
+  line-height: 1.75rem;
+}
+
+.gri-step {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background-color: var(--color-card);
+  cursor: pointer;
+  transition:
+    border-color 150ms var(--ease-out-quart),
+    scale 150ms var(--ease-snap);
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-fg) 35%, var(--color-line));
+  }
+
+  &:active {
+    scale: 0.9;
+  }
+}
+
+.gri-mixer button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* Gri in dots: the drawing as dots on a dark plate, as a picture that develops. */
+.gri-dots-plate {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.25rem;
+  background-color: var(--color-plate);
+  /* The script reads this as the color of the dots around the head. */
+  accent-color: var(--color-accent);
+  cursor: crosshair;
+  touch-action: pan-y;
+
+  @media (min-width: 40rem) {
+    aspect-ratio: 16 / 10;
+  }
+
+  & canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.gri-dots-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-top: 1rem;
+
+  & label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  & input {
+    width: 9rem;
+    height: 1.5rem;
+    accent-color: var(--color-accent-ink);
+    cursor: pointer;
+  }
+}
+
+/* Where Gri lives: a small live copy of each place, and what Gri does there. */
+.gri-places {
+  display: grid;
+  gap: 0.75rem;
+
+  @media (min-width: 40rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.gri-place {
+  display: flex;
+  flex-direction: column;
+}
+
+.gri-place-demo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 8.5rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-line);
+  /* The card's corners, less its border. */
+  border-radius: calc(0.75rem - 1px) calc(0.75rem - 1px) 0 0;
+  background-color: var(--color-sunk);
+}
+
+.gri-place-face {
+  display: block;
+  flex: none;
+  width: 4.75rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+}
+
+.gri-place-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 0.9rem 1.1rem 1.1rem;
+  font-size: 0.9375rem;
+
+  & h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  & :is(a, button) {
+    /* Over the card's pointer light, which covers the card. */
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding-block: 0.3rem 0.1rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+/* Two tabs of a browser. The first holds Gri as its icon. */
+.gri-tabs {
+  display: flex;
+  align-self: end;
+  gap: 0.25rem;
+  width: 100%;
+  padding-inline: 0.75rem;
+
+  & button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    border-radius: 0.7rem 0.7rem 0 0;
+    font-size: 0.8125rem;
+    color: var(--color-soft);
+    cursor: pointer;
+  }
+
+  & button[aria-pressed="true"] {
+    border-color: var(--color-line);
+    background-color: var(--color-card);
+    color: var(--color-fg);
+  }
+
+  /* The name of the first tab gives way; "Other tab" always shows. */
+  & button:last-child {
+    flex: none;
+  }
+
+  & button > span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:not([data-awake]) .gri .ground {
+    fill: var(--asleep);
+  }
+}
+
+.gri-tabs-icon {
+  display: block;
+  flex: none;
+  width: 1.75rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.gri-tabs-blank {
+  border: 2px solid currentColor;
+  opacity: 0.4;
+}
+
+/* The 404 number, small: plain digits around the dizzy face. */
+.gri-lost {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 4.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-accent);
+
+  & .gri-place-face {
+    width: 3.75rem;
+  }
+}
+
+.gri-console {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding-inline: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  & .gri-place-face {
+    width: 3.25rem;
+  }
+
+  & p > span {
+    display: block;
+  }
+
+  & p > span:last-child {
+    color: var(--color-soft);
+  }
+}
+
+/* A terminal on a dark plate. The script types the command, and then the face draws in rows. */
+.gri-terminal {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  justify-items: start;
+  padding-inline: 1.1rem;
+  background-color: var(--color-plate);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-plate-dot);
+
+  & .text-accent {
+    color: #facc15;
+  }
+
+  & i {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.15em;
+    margin-left: 2px;
+    background-color: currentColor;
+    vertical-align: text-bottom;
+  }
+
+  & canvas {
+    width: 5.25rem;
+    height: 5.25rem;
+    border-radius: 0.25rem;
+    image-rendering: pixelated;
+  }
+}
+
+.js-reveal .gri-terminal:not(.is-typed) canvas {
+  clip-path: inset(0 0 100% 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gri-terminal.is-typed canvas {
+    animation: gri-rows 800ms steps(28) both;
+  }
+
+  /* The caret blinks a few times after the command, and then it stays. */
+  .gri-terminal.is-typed i {
+    animation: gri-caret 900ms steps(2, jump-none) 4;
+  }
+}
+
+@keyframes gri-rows {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes gri-caret {
+  to {
+    opacity: 0;
+  }
+}
+
+/* The colors of the drawing. A press copies the value. */
+.gri-colors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+
+  @media (min-width: 40rem) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.gri-color {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  height: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.9rem;
+  background-color: var(--color-card);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 150ms var(--ease-out-quart);
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-fg) 30%, var(--color-line));
+  }
+}
+
+.gri-color-dot {
+  flex: none;
+  width: 2.25rem;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in oklab, var(--color-fg) 20%, transparent);
+  border-radius: 50%;
+  background-color: var(--swatch);
+  transition: scale 300ms cubic-bezier(0.3, 1.45, 0.5, 1);
+}
+
+.gri-color-text {
+  display: grid;
+  min-width: 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--color-soft);
+
+  & b {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+
+  & code {
+    font-family: var(--font-mono);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .gri-color:hover .gri-color-dot {
+    scale: 1.15;
+  }
+
+  .gri-color:active .gri-color-dot {
+    scale: 0.9;
+  }
+}

@@ -6,25 +6,26 @@ The resume and the gallery were separate sites (resume.nibras.co, media.nibras.c
 
 ## Routes
 
-| Route                                              | Served by      | Notes                                                                                                                      |
-| -------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `/`                                                | Worker → asset | Browsers get the page. `Accept: text/markdown` and curl get `/llms.txt`                                                    |
-| `/<slug>`                                          | asset          | Posts and pages, at their Bear Blog URLs                                                                                   |
-| `/work`, `/blog`                                   | asset          | Usage numbers on Work come from GitHub, npm and the Marketplace at build (`lib/metrics`)                                   |
-| `/resume`                                          | Worker → asset | Same negotiation as `/`, with `/resume.md`                                                                                 |
-| `/resume/ats`                                      | asset          | The resume alone, light, `noindex`. The source of `/resume.pdf`                                                            |
-| `/resume/cover-letters/<slug>`                     | asset          | `coverLetter` documents. `noindex`, not in the sitemap, disallowed in robots.txt                                           |
-| `/resume/og`                                       | asset          | Source of `public/resume.png` (the Open Graph card). Screenshot command in the file                                        |
-| `/resume.pdf`                                      | Worker         | Browser Run renders `/resume/ats` once per Worker version, kept in R2 (`blob1`) and cache                                  |
-| `/media`                                           | asset          | Portrait gallery with a lightbox and download links. Pictures develop from dots (`src/scripts/develop.ts`)                 |
-| `/ai`                                              | asset          | How to use the site with AI tools: MCP setup and Markdown files                                                            |
-| `/llms.txt`, `/llms-full.txt`                      | asset          | An index of every Markdown page, and all of them in one file                                                               |
-| `/<page>.md`                                       | asset          | Markdown copy of each post, page, `/resume`, `/work`, `/blog` and `/media`                                                 |
-| `/llms.json`                                       | asset          | Every document as JSON. The MCP server reads it                                                                            |
-| `/card.json`                                       | asset          | The facts that `npx grikomsn` shows (`getCard()` in `@multiverse/content/card`). See [cli.md](cli.md)                      |
-| `/commands.json`                                   | asset          | Titles and addresses for the command bar (`src/lib/commands.ts`). The archive reads it too, so `public/_headers` allows it |
-| `/feed.xml`, `/rss.xml`, `/atom.xml`, `/feed.json` | asset          | Listed posts as RSS 2.0, Atom and JSON Feed (`src/lib/feed.ts`). Version 9 served `/rss.xml`, `/atom.xml` and `/feed.json` |
-| `/mcp`                                             | Worker         | Stateless Streamable HTTP (`agents/mcp/server`, MCP SDK v2). No sign-in                                                    |
+| Route                                              | Served by      | Notes                                                                                                                                            |
+| -------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/`                                                | Worker → asset | Browsers get the page. `Accept: text/markdown` and curl get `/llms.txt`                                                                          |
+| `/<slug>`                                          | asset          | Posts and pages, at their Bear Blog URLs                                                                                                         |
+| `/work`, `/blog`                                   | asset          | Usage numbers on Work come from GitHub, npm and the Marketplace at build (`lib/metrics`)                                                         |
+| `/resume`                                          | Worker → asset | Same negotiation as `/`, with `/resume.md`                                                                                                       |
+| `/resume/ats`                                      | asset          | The resume alone, light, `noindex`. The source of `/resume.pdf`                                                                                  |
+| `/resume/cover-letters/<slug>`                     | asset          | `coverLetter` documents. `noindex`, not in the sitemap, disallowed in robots.txt                                                                 |
+| `/resume/og`                                       | asset          | Source of `public/resume.png` (the Open Graph card). Screenshot command in the file                                                              |
+| `/resume.pdf`                                      | Worker         | Browser Run renders `/resume/ats` once per Worker version, kept in R2 (`blob1`) and cache                                                        |
+| `/media`                                           | asset          | Portrait gallery with a lightbox and download links. Pictures develop from dots (`src/scripts/develop.ts`)                                       |
+| `/gri`                                             | asset          | The mascot's page: moods, layers, a face mixer and the drawing in dots. `/mascot` goes to it. See [redesign.md](../redesign.md#the-mascots-page) |
+| `/ai`                                              | asset          | How to use the site with AI tools: MCP setup and Markdown files                                                                                  |
+| `/llms.txt`, `/llms-full.txt`                      | asset          | An index of every Markdown page, and all of them in one file                                                                                     |
+| `/<page>.md`                                       | asset          | Markdown copy of each post, page, `/resume`, `/work`, `/blog` and `/media`                                                                       |
+| `/llms.json`                                       | asset          | Every document as JSON. The MCP server reads it                                                                                                  |
+| `/card.json`                                       | asset          | The facts that `npx grikomsn` shows (`getCard()` in `@multiverse/content/card`). See [cli.md](cli.md)                                            |
+| `/commands.json`                                   | asset          | Titles and addresses for the command bar (`src/lib/commands.ts`). The archive reads it too, so `public/_headers` allows it                       |
+| `/feed.xml`, `/rss.xml`, `/atom.xml`, `/feed.json` | asset          | Listed posts as RSS 2.0, Atom and JSON Feed (`src/lib/feed.ts`). Version 9 served `/rss.xml`, `/atom.xml` and `/feed.json`                       |
+| `/mcp`                                             | Worker         | Stateless Streamable HTTP (`agents/mcp/server`, MCP SDK v2). No sign-in                                                                          |
 
 ## Markdown and MCP
 

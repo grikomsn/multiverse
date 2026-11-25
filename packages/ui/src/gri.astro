@@ -9,19 +9,32 @@
  */
 import "./gri.css"
 
-import { griSvg, type Mood } from "./gri"
+import { griSvg, MOODS, type Mood } from "./gri"
 
 interface Props {
   /** The moods this drawing can show. The first one shows at the start. Fewer moods, less HTML. */
   moods?: readonly Mood[]
   /** The marks around the head, such as hearts. Leave them out below about 3rem. */
   marks?: boolean
+  /**
+   * A face that the page mixes from three moods: `data-eyes`, `data-mouth` and `data-extra` on
+   * the drawing name them (`MIX` in `gri.ts`). It holds every mood.
+   */
+  mix?: boolean
 }
 
-const { moods = ["smile"], marks = true } = Astro.props
+const { moods = ["smile"], marks = true, mix = false } = Astro.props
 ---
 
-<Fragment set:html={griSvg({ moods, marks, rules: true, attrs: `aria-hidden="true"` })} />
+<Fragment
+  set:html={griSvg({
+    moods: mix ? MOODS : moods,
+    marks,
+    mix,
+    rules: true,
+    attrs: `aria-hidden="true"`,
+  })}
+/>
 
 <script>
   import { onThemeChange } from "./dither"

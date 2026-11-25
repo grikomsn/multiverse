@@ -19,7 +19,8 @@ export const hasMood = (face: SVGSVGElement, mood: string) =>
  * goes back to its resting mood after that time.
  */
 export function showMood(face: SVGSVGElement, mood: string, ms?: number) {
-  if (!hasMood(face, mood)) return
+  // A mixed face (`mix` in `gri.astro`) shows parts of three moods, and has no mood to change.
+  if (!hasMood(face, mood) || face.hasAttribute("data-eyes")) return
   // An animation starts when its element shows. So hide every mood, let the browser see that,
   // and then show the new one.
   face.dataset.live = ""
