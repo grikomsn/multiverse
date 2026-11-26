@@ -355,8 +355,7 @@ const structuredData = profile?.name && {
 </BaseLayout>
 
 <script>
-  import { reducedMotion } from "@multiverse/ui/dither"
-  import { faces, showMood } from "@multiverse/ui/gri-moods"
+  import { faces, look, showMood } from "@multiverse/ui/gri-moods"
 
   // The face in the hero. `data-rest` holds the mood that a click chose.
   const hero = document.querySelector<HTMLElement>(".hero")
@@ -429,37 +428,8 @@ const structuredData = profile?.name && {
     }
 
     // The head and the eyes lean toward the pointer while it is over the hero (`gri.css`).
-    // Like the lean of the wave, this is for a mouse, and reduced motion stops it.
-    if (matchMedia("(hover: hover) and (pointer: fine)").matches && !reducedMotion()) {
-      /** Moods that do not look around. */
-      const still = new Set(["sleepy", "dizzy"])
-      const at = { x: 0, y: 0 }
-      const to = { x: 0, y: 0 }
-      let frame = 0
-      const step = () => {
-        at.x += (to.x - at.x) * 0.2
-        at.y += (to.y - at.y) * 0.2
-        const near = Math.abs(to.x - at.x) + Math.abs(to.y - at.y) < 0.004
-        if (near) Object.assign(at, to)
-        face.style.setProperty("--gri-look-x", at.x.toFixed(3))
-        face.style.setProperty("--gri-look-y", at.y.toFixed(3))
-        frame = near ? 0 : requestAnimationFrame(step)
-      }
-      const look = (x: number, y: number) => {
-        to.x = Math.max(-1, Math.min(1, x))
-        to.y = Math.max(-1, Math.min(1, y))
-        frame ||= requestAnimationFrame(step)
-      }
-      hero.addEventListener("pointermove", (event) => {
-        if (event.pointerType !== "mouse" || still.has(face.dataset.mood ?? "")) return look(0, 0)
-        const box = face.getBoundingClientRect()
-        look(
-          (event.clientX - box.left - box.width / 2) / 260,
-          (event.clientY - box.top - box.height / 2) / 180,
-        )
-      })
-      hero.addEventListener("pointerleave", () => look(0, 0))
-    }
+    // A sleepy or dizzy face does not look around.
+    look(face, hero, 260, { quiet: () => ["sleepy", "dizzy"].includes(face.dataset.mood ?? "") })
   }
 
   // The city in the intro shows the time there, with a sun from 06:00 to 18:00 and a moon

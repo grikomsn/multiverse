@@ -215,9 +215,41 @@
   .gri[data-live][data-mood="dizzy"] .hr {
     animation: gri-dizzy 1000ms ease-in-out;
   }
+
+  /*
+   * A soft change (`data-soft`, from `showMood()`): the parts fade in, the head turns slowly
+   * and no move plays. The class is twice in the selectors, so they are stronger than the
+   * rules of every mood above.
+   */
+  .gri.gri[data-live][data-soft] :is(.hr, .hm) {
+    animation: none;
+    transition: transform 700ms var(--ease-snap);
+  }
+
+  .gri.gri[data-live][data-soft] :is(.eye, .brow, .mouth, .lens, .extra, .blush) {
+    animation: gri-soft 300ms ease-out both;
+  }
+
+  .gri.gri[data-live][data-soft] .mark {
+    animation: gri-soft-mark 450ms calc(140ms + var(--i, 0) * 110ms) ease-out both;
+  }
 }
 
 /* A keyframe that is left out is the resting pose, so each move ends where the mood rests. */
+@keyframes gri-soft {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes gri-soft-mark {
+  from {
+    transform: translateY(7px) scale(0.8);
+    opacity: 0;
+  }
+}
+
 @keyframes gri-eye {
   from {
     transform: scaleY(0.12);

@@ -15,7 +15,7 @@ import {
   threshold,
   toRgba,
 } from "@multiverse/ui/dither"
-import { faces, showMood } from "@multiverse/ui/gri-moods"
+import { faces, look, showMood } from "@multiverse/ui/gri-moods"
 
 const still = reducedMotion()
 const SPRING = "cubic-bezier(0.3, 1.45, 0.5, 1)"
@@ -70,40 +70,6 @@ function fileOf(face: SVGSVGElement, { ground = true, round = false } = {}) {
     copy.append(clip, group)
   }
   return `data:image/svg+xml,${encodeURIComponent(new XMLSerializer().serializeToString(copy))}`
-}
-
-/**
- * The head and the eyes of `face` lean toward the pointer while it is over `area` (`gri.css`).
- * For a mouse, as on the home page.
- */
-function look(face: SVGSVGElement, area: HTMLElement, reach: number, quiet = () => false) {
-  if (still || !matchMedia("(hover: hover) and (pointer: fine)").matches) return
-  const at = { x: 0, y: 0 }
-  const to = { x: 0, y: 0 }
-  let frame = 0
-  const step = () => {
-    at.x += (to.x - at.x) * 0.2
-    at.y += (to.y - at.y) * 0.2
-    const done = Math.abs(to.x - at.x) + Math.abs(to.y - at.y) < 0.004
-    if (done) Object.assign(at, to)
-    face.style.setProperty("--gri-look-x", at.x.toFixed(3))
-    face.style.setProperty("--gri-look-y", at.y.toFixed(3))
-    frame = done ? 0 : requestAnimationFrame(step)
-  }
-  const aim = (x: number, y: number) => {
-    to.x = Math.max(-1, Math.min(1, x))
-    to.y = Math.max(-1, Math.min(1, y))
-    frame ||= requestAnimationFrame(step)
-  }
-  area.addEventListener("pointermove", (event) => {
-    if (event.pointerType !== "mouse" || quiet()) return aim(0, 0)
-    const box = face.getBoundingClientRect()
-    aim(
-      (event.clientX - box.left - box.width / 2) / reach,
-      (event.clientY - box.top - box.height / 2) / (reach * 0.7),
-    )
-  })
-  area.addEventListener("pointerleave", () => aim(0, 0))
 }
 
 /** Put `text` on the clipboard. False when the browser does not allow it. */
@@ -294,7 +260,7 @@ function stage() {
     go(rest + 1)
   })
 
-  look(face, root, 240, () => ["sleepy", "dizzy"].includes(face.dataset.mood ?? ""))
+  look(face, root, 240, { quiet: () => ["sleepy", "dizzy"].includes(face.dataset.mood ?? "") })
 
   // The rings: dots in circles around the face, which move out slowly.
   const DOT = 3
