@@ -53,8 +53,8 @@ const body =
   noIndex={entry.visibility === "unlisted"}
   canonical={entry.originalUrl}
   type={isPost ? "article" : "website"}
-  image={entry.image && `${entry.image}?w=1200&fit=max`}
-  imageAlt={entry.imageAlt ?? undefined}
+  published={isPost ? entry.publishedAt : undefined}
+  modified={isPost ? entry.updatedAt : undefined}
   markdown={entry.visibility === "listed" ? `/${entry.slug}.md` : undefined}
   progress={isPost}
   contactCard={isAbout}

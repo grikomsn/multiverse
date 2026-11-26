@@ -26,6 +26,9 @@ const LAST: CommandItem[] = [
   { kind: "page", title: "Nia, next to Gri", path: "/nia", keywords: "moods face family mascot" },
   { kind: "page", title: "Ash, next to Gri", path: "/ash", keywords: "moods face family mascot" },
 ]
+/** The same pages as one list: each gets a social card (`og.ts`). */
+export const STATIC_PAGES: readonly CommandItem[] = [...FIRST, ...LAST]
+
 /** The key pages come first, in their order: the header links the first of them. */
 const ORDER: string[] = KEY_PAGES.map((page) => `/${page.slug}`)
 

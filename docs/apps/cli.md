@@ -136,6 +136,7 @@ How it works:
 - The code comes in two halves, each after a paint. The terminal's half comes after the first paint. The card's half (React, Ink, Yoga) comes after the terminal shows its prompt. On a slow network, the prompt does not wait for the card.
 - wterm's own code (WebAssembly) is a file next to the page, so the browser compiles it while it comes.
 - The page reads `/card.json`, so `apps/web` sends that file with `Access-Control-Allow-Origin: *`.
+- Its social card is `og.png`: the site's card in the dark theme, with the mascot as the terminal draws it. See [social-cards.md](../social-cards.md).
 
 Build and release:
 

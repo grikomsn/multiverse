@@ -15,6 +15,7 @@ import BaseLayout from "../layouts/base.astro"
 import { getMetrics } from "../lib/metrics"
 import { HOME_QUERY, SITE_SHELL_QUERY } from "../lib/queries"
 import { sanity } from "../lib/sanity"
+import { homeTagline } from "../lib/site"
 
 const [{ profile, avatar }, { site, timeZone, experience, posts, projects, talks }] =
   await Promise.all([sanity.fetch(SITE_SHELL_QUERY), sanity.fetch(HOME_QUERY)])
@@ -29,10 +30,9 @@ const sideJob = experience.find(
   (job) => !job.endDate && job.organization?.name !== current?.organization?.name,
 )
 const stops = groupByOrganization(experience)
-// The highlighted line, as on the 2019–2020 versions. Words in [brackets] get a mark; split()
-// with a capture group puts them at the odd indexes.
-const TAGLINE = "I make [useful], [fast], and [friendly] things."
-const tagline = (site?.tagline || TAGLINE).split(/\[([^\]]+)\]/)
+// The highlighted line. Words in [brackets] get a mark; split() with a capture group puts
+// them at the odd indexes.
+const tagline = homeTagline(site).split(/\[([^\]]+)\]/)
 const MARKS = ["--color-mark-red", "--color-mark-green", "--color-mark-blue"]
 // What a marked word does under the pointer: the mascot's mood, and an effect around the word
 // (global.css). A word that is not here puts stars in the mascot's eyes.

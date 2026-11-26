@@ -21,11 +21,15 @@ import { gzipSync } from "node:zlib"
 import { type Card, getCard } from "@multiverse/content/card"
 import { createSanityClient } from "@multiverse/content/client"
 
+import { ogImage, ogKey, OG_SIZE, type OgCard, siteFontFile } from "@multiverse/ui/og"
+import { THEMES } from "@multiverse/ui/theme"
+import sharp from "sharp"
+
+import { facePixels } from "../src/face"
 import { FIXTURE } from "../src/fixture"
 import { plainCard } from "../src/plain"
-import { THEMES } from "../src/theme"
 import { modules } from "../src/web/node"
-import { COLUMNS, COMMAND, CORE, FONT, TYPING } from "../src/web/shell"
+import { COLUMNS, COMMAND, CORE, FONT, PAGE_URL, TYPING } from "../src/web/shell"
 import { type Build, noDevtools, notices, root } from "./bundle"
 
 const fixture = process.argv.includes("--fixture")
@@ -105,6 +109,29 @@ const plain = escape(plainCard(card))
 const { light, dark } = THEMES
 const site = new URL(card.website).hostname
 const description = `${COMMAND} in a browser: the terminal card of ${card.name}, from ${site}.`
+
+/**
+ * The social card of the page: the picture that a chat or a feed shows with its link. It is
+ * the site's card (`@multiverse/ui/og`) in the dark theme, with the mascot as the terminal
+ * draws it: 28 pixels on each side, here ten times as large.
+ */
+const FACE = 28
+const face = await sharp(Buffer.from(facePixels("smile", FACE, { bg: dark.bg }).flat(2)), {
+  raw: { width: FACE, height: FACE, channels: 3 },
+})
+  .resize(FACE * 10, FACE * 10, { kernel: "nearest" })
+  .png()
+  .toBuffer()
+const social: OgCard = {
+  name: card.name,
+  label: "Run it in your browser",
+  title: COMMAND,
+  art: `data:image/png;base64,${face.toString("base64")}`,
+  theme: "dark",
+}
+const socialAlt = `${COMMAND}. ${social.label}. ${card.name}`
+// The key changes with the card, so an app that keeps pictures for days takes the new one.
+const socialUrl = `${PAGE_URL}og.png?v=${ogKey(social)}`
 // The terminal's own styles, made small: they go in the page, so it needs no second request.
 const styles = await Bun.build({
   entrypoints: [fileURLToPath(import.meta.resolve("@wterm/dom/src/terminal.css", import.meta.url))],
@@ -159,8 +186,20 @@ const html = `<!doctype html>
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="${light.bg}">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="${dark.bg}">
+<meta name="author" content="${escape(card.name)}">
+<link rel="canonical" href="${PAGE_URL}">
+<meta property="og:type" content="website">
 <meta property="og:title" content="${COMMAND}">
 <meta property="og:description" content="${escape(description)}">
+<meta property="og:url" content="${PAGE_URL}">
+<meta property="og:site_name" content="${escape(card.name)}">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="${socialUrl}">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="${OG_SIZE.width}">
+<meta property="og:image:height" content="${OG_SIZE.height}">
+<meta property="og:image:alt" content="${escape(socialAlt)}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <style>
@@ -203,6 +242,9 @@ ${plain}</pre>
 
 await mkdir(out, { recursive: true })
 await writeFile(join(out, "index.html"), html)
+// The card needs the site's font, from the root of the repository.
+const font = siteFontFile(join(repository, "assets/fonts/web"))
+await writeFile(join(out, "og.png"), await ogImage(social, font))
 // GitHub Pages runs Jekyll on a folder unless this file is there.
 await writeFile(join(out, ".nojekyll"), "")
 await copyFile(

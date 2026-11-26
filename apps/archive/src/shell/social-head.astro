@@ -1,0 +1,29 @@
+---
+import type { SocialCard } from "../lib/og"
+
+/**
+ * The tags that a chat or a feed reads to show a link as a card (Open Graph). The index and
+ * every version share them. See `lib/og.ts` and `docs/social-cards.md`.
+ */
+interface Props {
+  card: SocialCard
+  url: string | URL
+}
+
+const { card, url } = Astro.props
+---
+
+<meta name="author" content={card.name} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={card.title} />
+<meta property="og:description" content={card.description} />
+<meta property="og:url" content={String(url)} />
+<meta property="og:site_name" content={card.name} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content={card.image} />
+<meta property="og:image:type" content={card.type} />
+<meta property="og:image:width" content={String(card.width)} />
+<meta property="og:image:height" content={String(card.height)} />
+<meta property="og:image:alt" content={card.alt} />
+{/* X and several chat apps show the large picture only with this tag. */}
+<meta name="twitter:card" content="summary_large_image" />

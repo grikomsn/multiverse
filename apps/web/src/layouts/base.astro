@@ -9,6 +9,7 @@ import { SITE_SHELL_QUERY } from "../lib/queries"
 import { sanity } from "../lib/sanity"
 import { MASCOT_ID, platformLabel } from "@multiverse/sanity/constants"
 import { ARCHIVE_ORIGIN } from "../lib/archive"
+import { ogOf } from "../lib/og"
 import { siteDescription, siteTitle as titleOf } from "../lib/site"
 
 interface Props {
@@ -20,9 +21,15 @@ interface Props {
   type?: "website" | "article" | "profile"
   /** Full-width column, for the media gallery. */
   wide?: boolean
-  /** Absolute URL of the social preview image. */
+  /**
+   * Absolute URL of the page's own picture for its social card: the resume's, the gallery's.
+   * Without it, the page shows the card that the build draws for it (`lib/og.ts`).
+   */
   image?: string | null
   imageAlt?: string
+  /** When a post came out, and when it changed. For `type="article"`. */
+  published?: string | null
+  modified?: string | null
   /** Rendered as JSON-LD. */
   structuredData?: object
   /** A Markdown copy of this page, for LLMs and other tools. */
@@ -43,6 +50,8 @@ const {
   wide,
   image,
   imageAlt,
+  published,
+  modified,
   structuredData,
   markdown,
   progress,
@@ -53,6 +62,18 @@ const siteTitle = titleOf(shell.profile)
 const fullTitle = title ? `${title} · ${siteTitle}` : siteTitle
 const metaDescription = description ?? (siteDescription(shell) || undefined)
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).href
+// The picture of the social card: the page's own, or the card drawn for the page.
+const card = image
+  ? { url: image, alt: imageAlt, type: undefined, width: undefined, height: undefined }
+  : await ogOf(Astro.url.pathname, Astro.site!.origin)
+// The site's language is English. A post in another one says so.
+const LOCALES: Record<string, string> = { en: "en_US", id: "id_ID" }
+const links = shell.profile?.socialLinks ?? []
+const handleOn = (platform: string) =>
+  links.find((link) => link.platform === platform && link.url)?.url?.replace(/\/+$/, "")
+// X names an author as "@name". Mastodon names one as "@name@server".
+const xName = handleOn("x")?.split("/").at(-1)
+const fediverse = handleOn("mastodon")?.match(/^https?:\/\/([^/]+)\/@?([^/]+)$/)
 const profiles = (shell.profile?.socialLinks ?? [])
   .filter((link) => link.featured && link.url)
   .map((link) => ({
@@ -76,15 +97,27 @@ const profiles = (shell.profile?.socialLinks ?? [])
     <link rel="alternate" type="application/atom+xml" title={siteTitle} href="/atom.xml" />
     <link rel="alternate" type="application/feed+json" title={siteTitle} href="/feed.json" />
     <link rel="preconnect" href="https://cdn.sanity.io" />
+    <meta name="author" content={siteTitle} />
     <meta property="og:type" content={type} />
-    <meta property="og:title" content={fullTitle} />
+    {/* The name of the site has its own tag, so the title of the card does not repeat it. */}
+    <meta property="og:title" content={title ?? siteTitle} />
     {metaDescription && <meta property="og:description" content={metaDescription} />}
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={siteTitle} />
-    <meta property="og:locale" content="en_US" />
-    {image && <meta property="og:image" content={image} />}
-    {image && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
-    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    <meta property="og:locale" content={LOCALES[lang ?? "en"] ?? "en_US"} />
+    <meta property="og:image" content={card.url} />
+    {card.type && <meta property="og:image:type" content={card.type} />}
+    {card.width && <meta property="og:image:width" content={String(card.width)} />}
+    {card.height && <meta property="og:image:height" content={String(card.height)} />}
+    {card.alt && <meta property="og:image:alt" content={card.alt} />}
+    {type === "article" && published && (
+      <meta property="article:published_time" content={published} />
+    )}
+    {type === "article" && modified && <meta property="article:modified_time" content={modified} />}
+    {/* X and several chat apps show the large picture only with this tag. The rest they read from the tags above. */}
+    <meta name="twitter:card" content="summary_large_image" />
+    {xName && <meta name="twitter:creator" content={`@${xName}`} />}
+    {fediverse && <meta name="fediverse:creator" content={`@${fediverse[2]}@${fediverse[1]}`} />}
     {markdown && <link rel="alternate" type="text/markdown" href={markdown} />}
     <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
     {structuredData && (

@@ -29,3 +29,10 @@ export function siteDescription({
     .filter(Boolean)
     .join(" ")
 }
+
+/**
+ * The highlighted line of the home page, as on the 2019–2020 versions. Words in [brackets]
+ * get a mark. The home page and its social card both show it.
+ */
+export const homeTagline = (site: { tagline?: string | null } | null | undefined) =>
+  site?.tagline || "I make [useful], [fast], and [friendly] things."

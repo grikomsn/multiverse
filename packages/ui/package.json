@@ -15,6 +15,8 @@
     "./action-card.astro": "./src/action-card.astro",
     "./brand-icon.astro": "./src/brand-icon.astro",
     "./brand-marks": "./src/brand-marks.ts",
+    "./theme": "./src/theme.ts",
+    "./og": "./src/og.ts",
     "./dither": "./src/dither.ts",
     "./dither-wave.astro": "./src/dither-wave.astro",
     "./face": "./src/face.ts",
@@ -45,6 +47,8 @@
     "@multiverse/sanity": "workspace:*",
     "@paper-design/shaders": "catalog:",
     "lucide-static": "catalog:",
-    "simple-icons": "catalog:"
+    "sharp": "catalog:",
+    "simple-icons": "catalog:",
+    "takumi-js": "catalog:"
   }
 }

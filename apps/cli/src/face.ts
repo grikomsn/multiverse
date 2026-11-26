@@ -66,17 +66,20 @@ interface FaceOptions {
 }
 
 /**
- * One face as text: `size / 2` lines of `size` cells, with color codes. Each line ends in the
- * page's ground and the default text color, so text after it is not painted.
+ * One face as pixels: `size` rows of `size` colors, in the circle that the avatar has on the
+ * site. The edge of the circle is soft. Outside it, a pixel has the color of the page.
  */
-export function faceRows(mood: Mood, size: FaceSize, { bg, depth, shift = [0, 0] }: FaceOptions) {
+export function facePixels(
+  mood: Mood,
+  size: FaceSize,
+  { bg, shift = [0, 0] }: Omit<FaceOptions, "depth">,
+): Rgb[][] {
   pixels ??= inflateSync(Buffer.from(FACES, "base64"))
   const start = offset(mood, size)
   const page = rgb(bg)
   const ground = rgb(GROUND)
   const half = size / 2
 
-  /** The color of one pixel of the picture, with the edge of the circle softened. */
   const pixel = (x: number, y: number): Rgb => {
     const distance = Math.hypot(x + 0.5 - half, y + 0.5 - half)
     const cover = Math.max(0, Math.min(1, half - distance + 0.5))
@@ -93,6 +96,18 @@ export function faceRows(mood: Mood, size: FaceSize, { bg, depth, shift = [0, 0]
       Math.round(page[2] + (color[2] - page[2]) * cover),
     ]
   }
+  return Array.from({ length: size }, (_, y) => Array.from({ length: size }, (_, x) => pixel(x, y)))
+}
+
+/**
+ * One face as text: `size / 2` lines of `size` cells, with color codes. Each line ends in the
+ * page's ground and the default text color, so text after it is not painted.
+ */
+export function faceRows(mood: Mood, size: FaceSize, { bg, depth, shift }: FaceOptions) {
+  const page = rgb(bg)
+  const half = size / 2
+  const rows = facePixels(mood, size, { bg, shift })
+  const pixel = (x: number, y: number) => rows[y]![x]!
 
   const lines: string[] = []
   for (let row = 0; row < half; row++) {

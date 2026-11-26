@@ -1,7 +1,16 @@
 ---
-/** Shared head tags for archived pages: canonical to the archive URL, never indexed. */
+import { editionSocial } from "../lib/og"
+import SocialHead from "./social-head.astro"
+
+/**
+ * Shared head tags for archived pages: canonical to the archive URL, never indexed, and the
+ * version's social card. The first part of the path is the version's key.
+ */
 const canonical = new URL(Astro.url.pathname, Astro.site)
+const key = Astro.url.pathname.split("/").filter(Boolean)[0] ?? ""
+const card = await editionSocial(key, Astro.site!.origin)
 ---
 
 <meta name="robots" content="noindex" />
 <link rel="canonical" href={canonical} />
+<SocialHead card={card} url={canonical} />

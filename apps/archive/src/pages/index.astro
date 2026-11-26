@@ -6,8 +6,11 @@ import SiteFooter from "@multiverse/ui/site-footer.astro"
 import SiteHeader from "@multiverse/ui/site-header.astro"
 import ThemeHead from "@multiverse/ui/theme-head.astro"
 
+import SocialHead from "../shell/social-head.astro"
+
 import { COLOPHON } from "../editions/_kit/colophon"
 import { imageUrl, period } from "../lib/editions"
+import { indexSocial } from "../lib/og"
 import { ARCHIVE_SHELL_QUERY, EDITIONS_QUERY } from "../lib/queries"
 import { sanity } from "../lib/sanity"
 import { WEB_ORIGIN } from "../lib/web"
@@ -18,6 +21,7 @@ const [editions, { profile, avatar }] = await Promise.all([
 ])
 
 const name = profile?.shortName ?? FALLBACK_NAME
+const social = await indexSocial(Astro.site!.origin)
 
 // Newest first: the reader came from the current site and walks back in time.
 const timeline = [...editions].reverse()
@@ -29,11 +33,9 @@ const timeline = [...editions].reverse()
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{`Older versions · ${name}`}</title>
-    <meta
-      name="description"
-      content={`Every earlier version of ${name}'s personal site since ${COLOPHON.since}, rebuilt where possible.`}
-    />
+    <meta name="description" content={social.description} />
     <link rel="canonical" href={new URL("/", Astro.site)} />
+    <SocialHead card={social} url={new URL("/", Astro.site)} />
     <link rel="preconnect" href="https://cdn.sanity.io" />
     <ThemeHead />
   </head>
