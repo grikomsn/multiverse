@@ -1,0 +1,372 @@
+---
+/**
+ * The page of one mascot: `/gri`, `/nia` and `/ash`. Every face on it comes from one drawing
+ * (`@multiverse/ui/family`). The page's motion is in `styles/gri.css` and `scripts/gri.ts`; the
+ * rules it follows, and the two it bends, are in docs/redesign.md, "The mascot's page".
+ *
+ * Slots: `lede` is the first sentence under the headline, `more` holds the parts that only one
+ * face has, and `origin` is the text of the last part.
+ */
+import "../styles/gri.css"
+
+import { faceLayers, faceMix, layersOf, MOODS, type Mood } from "@multiverse/ui/face"
+import Face from "@multiverse/ui/face.astro"
+import { FAMILY, WHO, type Who } from "@multiverse/ui/family"
+import Icon from "@multiverse/ui/icon.astro"
+import SectionHeading from "@multiverse/ui/section-heading.astro"
+
+import BaseLayout from "../layouts/base.astro"
+import CountUp from "./count-up.astro"
+
+interface Props {
+  who: Who
+  title: string
+  description: string
+  /** The small label over the headline. */
+  label: string
+  /** A title and a sentence for each layer of the drawing, by the name of the layer. */
+  layers: Record<string, { title: string; text: string }>
+  /** The colors to show, by their key in the palette of the face. */
+  colors: { key: string; title: string; text: string }[]
+}
+
+const { who, title, description, label, layers: layerCopy, colors } = Astro.props
+const { name, face } = FAMILY[who]
+const palette: Record<string, string> = FAMILY[who].palette
+const pose = face.pose
+
+/** The turn of a mood's head, as text: "−5°". */
+const turnOf = (mood: Mood) => {
+  const turn = pose[mood][0]
+  return `${turn < 0 ? "−" : turn > 0 ? "+" : ""}${Math.abs(turn)}°`
+}
+const two = (value: number) => String(value).padStart(2, "0")
+
+// The layers view shows the mood that uses the most layers and colors.
+const LAYER_MOOD: Mood = "love"
+const layers = faceLayers(face, LAYER_MOOD)
+const shownLayers = layersOf(face).filter((layer) => layers[layer])
+
+const mix = faceMix(face)
+const REELS = [
+  { key: "eyes", title: "Eyes", moods: mix.eyes },
+  { key: "mouth", title: "Mouth", moods: mix.mouth },
+  { key: "extra", title: "Marks", moods: mix.extra },
+] as const
+const mixes = REELS.reduce((total, reel) => total * reel.moods.length, 1)
+
+const STATS = [
+  { value: String(MOODS.length), label: "moods" },
+  { value: String(shownLayers.length), label: "layers" },
+  { value: String(colors.length), label: "colors" },
+  { value: String(mixes), label: "mixed faces" },
+]
+
+/** One sentence for each face, and the mood that it plays in the family part. */
+const FAMILY_COPY: Record<Who, { text: string; mood: Mood }> = {
+  gri: { text: "The mascot of this site: a tuft of hair and thick glasses.", mood: "wink" },
+  nia: { text: "A hijab with a soft peak, and smiling eyes with lashes.", mood: "love" },
+  ash: { text: "Hair that sweeps to one side, shiny eyes and brows.", mood: "laugh" },
+}
+---
+
+<BaseLayout title={title} description={description}>
+  <header class="gri-hero pt-10 pb-10 sm:pt-16">
+    <p class="label">{label}</p>
+    <h1 class="mt-3 text-[2.5rem] leading-[1.05] font-bold tracking-tight sm:text-6xl">
+      {`This is ${name}.`.split(" ").map((word, index) => (
+        <>
+          <span class="gri-word">
+            <span style={`--i: ${index}`}>{word}</span>
+          </span>{" "}
+        </>
+      ))}
+    </h1>
+    <p class="gri-lede mt-4 text-lg leading-relaxed text-pretty text-soft">
+      <slot name="lede" />
+      {name} has {MOODS.length} moods, and one short move for each.
+    </p>
+
+    <!--
+      The stage. The face follows the pointer with its eyes. A press shows the next mood; a pull
+      moves the face, and it springs back. Dotted rings spread from the face, with one ripple
+      for each change of mood.
+    -->
+    <div
+      class="gri-stage mt-8"
+      data-stage
+      data-moods={JSON.stringify(MOODS.map((mood) => [mood, turnOf(mood)]))}
+    >
+      <div class="dither-mark gri-stage-rings" aria-hidden="true">
+        <canvas></canvas>
+      </div>
+      <div class="gri-stage-body" data-stage-body>
+        <button
+          type="button"
+          class="gri-stage-face"
+          aria-label={`${name}, a cartoon face. Press it to show the next mood.`}
+          data-stage-face
+        >
+          <Face who={who} moods={MOODS} />
+        </button>
+      </div>
+      <p class="gri-stage-readout" aria-live="polite">
+        <span class="gri-stage-count">
+          <span data-stage-index>01</span> / {two(MOODS.length)}
+        </span>
+        <span class="gri-roll">
+          <b data-stage-name>{MOODS[0]}</b>
+        </span>
+        <span class="gri-stage-turn" data-stage-turn>
+          {turnOf(MOODS[0])}
+        </span>
+      </p>
+      <p class="gri-stage-hint" aria-hidden="true">
+        Press, pull or throw
+      </p>
+    </div>
+    <div class="gri-actions mt-4 flex flex-wrap gap-2">
+      <button type="button" class="button button-primary" data-stage-next>
+        Next mood
+        <Icon name="arrow-right" class="size-4" />
+      </button>
+      <button type="button" class="button" data-stage-play data-stop="Stop">
+        Play all moods
+      </button>
+    </div>
+
+    <dl class="gri-stats mt-10 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+      {STATS.map((stat) => (
+        <div class="flex flex-col-reverse">
+          <dt class="text-sm text-soft">{stat.label}</dt>
+          <dd class="text-4xl font-bold tracking-tight">
+            <CountUp text={stat.value} />
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </header>
+
+  <section class="border-t border-line py-10" aria-labelledby="moods" data-reveal>
+    <SectionHeading id="moods" title="Moods" icon="smile" />
+    <p class="text-pretty">
+      Each mood has a resting pose and one move. Point at a face to play its move. Press a face, and
+      the tab icon of this page takes that mood.
+    </p>
+    <ul class="gri-moods mt-6" data-mood-grid data-inview>
+      {MOODS.map((mood, index) => (
+        <li>
+          <button
+            type="button"
+            class="gri-mood"
+            style={`--i: ${index}`}
+            aria-pressed="false"
+            data-mood-tile={mood}
+          >
+            <span class="gri-mood-face">
+              <Face who={who} moods={[mood]} />
+            </span>
+            <span class="gri-mood-name">{mood}</span>
+            <span class="gri-mood-turn" aria-label={`Head turn ${turnOf(mood)}`}>
+              {turnOf(mood)}
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <p
+      class="mt-4 min-h-6 font-mono text-[0.8125rem] text-soft"
+      aria-live="polite"
+      data-mood-note
+    ></p>
+  </section>
+
+  <section class="border-t border-line py-10" aria-labelledby="layers" data-reveal>
+    <SectionHeading id="layers" title="Layers" icon="layers" />
+    <p class="text-pretty">
+      The drawing is {shownLayers.length} layers in a box of 200 by 200. They come apart while this
+      part of the page scrolls into view.
+    </p>
+    <!-- `--gri-apart` runs from 0 (one drawing) to 1 (apart) with the scroll position. -->
+    <div class="gri-layers mt-6" data-layers>
+      <div class="gri-layers-view" aria-hidden="true">
+        <div class="gri-layers-stack" style={`--mid: ${(shownLayers.length - 1) / 2}`}>
+          {shownLayers.map((layer, index) => (
+            <div
+              class="gri-layer"
+              data-layer={layer}
+              style={`--i: ${index}`}
+              set:html={layers[layer]}
+            />
+          ))}
+        </div>
+      </div>
+      <ol class="gri-layers-list">
+        {shownLayers.map((layer, index) => (
+          <li>
+            <button type="button" aria-pressed="false" data-layer-pick={layer}>
+              <span class="gri-layers-number">{two(index + 1)}</span>
+              <span>
+                <b>{layerCopy[layer]?.title ?? layer}</b>
+                <span class="gri-layers-text">{layerCopy[layer]?.text}</span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-10" aria-labelledby="mix" data-reveal>
+    <SectionHeading id="mix" title="Mix a face" icon="dices" />
+    <p class="text-pretty">
+      Take the eyes of one mood, the mouth of a second and the marks of a third. That makes{" "}
+      {mixes.toLocaleString("en")} different faces.
+    </p>
+    <div
+      class="gri-mixer card mt-6"
+      data-mixer
+      data-turns={JSON.stringify(Object.fromEntries(MOODS.map((mood) => [mood, pose[mood][0]])))}
+    >
+      <div class="gri-mixer-face" data-mixer-face>
+        <Face who={who} mix />
+      </div>
+      <div class="gri-mixer-panel">
+        <ul class="gri-reels">
+          {REELS.map((reel) => (
+            <li class="gri-reel" data-reel={reel.key} data-reel-moods={reel.moods.join(",")}>
+              <span class="label">{reel.title}</span>
+              <span class="gri-roll gri-reel-window">
+                <b data-reel-value>{reel.moods[0]}</b>
+              </span>
+              <button
+                type="button"
+                class="gri-step"
+                aria-label={`Previous ${reel.title.toLowerCase()}`}
+                data-reel-step="-1"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                class="gri-step"
+                aria-label={`Next ${reel.title.toLowerCase()}`}
+                data-reel-step="1"
+              >
+                →
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-4 flex flex-wrap items-center gap-2">
+          <button type="button" class="button button-primary" data-mix>
+            <Icon name="dices" class="size-4" />
+            Mix a face
+          </button>
+          <button type="button" class="button" data-mix-copy data-done="Copied">
+            <Icon name="copy" class="size-4 text-accent-ink" />
+            <span>Copy the link</span>
+          </button>
+        </div>
+        <p class="mt-4 font-mono text-[0.8125rem] text-soft">
+          Face{" "}
+          <b class="text-fg" data-mix-number>
+            0001
+          </b>{" "}
+          of {mixes.toLocaleString("en")}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-10" aria-labelledby="dots" data-reveal>
+    <SectionHeading id="dots" title={`${name} in dots`} icon="sparkles" />
+    <p class="text-pretty">
+      Dots are the pattern of this site. Here the drawing is dots too, and the pointer is a light.
+    </p>
+    <div class="gri-dots mt-6" data-dots>
+      <div
+        class="dither-mark gri-dots-plate"
+        role="img"
+        aria-label={`${name}, drawn in dots on a dark plate`}
+        data-dots-plate
+      >
+        <canvas></canvas>
+      </div>
+      <div class="gri-dots-controls">
+        <label>
+          <span class="label">Dot size</span>
+          <input type="range" min="2" max="9" step="1" value="3" data-dots-size />
+        </label>
+        <button type="button" class="button" data-dots-next>
+          Next mood
+          <Icon name="arrow-right" class="size-4 text-accent-ink" />
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <slot name="more" />
+
+  <section class="border-t border-line py-10" aria-labelledby="family" data-reveal>
+    <SectionHeading id="family" title="The family" icon="users" />
+    <p class="text-pretty">Three faces from one way of drawing. Each has a page of its own.</p>
+    <ul class="gri-places gri-family mt-6">
+      {WHO.map((member) => (
+        <li class="card card-spot gri-place">
+          <div class="gri-place-demo" data-look-area>
+            <span class="gri-place-face" data-look data-replay={FAMILY_COPY[member].mood}>
+              <Face who={member} moods={["smile", FAMILY_COPY[member].mood]} marks={false} />
+            </span>
+          </div>
+          <div class="gri-place-body">
+            <h3>{FAMILY[member].name}</h3>
+            <p>{FAMILY_COPY[member].text}</p>
+            {member === who ? (
+              <p class="text-soft">This page.</p>
+            ) : (
+              <a class="link" href={FAMILY[member].path}>
+                Go to {FAMILY[member].name}’s page
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="border-t border-line py-10" aria-labelledby="colors" data-reveal>
+    <SectionHeading id="colors" title="Colors" icon="palette" />
+    <p class="text-pretty">Press a color to copy its value.</p>
+    <ul class="gri-colors mt-6" data-inview>
+      {colors.map((color, index) => (
+        <li>
+          <button
+            type="button"
+            class="gri-color"
+            style={`--swatch: ${palette[color.key]}; --i: ${index}`}
+            data-color={palette[color.key]}
+          >
+            <span class="gri-color-dot" aria-hidden="true"></span>
+            <span class="gri-color-text">
+              <b>{color.title}</b>
+              <span>{color.text}</span>
+              <code data-color-value>{palette[color.key]}</code>
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="border-t border-line pt-10 pb-4" aria-labelledby="origin" data-reveal>
+    <SectionHeading id="origin" title={`Where ${name} comes from`} icon="pen" />
+    <div class="flex flex-col gap-3 text-pretty [&_a]:quiet-link">
+      <slot name="origin" />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import "../scripts/gri"
+</script>

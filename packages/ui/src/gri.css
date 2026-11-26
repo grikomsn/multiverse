@@ -1,10 +1,11 @@
 /*
- * Gri in motion (`gri.astro`). A mood has a resting pose and one short move. The move plays
+ * The mascots in motion (`face.astro`): Gri, Nia and Ash. Every drawing has the class `gri`,
+ * for the first face. A mood has a resting pose and one short move. The move plays
  * once, when the mood starts: the parts of a mood start hidden, and an animation starts when
  * its element shows. Nothing loops. See docs/redesign.md, "Mascot and icons".
  *
  * `--gri-turn` and `--gri-drop` are the pose. The rules inside each drawing set them for its moods
- * (`griSvg()` in `gri.ts`).
+ * (`faceSvg()` in `face.ts`).
  */
 .gri {
   display: block;
@@ -32,7 +33,7 @@
   transform: translateY(var(--gri-drop, 0px));
 }
 
-.gri :is(.eye, .mouth, .mark, .lens, .extra, .blush) {
+.gri :is(.eye, .brow, .mouth, .mark, .lens, .extra, .blush) {
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -54,6 +55,11 @@
   translate: calc(var(--gri-look-x, 0) * 6px) calc(var(--gri-look-y, 0) * 4px);
 }
 
+/* Brows follow the eyes, a little less far. */
+.gri .brow {
+  translate: calc(var(--gri-look-x, 0) * 4px) calc(var(--gri-look-y, 0) * 3px);
+}
+
 .gri .ground {
   transition: fill 400ms;
 }
@@ -69,6 +75,10 @@
 
   .gri[data-live] .eye {
     animation: gri-eye 240ms var(--ease-snap) both;
+  }
+
+  .gri[data-live] .brow {
+    animation: gri-brow 300ms 60ms var(--ease-snap) both;
   }
 
   .gri[data-live] .mouth {
@@ -120,6 +130,10 @@
 
   .gri[data-live][data-mood="wow"] .eye {
     animation: gri-grow 450ms var(--ease-snap) both;
+  }
+
+  .gri[data-live][data-mood="wow"] .brow {
+    animation: gri-brow-up 450ms 80ms var(--ease-snap) both;
   }
 
   .gri[data-live][data-mood="love"] .eye {
@@ -190,7 +204,7 @@
     animation: gri-fall 600ms 550ms cubic-bezier(0.4, 0, 0.6, 1) both;
   }
 
-  .gri[data-live][data-mood="grumpy"] .eye {
+  .gri[data-live][data-mood="grumpy"] :is(.eye, .brow) {
     animation: gri-slam 200ms 100ms cubic-bezier(0.5, 0, 1, 1) both;
   }
 
@@ -207,6 +221,23 @@
 @keyframes gri-eye {
   from {
     transform: scaleY(0.12);
+  }
+}
+
+@keyframes gri-brow {
+  from {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+}
+
+@keyframes gri-brow-up {
+  from {
+    transform: translateY(9px);
+  }
+
+  60% {
+    transform: translateY(-3px);
   }
 }
 

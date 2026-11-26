@@ -1,0 +1,61 @@
+---
+/**
+ * /ash: the page of Ash, the third face of the family. The page is
+ * `components/mascot-page.astro`.
+ */
+import { FALLBACK_GIVEN_NAME, REPOSITORY_URL } from "@multiverse/sanity/constants"
+
+import MascotPage from "../components/mascot-page.astro"
+import { SITE_SHELL_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+import { siteTitle } from "../lib/site"
+
+const { profile } = await sanity.fetch(SITE_SHELL_QUERY)
+const givenName = profile?.givenName ?? FALLBACK_GIVEN_NAME
+const name = siteTitle(profile)
+
+const LAYERS = {
+  ground: { title: "Ground", text: "The amber of this site’s links." },
+  head: { title: "Head", text: "A round head, and ears that stand out." },
+  blush: { title: "Blush", text: "Two full cheeks. They grow when Ash is shy." },
+  hair: { title: "Hair", text: "A thick crop that sweeps to one side." },
+  face: { title: "Face", text: "Shiny eyes, the brows and the mouth." },
+  marks: { title: "Marks", text: "Hearts, stars and drops around the head." },
+}
+
+const COLORS = [
+  { key: "ground", title: "Amber", text: "The ground" },
+  { key: "ink", title: "Ink", text: "Lines and hair" },
+  { key: "paper", title: "Paper", text: "The skin" },
+  { key: "blush", title: "Blush", text: "The cheeks" },
+  { key: "cream", title: "Cream", text: "The sunglasses" },
+  { key: "heart", title: "Red", text: "Hearts" },
+  { key: "water", title: "Blue", text: "Tears and drops" },
+  { key: "tongue", title: "Pink", text: "The tongue" },
+]
+---
+
+<MascotPage
+  who="ash"
+  title="Ash, next to Gri"
+  description={`Ash is a face next to Gri, the mascot of ${name}’s site: a cartoon with 16 moods. Play with it here.`}
+  label="Family"
+  layers={LAYERS}
+  colors={COLORS}
+>
+  <Fragment slot="lede">
+    Ash is a cartoon of {givenName}’s kid: hair that sweeps to one side, shiny eyes with brows and
+    ears that stand out.
+  </Fragment>
+
+  <Fragment slot="origin">
+    <p>
+      Ash is new vector work from 2026, in the line of Gri. It takes three things from photos: the
+      hair, the round eyes and the ears.
+    </p>
+    <p>
+      The drawing is <a href={`${REPOSITORY_URL}/blob/main/packages/ui/src/ash.ts`}>one file</a>.
+      Every face of Ash on this page comes from it.
+    </p>
+  </Fragment>
+</MascotPage>

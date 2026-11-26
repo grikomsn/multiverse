@@ -16,8 +16,13 @@
     "./brand-marks": "./src/brand-marks.ts",
     "./dither": "./src/dither.ts",
     "./dither-wave.astro": "./src/dither-wave.astro",
+    "./face": "./src/face.ts",
+    "./face.astro": "./src/face.astro",
+    "./family": "./src/family.ts",
     "./gri": "./src/gri.ts",
     "./gri.astro": "./src/gri.astro",
+    "./nia": "./src/nia.ts",
+    "./ash": "./src/ash.ts",
     "./gri-moods": "./src/gri-moods.ts",
     "./command-bar.astro": "./src/command-bar.astro",
     "./command-index": "./src/command-index.ts"

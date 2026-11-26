@@ -1,5 +1,6 @@
 /**
- * /gri: the mascot's page (`pages/gri.astro`, `styles/gri.css`). Browser code.
+ * The page of a mascot: `/gri`, `/nia` and `/ash` (`components/mascot-page.astro`,
+ * `styles/gri.css`). Browser code.
  *
  * Every part is optional: without this script the page shows the same faces and text. With
  * `prefers-reduced-motion`, a press still changes a mood, and nothing moves by itself.
@@ -686,7 +687,7 @@ function dots() {
   plate.addEventListener("click", () => void show(at + 1))
 }
 
-/** Where Gri lives: the small live copies of each place. */
+/** The family, and where Gri lives: the small live copies of each face and place. */
 function places() {
   for (const area of all("[data-look-area]")) {
     const face = faces(area)[0]
@@ -776,10 +777,28 @@ function colors() {
   }
 }
 
+/** Cloth for Nia: a press gives every hijab on the page that color. */
+function cloths() {
+  const buttons = all("[data-cloth]")
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      for (const other of buttons) other.setAttribute("aria-pressed", String(other === button))
+      // The attributes change, not a style: a copy of a drawing keeps them (`fileOf`).
+      for (const cloth of document.querySelectorAll(".cloth")) {
+        cloth.setAttribute("fill", button.dataset.cloth ?? "")
+      }
+      for (const hem of document.querySelectorAll(".hem")) {
+        hem.setAttribute("stroke", button.dataset.hem ?? "")
+      }
+    })
+  }
+}
+
 stage()
 moodTiles()
 layers()
 mixer()
 dots()
 places()
+cloths()
 colors()

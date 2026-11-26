@@ -23,6 +23,8 @@ const LAST: CommandItem[] = [
   { kind: "page", title: "Media", path: "/media", keywords: "photos avatars pictures" },
   { kind: "page", title: "For AI tools", path: "/ai", keywords: "mcp llms markdown" },
   { kind: "page", title: "Gri, the mascot", path: "/gri", keywords: "moods face avatar icon" },
+  { kind: "page", title: "Nia, next to Gri", path: "/nia", keywords: "moods face family mascot" },
+  { kind: "page", title: "Ash, next to Gri", path: "/ash", keywords: "moods face family mascot" },
 ]
 /** The key pages come first, in their order: the header links the first of them. */
 const ORDER: string[] = KEY_PAGES.map((page) => `/${page.slug}`)

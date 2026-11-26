@@ -1,0 +1,56 @@
+---
+/**
+ * A mascot, drawn in the page so it can change its mood: Gri, Nia or Ash (`family.ts`). The
+ * drawing fills its parent: put it in a box with a size, and round the box for a circle.
+ *
+ * A script changes the mood with `showMood()` from `@multiverse/ui/gri-moods`. Every drawing
+ * that holds "cool" and "cheeky" also answers a theme change: sunglasses for the dark theme,
+ * a squint for the light one.
+ */
+import "./gri.css"
+
+import { faceSvg, MOODS, type Mood } from "./face"
+import { FAMILY, type Who } from "./family"
+
+interface Props {
+  /** The face to draw. Gri when left out. */
+  who?: Who
+  /** The moods this drawing can show. The first one shows at the start. Fewer moods, less HTML. */
+  moods?: readonly Mood[]
+  /** The marks around the head, such as hearts. Leave them out below about 3rem. */
+  marks?: boolean
+  /**
+   * A face that the page mixes from three moods: `data-eyes`, `data-mouth` and `data-extra` on
+   * the drawing name them (`faceMix` in `face.ts`). It holds every mood.
+   */
+  mix?: boolean
+}
+
+const { who = "gri", moods = ["smile"], marks = true, mix = false } = Astro.props
+---
+
+<Fragment
+  set:html={faceSvg(FAMILY[who].face, {
+    moods: mix ? MOODS : moods,
+    marks,
+    mix,
+    rules: true,
+    attrs: `aria-hidden="true"`,
+  })}
+/>
+
+<script>
+  import { onThemeChange } from "./dither"
+  import { faces, showMood } from "./gri-moods"
+
+  const root = document.documentElement
+  const isDark = () =>
+    (root.dataset.theme ??
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark"
+  let dark = isDark()
+  onThemeChange(() => {
+    if (dark === isDark()) return
+    dark = !dark
+    for (const face of faces()) showMood(face, dark ? "cool" : "cheeky", dark ? 2000 : 1200)
+  })
+</script>

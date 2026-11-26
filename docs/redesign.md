@@ -200,7 +200,7 @@ Decided on 2026-11-22, after a look at Framer portfolio sites and [Paper Shaders
 | Settle on scroll    | Sections marked `data-reveal`        | A view timeline. This replaced the script that revealed sections                                                                                                                                                                                                                                                                                    |
 | Header brand        | Home                                 | Slides up from a clip line as the hero avatar leaves. A script in `site-header.astro` states the two ends (hidden, shown), so the brand never shows over the avatar where the scroll timeline does not run, as in Safari 26                                                                                                                         |
 | Theme change        | The toggle                           | The new theme opens as a circle from the button (view transition). The mascot puts on sunglasses for the dark theme, and squints at the light one                                                                                                                                                                                                   |
-| Mascot moods        | Home, every header, `/404`           | `gri.astro` and `gri.css`: a mood has a resting pose and one short move, which plays once when the mood starts. See "Mascot and icons"                                                                                                                                                                                                              |
+| Mascot moods        | Home, every header, `/404`           | `face.astro` and `gri.css`: a mood has a resting pose and one short move, which plays once when the mood starts. See "Mascot and icons"                                                                                                                                                                                                             |
 | The mascot's page   | `/gri`                               | A face to pull, the moods, the layers, a face mixer, the drawing in dots, and small copies of the places below. See "The mascot's page"                                                                                                                                                                                                             |
 | Marked words        | Home                                 | CSS in `global.css`, with `:hover` and no script. Small pictures made of dots (`dot-icon.astro`) pop up over a marked word: tools for "useful", hearts for "friendly". "fast" leans forward with dotted lines behind it. `REACTIONS` in the home page names the effect and the mood of each word                                                    |
 | City time           | Home                                 | The city in the intro is a button. Under the pointer or the focus, a label shows the time there, with a sun from 06:00 to 18:00 and a moon at night. The time zone is the profile's `timeZone`; without it the city is plain text                                                                                                                   |
@@ -227,7 +227,7 @@ A canvas must read pixels, and a browser cannot read them from `cdn.sanity.io` (
 
 Decided on 2026-11-22. The mascot is Gri: a cartoon face of Griko with a tuft of black hair, thick glasses, smiling eyes and a blush, on the accent amber (`#eab308`). It is new vector work, drawn from what the owner's avatars share (glasses, a side-swept quiff, an amber ground), not traced from them. For a few hours on the same day the mascot was the Tinypfp drawing on amber; that drawing stays in the gallery as `portrait-tinypfp`.
 
-- `packages/ui/src/gri.ts` is the one drawing. It holds every mood as separate parts. Its frame leaves space around the head: the head reaches 72% of the way from the centre to the edge of a circle cut from the square. So a round frame, a rounded square and a maskable icon all show the whole head. The first frame (93%) was too tight in a circle. `./scripts/make-icons.sh` writes `packages/ui/src/mascot.svg` (the smile, as a file) and the favicons for `web`, `archive` and Studio from it: a circle for browser tabs, the full square for home screens.
+- `packages/ui/src/gri.ts` is the one drawing. It holds every mood as separate parts, and `face.ts` puts them in one <svg> (see "The family"). Its frame leaves space around the head: the head reaches 72% of the way from the centre to the edge of a circle cut from the square. So a round frame, a rounded square and a maskable icon all show the whole head. The first frame (93%) was too tight in a circle. `./scripts/make-icons.sh` writes `packages/ui/src/mascot.svg` (the smile, as a file) and the favicons for `web`, `archive` and Studio from it: a circle for browser tabs, the full square for home screens.
 - `theme-head.astro` names the icons, so every page with the shared design has them. An archived version that names no icon of its own gets the same favicon, because it is the default file at the root.
 - nbr.st has no icon files. Its Worker sends `/favicon.ico` and `/favicon.svg` to nibras.co.
 - In Sanity the drawing is `portrait-gri`, and the profile's `icon` points at it: the home page, site headers and footers show it. An archived version without its own mascot shows it too.
@@ -256,16 +256,17 @@ Decided on 2026-11-22, from a board of 13 places. The owner chose six. On 2026-1
 
 #### The mascot's page
 
-Built on 2026-11-25, when the owner asked for a page that shows the mascot with as much motion as possible. The page is `/gri` (`apps/web/src/pages/gri.astro`, `styles/gri.css`, `scripts/gri.ts`); `/mascot` goes to it. The command bar lists it. Every face on it comes from `gri.ts`.
+Built on 2026-11-25, when the owner asked for a page that shows the mascot with as much motion as possible. The page is `/gri` (`apps/web/src/components/mascot-page.astro`, `styles/gri.css`, `scripts/gri.ts`); `/mascot` goes to it. The command bar lists it. Every face on it comes from `gri.ts`. Since 2026-11-26 the same component is also `/nia` and `/ash` (see "The family"); `pages/gri.astro` holds the text and the one part that only Gri has, "Where Gri lives".
 
 | Part            | What it does                                                                                                                                                                                                                                                            |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Stage           | A large face that looks at the pointer. A press shows the next mood. A pull moves the face, and a spring takes it back: laugh after a short pull, dizzy after a long or fast one. Dotted rings spread from the face (a canvas), with one ripple for each change of mood |
 | Moods           | One tile for each mood, with its name and the turn of its head. The faces pop in when the list enters the view, and each plays its move. A press puts that mood in the tab icon of the page                                                                             |
-| Layers          | `griLayers()` gives the drawing as seven layers. A view timeline moves them apart in 3D while the part scrolls into view. A row of the list makes the other layers faint                                                                                                |
+| Layers          | `faceLayers()` gives the drawing as seven layers. A view timeline moves them apart in 3D while the part scrolls into view. A row of the list makes the other layers faint                                                                                               |
 | Mix a face      | `MIX` in `gri.ts` lists the moods whose eyes, mouths and marks differ: 15, 11 and 11, so 1,815 faces. Three reels spin and stop one after another. The address holds the face (`/gri#wink.laugh.love`)                                                                  |
 | Gri in dots     | The drawing as dots on a dark plate: dots in the colors of the drawing for the head, amber dots for the ground, and the plate where the drawing is ink. The pointer is a light. A new mood develops from coarse dots to fine ones                                       |
 | Where Gri lives | Small live copies: the home face, the theme change, two browser tabs, the 404 number, the console and the terminal, which types `npx grikomsn`                                                                                                                          |
+| The family      | Three cards, one for each face, with a link to its page. A face looks at the pointer and plays one mood under it                                                                                                                                                        |
 | Colors          | `PALETTE` in `gri.ts`. A press copies a value                                                                                                                                                                                                                           |
 
 The page keeps the motion rules, with two exceptions that hold for this page only:
@@ -275,7 +276,26 @@ The page keeps the motion rules, with two exceptions that hold for this page onl
 
 `prefers-reduced-motion` stops all of it: a press still changes a mood, the layers stay apart, and the reels do not spin. Without scroll timelines the layers stay apart too. Without JavaScript the page shows the same faces and text. Nothing on a canvas is drawn before it comes near the view. Mobile Lighthouse on the built page: 97 to 100 for performance, and 100 for the other three (three runs, 2026-11-25).
 
-A mixed face (`mix` on `gri.astro`) has no mood: `showMood()` leaves it alone, so a theme change does not put a second pair of eyes on it.
+A mixed face (`mix` on `face.astro`) has no mood: `showMood()` leaves it alone, so a theme change does not put a second pair of eyes on it.
+
+#### The family
+
+Decided on 2026-11-26, from five boards of sketches. Gri has two more faces next to him: Nia and Ash. They are new vector work in Gri's line, drawn from photos and not traced. Only Gri is the mascot: the icons, the header, the 404 page and the CLI show Gri.
+
+| Face | Drawing                  | What the owner chose                                                                                                                                        |
+| ---- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nia  | `packages/ui/src/nia.ts` | A close hijab with a soft peak, in ink, with no scarf tail. Smiling eyes with lashes. A thin grey hem round the face, because ink cloth alone reads as hair |
+| Ash  | `packages/ui/src/ash.ts` | Hair that sweeps to one side, shiny dot eyes 50 apart with brows, and a plain smile. Eyes that show the white all round were rejected                       |
+
+- `packages/ui/src/face.ts` is the drawing that the three share. A face gives its fixed layers (head, hair or cloth, glasses), its pose for each mood and the parts of each mood. `kit()` holds the eyes, mouths and marks that the faces have in common. `faceSvg()` puts a face in one <svg>.
+- Every drawing has the class `gri`, so `gri.css`, `showMood()` and the page script work for all three. A face other than Gri has its name in `data-who`. The rules for its poses name it, so they are stronger than Gri's on a page with both.
+- Gri's output did not change: `mascot.svg`, every mood file and every layer were the same bytes before and after the move to `face.ts`.
+- The moods are the same 16. Nia leans the other way from Gri, so the two lean toward each other. Ash leans as Gri does.
+- Brows are a part of their own (`.brow`), and only Ash has them. They rise for wow and come down for grumpy. Nia's lashes are part of each eye, so they blink and wink with it.
+- For the cool mood, Nia wears cat-eye sunglasses and Ash wears round cream ones. Both are the `lenses` of the face, so they drop onto it as Gri's dark lenses do.
+- `/nia` has one part of its own: "Cloth". A press gives every hijab on the page one of six colors (`NIA_CLOTHS`). The script changes the `fill` of `.cloth` and the `stroke` of `.hem`, so the tab icon and the dots take the color too. The drawing in the repository stays ink.
+- `/ash` has no part of its own.
+- The sketches, the boards and the generator that led here are local working files in `tmp/branding` (`family/`, `src/family.ts`).
 
 ### Home page order
 

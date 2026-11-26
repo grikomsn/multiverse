@@ -1,5 +1,6 @@
 /*
- * /gri: the mascot's page. Imported by that page only. The script is `scripts/gri.ts`.
+ * The page of a mascot: `/gri`, `/nia` and `/ash` (`components/mascot-page.astro`). Imported
+ * by that page only. The script is `scripts/gri.ts`.
  *
  * The page keeps the motion rules of docs/redesign.md: transform only for text, nothing that
  * needs a script to show content, and no motion under `prefers-reduced-motion`. See "The
@@ -306,7 +307,7 @@
   position: absolute;
   inset: 0;
   /* The middle layer stays in place, and the others move away from it on both sides. */
-  transform: translateZ(calc(var(--gri-apart) * (var(--i) - 3) * var(--gap)));
+  transform: translateZ(calc(var(--gri-apart) * (var(--i) - var(--mid, 3)) * var(--gap)));
   transition:
     opacity 200ms var(--ease-out-quart),
     translate 250ms var(--ease-snap);
@@ -493,6 +494,13 @@
 
   @media (min-width: 40rem) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* The family: three faces in one row. */
+.gri-family {
+  @media (min-width: 40rem) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -735,6 +743,11 @@
 
   &:hover {
     border-color: color-mix(in oklab, var(--color-fg) 30%, var(--color-line));
+  }
+
+  /* The cloth that Nia wears now (`/nia`). */
+  &[aria-pressed="true"] {
+    border-color: var(--color-accent);
   }
 }
 

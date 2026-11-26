@@ -1,0 +1,104 @@
+---
+/**
+ * /nia: the page of Nia, the second face of the family. The page is
+ * `components/mascot-page.astro`. Only Nia has cloth to change, so that part is here.
+ */
+import { NIA_CLOTHS } from "@multiverse/ui/nia"
+import SectionHeading from "@multiverse/ui/section-heading.astro"
+import { FALLBACK_GIVEN_NAME, REPOSITORY_URL } from "@multiverse/sanity/constants"
+
+import MascotPage from "../components/mascot-page.astro"
+import { SITE_SHELL_QUERY } from "../lib/queries"
+import { sanity } from "../lib/sanity"
+import { siteTitle } from "../lib/site"
+
+const { profile } = await sanity.fetch(SITE_SHELL_QUERY)
+const givenName = profile?.givenName ?? FALLBACK_GIVEN_NAME
+const name = siteTitle(profile)
+
+const LAYERS = {
+  ground: { title: "Ground", text: "The amber of this site’s links." },
+  head: { title: "Head", text: "The skin, in paper white. The cloth covers its edge." },
+  blush: { title: "Blush", text: "Two pink marks. They grow when Nia is shy." },
+  hijab: { title: "Hijab", text: "A close dome, with a soft peak above the forehead." },
+  hem: {
+    title: "Hem",
+    text: "A thin line round the face. It keeps ink cloth from looking like hair.",
+  },
+  face: { title: "Face", text: "The eyes with their lashes, and the mouth." },
+  marks: { title: "Marks", text: "Hearts, stars and drops around the head." },
+}
+
+const COLORS = [
+  { key: "ground", title: "Amber", text: "The ground" },
+  { key: "ink", title: "Ink", text: "Lines and cloth" },
+  { key: "paper", title: "Paper", text: "The skin" },
+  { key: "blush", title: "Blush", text: "The cheeks" },
+  { key: "hem", title: "Grey", text: "The hem" },
+  { key: "heart", title: "Red", text: "Hearts" },
+  { key: "water", title: "Blue", text: "Tears and drops" },
+  { key: "tongue", title: "Pink", text: "The tongue" },
+]
+
+const CLOTH_NAMES: Record<keyof typeof NIA_CLOTHS, string> = {
+  ink: "Ink",
+  navy: "Navy",
+  cocoa: "Cocoa",
+  mauve: "Mauve",
+  cream: "Cream",
+  paper: "Paper",
+}
+const cloths = Object.entries(NIA_CLOTHS) as [keyof typeof NIA_CLOTHS, readonly [string, string]][]
+---
+
+<MascotPage
+  who="nia"
+  title="Nia, next to Gri"
+  description={`Nia is a face next to Gri, the mascot of ${name}’s site: a cartoon with 16 moods. Play with it here.`}
+  label="Family"
+  layers={LAYERS}
+  colors={COLORS}
+>
+  <Fragment slot="lede">
+    Nia is a cartoon of {givenName}’s wife: a hijab with a soft peak, smiling eyes with lashes and a
+    blush.
+  </Fragment>
+
+  <section slot="more" class="border-t border-line py-10" aria-labelledby="cloth" data-reveal>
+    <SectionHeading id="cloth" title="Cloth" icon="swatch" />
+    <p class="text-pretty">
+      The drawing is in ink. Press a color, and every hijab on this page takes it.
+    </p>
+    <ul class="gri-colors mt-6" data-cloths data-inview>
+      {cloths.map(([key, [cloth, hem]], index) => (
+        <li>
+          <button
+            type="button"
+            class="gri-color"
+            style={`--swatch: ${cloth}; --i: ${index}`}
+            aria-pressed={index === 0 ? "true" : "false"}
+            data-cloth={cloth}
+            data-hem={hem}
+          >
+            <span class="gri-color-dot" aria-hidden="true"></span>
+            <span class="gri-color-text">
+              <b>{CLOTH_NAMES[key]}</b>
+              <code>{cloth}</code>
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <Fragment slot="origin">
+    <p>
+      Nia is new vector work from 2026, in the line of Gri. It takes three things from photos: the
+      hijab, the lashes and the calm smile.
+    </p>
+    <p>
+      The drawing is <a href={`${REPOSITORY_URL}/blob/main/packages/ui/src/nia.ts`}>one file</a>.
+      Every face of Nia on this page comes from it.
+    </p>
+  </Fragment>
+</MascotPage>
