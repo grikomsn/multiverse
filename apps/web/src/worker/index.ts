@@ -1,9 +1,11 @@
+import { withRange } from "@multiverse/content/range"
+
 import { mcpHandler } from "./mcp"
 import { handleResumePdf } from "./pdf"
 
 /*
  * Static assets are served without the Worker, except the paths in `run_worker_first`
- * (wrangler.jsonc): `/`, `/resume`, `/mcp` and `/resume.pdf`.
+ * (wrangler.jsonc): `/`, `/resume`, `/mcp`, `/resume.pdf` and the pictures of the social cards.
  */
 export default {
   async fetch(request, env, ctx) {
@@ -12,6 +14,11 @@ export default {
 
     if (path === "/mcp" || path.startsWith("/mcp/")) return mcpHandler(request, env, ctx)
     if (path === "/resume.pdf") return handleResumePdf(request, env)
+    // Signal reads a link's picture in parts. The assets answer with the whole file, so the
+    // Worker cuts the part (`withRange`).
+    if (path.startsWith("/og/") || path === "/resume.png") {
+      return withRange(request, await env.ASSETS.fetch(request))
+    }
 
     // Clients that ask for Markdown get it, and so does curl. Link-preview bots send no
     // `text/html` either, so they are matched by name, not by what they leave out.

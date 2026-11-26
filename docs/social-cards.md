@@ -6,16 +6,16 @@ Decided on 2026-11-26, after research on what the apps that show cards do.
 
 ## What each app shows
 
-| App                           | Text                                                | Picture                                                        |
-| ----------------------------- | --------------------------------------------------- | -------------------------------------------------------------- |
-| nibras.co                     | The page's title and description                    | A card drawn in the build for each page: `/og/<page>.png`      |
-| nibras.co, with a cover       | The same                                            | The same card with the cover behind the text: `/og/<page>.jpg` |
-| nibras.co, resume and gallery | The same                                            | A picture of their own                                         |
-| archive.nibras.co, index      | "Older versions"                                    | A card drawn in the build: `/og.png`                           |
-| archive.nibras.co, versions   | The version's name and years                        | The version's screenshot from its `edition` document           |
-| grikomsn.github.io/grikomsn   | `npx grikomsn`                                      | A dark card with the mascot in pixels: `og.png`                |
-| nbr.st                        | None: it only redirects, so the target's card shows | None                                                           |
-| Studio                        | None: it is a tool behind a login                   | None                                                           |
+| App                         | Text                                                | Picture                                                        |
+| --------------------------- | --------------------------------------------------- | -------------------------------------------------------------- |
+| nibras.co                   | The page's title and description                    | A card drawn in the build for each page: `/og/<page>.png`      |
+| nibras.co, with a cover     | The same                                            | The same card with the cover behind the text: `/og/<page>.jpg` |
+| nibras.co, the resume       | The same                                            | A picture of its own: `/resume.png`                            |
+| archive.nibras.co, index    | "Older versions"                                    | A card drawn in the build: `/og.png`                           |
+| archive.nibras.co, versions | The version's name and years                        | The version's screenshot from its `edition` document           |
+| grikomsn.github.io/grikomsn | `npx grikomsn`                                      | A dark card with the mascot in pixels: `og.png`                |
+| nbr.st                      | None: it only redirects, so the target's card shows | None                                                           |
+| Studio                      | None: it is a tool behind a login                   | None                                                           |
 
 ## The design
 
@@ -37,20 +37,21 @@ A card for a new page of nibras.co needs no work: a document gets one, and so do
 
 ## The rules, and where they come from
 
-| Rule                                                     | Why                                                                                               |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| 1200 × 630, PNG or JPEG                                  | LinkedIn asks for 1200 × 627 at least. Meta lists only JPEG, PNG and GIF                          |
-| Less than 600 KB                                         | WhatsApp shows no picture above that. A card here is 10 to 25 KB                                  |
-| A cover card's label is in the top left corner           | X puts the link's domain over the bottom left corner. The bottom of the card shows only the cover |
-| A title of 56 pixels or more, in three lines at most     | Slack shows a card about 360 pixels wide. Smaller text is decoration there                        |
-| Nothing to read near the edges or at the bottom left     | Some apps cut the card to a square from its center. X puts the domain over the bottom left        |
-| No description and no address in the picture             | The app prints the title, the description and the domain under the picture                        |
-| `og:image:width`, `og:image:height` and `og:image:alt`   | With the size, an app shows the card on the first share. X reads the alt text                     |
-| `twitter:card` is `summary_large_image`                  | X, Discord and Telegram show the large picture only with it. It has no Open Graph name            |
-| `og:title` has no site name                              | Meta asks for that. The name is in `og:site_name`, which Slack and Discord show                   |
-| A key at the end of the picture's address (`?v=…`)       | X keeps a picture for 7 days and Mastodon for about 14. A changed card has a new address          |
-| A post has `article:published_time`; a page has `author` | LinkedIn's inspector asks for the author and the date                                             |
-| `twitter:creator` and `fediverse:creator`                | They credit the author's account. They come from the profile's X and Mastodon links               |
+| Rule                                                     | Why                                                                                                   |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 1200 × 630, PNG or JPEG                                  | LinkedIn asks for 1200 × 627 at least. Meta lists only JPEG, PNG and GIF                              |
+| Less than 600 KB                                         | WhatsApp shows no picture above that. A card here is 10 to 25 KB                                      |
+| A cover card's label is in the top left corner           | X puts the link's domain over the bottom left corner. The bottom of the card shows only the cover     |
+| A title of 56 pixels or more, in three lines at most     | Slack shows a card about 360 pixels wide. Smaller text is decoration there                            |
+| Nothing to read near the edges or at the bottom left     | Some apps cut the card to a square from its center. X puts the domain over the bottom left            |
+| No description and no address in the picture             | The app prints the title, the description and the domain under the picture                            |
+| `og:image:width`, `og:image:height` and `og:image:alt`   | With the size, an app shows the card on the first share. X reads the alt text                         |
+| `twitter:card` is `summary_large_image`                  | X, Discord and Telegram show the large picture only with it. It has no Open Graph name                |
+| `og:title` has no site name                              | Meta asks for that. The name is in `og:site_name`, which Slack and Discord show                       |
+| A key at the end of the picture's address (`?v=…`)       | X keeps a picture for 7 days and Mastodon for about 14. A changed card has a new address              |
+| A request for a part of a picture gets that part (206)   | Signal reads a picture in parts. Cloudflare's assets send the whole file, so the Workers cut the part |
+| A post has `article:published_time`; a page has `author` | LinkedIn's inspector asks for the author and the date                                                 |
+| `twitter:creator` and `fediverse:creator`                | They credit the author's account. They come from the profile's X and Mastodon links                   |
 
 For Mastodon to show the author, add `nibras.co` in Mastodon: Preferences, Public profile, Verification, "Websites allowed to credit you".
 

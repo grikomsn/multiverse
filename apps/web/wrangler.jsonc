@@ -10,8 +10,18 @@
     "binding": "ASSETS",
     "directory": "./dist",
     "not_found_handling": "404-page",
-    // Every other path is a static file and never runs the Worker.
-    "run_worker_first": ["/", "/resume", "/resume/", "/mcp", "/mcp/*", "/resume.pdf"],
+    // Every other path is a static file and never runs the Worker. The pictures of the
+    // social cards run it for requests of a part of a file (`src/worker/index.ts`).
+    "run_worker_first": [
+      "/",
+      "/resume",
+      "/resume/",
+      "/mcp",
+      "/mcp/*",
+      "/resume.pdf",
+      "/og/*",
+      "/resume.png",
+    ],
   },
   "browser": { "binding": "BROWSER", "remote": true },
   "r2_buckets": [{ "binding": "BLOB", "bucket_name": "blob1", "remote": true }],

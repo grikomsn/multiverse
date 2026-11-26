@@ -1,12 +1,16 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
-  // archive.nibras.co: every past version under /<edition>/, one static-assets Worker.
+  // archive.nibras.co: every past version under /<edition>/, as static files.
   "name": "multiverse-archive",
   "account_id": "e02a25d4d8f0bacceba5cb29bcaa74de",
+  "main": "src/worker.ts",
   "compatibility_date": "2026-10-28",
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist",
     "not_found_handling": "404-page",
+    // The Worker runs only for the index's social card (`src/worker.ts`).
+    "run_worker_first": ["/og.png"],
   },
   "workers_dev": true,
   "preview_urls": true,

@@ -15,8 +15,8 @@ import { homeTagline, siteTitle } from "./site"
  * in the page's head. The design is `@multiverse/ui/og`; the rules are in
  * `docs/social-cards.md`.
  *
- * A post or a page with a cover shows it on its card, behind the text. The resume and the
- * gallery keep a picture of their own.
+ * A post or a page with a cover shows it on its card, behind the text. The resume keeps a
+ * picture of its own.
  */
 
 /** The face on the card of a page that is not a document, and its mood. */
