@@ -2,6 +2,7 @@
 import type { ROUTES_QUERY_RESULT } from "@multiverse/sanity/types"
 import type { GetStaticPaths } from "astro"
 
+import FamilyBand from "../components/family-band.astro"
 import RichText from "../components/rich-text.astro"
 import BaseLayout from "../layouts/base.astro"
 import { isoDate, readingMinutes } from "@multiverse/content/format"
@@ -36,6 +37,12 @@ type Props = { entry: Entry; newer: Neighbor; older: Neighbor }
 const { entry, newer, older } = Astro.props
 const isPost = entry._type === "post"
 const date = isPost ? entry.publishedAt : entry.updatedAt
+
+// The About page shows the family of mascots where its photo is. The photo stays in Sanity:
+// it is the social card of the page, and the older versions show it.
+const isAbout = entry._type === "page" && entry.slug === "about"
+const body =
+  isAbout && entry.body?.[0]?._type === "figure" ? entry.body.slice(1) : (entry.body ?? [])
 ---
 
 <BaseLayout
@@ -71,7 +78,8 @@ const date = isPost ? entry.publishedAt : entry.updatedAt
       )}
     </header>
     <div class="prose">
-      <RichText value={entry.body} />
+      {isAbout && <FamilyBand />}
+      <RichText value={body} />
     </div>
   </article>
   {isPost && (newer || older) && (

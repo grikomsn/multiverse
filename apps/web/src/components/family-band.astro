@@ -1,0 +1,128 @@
+---
+/**
+ * The family of mascots in one picture: Gri, Nia and Ash on the amber ground. The About page
+ * shows it where its family photo is (`pages/[...slug].astro`). The three stand as in that
+ * photo: Gri on the left, Nia on the right and Ash in front.
+ *
+ * The picture is calm. A face takes its mood under the pointer with a soft change, and all
+ * three lean toward the pointer slowly. Nothing moves by itself.
+ */
+import { GROUND, type Mood } from "@multiverse/ui/face"
+import Face from "@multiverse/ui/face.astro"
+import { FAMILY, type Who } from "@multiverse/ui/family"
+
+/** From the back to the front, with the mood that each face shows under the pointer. */
+const PLACES: { who: Who; mood: Mood }[] = [
+  { who: "gri", mood: "wink" },
+  { who: "nia", mood: "love" },
+  { who: "ash", mood: "laugh" },
+]
+---
+
+<figure>
+  <div class="family-band" style={`--ground: ${GROUND}`} data-family-band>
+    {PLACES.map(({ who, mood }, index) => (
+      <a
+        class={`family-band-face is-${who}`}
+        href={FAMILY[who].path}
+        aria-label={`${FAMILY[who].name}’s page`}
+        style={`--i: ${index}`}
+        data-mood={mood}
+      >
+        <Face who={who} moods={["smile", mood]} ground={false} />
+      </a>
+    ))}
+  </div>
+  <figcaption>Gri, Ash and Nia. Press a face to open its page.</figcaption>
+</figure>
+
+<style>
+  .family-band {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background-color: var(--ground);
+  }
+
+  /* A face is a square box. Its head fills about two thirds of the box. */
+  .family-band-face {
+    position: absolute;
+    width: 46%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    /* The prose underlines links; a face is not text. */
+    text-decoration: none;
+    transition: scale 500ms var(--ease-snap);
+
+    &.is-gri {
+      top: 2%;
+      left: 8%;
+    }
+
+    &.is-nia {
+      top: 4%;
+      left: 46%;
+    }
+
+    &.is-ash {
+      top: 30%;
+      left: 30%;
+      width: 40%;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-ink, #18181b);
+      outline-offset: -0.5rem;
+    }
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .family-band-face:hover {
+      scale: 1.04;
+    }
+  }
+
+  /* The faces come up one after another when the page opens. */
+  @media (prefers-reduced-motion: no-preference) {
+    .family-band-face {
+      animation: family-band-rise 900ms var(--ease-snap) calc(150ms + var(--i) * 110ms) both;
+    }
+  }
+
+  @keyframes family-band-rise {
+    from {
+      translate: 0 2rem;
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  import { faces, look, showMood } from "@multiverse/ui/gri-moods"
+
+  for (const band of document.querySelectorAll<HTMLElement>("[data-family-band]")) {
+    for (const link of band.querySelectorAll<HTMLElement>("[data-mood]")) {
+      const face = faces(link)[0]
+      const mood = link.dataset.mood
+      if (!face || !mood) continue
+      look(face, band, 320, { ease: 0.09 })
+
+      // A pointer that only passes over a face changes nothing: the mood waits for a moment,
+      // and stays for a moment after the pointer left.
+      let timer = 0
+      const set = (next: string, wait: number) => {
+        clearTimeout(timer)
+        timer = window.setTimeout(() => {
+          if (face.dataset.mood !== next) showMood(face, next, undefined, true)
+        }, wait)
+      }
+      link.addEventListener("pointerenter", (event) => {
+        if (event.pointerType === "mouse") set(mood, 110)
+      })
+      link.addEventListener("pointerleave", () => set("smile", 420))
+      link.addEventListener("focus", () => set(mood, 0))
+      link.addEventListener("blur", () => set("smile", 0))
+    }
+  }
+</script>

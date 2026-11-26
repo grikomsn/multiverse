@@ -19,6 +19,8 @@ interface Props {
   moods?: readonly Mood[]
   /** The marks around the head, such as hearts. Leave them out below about 3rem. */
   marks?: boolean
+  /** The amber square behind the head. Leave it out for a face on a ground of its own. */
+  ground?: boolean
   /**
    * A face that the page mixes from three moods: `data-eyes`, `data-mouth` and `data-extra` on
    * the drawing name them (`faceMix` in `face.ts`). It holds every mood.
@@ -26,7 +28,7 @@ interface Props {
   mix?: boolean
 }
 
-const { who = "gri", moods = ["smile"], marks = true, mix = false } = Astro.props
+const { who = "gri", moods = ["smile"], marks = true, ground = true, mix = false } = Astro.props
 ---
 
 <Fragment
@@ -34,6 +36,7 @@ const { who = "gri", moods = ["smile"], marks = true, mix = false } = Astro.prop
     moods: mix ? MOODS : moods,
     marks,
     mix,
+    ...(ground ? {} : { ground: null }),
     rules: true,
     attrs: `aria-hidden="true"`,
   })}

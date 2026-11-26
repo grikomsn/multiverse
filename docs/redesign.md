@@ -295,6 +295,8 @@ Decided on 2026-11-26, from five boards of sketches. Gri has two more faces next
 - For the cool mood, Nia wears cat-eye sunglasses and Ash wears round cream ones. Both are the `lenses` of the face, so they drop onto it as Gri's dark lenses do.
 - `/nia` has one part of its own: "Cloth". A press gives every hijab on the page one of six colors (`NIA_CLOTHS`). The script changes the `fill` of `.cloth` and the `stroke` of `.hem`, so the tab icon and the dots take the color too. The drawing in the repository stays ink.
 - `/ash` has no part of its own.
+- The About page shows the three in one picture, where its family photo is (`apps/web/src/components/family-band.astro`). They stand as in the photo: Gri on the left, Nia on the right and Ash in front. Each face is a link to its page. The photo stays in Sanity: it is the social card of the page, and the older versions show it. `pages/[...slug].astro` leaves out a figure at the start of the body of that page.
+- The picture is calm, because the owner asked for smoother motion than the first sketch had. A face takes its mood only after the pointer stayed on it for a moment, and keeps it for a moment after. The change is soft: `showMood()` with `soft` sets `data-soft`, and `gri.css` then fades the parts in and plays no move. The three lean toward the pointer at half the speed of the home face (`look()` in `gri-moods.ts`, which the home page and the mascot pages use too).
 - The sketches, the boards and the generator that led here are local working files in `tmp/branding` (`family/`, `src/family.ts`).
 
 ### Home page order
