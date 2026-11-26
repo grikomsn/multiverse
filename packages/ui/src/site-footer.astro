@@ -1,6 +1,7 @@
 ---
 import { FALLBACK_NAME } from "@multiverse/sanity/constants"
 
+import ActionCard, { type Action } from "./action-card.astro"
 import BrandIcon from "./brand-icon.astro"
 import DitherBand from "./dither-band.astro"
 import Icon from "./icon.astro"
@@ -11,9 +12,17 @@ interface Props {
   wide?: boolean
   origin?: string
   name?: string | null
-  /** Leave empty on pages that already show the email, such as the home page. */
+  /**
+   * With an email, the footer starts with one sentence on how to get in touch. Leave it empty
+   * on pages that already show the email, such as the home page.
+   */
   email?: string | null
   scheduleUrl?: string | null
+  /**
+   * Show a card in place of that sentence, with one row each for the resume, a call and the
+   * email. For the pages where a reader may want to get in touch, such as About.
+   */
+  card?: boolean
   profiles?: { label: string; url: string; platform?: string | null }[]
   /** How many older versions archive.nibras.co has. Zero hides the link. */
   versions?: number
@@ -26,11 +35,42 @@ const {
   name,
   email,
   scheduleUrl,
+  card = false,
   profiles = [],
   versions = 0,
   wide,
   archiveUrl = "https://archive.nibras.co",
 } = Astro.props
+// The ways to reach the owner, one row for each. A page that is the resume does not link to it.
+const onResume = Astro.url.pathname.startsWith("/resume")
+const contact: Action[] =
+  card && email
+    ? [
+        ...(onResume
+          ? []
+          : [
+              {
+                title: "Resume",
+                note: "Work, projects and skills on one page",
+                label: "Open",
+                href: `${origin}/resume`,
+              },
+            ]),
+        ...(scheduleUrl
+          ? [
+              {
+                title: "Book a call",
+                note: "A video call, at a time that you choose",
+                label: "Book",
+                href: scheduleUrl,
+                kind: "external" as const,
+              },
+            ]
+          : []),
+        { title: "Email", note: email, noteHref: `mailto:${email}`, label: "Copy", copy: email },
+      ]
+    : []
+
 // Icon-only links: the label is the tooltip and the accessible name.
 type FooterLink = {
   label: string
@@ -60,8 +100,15 @@ const links: FooterLink[] = [
       wide ? "max-w-6xl" : "max-w-2xl",
     ]}
   >
-    <div class="border-t border-line"></div>
-    {email && (
+    {/* The card stands for the rule: it has an edge of its own. 4rem are under it, with the gap. */}
+    {contact.length > 0 ? (
+      <div class="mb-11 text-fg">
+        <ActionCard actions={contact} label="Get in touch" />
+      </div>
+    ) : (
+      <div class="border-t border-line" />
+    )}
+    {email && !card && (
       <p>
         Send an email to{" "}
         <a class="quiet-link text-fg" href={`mailto:${email}`}>

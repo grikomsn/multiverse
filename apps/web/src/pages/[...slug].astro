@@ -38,8 +38,9 @@ const { entry, newer, older } = Astro.props
 const isPost = entry._type === "post"
 const date = isPost ? entry.publishedAt : entry.updatedAt
 
-// The About page shows the family of mascots where its photo is. The photo stays in Sanity:
-// it is the social card of the page, and the older versions show it.
+// The About page shows the family of mascots where its photo is, and the contact card in its
+// footer. The photo stays in Sanity: it is the social card of the page, and the older versions
+// show it.
 const isAbout = entry._type === "page" && entry.slug === "about"
 const body =
   isAbout && entry.body?.[0]?._type === "figure" ? entry.body.slice(1) : (entry.body ?? [])
@@ -56,6 +57,7 @@ const body =
   imageAlt={entry.imageAlt ?? undefined}
   markdown={entry.visibility === "listed" ? `/${entry.slug}.md` : undefined}
   progress={isPost}
+  contactCard={isAbout}
 >
   <article class="pt-10 pb-8 sm:pt-16">
     <header class="mb-10 flex flex-col gap-3">

@@ -1,5 +1,5 @@
 ---
-import Icon from "@multiverse/ui/icon.astro"
+import Icon from "./icon.astro"
 
 /**
  * A card with one action per row: a title, a short note and a button. Buttons either open a link
@@ -8,6 +8,8 @@ import Icon from "@multiverse/ui/icon.astro"
 export interface Action {
   title: string
   note: string
+  /** Makes the note a link, such as an email address that also opens a new message. */
+  noteHref?: string
   label: string
   href?: string
   /** Text to put on the clipboard instead of opening a link. */
@@ -38,7 +40,15 @@ const ICON = {
         <li class="flex items-center justify-between gap-4 px-4 py-3">
           <div class="min-w-0">
             <p class="font-semibold">{action.title}</p>
-            <p class="text-sm text-pretty text-soft">{action.note}</p>
+            <p class="text-sm text-pretty text-soft">
+              {action.noteHref ? (
+                <a class="quiet-link" href={action.noteHref}>
+                  {action.note}
+                </a>
+              ) : (
+                action.note
+              )}
+            </p>
           </div>
           {action.copy ? (
             <button type="button" class="button shrink-0" data-copy={action.copy}>

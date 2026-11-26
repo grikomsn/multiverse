@@ -12,6 +12,7 @@
     "./site-footer.astro": "./src/site-footer.astro",
     "./section-heading.astro": "./src/section-heading.astro",
     "./icon.astro": "./src/icon.astro",
+    "./action-card.astro": "./src/action-card.astro",
     "./brand-icon.astro": "./src/brand-icon.astro",
     "./brand-marks": "./src/brand-marks.ts",
     "./dither": "./src/dither.ts",

@@ -29,6 +29,8 @@ interface Props {
   markdown?: string
   /** Show the reading progress under the header. For posts. */
   progress?: boolean
+  /** Start the footer with the contact card, not the one sentence. For About and Work. */
+  contactCard?: boolean
 }
 
 const {
@@ -44,6 +46,7 @@ const {
   structuredData,
   markdown,
   progress,
+  contactCard,
 } = Astro.props
 const shell = await sanity.fetch(SITE_SHELL_QUERY)
 const siteTitle = titleOf(shell.profile)
@@ -136,6 +139,7 @@ const profiles = (shell.profile?.socialLinks ?? [])
       name={shell.profile?.name}
       email={Astro.url.pathname === "/" ? null : shell.profile?.email}
       scheduleUrl={shell.profile?.scheduleUrl}
+      card={contactCard}
       profiles={profiles}
       versions={shell.versions}
       archiveUrl={ARCHIVE_ORIGIN}
