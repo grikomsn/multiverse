@@ -96,7 +96,7 @@ const links: FooterLink[] = [
 <footer class="mt-20" data-print="hide">
   <div
     class:list={[
-      "mx-auto flex w-full flex-col gap-5 px-5 pb-8 text-[0.9375rem] text-soft",
+      "mx-auto flex w-full flex-col gap-5 px-5 pb-16 text-[0.9375rem] text-soft",
       wide ? "max-w-6xl" : "max-w-2xl",
     ]}
   >
@@ -150,7 +150,7 @@ const links: FooterLink[] = [
         </a>
       )}
     </div>
-    <p class="mt-9 flex flex-col gap-1 text-sm">
+    <p class="mt-2 flex flex-col gap-1 text-sm">
       <span>
         © {new Date().getFullYear()} {name ?? FALLBACK_NAME}
       </span>
