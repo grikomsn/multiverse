@@ -8,6 +8,8 @@ npx grikomsn
 
 It needs Node.js 22 or later. The package is one file and installs no dependencies.
 
+No terminal near you? [Run it in your browser.](https://grikomsn.github.io/grikomsn/)
+
 In a terminal, the command opens a live card: the home page of [nibras.co](https://nibras.co), with its dither wave and its mascot. In a pipe or a script, it prints plain text.
 
 ## Keys and mouse

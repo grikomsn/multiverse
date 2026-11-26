@@ -11,6 +11,9 @@
  * card's `content.ts`, in the words of the home page, and the signature from the home page's
  * trace. So the readme holds no fact of its own. It has no picture of Gri: the GitHub profile
  * shows its own avatar next to it.
+ *
+ * The same repository holds the page that runs the card in a browser, in `docs/`. This script
+ * does not write it: `apps/cli/scripts/build-web.ts` does.
  */
 import { mkdir, writeFile } from "node:fs/promises"
 
@@ -18,6 +21,7 @@ import { type Card, getCard } from "@multiverse/content/card"
 import { createSanityClient } from "@multiverse/content/client"
 
 import { headline, intro, tagline } from "../apps/cli/src/content"
+import { COMMAND, PAGE_URL } from "../apps/cli/src/web/shell"
 import signature from "../apps/web/src/data/signature.json"
 
 const OUT = new URL("../github-readme/", import.meta.url)
@@ -105,6 +109,8 @@ ${tagline(card).join("")} ${about}
 ${projects.join("\n")}
 
 ${contact.join(" · ")}
+
+\`${COMMAND}\` shows my card in a terminal. [Run it in your browser.](${PAGE_URL})
 
 ${picture("signature", card.givenName, 'width="140"')}
 `

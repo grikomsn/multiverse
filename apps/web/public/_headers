@@ -18,3 +18,7 @@
 
 /llms.json
   Access-Control-Allow-Origin: *
+
+# The card in a browser (grikomsn.github.io/grikomsn) reads today's facts. Public, like the pages.
+/card.json
+  Access-Control-Allow-Origin: *

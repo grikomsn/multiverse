@@ -4,20 +4,20 @@ Monorepo for Griko Nibras's sites and the Sanity CMS that feeds them. Becomes th
 
 ## Layout
 
-| Path                           | What                                                                                        |
-| ------------------------------ | ------------------------------------------------------------------------------------------- |
-| `apps/web`                     | nibras.co — Astro 7, static; Worker for `/mcp`, `/resume.pdf`, Markdown answers             |
-| `apps/archive`                 | archive.nibras.co — every past version, rebuilt, under `/<edition>/`                        |
-| `apps/links`                   | nbr.st — short links; one Worker that reads KV, with caching and pattern rules              |
-| `apps/studio`                  | Sanity Studio (project `lboasusv`, dataset `production`); one-off `scripts/`                |
-| `apps/cli`                     | `npx grikomsn` — the home page as a terminal card (Ink), one file with no deps              |
-| `github-readme`                | github.com/grikomsn profile readme: a submodule of `grikomsn/grikomsn`, written by a script |
-| `packages/sanity`              | Schema, Studio structure, singletons, constants, generated `sanity.types.ts`                |
-| `packages/content`             | Shared Sanity client factory and format helpers (dates, image URLs, grouping)               |
-| `packages/config`              | Shared tsconfig and ESLint flat configs                                                     |
-| `packages/ui`                  | Shared design: tokens and prose CSS, font config, header, footer, command bar               |
-| `docs/`                        | Content model and legacy-site research (`docs/legacy/`)                                     |
-| `assets/` `references/` `tmp/` | Local-only working material, gitignored (licensed fonts, resumes, exports)                  |
+| Path                           | What                                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------------------ |
+| `apps/web`                     | nibras.co — Astro 7, static; Worker for `/mcp`, `/resume.pdf`, Markdown answers            |
+| `apps/archive`                 | archive.nibras.co — every past version, rebuilt, under `/<edition>/`                       |
+| `apps/links`                   | nbr.st — short links; one Worker that reads KV, with caching and pattern rules             |
+| `apps/studio`                  | Sanity Studio (project `lboasusv`, dataset `production`); one-off `scripts/`               |
+| `apps/cli`                     | `npx grikomsn` — the home page as a terminal card (Ink), one file with no deps             |
+| `github-readme`                | Profile readme and the card in a browser: a submodule of `grikomsn/grikomsn`, from scripts |
+| `packages/sanity`              | Schema, Studio structure, singletons, constants, generated `sanity.types.ts`               |
+| `packages/content`             | Shared Sanity client factory and format helpers (dates, image URLs, grouping)              |
+| `packages/config`              | Shared tsconfig and ESLint flat configs                                                    |
+| `packages/ui`                  | Shared design: tokens and prose CSS, font config, header, footer, command bar              |
+| `docs/`                        | Content model and legacy-site research (`docs/legacy/`)                                    |
+| `assets/` `references/` `tmp/` | Local-only working material, gitignored (licensed fonts, resumes, exports)                 |
 
 ## Commands
 
@@ -38,6 +38,7 @@ bun run --filter studio dev      # http://localhost:3333
 bun run --filter links dev       # http://localhost:4323 (needs a Cloudflare login; reads the real KV)
 bun apps/cli/scripts/dev.ts      # the terminal card (`npx grikomsn`), from the source, with today's facts
 bun scripts/make-readme.ts       # the GitHub profile readme in github-readme/, from today's facts
+bun apps/cli/scripts/build-web.ts # the card in a browser (grikomsn.github.io/grikomsn), into github-readme/docs/
 bun run check                    # lint, typecheck and tests everywhere
 bun run build
 bun run format
@@ -76,6 +77,8 @@ The resume (`/resume`), the gallery (`/media`), `llms.txt` and the MCP server al
 The terminal card (`npx grikomsn`) is `apps/cli`. It reads its facts from `/card.json` on nibras.co (`getCard()` in `@multiverse/content/card`), and holds no fact of its own. How it maps the site's design and motion to a terminal, the build and the release are in [docs/apps/cli.md](docs/apps/cli.md). Publish to npm only when the user asks.
 
 The GitHub profile readme is `github-readme/`, a submodule of `grikomsn/grikomsn` (`git submodule update --init` on a fresh clone). Do not edit it by hand: `bun scripts/make-readme.ts` writes `README.md` from the card, and the signature pictures from the home page's trace. Commit and push in the submodule, then commit the new pointer here.
+
+The same submodule holds the card in a browser, in `docs/`: GitHub Pages serves it at grikomsn.github.io/grikomsn. It is the one site that is not a Worker. `bun apps/cli/scripts/build-web.ts` writes the folder from the card's own code and a terminal for the web (wterm). Build it again when the card's code changes; its facts come from `/card.json`. See [docs/apps/cli.md](docs/apps/cli.md#in-a-browser).
 
 Short links (nbr.st) are `apps/links`: how to add a link or a pattern rule, the caches and the cutover are in [docs/apps/links.md](docs/apps/links.md).
 

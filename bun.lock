@@ -142,7 +142,7 @@
     },
     "apps/cli": {
       "name": "grikomsn",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "bin": {
         "grikomsn": "dist/cli.js",
       },
@@ -153,6 +153,7 @@
         "@multiverse/ui": "workspace:*",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
+        "@wterm/dom": "catalog:",
         "eslint": "catalog:",
         "ink": "catalog:",
         "react": "catalog:",
@@ -331,6 +332,7 @@
     "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "@wterm/dom": "0.5.10",
     "agents": "0.32.0",
     "astro": "7.4.4",
     "astro-portabletext": "1.0.1",
@@ -1605,6 +1607,10 @@
     "@vscode/emmet-helper": ["@vscode/emmet-helper@2.11.0", "", { "dependencies": { "emmet": "^2.4.3", "jsonc-parser": "^2.3.0", "vscode-languageserver-textdocument": "^1.0.1", "vscode-languageserver-types": "^3.15.1", "vscode-uri": "^3.0.8" } }, "sha512-QLxjQR3imPZPQltfbWRnHU6JecWTF1QSWhx3GAKQpslx7y3Dp6sIIXhKjiUJ/BR9FX8PVthjr9PD6pNwOJfAzw=="],
 
     "@vscode/l10n": ["@vscode/l10n@0.0.18", "", {}, "sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ=="],
+
+    "@wterm/core": ["@wterm/core@0.5.10", "", {}, "sha512-kVzgs094y/9z/w2IVaYUd75F+bUFa14cn7uhec0g9QDI1kalh8W7Ft6ckOER478gncsPrf7a9oRf1bAOe3ERgQ=="],
+
+    "@wterm/dom": ["@wterm/dom@0.5.10", "", { "dependencies": { "@wterm/core": "0.5.10" } }, "sha512-Tcdig0gqVgqpoWB/i9pp4z3+ZI2Rf5MOeCy3geOuRvGSSXMGgeF6xcA/PD667tCe8Te47ldVeKYsM92uUgijCg=="],
 
     "@xstate/react": ["@xstate/react@6.1.0", "", { "dependencies": { "use-isomorphic-layout-effect": "^1.1.2", "use-sync-external-store": "^1.2.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "xstate": "^5.28.0" }, "optionalPeers": ["xstate"] }, "sha512-ep9F0jGTI63B/jE8GHdMpUqtuz7yRebNaKv8EMUaiSi29NOglywc2X2YSOV/ygbIK+LtmgZ0q9anoEA2iBSEOw=="],
 

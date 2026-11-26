@@ -23,6 +23,7 @@
   "scripts": {
     "start": "bun scripts/dev.ts",
     "build": "bun scripts/build.ts",
+    "build:web": "bun scripts/build-web.ts",
     "prepublishOnly": "bun scripts/build.ts",
     "lint": "eslint .",
     "typecheck": "tsc && tsc -p tsconfig.test.json",
@@ -35,6 +36,7 @@
     "@multiverse/ui": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
+    "@wterm/dom": "catalog:",
     "eslint": "catalog:",
     "ink": "catalog:",
     "react": "catalog:",

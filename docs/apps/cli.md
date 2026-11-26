@@ -106,13 +106,80 @@ What was tried and left out:
 
 Not done: memory. The card holds 120 to 140 MB, of which Node.js, React and Ink are about 95.
 
+## In a browser
+
+Decided on 2026-11-26, after a comparison of terminals for the web.
+
+[grikomsn.github.io/grikomsn](https://grikomsn.github.io/grikomsn/) runs the card in a page. A terminal fills the window, a prompt types `npx grikomsn`, and the card starts. The page runs the card's own code, built for a browser. It does not download the package from npm.
+
+| Terminal                  | Why, or why not                                                                                                      |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| wterm 0.5.10 (the choice) | About 70 KB sent. Its text is real text in the page. It answers the color question and reports the pointer           |
+| xterm.js 6.0              | The safe choice, at twice the size. Its text renderer leaves lines between half blocks. Use it if wterm fails        |
+| ghostty-web 0.4           | Its stable release is a year old and reports no pointer                                                              |
+| libghostty-vt 1.0         | The state of a terminal, with no renderer. wterm can use it as its core (`@wterm/ghostty`), for 580 KB more          |
+| restty 0.3                | libghostty with WebGPU. About 800 KB sent                                                                            |
+| WebContainers, BrowserPod | A real Node.js, so a real `npx`. They need cross-origin isolation, megabytes of runtime, and they have license terms |
+
+How it works:
+
+- `src/main.tsx` is the card as a program. It has two hosts: Node.js (`src/cli.tsx`) and the page (`src/web/page.ts`). It reads and writes through `process`, and the page gives it the terminal as its streams.
+- `src/web/node.ts` stands in for Node.js: `process`, and the built-in modules that Ink and its helpers import. `src/web/streams.ts` has small streams and buffers. The bundler's complete ones took a third of the page's code.
+- The build gives `src/web/open.ts` in place of `src/open.ts`: a new tab, and the browser's clipboard.
+- Ink's color library gives colors only to Chromium. The build gives it `src/web/colors.ts`: all the colors, in every browser.
+- A browser has no `inflateSync`. The page unpacks the mascot's pixels with a stream before the card draws.
+- wterm answers the color question (OSC 11) from the page's CSS, so the card starts in the theme of the system. The screen tells the terminal the card's ground (`setGround`), and the page paints the space around the cells with it.
+- The prompt is a shell with one command (`src/web/shell.ts`). It takes the card's options: `npx grikomsn --theme light`. Enter on an empty line runs the card again.
+- The letters are 14 px, and smaller in a narrow window, down to 11 px. A window of 320 px then has 46 columns. A smaller window gets plain text, as a small terminal does.
+- On a phone, the terminal's text field asks for no keyboard: the keyboard would cover the card after each tap. So a phone cannot type in the search bar.
+- `index.html` holds the prompt and types the command while the code comes. It also holds the plain card, for a browser with no script and for a crawler.
+- The code comes in two halves, each after a paint. The terminal's half comes after the first paint. The card's half (React, Ink, Yoga) comes after the terminal shows its prompt. On a slow network, the prompt does not wait for the card.
+- wterm's own code (WebAssembly) is a file next to the page, so the browser compiles it while it comes.
+- The page reads `/card.json`, so `apps/web` sends that file with `Access-Control-Allow-Origin: *`.
+
+Build and release:
+
+```bash
+bun apps/cli/scripts/build-web.ts                  # writes github-readme/docs/ with today's facts
+bun apps/cli/scripts/build-web.ts --sizes          # also lists what takes the most room
+python3 -m http.server -d github-readme/docs 4324  # look at it: http://localhost:4324
+```
+
+Commit and push in `github-readme`, then commit the new pointer here. GitHub Pages serves the folder: Settings, Pages, "Deploy from a branch", `main` and `/docs`. Build again when the card's code changes. New facts need no build.
+
+Measured on 2026-11-26, on this machine:
+
+| What               | Result                                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Size               | 257 KB sent: 85 KB for the terminal's half, 172 KB for the card's half                                       |
+| Browsers           | Chromium and WebKit, with Playwright, at 1280, 393 and 320 px. Not Firefox, and not a real phone             |
+| Lighthouse, mobile | Performance 99, accessibility 100, SEO 100, best practices 96                                                |
+| On a slow phone    | The prompt shows after 1.5 to 1.8 seconds, and the card about a second later (Lighthouse's network and chip) |
+| The wave           | 7% to 9% of a processor in headless Chromium. A terminal takes less than 1%                                  |
+
+Three changes took the performance score from 89 to 99:
+
+| Change                                                    | What it did                                                 |
+| --------------------------------------------------------- | ----------------------------------------------------------- |
+| The code starts after the first paint                     | The first paint went from 2.9 to 0.6 seconds                |
+| Small streams and buffers, and wterm's code as a file     | 300 KB became 257 KB                                        |
+| The card's half comes after the terminal shows its prompt | The largest paint (the prompt) went from 3.0 to 1.5 seconds |
+
+The score counts the prompt as the largest paint, not the card. The card shows as soon as before, and not sooner.
+
+Open points:
+
+- Best practices loses its points to one error: `/card.json` without the header. A deploy of `apps/web` fixes it.
+- The wave costs more than in a terminal, because each frame changes the page's text.
+- The largest parts of the card's half are React's reconciler and Yoga. Ink needs both.
+
 ## The mascot's pixels
 
 `scripts/make-faces.ts` draws every mood of `packages/ui/src/gri.ts` at 28 and 20 pixels and writes `src/faces.gen.ts` (25 KB). `./scripts/make-icons.sh` runs it, so run that script after the drawing changes and commit the file. The picture is cropped closer to the head than the drawing's own frame, because 20 pixels cannot spare the space.
 
 ## Build
 
-`bun build` makes one ESM file. Three things are not obvious:
+`bun build` makes one ESM file. `scripts/bundle.ts` holds what this build shares with the one for a browser. Three things are not obvious:
 
 - Ink imports React DevTools only when `DEV` is set, but a bundler moves that import to the top of the file, where it fails. The build replaces it with an empty module (`scripts/empty.ts`).
 - Every dependency is a `devDependency`. The file holds them all, so `npx` installs none.

@@ -13,7 +13,18 @@ import { rgb, type Rgb } from "./theme"
 export type FaceSize = (typeof FACE_SIZES)[number]
 export { FACE_SIZES }
 
-let pixels: Buffer | undefined
+let pixels: Uint8Array | undefined
+
+/** The packed pixels of every face, for a host that unpacks them itself. */
+export { FACES as PACKED_FACES }
+
+/**
+ * Gives the unpacked pixels. A browser has no `inflateSync`, so the page unpacks them before
+ * the card draws (`web/page.ts`).
+ */
+export function setFacePixels(data: Uint8Array) {
+  pixels = data
+}
 
 /** Where the pixels of one face start. */
 function offset(mood: Mood, size: FaceSize) {

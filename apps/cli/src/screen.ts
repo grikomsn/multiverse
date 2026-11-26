@@ -45,6 +45,11 @@ export interface Terminal {
   write(text: string): unknown
   on(event: "resize", listener: () => void): unknown
   off(event: "resize", listener: () => void): unknown
+  /**
+   * The ground of the card, as hex, or nothing when the card ends. A terminal in a page
+   * paints the space around its cells with it (`web/page.ts`). Node's stream has no such call.
+   */
+  setGround?(color: string | undefined): void
 }
 
 export interface WaveSpec {
@@ -102,6 +107,19 @@ function groundAfter(ground: string, parameters: string) {
     }
   }
   return ground
+}
+
+/** A ground with all the colors ("48;2;r;g;b") as hex. Nothing for any other ground. */
+export function hexOf(ground: string) {
+  const parts = /^48;2;(\d+);(\d+);(\d+)$/.exec(ground)
+  if (!parts) return undefined
+  return (
+    "#" +
+    parts
+      .slice(1)
+      .map((part) => Number(part).toString(16).padStart(2, "0"))
+      .join("")
+  )
 }
 
 /** Reads one line of a frame. */
@@ -197,6 +215,7 @@ export class Screen extends EventEmitter {
     this.timer = undefined
     this.terminal.off("resize", this.resize)
     this.terminal.write((this.pointerOn ? POINTER_OFF : "") + FOCUS_OFF + RESET + LEAVE)
+    this.terminal.setGround?.(undefined)
   }
 
   /** Turns the reports of the pointer on or off. With them off, the reader can select text. */
@@ -303,7 +322,11 @@ export class Screen extends EventEmitter {
       this.dots.fill(SPACE, row * columns, (row + 1) * columns)
       this.counts[row] = 0
     }
-    if (out) this.page = this.pageGround()
+    if (out) {
+      const page = this.pageGround()
+      if (page !== this.page) this.terminal.setGround?.(hexOf(page))
+      this.page = page
+    }
     return out
   }
 
