@@ -45,9 +45,13 @@ const PLACES: { who: Who; mood: Mood }[] = [
     background-color: var(--ground);
   }
 
-  /* A face is a square box. Its head fills about two thirds of the box. */
+  /*
+   * A face is a square box, and its head fills about two thirds of the box. The boxes lie over
+   * each other, so a box takes no pointer: only the painted head does, in the shape it has.
+   */
   .family-band-face {
     position: absolute;
+    pointer-events: none;
     width: 46%;
     aspect-ratio: 1;
     border-radius: 50%;
@@ -69,6 +73,14 @@ const PLACES: { who: Who; mood: Mood }[] = [
       top: 30%;
       left: 30%;
       width: 40%;
+    }
+
+    & :global(svg) {
+      pointer-events: none;
+    }
+
+    & :global(.hm) {
+      pointer-events: auto;
     }
 
     &:focus-visible {
