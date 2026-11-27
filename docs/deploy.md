@@ -63,6 +63,24 @@ Drafts do not trigger it. The token is a fine-grained GitHub token for this repo
 
 Each app still deploys from this machine with `bun run --filter <app> deploy`. It needs a Wrangler login and the fonts in `assets/fonts/web`.
 
+### No Git connection in Cloudflare
+
+The dashboard shows the Workers as not connected to a repository. Keep it so. Cloudflare's own builds would deploy each push a second time, without the Check gate, the fonts or the Sanity trigger.
+
+## Observability
+
+Each `wrangler.jsonc` sets what Cloudflare records for its Worker. The Worker's **Observability** tab in the dashboard shows it.
+
+| Worker               | Logs | Issues | Traces |
+| -------------------- | ---- | ------ | ------ |
+| `multiverse-web`     | Yes  | Yes    | Yes    |
+| `multiverse-links`   | Yes  | Yes    | No     |
+| `multiverse-archive` | Yes  | Yes    | No     |
+
+- **Issues** groups failures: uncaught exceptions, 5xx answers and `console.error` calls. Report a handled failure with `console.error(error)`. `upload_source_maps` makes each stack point to the TypeScript source.
+- **Traces** record each call to a binding or a `fetch`, with no code. Only web has them: its Worker starts Browser Rendering, reads R2 and fetches from Sanity. The links Worker does one KV read, and the archive Worker runs for one file.
+- **Cost**: from December 1, 2026, logs, traces and Issues share one allowance per account. On the Free plan, it is 0.5 GB a day. After that, Cloudflare records nothing until 00:00 UTC, logs included. If a flood of requests uses the allowance, add `head_sampling_rate` to the Worker that gets them.
+
 ## Cutover
 
 Done on 2026-11-22. What changed, and what to know from it:

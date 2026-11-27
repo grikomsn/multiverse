@@ -14,7 +14,10 @@
     // Where nbr.st/ goes.
     "HOME_URL": "https://nibras.co",
   },
-  "observability": { "enabled": true },
+  // Logs and Issues, no traces: a request is one KV read. See docs/deploy.md#observability.
+  "observability": { "enabled": true, "issues": { "enabled": true } },
+  // Stack traces in Issues point to the TypeScript source.
+  "upload_source_maps": true,
   "workers_dev": true,
   "preview_urls": true,
   // A custom domain makes its own proxied DNS record and certificate, so no request waits on an

@@ -12,6 +12,10 @@
     // The Worker runs only for the index's social card (`src/worker.ts`).
     "run_worker_first": ["/og.png"],
   },
+  // Logs and Issues, no traces: the Worker runs for one file. See docs/deploy.md#observability.
+  "observability": { "enabled": true, "issues": { "enabled": true } },
+  // Stack traces in Issues point to the TypeScript source.
+  "upload_source_maps": true,
   "workers_dev": true,
   "preview_urls": true,
   // A custom domain takes precedence over the wildcard record `*.nibras.co`.
