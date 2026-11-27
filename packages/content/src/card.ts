@@ -146,7 +146,7 @@ export async function getCard(client: SanityClient, website = "https://nibras.co
               title: talk.title,
               event: talk.event ?? undefined,
               date: talk.date ?? undefined,
-              url: talk.slidesUrl ?? talk.recordingUrl ?? undefined,
+              url: talk.url ?? undefined,
             },
           ]
         : [],

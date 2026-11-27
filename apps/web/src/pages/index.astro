@@ -303,7 +303,7 @@ const structuredData = profile?.name && {
         {talks.map((talk) => (
           <EntryRow
             title={talk.title ?? ""}
-            href={talk.slidesUrl ?? talk.recordingUrl}
+            href={talk.url}
             detail={talk.event}
             date={isoDate(talk.date)}
             datetime={talk.date}

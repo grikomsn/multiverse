@@ -293,7 +293,7 @@ export function mapResume(raw: RESUME_QUERY_RESULT): Resume {
     .map((entry): TalkEntry => ({
       id: entry._id,
       title: entry.title,
-      url: entry.recordingUrl ?? entry.slidesUrl ?? undefined,
+      url: entry.url ?? undefined,
       event: entry.event ?? undefined,
       isoDate: entry.date,
       date: formatPartialDate(entry.date),

@@ -1172,14 +1172,7 @@
         },
         "optional": true
       },
-      "slidesUrl": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "recordingUrl": {
+      "url": {
         "type": "objectAttribute",
         "value": {
           "type": "string"

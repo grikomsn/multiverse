@@ -37,9 +37,7 @@ export const live: LiveSettings = {
         live.talks.map((talk) =>
           block(
             [
-              talk.recordingUrl || talk.slidesUrl
-                ? { text: talk.title, href: talk.recordingUrl ?? talk.slidesUrl }
-                : talk.title,
+              talk.url ? { text: talk.title, href: talk.url } : talk.title,
               talk.event ? ` - ${talk.event}` : "",
               talk.date ? ` (${talk.date.slice(0, 4)})` : "",
             ],

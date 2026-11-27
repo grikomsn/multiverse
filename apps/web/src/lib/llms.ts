@@ -80,10 +80,7 @@ function talkMarkdown(talk: Work["talks"][number]) {
     `### ${talk.title}`,
     [talk.event, talk.date && isoDate(talk.date)].filter(Boolean).join(" · "),
     talk.summary,
-    bullets([
-      talk.slidesUrl && `Slides: ${talk.slidesUrl}`,
-      talk.recordingUrl && `Recording: ${talk.recordingUrl}`,
-    ]),
+    bullets([talk.url && `Link: ${talk.url}`]),
   )
 }
 

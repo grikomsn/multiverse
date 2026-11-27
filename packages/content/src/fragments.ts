@@ -44,7 +44,7 @@ export const INVOLVEMENT = `_id, role, startDate, endDate, summary, highlights, 
 
 export const EDUCATION = `_id, degree, field, startDate, endDate, highlights, ${ORGANIZATION}`
 
-export const TALK = `_id, title, kind, event, date, summary, slidesUrl, recordingUrl`
+export const TALK = `_id, title, kind, event, date, summary, url`
 
 /** The small avatar from the profile. */
 export const ICON = `*[_id == "profile"][0].icon->`

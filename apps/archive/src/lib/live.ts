@@ -358,7 +358,7 @@ export function toEdition(meta: Meta, live: LiveSite, settings: LiveSettings): E
     description: talk.summary,
     category: settings.talkCategory ? settings.talkCategory(talk.kind) : talk.kind,
     date: talk.date,
-    url: talk.recordingUrl ?? talk.slidesUrl,
+    url: talk.url,
     tags: null,
     image: talk.cover,
   }))
