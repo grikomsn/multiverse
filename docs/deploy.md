@@ -2,11 +2,13 @@
 
 Three Workers in the Cloudflare account "Griko Nibras". GitHub Actions deploys them. Actions allows only GitHub's own actions and `oven-sh/setup-bun`, pinned to a commit SHA.
 
-| App            | Worker               | Domain                   | workers.dev address                    |
-| -------------- | -------------------- | ------------------------ | -------------------------------------- |
-| `apps/web`     | `multiverse-web`     | nibras.co, www.nibras.co | `multiverse-web.griko.workers.dev`     |
-| `apps/archive` | `multiverse-archive` | archive.nibras.co        | `multiverse-archive.griko.workers.dev` |
-| `apps/links`   | `multiverse-links`   | nbr.st, www.nbr.st       | `multiverse-links.griko.workers.dev`   |
+| App            | Worker               | Domain                   |
+| -------------- | -------------------- | ------------------------ |
+| `apps/web`     | `multiverse-web`     | nibras.co, www.nibras.co |
+| `apps/archive` | `multiverse-archive` | archive.nibras.co        |
+| `apps/links`   | `multiverse-links`   | nbr.st, www.nbr.st       |
+
+Only these domains answer. Each `wrangler.jsonc` turns off the workers.dev address and the preview URLs, so the zone's rules apply to every request.
 
 Studio is not a Worker. `bun run --filter studio deploy` puts it on https://nibras.sanity.studio, and studio.nibras.co redirects there.
 

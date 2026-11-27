@@ -16,8 +16,9 @@
   "observability": { "enabled": true, "issues": { "enabled": true } },
   // Stack traces in Issues point to the TypeScript source.
   "upload_source_maps": true,
-  "workers_dev": true,
-  "preview_urls": true,
+  // Only the custom domains answer: no workers.dev address and no preview URLs.
+  "workers_dev": false,
+  "preview_urls": false,
   // A custom domain takes precedence over the wildcard record `*.nibras.co`.
   "routes": [{ "pattern": "archive.nibras.co", "custom_domain": true }],
 }
