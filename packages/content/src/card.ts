@@ -71,7 +71,7 @@ export const CARD_QUERY = defineQuery(`{
     role, startDate, endDate, ${ORGANIZATION}
   },
   "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) {
-    ${PROJECT}, tagline
+    ${PROJECT}
   },
   "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {
     title, "slug": slug.current, publishedAt, excerpt

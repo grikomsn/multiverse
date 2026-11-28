@@ -30,6 +30,9 @@ export const WORK_LOCATION = `"location": select(workMode == "remote" => "Remote
 /** The organization a career entry points at. */
 export const ORGANIZATION = `"organization": organization-> { name, url }`
 
+/** The name that titles show: the given and family names, else the full name. */
+export const SHORT_NAME = `"shortName": coalesce(givenName + " " + familyName, name)`
+
 /** Who, what and where from Profile, with the profile links. Each query adds what only it needs. */
 export const PROFILE = `name, givenName, familyName, headline, location, summary, email, scheduleUrl, socialLinks[] { _key, platform, label, url, featured }`
 
@@ -56,4 +59,4 @@ export const ICON = `*[_id == "profile"][0].icon->`
 export const PROJECT_SOURCES = `"repoUrl": select(count(repositories) > 0 => "https://github.com/" + repositories[0]), "metrics": { "github": repositories, "npm": packages[registry == "npm"].name, "vscode": packages[registry == "vscode"].name }`
 
 /** One project as the cards and lists show it. */
-export const PROJECT = `_id, name, "slug": slug.current, role, status, kind, featured, url, summary, technologies, startDate, ${PROJECT_SOURCES}`
+export const PROJECT = `_id, name, "slug": slug.current, role, status, kind, featured, url, tagline, summary, technologies, startDate, ${PROJECT_SOURCES}`

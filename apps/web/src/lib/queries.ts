@@ -4,8 +4,10 @@ import {
   EXPERIENCE,
   ICON,
   INVOLVEMENT,
+  ORGANIZATION,
   PROFILE,
   PROJECT,
+  SHORT_NAME,
   TALK,
 } from "@multiverse/content/fragments"
 import { defineQuery } from "groq"
@@ -33,7 +35,7 @@ export const HOME_QUERY = defineQuery(`{
     _id, title, "slug": slug.current, publishedAt, excerpt
   },
   "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) {
-    ${PROJECT}, tagline, ${PROJECT_ICON}
+    ${PROJECT}, ${PROJECT_ICON}
   },
   "talks": *[_type == "talk"] | order(date desc) [0...4] { ${TALK} }
 }`)
@@ -79,7 +81,7 @@ export const REDIRECTS_QUERY = defineQuery(`{
 export const WORK_QUERY = defineQuery(`{
   "experience": *[_type == "experience"] | order(orderRank) { ${EXPERIENCE} },
   "projects": *[_type == "project" && status != "discontinued"] | order(orderRank) {
-    ${PROJECT}, ${PROJECT_ICON}, "organization": organization-> { name, url }
+    ${PROJECT}, ${PROJECT_ICON}, ${ORGANIZATION}
   },
   "involvement": *[_type == "involvement"] | order(orderRank) { ${INVOLVEMENT} },
   "talks": *[_type == "talk"] | order(date desc) { ${TALK} },
@@ -88,7 +90,7 @@ export const WORK_QUERY = defineQuery(`{
 
 /** Portraits for /media, in Studio drag order. */
 export const MEDIA_PAGE_QUERY = defineQuery(`{
-  "profile": *[_id == "profile"][0]{ name, "shortName": coalesce(givenName + " " + familyName, name), headline },
+  "profile": *[_id == "profile"][0]{ name, ${SHORT_NAME}, headline },
   "portraits": *[_type == "portrait" && defined(image.asset)] | order(orderRank asc){
     _id,
     title,

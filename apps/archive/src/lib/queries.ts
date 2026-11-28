@@ -1,4 +1,4 @@
-import { ICON, IMAGE } from "@multiverse/content/fragments"
+import { ICON, IMAGE, SHORT_NAME } from "@multiverse/content/fragments"
 import { defineQuery } from "groq"
 
 export const EDITIONS_QUERY = defineQuery(`*[_type == "edition"] | order(startDate asc) {
@@ -31,7 +31,7 @@ export const EDITION_QUERY = defineQuery(`*[_type == "edition" && key.current ==
 /** Header and footer of the archive index (the editions themselves never read this). */
 export const ARCHIVE_SHELL_QUERY = defineQuery(`{
   "profile": *[_id == "profile"][0] {
-    name, "shortName": coalesce(givenName + " " + familyName, name), email, scheduleUrl, socialLinks[] { platform, label, url, featured }
+    name, ${SHORT_NAME}, email, scheduleUrl, socialLinks[] { platform, label, url, featured }
   },
   "avatar": ${ICON} { _id, "url": image.asset->url }
 }`)
