@@ -6,6 +6,7 @@
 @toolchain "tailwind-3.4";
 
 @import "@fontsource-variable/figtree";
+@import "@fontsource-variable/geist-mono";
 
 @tailwind base;
 @tailwind components;

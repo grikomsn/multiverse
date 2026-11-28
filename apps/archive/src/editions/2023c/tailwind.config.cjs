@@ -1,7 +1,8 @@
 /**
- * 2023c's tailwind.config, reconstructed for Tailwind 3.4.3 from the site's June 2024 build
- * (site.css, which shares the markup): shadcn's centered container, Figtree, amber as
- * `primary`, the `prose-primary` typography theme, and class-based dark mode.
+ * 2023c's tailwind.config, reconstructed for Tailwind 3.4.3 from the stylesheet of the site's
+ * June 2024 build, which shares the markup: shadcn's centered container, Figtree, Geist Mono
+ * for code, amber as `primary`, the `prose-primary` typography theme, and class-based dark
+ * mode. Git history keeps that stylesheet (`site.css`, removed on 2026-11-28).
  */
 const { join } = require("node:path")
 const colors = require("tailwindcss/colors")
@@ -26,6 +27,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['"Figtree Variable"', "Figtree", ...defaultTheme.fontFamily.sans],
+        mono: ['"Geist Mono Variable"', '"Geist Mono"', ...defaultTheme.fontFamily.mono],
       },
       typography: {
         primary: {
