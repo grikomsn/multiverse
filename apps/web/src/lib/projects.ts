@@ -23,7 +23,7 @@ export const STATUS: Record<string, string> = {
 /** Sections of the Work page project list, after the featured cards. */
 export const GROUPS = [
   { title: "Libraries and tools", kinds: ["library", "extension"] },
-  { title: "Apps and small things", kinds: ["app"] },
+  { title: "Apps and things", kinds: ["app"] },
   { title: "Built at work", kinds: ["work"] },
 ]
 
