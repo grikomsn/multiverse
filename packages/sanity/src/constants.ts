@@ -26,6 +26,15 @@ export const PROJECT_KINDS = [
 ] as const satisfies readonly { value: string; title: string }[]
 
 /**
+ * Every `edition.status`: rebuilt from the original source or captures, or reconstructed where
+ * none survived.
+ */
+export const EDITION_STATUSES = [
+  { value: "rebuilt", title: "Rebuilt" },
+  { value: "reconstruction", title: "Reconstruction" },
+] as const satisfies readonly { value: string; title: string }[]
+
+/**
  * Every `socialLink.platform`, with its name and the kind of site it is. One table for Studio,
  * nibras.co and the archive: a profile link's `label` is set only when the name here is wrong.
  * Designs that sort profiles under headings ("Blogs", "Development", "Social") map the kind.

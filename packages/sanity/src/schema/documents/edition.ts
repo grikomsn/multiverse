@@ -1,13 +1,8 @@
 import { ArchiveIcon } from "@sanity/icons/Archive"
 import { defineArrayMember, defineField, defineType } from "sanity"
 
+import { EDITION_STATUSES } from "../../constants"
 import { dateRangeFields, slugField } from "../shared/fields"
-
-/** Rebuilt from the original source or captures, or reconstructed where none survived. */
-export const EDITION_STATUSES = [
-  { title: "Rebuilt", value: "rebuilt" },
-  { title: "Reconstruction", value: "reconstruction" },
-]
 
 /**
  * An image or file a past design is drawn with: a wordmark, a favicon, a texture, a 404 GIF.
@@ -74,7 +69,11 @@ export const edition = defineType({
     defineField({
       name: "status",
       type: "string",
-      options: { list: EDITION_STATUSES, layout: "radio", direction: "horizontal" },
+      options: {
+        list: EDITION_STATUSES.map(({ title, value }) => ({ title, value })),
+        layout: "radio",
+        direction: "horizontal",
+      },
       initialValue: "rebuilt",
       group: "meta",
       validation: (rule) => rule.required(),
