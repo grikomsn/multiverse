@@ -203,13 +203,23 @@ Run the card itself, not through `bun run --filter` or Turbo: they give it a pip
 
 ## Release
 
-The name `grikomsn` on npm is free: the package from 2020 was unpublished. Its versions (1.0.0, 1.0.1 and 1.1.0) stay taken, so the card starts at 2.0.0. Publish by hand, from `apps/cli`:
+The name `grikomsn` on npm is free: the package from 2020 was unpublished. Its versions (1.0.0, 1.0.1 and 1.1.0) stay taken, so the card started at 2.0.0.
 
-```bash
-cd apps/cli
-# 1. Set the new "version" in package.json.
-bunx npm login     # once
-bun publish        # builds first (prepublishOnly), then sends five files: package.json, README.md, LICENSE and dist/
-```
+[Changesets](https://changesets.dev) keeps the version and `apps/cli/CHANGELOG.md`. GitHub Actions publishes, with provenance: npm shows the commit and the workflow that built each version. No person and no token publishes.
 
-Deploy `apps/web` before the first release, so `/card.json` is there.
+1. With a change to the card, add a changeset: `bunx changeset`. It asks how large the change is (patch, minor or major) and for one line for the changelog. It writes a file in `.changeset/`. Commit the file with the change.
+2. To release, run `bunx changeset version`. It sets the new `"version"` in `apps/cli/package.json`, writes the changelog and deletes the changesets. Commit and push to `main`.
+3. `.github/workflows/publish.yml` does the rest. It runs when `.changeset/` or the card's `package.json` changes on `main`, and by hand.
+
+| The state of `main`                         | What the workflow does                                                                   |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| It has changesets                           | Nothing. They wait for step 2                                                            |
+| No changeset, and the version is not on npm | Checks and builds the card, packs it, publishes it, and makes a tag and a GitHub release |
+| No changeset, and the version is on npm     | Nothing                                                                                  |
+
+The three jobs have different rights. The first two can only read the repository. Only the last one can publish, and it runs no script of a package: it sends the file that the job before it packed.
+
+- **No pull request.** The usual Changesets workflow opens a "Version Packages" pull request. This repository commits to `main`, so step 2 is by hand.
+- **The manifest in the package has no `devDependencies`.** Changesets packs with npm, and npm cannot read the `workspace:` and `catalog:` versions of Bun. The card is one file with every package inside, so the workflow removes the field before it packs.
+- **npm trusts the workflow by its name.** The package's settings on npmjs.com have a trusted publisher: GitHub Actions, `grikomsn/multiverse`, `publish.yml`, no environment. If the file gets a new name, change it there too.
+- **The first version from the workflow is 2.1.0.** Version 2.0.0 came from a laptop, with `bun publish`.

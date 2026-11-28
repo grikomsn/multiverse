@@ -1,0 +1,102 @@
+name: Publish
+
+# Sends the terminal card (apps/cli) to npm as `grikomsn`, with provenance. Changesets decides:
+# when main has no changeset left and the card's version is not on npm, this workflow packs the
+# card and publishes it. npm trusts this file by its name (a trusted publisher), so there is no
+# token. See docs/apps/cli.md.
+on:
+  push:
+    branches: [main]
+    paths:
+      - .changeset/**
+      - apps/cli/package.json
+      - .github/workflows/publish.yml
+  workflow_dispatch:
+
+# Each job asks for what it needs.
+permissions: {}
+
+# One release at a time. A newer run waits; it does not stop one that is publishing.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  select-mode:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      mode: ${{ steps.select-mode.outputs.mode }}
+      publish-plan-artifact-id: ${{ steps.select-mode.outputs.publish-plan-artifact-id }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile --ignore-scripts
+      # "version": changesets wait for `changeset version`, and nothing more runs here.
+      # "publish": the card's version is not on npm. "none": nothing to do.
+      - id: select-mode
+        uses: changesets/action/select-mode@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+
+  pack:
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      # A release cannot be taken back, so this job does not trust that Check passed.
+      - run: bunx turbo run lint typecheck test --filter=grikomsn
+      - run: bun scripts/build.ts
+        working-directory: apps/cli
+      # The card is one file with every package inside. Changesets packs with npm, and npm
+      # cannot read the `workspace:` and `catalog:` versions of Bun, so the manifest drops them.
+      - run: npm pkg delete devDependencies
+        working-directory: apps/cli
+      - id: pack
+        uses: changesets/action/pack@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        with:
+          publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
+
+  publish:
+    needs: pack
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # The tag and the GitHub release.
+      id-token: write # npm takes GitHub's token for this run in place of a secret.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+      # This job only sends the packed file. No script of a package runs next to the token.
+      - run: bun install --frozen-lockfile --ignore-scripts
+      # A trusted publisher needs npm 11.5.1 or later.
+      - run: npm --version
+      - uses: changesets/action/publish@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        with:
+          pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}

@@ -43,13 +43,14 @@ bun run check                    # lint, typecheck and tests everywhere
 bun run build
 bun run format
 bun run --filter studio typegen  # after schema or GROQ changes
+bunx changeset                   # with a change to apps/cli: a line for its changelog
 ```
 
 ## Conventions
 
 - **Versions** live once in the root `package.json` `catalog`; workspaces use `"catalog:"`. Pin exact versions released at least two weeks ago.
 - **Updates**: Renovate (`renovate.json`) updates GitHub Actions, Bun and `.node-version` after 14 days. It cannot read Bun catalogs yet, so catalog versions change by hand. Never update the named `catalogs` or the archive-only packages that `renovate.json` disables: they are the versions each legacy edition shipped with.
-- **CI** (`.github/workflows/check.yml`) runs `format:check` and `check` (lint, typecheck, tests) on pushes to `main` and on pull requests. It has no secrets and no fonts, so it does not build. Deploy builds; see below.
+- **CI** (`.github/workflows/check.yml`) runs `format:check` and `check` (lint, typecheck, tests) on pushes to `main` and on pull requests. It has no secrets and no fonts, so it does not build. Deploy builds; see below. `.github/workflows/publish.yml` publishes the terminal card to npm; see [docs/apps/cli.md](docs/apps/cli.md#release).
 - **TypeScript 6.0.x**, not 7: `astro check` (Volar) needs the programmatic compiler API that TS 7 does not ship yet.
 - **Schema** (`packages/sanity/src/schema`): kebab-case files, named exports, `defineType`/`defineField`/`defineArrayMember`, icons from `@sanity/icons/<Name>` subpaths. Model meaning, not presentation. Never delete a field that holds data: deprecate → migrate → remove.
 - **Singletons** use Studio's `document.singletons` API (`packages/sanity/src/singletons.ts`): `profile` and `site`. Each document's `_id` is its type name.
@@ -75,7 +76,7 @@ bun run --filter studio typegen  # after schema or GROQ changes
 
 The resume (`/resume`), the gallery (`/media`), `llms.txt` and the MCP server all live in `apps/web`. See [docs/apps/web.md](docs/apps/web.md).
 
-The terminal card (`npx grikomsn`) is `apps/cli`. It reads its facts from `/card.json` on nibras.co (`getCard()` in `@multiverse/content/card`), and holds no fact of its own. How it maps the site's design and motion to a terminal, the build and the release are in [docs/apps/cli.md](docs/apps/cli.md). Publish to npm only when the user asks.
+The terminal card (`npx grikomsn`) is `apps/cli`. It reads its facts from `/card.json` on nibras.co (`getCard()` in `@multiverse/content/card`), and holds no fact of its own. How it maps the site's design and motion to a terminal, the build and the release are in [docs/apps/cli.md](docs/apps/cli.md). A change to the card gets a changeset (`bunx changeset`). Release (`bunx changeset version`, then a push) only when the user asks: `.github/workflows/publish.yml` publishes to npm at once.
 
 The GitHub profile readme is `github-readme/`, a submodule of `grikomsn/grikomsn` (`git submodule update --init` on a fresh clone). Do not edit it by hand: `bun scripts/make-readme.ts` writes `README.md` from the card, and the signature pictures from the home page's trace. Commit and push in the submodule, then commit the new pointer here.
 
