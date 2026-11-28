@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@multiverse/sanity": "workspace:*",
-    "@sanity/client": "catalog:",
     "@sanity/vision": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
@@ -26,8 +25,6 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "eslint": "catalog:",
-    "lucide-static": "catalog:",
-    "simple-icons": "catalog:",
     "typescript": "catalog:"
   }
 }

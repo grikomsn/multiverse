@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
-    "postcss": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-astro": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
@@ -41,7 +40,6 @@
     ],
     "catalog": {
       "@astrojs/check": "0.9.12",
-      "@astrojs/cloudflare": "14.4.3",
       "@astrojs/sitemap": "3.7.4",
       "@changesets/cli": "3.0.3",
       "@cloudflare/workers-types": "5.20261031.1",
@@ -60,8 +58,6 @@
       "@fortawesome/free-solid-svg-icons": "5.5.0",
       "@modelcontextprotocol/server": "2.4.0",
       "@paper-design/shaders": "0.0.82",
-      "@portabletext/to-html": "6.0.0",
-      "@sanity/astro": "3.6.0",
       "@sanity/client": "8.14.1",
       "@sanity/icons": "5.2.3",
       "@sanity/image-url": "2.1.1",
@@ -71,7 +67,6 @@
       "@tailwindcss/vite": "4.3.3",
       "@types/node": "26.6.6",
       "@types/react": "19.3.0",
-      "@types/react-dom": "19.3.0",
       "@wterm/dom": "0.5.10",
       "agents": "0.32.0",
       "astro": "7.4.4",

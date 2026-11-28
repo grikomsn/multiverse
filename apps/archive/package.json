@@ -35,7 +35,6 @@
     "medium-zoom": "catalog:",
     "prismjs": "catalog:",
     "rough-notation": "catalog:",
-    "simple-icons": "catalog:",
     "tachyons": "catalog:"
   },
   "devDependencies": {
