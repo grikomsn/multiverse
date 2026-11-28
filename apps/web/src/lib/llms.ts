@@ -4,7 +4,7 @@ import { FALLBACK_NAME, KEY_PAGES } from "@multiverse/sanity/constants"
 import type { MEDIA_PAGE_QUERY_RESULT } from "@multiverse/sanity/types"
 
 import { roleAnchor, slug } from "./anchors"
-import { toMarkdown } from "./markdown"
+import { bullets, paragraphs, toMarkdown } from "./markdown"
 import { getMetrics, type Metrics } from "./metrics"
 import { KIND, STATUS } from "./projects"
 import { MEDIA_PAGE_QUERY, ROUTES_QUERY, SITE_SHELL_QUERY, WORK_QUERY } from "./queries"
@@ -27,13 +27,6 @@ import { sanity } from "./sanity"
  * comes from the same data as the HTML pages.
  */
 
-const paragraphs = (...blocks: (string | false | null | undefined)[]) =>
-  blocks.filter(Boolean).join("\n\n")
-const bullets = (items: (string | false | null | undefined)[]) =>
-  items
-    .filter(Boolean)
-    .map((item) => `- ${item}`)
-    .join("\n")
 const exact = (value: number) => value.toLocaleString("en-US")
 const technologies = (list: string[] | null | undefined) =>
   list?.length ? `Technologies: ${list.join(", ")}` : ""

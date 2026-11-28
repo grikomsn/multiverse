@@ -18,7 +18,7 @@ import { render } from "takumi-js"
 import { threshold, wave } from "./dither"
 import { faceFile, type Mood } from "./face"
 import { FAMILY, type Who } from "./family"
-import { mix, THEMES } from "./theme"
+import { mix, rgb, THEMES } from "./theme"
 
 /** The size that every app accepts: 1.91 to 1, and wide enough for the largest layouts. */
 export const OG_SIZE = { width: 1200, height: 630 }
@@ -83,8 +83,6 @@ const escape = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
 
 const dataUrl = (type: string, data: Buffer) => `data:${type};base64,${data.toString("base64")}`
-
-const rgb = (hex: string) => [1, 3, 5].map((at) => parseInt(hex.slice(at, at + 2), 16))
 
 /** A number from 0 to 1 that is always the same for the same text. */
 function seed(text: string) {

@@ -1,5 +1,17 @@
 import { platformLabel } from "@multiverse/sanity/constants"
 
+type Part = string | false | null | undefined
+
+/** The parts that have text, as paragraphs. */
+export const paragraphs = (...blocks: Part[]) => blocks.filter(Boolean).join("\n\n")
+
+/** The items that have text, as a bullet list. */
+export const bullets = (items: Part[]) =>
+  items
+    .filter(Boolean)
+    .map((item) => `- ${item}`)
+    .join("\n")
+
 /*
  * Portable Text to Markdown, for the `.md` copies of posts and pages, llms-full.txt and the MCP
  * server. Covers what `richText` allows: h2–h4, quotes, bullet and numbered lists, strong, em,

@@ -10,6 +10,7 @@ import {
   type SkillEntry,
   type TalkEntry,
 } from "./resume"
+import { bullets, paragraphs } from "../markdown"
 import { RESUME_SECTIONS, type ResumeSection } from "./sections"
 
 export { RESUME_SECTIONS, type ResumeSection }
@@ -37,11 +38,6 @@ export const SECTION_TITLES: Record<ResumeSection, string> = {
 }
 
 const join = (...parts: (string | false | null | undefined)[]) => parts.filter(Boolean).join(" · ")
-
-const paragraphs = (...blocks: (string | false | null | undefined)[]) =>
-  blocks.filter(Boolean).join("\n\n")
-
-const bullets = (items: string[]) => items.map((item) => `- ${item}`).join("\n")
 
 const degreeLine = (entry: EducationEntry) =>
   entry.field ? `${entry.degree} in ${entry.field}` : entry.degree
