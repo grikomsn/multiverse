@@ -217,8 +217,9 @@ The name `grikomsn` on npm is free: the package from 2020 was unpublished. Its v
 | No changeset, and the version is not on npm | Checks and builds the card, packs it, publishes it, and makes a tag and a GitHub release |
 | No changeset, and the version is on npm     | Nothing                                                                                  |
 
-The three jobs have different rights. The first two can only read the repository. Only the last one can publish, and it runs no script of a package: it sends the file that the job before it packed.
+The four jobs have different rights. The first two can only read the repository. Only the third can publish, and it runs no script of a package: it sends the file that the job before it packed. Only the last can write to the repository, for the tag and the release.
 
+- **No `changesets/action`.** The repository allows only the actions of GitHub and setup-bun. The jobs call the Changesets commands: `publish-plan`, `pack` and `publish`.
 - **No pull request.** The usual Changesets workflow opens a "Version Packages" pull request. This repository commits to `main`, so step 2 is by hand.
 - **The manifest in the package has no `devDependencies`.** Changesets packs with npm, and npm cannot read the `workspace:` and `catalog:` versions of Bun. The card is one file with every package inside, so the workflow removes the field before it packs.
 - **npm trusts the workflow by its name.** The package's settings on npmjs.com have a trusted publisher: GitHub Actions, `grikomsn/multiverse`, `publish.yml`, no environment. If the file gets a new name, change it there too.
