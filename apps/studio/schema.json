@@ -1308,6 +1308,14 @@
           "of": [
             {
               "type": "string",
+              "value": "waitlist"
+            },
+            {
+              "type": "string",
+              "value": "beta"
+            },
+            {
+              "type": "string",
               "value": "active"
             },
             {
@@ -1404,6 +1412,13 @@
               }
             }
           }
+        },
+        "optional": true
+      },
+      "tagline": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },

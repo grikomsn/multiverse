@@ -2,6 +2,7 @@ import { ProjectsIcon } from "@sanity/icons/Projects"
 import { orderRankOrdering } from "@sanity/orderable-document-list"
 import { defineArrayMember, defineField, defineType } from "sanity"
 
+import { PROJECT_STATUSES } from "../../constants"
 import {
   highlightsField,
   onResumeField,
@@ -66,13 +67,10 @@ export const project = defineType({
       name: "status",
       type: "string",
       group: "details",
+      description:
+        "Waitlist: people cannot get it yet. Beta: people can get it, and it is not finished.",
       options: {
-        list: [
-          { title: "Active", value: "active" },
-          { title: "Maintained", value: "maintained" },
-          { title: "Archived", value: "archived" },
-          { title: "Discontinued", value: "discontinued" },
-        ],
+        list: PROJECT_STATUSES.map(({ title, value }) => ({ title, value })),
         layout: "radio",
         direction: "horizontal",
       },
@@ -128,6 +126,13 @@ export const project = defineType({
           preview: { select: { title: "name", subtitle: "registry" } },
         }),
       ],
+    }),
+    defineField({
+      name: "tagline",
+      type: "string",
+      group: "details",
+      description: "What it is, in one short line. The list on the home page shows it.",
+      validation: (rule) => rule.max(80),
     }),
     defineField({
       name: "summary",

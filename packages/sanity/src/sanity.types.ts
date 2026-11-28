@@ -237,7 +237,7 @@ export type Project = {
   kind?: "library" | "extension" | "app" | "work"
   organization?: OrganizationReference
   startDate?: PartialDate
-  status: "active" | "maintained" | "archived" | "discontinued"
+  status: "waitlist" | "beta" | "active" | "maintained" | "archived" | "discontinued"
   url?: string
   repositories?: Array<string>
   technologies?: Array<string>
@@ -247,6 +247,7 @@ export type Project = {
     _type: "package"
     _key: string
   }>
+  tagline?: string
   summary: string
   highlights?: Array<string>
   cover?: Figure
@@ -833,7 +834,7 @@ export type HOME_QUERY_RESULT = {
     name: string
     slug: string
     role: string | null
-    status: "active" | "archived" | "discontinued" | "maintained"
+    status: "active" | "archived" | "beta" | "discontinued" | "maintained" | "waitlist"
     kind: "app" | "extension" | "library" | "work" | null
     featured: boolean | null
     url: string | null
@@ -1148,7 +1149,7 @@ export type WORK_QUERY_RESULT = {
     name: string
     slug: string
     role: string | null
-    status: "active" | "archived" | "discontinued" | "maintained"
+    status: "active" | "archived" | "beta" | "discontinued" | "maintained" | "waitlist"
     kind: "app" | "extension" | "library" | "work" | null
     featured: boolean | null
     url: string | null
@@ -1401,7 +1402,7 @@ export type RESUME_QUERY_RESULT = {
     _id: string
     name: string
     role: string | null
-    status: "active" | "archived" | "discontinued" | "maintained"
+    status: "active" | "archived" | "beta" | "discontinued" | "maintained" | "waitlist"
     url: string | null
     repoUrl: string | null
     technologies: Array<string> | null
@@ -1663,7 +1664,7 @@ export type CARD_QUERY_RESULT = {
     name: string
     slug: string
     role: string | null
-    status: "active" | "archived" | "discontinued" | "maintained"
+    status: "active" | "archived" | "beta" | "discontinued" | "maintained" | "waitlist"
     kind: "app" | "extension" | "library" | "work" | null
     featured: boolean | null
     url: string | null
@@ -1944,7 +1945,7 @@ export type LIVE_SITE_QUERY_RESULT = {
     name: string
     slug: string
     role: string | null
-    status: "active" | "archived" | "discontinued" | "maintained"
+    status: "active" | "archived" | "beta" | "discontinued" | "maintained" | "waitlist"
     kind: "app" | "extension" | "library" | "work" | null
     featured: boolean | null
     url: string | null

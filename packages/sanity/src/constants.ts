@@ -5,6 +5,19 @@ export const SANITY_DATASET = "production"
 export const SANITY_API_VERSION = "2026-11-01"
 
 /**
+ * Every `project.status`, with its name. Studio lists them, and nibras.co names the light that
+ * the home page shows next to a project.
+ */
+export const PROJECT_STATUSES = [
+  { value: "waitlist", title: "Waitlist" },
+  { value: "beta", title: "Beta" },
+  { value: "active", title: "Active" },
+  { value: "maintained", title: "Maintained" },
+  { value: "archived", title: "Archived" },
+  { value: "discontinued", title: "Discontinued" },
+] as const satisfies readonly { value: string; title: string }[]
+
+/**
  * Every `socialLink.platform`, with its name and the kind of site it is. One table for Studio,
  * nibras.co and the archive: a profile link's `label` is set only when the name here is wrong.
  * Designs that sort profiles under headings ("Blogs", "Development", "Social") map the kind.
