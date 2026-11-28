@@ -156,13 +156,3 @@ export function toMarkdown(blocks: Block[] | null | undefined, origin: string): 
     .replace(/\n{3,}/g, "\n\n")
     .trim()
 }
-
-/** Plain text of the first blocks, for summaries. */
-export function plainText(blocks: Block[] | null | undefined): string {
-  return (blocks ?? [])
-    .filter((block) => block._type === "block")
-    .map((block) => (block.children ?? []).map((span) => span.text ?? "").join(""))
-    .join(" ")
-    .replace(/\s+/g, " ")
-    .trim()
-}
