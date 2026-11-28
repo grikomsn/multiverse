@@ -46,8 +46,17 @@ export interface Card {
     start?: string
     end?: string
   }[]
-  /** Featured projects. */
-  projects: { name: string; summary?: string; url?: string; technologies: string[] }[]
+  /** Featured projects, as the home page lists them. */
+  projects: {
+    name: string
+    /** What it is, in one short line. */
+    tagline?: string
+    summary?: string
+    /** One of `PROJECT_STATUSES`: "beta", "active". */
+    status?: string
+    url?: string
+    technologies: string[]
+  }[]
   /** The latest posts. */
   posts: { title: string; url: string; date?: string; summary?: string }[]
   talks: { title: string; event?: string; date?: string; url?: string }[]
@@ -61,8 +70,8 @@ export const CARD_QUERY = defineQuery(`{
   "experience": *[_type == "experience"] | order(orderRank) {
     role, startDate, endDate, ${ORGANIZATION}
   },
-  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) [0...4] {
-    ${PROJECT}
+  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) {
+    ${PROJECT}, tagline
   },
   "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {
     title, "slug": slug.current, publishedAt, excerpt
@@ -120,7 +129,9 @@ export async function getCard(client: SanityClient, website = "https://nibras.co
         ? [
             {
               name: project.name,
+              tagline: project.tagline ?? undefined,
               summary: project.summary ?? undefined,
+              status: project.status ?? undefined,
               url: project.url ?? project.repoUrl ?? undefined,
               technologies: project.technologies ?? [],
             },
