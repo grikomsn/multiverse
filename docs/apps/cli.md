@@ -205,22 +205,26 @@ Run the card itself, not through `bun run --filter` or Turbo: they give it a pip
 
 The name `grikomsn` on npm is free: the package from 2020 was unpublished. Its versions (1.0.0, 1.0.1 and 1.1.0) stay taken, so the card started at 2.0.0.
 
-[Changesets](https://changesets.dev) keeps the version and `apps/cli/CHANGELOG.md`. GitHub Actions publishes, with provenance: npm shows the commit and the workflow that built each version. No person and no token publishes.
+[Changesets](https://changesets.dev) keeps the version and `apps/cli/CHANGELOG.md`. GitHub Actions sends each version to npm, with provenance: npm shows the commit and the workflow that built it. The version is staged: it waits on npmjs.com until a maintainer approves it. No token publishes, and no version goes out without that approval.
 
 1. With a change to the card, add a changeset: `bunx changeset`. It asks how large the change is (patch, minor or major) and for one line for the changelog. It writes a file in `.changeset/`. Commit the file with the change.
 2. To release, run `bunx changeset version`. It sets the new `"version"` in `apps/cli/package.json`, writes the changelog and deletes the changesets. Commit and push to `main`.
-3. `.github/workflows/publish.yml` does the rest. It runs when `.changeset/` or the card's `package.json` changes on `main`, and by hand.
+3. `.github/workflows/publish.yml` stages the version. It runs when `.changeset/` or the card's `package.json` changes on `main`, and by hand.
+4. Approve the version: on npmjs.com, in Staged Packages, or with `npm stage approve <stage-id>`. npm asks for two-factor authentication. Then `npx grikomsn` gets the new version.
 
-| The state of `main`                         | What the workflow does                                                                   |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| It has changesets                           | Nothing. They wait for step 2                                                            |
-| No changeset, and the version is not on npm | Checks and builds the card, packs it, publishes it, and makes a tag and a GitHub release |
-| No changeset, and the version is on npm     | Nothing                                                                                  |
+| The state of `main`                         | What the workflow does                                                                       |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| It has changesets                           | Nothing. They wait for step 2                                                                |
+| No changeset, and the version is not on npm | Checks and builds the card, packs it, stages it on npm, and makes a tag and a GitHub release |
+| The version has its tag                     | Nothing. The version waits for approval on npm                                               |
+| No changeset, and the version is on npm     | Nothing                                                                                      |
 
-The four jobs have different rights. The first two can only read the repository. Only the third can publish, and it runs no script of a package: it sends the file that the job before it packed. Only the last can write to the repository, for the tag and the release.
+The four jobs have different rights. The first two can only read the repository. Only the third can talk to npm as the publisher. It installs nothing and runs no script of a package: it sends the file that the job before it packed. Only the last can write to the repository, for the tag and the release.
 
-- **No `changesets/action`.** The repository allows only the actions of GitHub and setup-bun. The jobs call the Changesets commands: `publish-plan`, `pack` and `publish`.
+- **No `changesets/action`.** The repository allows only the actions of GitHub and setup-bun. The jobs call the Changesets commands `publish-plan` and `pack`, and then `npm stage publish`.
 - **No pull request.** The usual Changesets workflow opens a "Version Packages" pull request. This repository commits to `main`, so step 2 is by hand.
 - **The manifest in the package has no `devDependencies`.** Changesets packs with npm, and npm cannot read the `workspace:` and `catalog:` versions of Bun. The card is one file with every package inside, so the workflow removes the field before it packs.
 - **npm trusts the workflow by its name.** The package's settings on npmjs.com have a trusted publisher: GitHub Actions, `grikomsn/multiverse`, `publish.yml`, no environment. If the file gets a new name, change it there too.
-- **The first version from the workflow is 2.1.0.** Version 2.0.0 came from a laptop, with `bun publish`.
+- **The trusted publisher can stage, and not publish.** That is npm's default for a new one. `npm publish` from the workflow gets "OIDC permission denied for this action".
+- **To send a version again** after a rejection, delete its tag and its GitHub release, and start the workflow by hand.
+- **The first version from the workflow is 2.1.0.** Version 2.0.0 came from a laptop.
