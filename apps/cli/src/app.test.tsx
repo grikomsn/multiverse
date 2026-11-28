@@ -69,4 +69,18 @@ describe("a list", () => {
     assert.match(text, /❯ Bridges • {2}Nine extensions .* chat of an +→\n {4}editor, for a test\./)
     assert.doesNotMatch(text, /…/)
   })
+
+  it("has a shape for each light when there is no color", () => {
+    const row = (title: string, light: "ring" | "on" | "off") => ({
+      title,
+      light,
+      url: `https://example.com/${title}`,
+      group: "Rows",
+    })
+    const rows = [row("Soon", "ring"), row("Here", "on"), row("Old", "off")]
+    const text = draw([{ rows }], 0, 100, true).replace(/\x1b\[\d+m/g, "")
+    assert.match(text, /Soon ◦/)
+    assert.match(text, /Here •/)
+    assert.match(text, /Old ·/)
+  })
 })

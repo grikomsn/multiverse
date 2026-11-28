@@ -256,7 +256,8 @@ export function List({ card, theme, plain, shown, start, selected, width, boxRef
                 </Text>
                 {row.light && (
                   <Text color={lightColor(theme, row.light)}>
-                    {row.light === "ring" ? " ◦" : " •"}
+                    {/* With no color, a smaller dot stands for the grey one. */}
+                    {row.light === "ring" ? " ◦" : row.light === "off" && plain ? " ·" : " •"}
                   </Text>
                 )}
                 {line.detail && <Text color={theme.soft}>{`  ${line.detail}`}</Text>}
