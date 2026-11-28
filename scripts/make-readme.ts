@@ -74,13 +74,6 @@ const picture = (name: string, alt: string, attrs: string) => `<picture>
 <img src="./assets/${name}-light.svg" alt="${alt}" ${attrs}>
 </picture>`
 
-/** A project's summary, short: its first sentence, up to a colon. */
-const short = (summary = "") =>
-  summary
-    .split(/(?<=\.)\s/)[0]!
-    .split(":")[0]!
-    .replace(/\.$/, "")
-
 function readme(card: Card) {
   const links = new Map(
     card.experience.flatMap((stop) => (stop.url ? [[stop.organization, stop.url]] : [])),
@@ -91,7 +84,9 @@ function readme(card: Card) {
     .join("")
   const projects = card.projects.map((project) => {
     const name = project.url ? `[${project.name}](${project.url})` : project.name
-    return `- **${name}**${project.summary ? `: ${short(project.summary)}.` : ""}`
+    // One line for each project, as on the home page.
+    const about = project.tagline ?? project.summary
+    return `- **${name}**${about ? `: ${about}` : ""}`
   })
   const contact = [
     `[${new URL(card.website).hostname}](${card.website})`,
