@@ -3,7 +3,7 @@
  *
  * A face is a head with a few fixed layers, and one set of parts for each mood: each eye, the
  * mouth, the marks around the head. This module puts them in one <svg>, so a page can show one
- * mood and move its parts (`gri.css`). The class of every drawing is `gri`, for the first face.
+ * mood and move its parts (`face.css`). The class of every drawing is `gri`, for the first face.
  *
  * Coordinates are in a 200 by 200 box. The head turns about its centre, (100, 110).
  */
@@ -278,7 +278,7 @@ const selectorOf = (face: Face) => (face.who ? `.gri[data-who="${face.who}"]` : 
  * A face as SVG markup, with every mood in `moods`.
  *
  * Each mood is a few groups with `data-m`. With `rules`, a <style> in the drawing shows the
- * parts of the mood that `data-mood` on the <svg> names, and sets its pose; `gri.css` has the
+ * parts of the mood that `data-mood` on the <svg> names, and sets its pose; `face.css` has the
  * moves. The attributes hold the first mood, so the drawing is right without a style sheet, as
  * a file.
  *

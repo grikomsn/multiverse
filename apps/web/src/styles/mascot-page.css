@@ -1,6 +1,6 @@
 /*
  * The page of a mascot: `/gri`, `/nia` and `/ash` (`components/mascot-page.astro`). Imported
- * by that page only. The script is `scripts/gri.ts`.
+ * by that page only. The script is `scripts/mascot-page.ts`.
  *
  * The page keeps the motion rules of docs/redesign.md: transform only for text, nothing that
  * needs a script to show content, and no motion under `prefers-reduced-motion`. See "The

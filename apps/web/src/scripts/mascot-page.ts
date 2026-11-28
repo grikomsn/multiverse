@@ -1,6 +1,6 @@
 /**
  * The page of a mascot: `/gri`, `/nia` and `/ash` (`components/mascot-page.astro`,
- * `styles/gri.css`). Browser code.
+ * `styles/mascot-page.css`). Browser code.
  *
  * Every part is optional: without this script the page shows the same faces and text. With
  * `prefers-reduced-motion`, a press still changes a mood, and nothing moves by itself.
@@ -357,7 +357,7 @@ function moodTiles() {
     })
   }
   if (still) return
-  // The faces pop in 55 ms apart (`gri.css`). Each move starts as its face lands.
+  // The faces pop in 55 ms apart (`mascot-page.css`). Each move starts as its face lands.
   near(grid, () => {
     plays.forEach((play, index) => window.setTimeout(play, 280 + index * 55))
   })

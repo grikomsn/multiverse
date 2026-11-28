@@ -2,7 +2,7 @@
  * Changes the mood of a mascot drawn in the page (`face.astro`). Browser code.
  *
  * `data-mood` on the <svg> is the mood that shows. `data-rest` is the mood it goes back to
- * after a short one; without it, that is the smile. `data-live` turns the moves on (`gri.css`).
+ * after a short one; without it, that is the smile. `data-live` turns the moves on (`face.css`).
  */
 import { reducedMotion } from "./dither"
 
@@ -19,7 +19,7 @@ export const hasMood = (face: SVGSVGElement, mood: string) =>
 /**
  * Shows `mood` and plays its move, also when the mood shows already. With `ms`, the drawing
  * goes back to its resting mood after that time. A `soft` change fades the parts in and plays
- * no move (`gri.css`): for a face that changes often, such as one of a few under a pointer.
+ * no move (`face.css`): for a face that changes often, such as one of a few under a pointer.
  */
 export function showMood(face: SVGSVGElement, mood: string, ms?: number, soft = false) {
   // A mixed face (`mix` in `face.astro`) shows parts of three moods, and has no mood to change.
@@ -42,7 +42,7 @@ export function showMood(face: SVGSVGElement, mood: string, ms?: number, soft = 
 
 /**
  * The head and the eyes of `face` lean toward the pointer while it is over `area`
- * (`--gri-look-x` and `--gri-look-y` in `gri.css`). This is for a mouse, and reduced motion
+ * (`--gri-look-x` and `--gri-look-y` in `face.css`). This is for a mouse, and reduced motion
  * stops it. `reach` is the distance in pixels at which the lean is full. A face does not look
  * while `quiet` is true. `ease` is the part of the way it moves in one frame: less is slower.
  */

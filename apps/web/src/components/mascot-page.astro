@@ -1,13 +1,13 @@
 ---
 /**
  * The page of one mascot: `/gri`, `/nia` and `/ash`. Every face on it comes from one drawing
- * (`@multiverse/ui/family`). The page's motion is in `styles/gri.css` and `scripts/gri.ts`; the
+ * (`@multiverse/ui/family`). The page's motion is in `styles/mascot-page.css` and `scripts/mascot-page.ts`; the
  * rules it follows, and the two it bends, are in docs/redesign.md, "The mascot's page".
  *
  * Slots: `lede` is the first sentence under the headline, `more` holds the parts that only one
  * face has, and `origin` is the text of the last part.
  */
-import "../styles/gri.css"
+import "../styles/mascot-page.css"
 
 import { faceLayers, faceMix, layersOf, MOODS, type Mood } from "@multiverse/ui/face"
 import Face from "@multiverse/ui/face.astro"
@@ -368,5 +368,5 @@ const FAMILY_COPY: Record<Who, { text: string; mood: Mood }> = {
 </BaseLayout>
 
 <script>
-  import "../scripts/gri"
+  import "../scripts/mascot-page"
 </script>

@@ -444,7 +444,7 @@ const structuredData = profile?.name && {
       answer(item, () => item.dataset.gri)
     }
 
-    // The head and the eyes lean toward the pointer while it is over the hero (`gri.css`).
+    // The head and the eyes lean toward the pointer while it is over the hero (`face.css`).
     // A sleepy or dizzy face does not look around.
     look(face, hero, 260, { quiet: () => ["sleepy", "dizzy"].includes(face.dataset.mood ?? "") })
   }
