@@ -224,6 +224,8 @@ A canvas must read pixels, and a browser cannot read them from `cdn.sanity.io` (
 
 `project.icon` is the project's own mark, or the mark of what it is built for. A one-off script set the first ones on 2026-11-22: brand marks from Simple Icons, Lucide icons for projects with no brand, and the project's own image where it has one. Replace any of them in Studio. A flat shape on a transparent ground works best; a picture with two tones is split by lightness, and the smaller part becomes the mark.
 
+Since 2026-11-28 the six featured projects have icons made for the site: pictures of square dots on a grid of 12, in the style of `dot-icon.astro`. They are SVG files in Sanity, and no icon is in the code. The list on the home page draws an icon as a mask, so an icon there must be a flat shape on a transparent ground: a picture with a filled ground shows as a block.
+
 ### Mascot and icons
 
 Decided on 2026-11-22. The mascot is Gri: a cartoon face of Griko with a tuft of black hair, thick glasses, smiling eyes and a blush, on the accent amber (`#eab308`). It is new vector work, drawn from what the owner's avatars share (glasses, a side-swept quiff, an amber ground), not traced from them. For a few hours on the same day the mascot was the Tinypfp drawing on amber; that drawing stays in the gallery as `portrait-tinypfp`.
@@ -303,6 +305,14 @@ Decided on 2026-11-26, from five boards of sketches. Gri has two more faces next
 ### Home page order
 
 Decided on 2026-11-22: Experience, Projects, Talks, then Latest posts.
+
+Changed on 2026-11-28: Apps and things, Experience, Talks, then Latest posts. "Apps and things" replaced the grid of project cards. It is one list of every featured project, in the order that Studio gives them, and the intro's "small apps" link opens the page at it.
+
+A row is `apps/web/src/components/app-row.astro`:
+
+- The icon is `project.icon`, 20 px wide, with no plate. The page draws it as a mask, so it has the text color, and the accent color while the pointer or the focus is on the row.
+- A light sits after the name: a ring for a waitlist, green while people can get the project, grey when it is archived. The status name is its label for a pointer and for a screen reader.
+- The line under the name is `project.tagline`. A project without one shows its summary.
 
 ### List rows and title links
 
