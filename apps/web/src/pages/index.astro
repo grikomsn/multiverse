@@ -221,8 +221,15 @@ const structuredData = profile?.name && {
               )}
             </>
           )}
-          . I also make {toolsUrl ? <a href={toolsUrl}>developer tools</a> : "developer tools"} for
-          humans, and lately for {agentsUrl ? <a href={agentsUrl}>AI agents</a> : "AI agents"} too.
+          . I also make {toolsUrl ? <a href={toolsUrl}>developer tools</a> : "developer tools"}
+          {projects.length > 0 && (
+            <>
+              {" "}
+              and <a href="#apps">small apps</a>,
+            </>
+          )}{" "}
+          for humans and lately for {agentsUrl ? <a href={agentsUrl}>AI agents</a> : "AI agents"}{" "}
+          too.
           {profile?.location &&
             (timeZone ? (
               <>
