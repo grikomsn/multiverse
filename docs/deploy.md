@@ -96,7 +96,7 @@ Done on 2026-11-22. What changed, and what to know from it:
 
 Deleted: the Workers `web`, `archive`, `r7s-worker`, `resume` and `amhere-server-development`, the KV namespace `resume-session`, the D1 database `amhere-control-plane-development` and the Pages projects `media` and `studio` (an older Studio, built from `grikomsn/multiverse-private`). The KV namespace `r7s` stays: `multiverse-links` reads it.
 
-Still to drop: the Bear Blog (keep its export first), then `tools/sync-bearblog.ts` and its docs.
+Still to drop: the Bear Blog itself. Its export from 2026-11-15 is in `tmp/bearblog/`. `tools/sync-bearblog.ts`, which copied Sanity to it, is gone since 2026-11-28.
 
 Not touched: the Pages projects `stickers` and `react-state-mgmt-examples`, the wildcard `*.nibras.co` to Vercel, and `blob1` with blobs.nibras.co.
 

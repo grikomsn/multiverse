@@ -41,8 +41,6 @@ The MCP server (`src/worker/mcp.ts`) reads `/llms.json` from the deployed assets
 
 `tools/generate-ats-backup.py` builds DOCX and PDF backups from `https://nibras.co/resume.md` (see `--help`; needs `python-docx` from `tools/requirements-ats-backup.txt`, and LibreOffice for PDF).
 
-`tools/sync-bearblog.ts` copies posts and pages from Sanity to the Bear Blog that serves nibras.co until the cutover. It uses the [Bear Blog API](https://docs.bearblog.dev/api/). It sends only fields that differ and never deletes. It skips Bear drafts, cross-post stubs (Bear posts with a `canonical_url`), and `schedule` and `resume`. Without `--apply` it only shows the changes. With `--apply` it backs up every Bear item it changes to `tmp/bearblog/` first. Set `BEARBLOG_API_KEY` (Bear dashboard → Settings → API).
-
 ## Performance
 
 Measured on 2026-11-22 with mobile Lighthouse 13.6.0: a slow 4G network and a slow phone, both simulated. The build was served from a local server with Brotli. 14 pages, three runs each, the middle value.
