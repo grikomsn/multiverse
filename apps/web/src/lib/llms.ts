@@ -6,7 +6,7 @@ import type { MEDIA_PAGE_QUERY_RESULT } from "@multiverse/sanity/types"
 import { roleAnchor, slug } from "./anchors"
 import { bullets, paragraphs, toMarkdown } from "./markdown"
 import { getMetrics, type Metrics } from "./metrics"
-import { KIND, STATUS } from "./projects"
+import { kindTitle, statusTitle } from "./projects"
 import { MEDIA_PAGE_QUERY, ROUTES_QUERY, SITE_SHELL_QUERY, WORK_QUERY } from "./queries"
 import { getResume } from "./resume/content"
 import {
@@ -53,10 +53,11 @@ async function loadWork() {
 type WorkProject = Work["projects"][number]
 
 function projectMarkdown(project: WorkProject, metrics: Metrics | undefined) {
-  const status = project.status && STATUS[project.status]
   return paragraphs(
     `### ${project.name}`,
-    [KIND[project.kind ?? ""] ?? "Project", status, project.role].filter(Boolean).join(" · "),
+    [kindTitle(project.kind), statusTitle(project.status), project.role]
+      .filter(Boolean)
+      .join(" · "),
     project.summary,
     usageLine(metrics),
     bullets([

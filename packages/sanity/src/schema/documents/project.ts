@@ -2,7 +2,7 @@ import { ProjectsIcon } from "@sanity/icons/Projects"
 import { orderRankOrdering } from "@sanity/orderable-document-list"
 import { defineArrayMember, defineField, defineType } from "sanity"
 
-import { PROJECT_STATUSES } from "../../constants"
+import { PROJECT_KINDS, PROJECT_STATUSES } from "../../constants"
 import {
   highlightsField,
   onResumeField,
@@ -43,12 +43,7 @@ export const project = defineType({
       group: "details",
       description: "Groups the Work page. Community roles are involvements, not projects.",
       options: {
-        list: [
-          { title: "Library or tool", value: "library" },
-          { title: "Editor extension", value: "extension" },
-          { title: "App", value: "app" },
-          { title: "Built at work", value: "work" },
-        ],
+        list: PROJECT_KINDS.map(({ title, value }) => ({ title, value })),
         layout: "radio",
         direction: "horizontal",
       },

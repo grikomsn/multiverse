@@ -1,10 +1,9 @@
-/** Labels for `project.kind`. */
-export const KIND: Record<string, string> = {
-  library: "Library",
-  extension: "Editor extensions",
-  app: "App",
-  work: "Built at work",
-}
+import { hostname } from "@multiverse/content/format"
+import { PROJECT_KINDS, PROJECT_STATUSES } from "@multiverse/sanity/constants"
+
+/** The name of a `project.kind`. */
+export const kindTitle = (kind?: string | null) =>
+  PROJECT_KINDS.find(({ value }) => value === kind)?.title ?? "Project"
 
 /** Icons for `project.kind`, names from `@multiverse/ui/icon.astro`. */
 export const KIND_ICON: Record<string, "package" | "puzzle" | "app-window" | "building"> = {
@@ -14,11 +13,14 @@ export const KIND_ICON: Record<string, "package" | "puzzle" | "app-window" | "bu
   work: "building",
 }
 
-/** Status labels worth showing; active projects need none. */
-export const STATUS: Record<string, string> = {
-  maintained: "Maintained",
-  archived: "Archived",
-}
+/** The statuses that the Work page and llms.txt name. Active projects need none. */
+const NAMED_STATUSES = new Set<string>(["maintained", "archived"])
+
+/** The name of a status worth showing, or nothing. */
+export const statusTitle = (status?: string | null) =>
+  status && NAMED_STATUSES.has(status)
+    ? PROJECT_STATUSES.find(({ value }) => value === status)?.title
+    : undefined
 
 /** Sections of the Work page project list, after the featured cards. */
 export const GROUPS = [
@@ -35,6 +37,6 @@ const STORES: Record<string, string> = {
 
 /** Link text for a project URL: a store name, or the bare hostname. */
 export function linkLabel(url: string) {
-  const host = new URL(url).hostname.replace(/^www\./, "")
+  const host = hostname(url)
   return STORES[host] ?? host
 }

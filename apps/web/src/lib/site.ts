@@ -1,4 +1,4 @@
-import { FALLBACK_NAME } from "@multiverse/sanity/constants"
+import { FALLBACK_NAME, FALLBACK_TAGLINE } from "@multiverse/sanity/constants"
 import type { SITE_SHELL_QUERY_RESULT } from "@multiverse/sanity/types"
 
 /** The site's title: the short name from Profile, "Griko Nibras". */
@@ -35,4 +35,4 @@ export function siteDescription({
  * get a mark. The home page and its social card both show it.
  */
 export const homeTagline = (site: { tagline?: string | null } | null | undefined) =>
-  site?.tagline || "I make [useful], [fast], and [friendly] things."
+  site?.tagline || FALLBACK_TAGLINE

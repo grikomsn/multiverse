@@ -30,6 +30,9 @@ export function formatRange(start?: string | null, end?: string | null) {
   return from === to ? from : `${from} – ${to}`
 }
 
+/** A tagline in parts: the words in [brackets] are at the odd indexes. */
+export const taglineParts = (tagline: string) => tagline.split(/\[([^\]]+)\]/)
+
 /** Sanity image CDN URL, resized and format-negotiated. */
 export const imageUrl = (url: string | null | undefined, width: number, height?: number) =>
   url ? `${url}?w=${width}${height ? `&h=${height}&fit=crop` : "&fit=max"}&auto=format` : undefined

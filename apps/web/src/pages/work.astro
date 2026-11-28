@@ -11,7 +11,7 @@ import BaseLayout from "../layouts/base.astro"
 import { roleAnchor } from "../lib/anchors"
 import { markSource } from "../lib/inline-image"
 import { formatCount, getMetrics, totals } from "../lib/metrics"
-import { GROUPS, STATUS } from "../lib/projects"
+import { GROUPS, statusTitle } from "../lib/projects"
 import { WORK_QUERY } from "../lib/queries"
 import { sanity } from "../lib/sanity"
 
@@ -222,8 +222,8 @@ const TILES = [
                     ) : (
                       <span class="font-semibold">{project.name}</span>
                     )}
-                    {project.status && STATUS[project.status] && (
-                      <span class="font-mono text-xs text-soft">{STATUS[project.status]}</span>
+                    {statusTitle(project.status) && (
+                      <span class="font-mono text-xs text-soft">{statusTitle(project.status)}</span>
                     )}
                     {project.organization?.name && (
                       <span class="text-sm text-soft">at {project.organization.name}</span>

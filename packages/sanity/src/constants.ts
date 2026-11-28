@@ -17,6 +17,14 @@ export const PROJECT_STATUSES = [
   { value: "discontinued", title: "Discontinued" },
 ] as const satisfies readonly { value: string; title: string }[]
 
+/** Every `project.kind`, with its name. Studio lists them, and the Work page labels each tile. */
+export const PROJECT_KINDS = [
+  { value: "library", title: "Library or tool" },
+  { value: "extension", title: "Editor extension" },
+  { value: "app", title: "App" },
+  { value: "work", title: "Built at work" },
+] as const satisfies readonly { value: string; title: string }[]
+
 /**
  * Every `socialLink.platform`, with its name and the kind of site it is. One table for Studio,
  * nibras.co and the archive: a profile link's `label` is set only when the name here is wrong.
@@ -81,6 +89,9 @@ export const REPOSITORY_URL = "https://github.com/grikomsn/multiverse"
  */
 export const FALLBACK_NAME = "Griko Nibras"
 export const FALLBACK_GIVEN_NAME = "Griko"
+
+/** The line under the greeting when Site has none. Words in [brackets] get a mark. */
+export const FALLBACK_TAGLINE = "I make [useful], [fast], and [friendly] things."
 
 /**
  * The pages that say the most, in this order, by slug. The header links the ones marked `nav`

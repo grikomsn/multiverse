@@ -3,7 +3,13 @@ import DitherWave from "@multiverse/ui/dither-wave.astro"
 import { MOODS, type Mood } from "@multiverse/ui/gri"
 import Gri from "@multiverse/ui/gri.astro"
 import Icon from "@multiverse/ui/icon.astro"
-import { formatRange, groupByOrganization, imageUrl, isoDate } from "@multiverse/content/format"
+import {
+  formatRange,
+  groupByOrganization,
+  imageUrl,
+  isoDate,
+  taglineParts,
+} from "@multiverse/content/format"
 import SectionHeading from "@multiverse/ui/section-heading.astro"
 import { FALLBACK_GIVEN_NAME, MASCOT_ID } from "@multiverse/sanity/constants"
 
@@ -30,7 +36,7 @@ const sideJob = experience.find(
 const stops = groupByOrganization(experience)
 // The highlighted line. Words in [brackets] get a mark; split() with a capture group puts
 // them at the odd indexes.
-const tagline = homeTagline(site).split(/\[([^\]]+)\]/)
+const tagline = taglineParts(homeTagline(site))
 const MARKS = ["--color-mark-red", "--color-mark-green", "--color-mark-blue"]
 // What a marked word does under the pointer: the mascot's mood, and an effect around the word
 // (global.css). A word that is not here puts stars in the mascot's eyes.
