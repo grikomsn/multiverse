@@ -5,7 +5,7 @@
 import type { Card } from "@multiverse/content/card"
 import { isoDate } from "@multiverse/content/format"
 
-import { tagline } from "./content"
+import { statusOf, tagline } from "./content"
 
 /** The site's amber, as one of the 256 colors: close enough on any terminal with color. */
 const AMBER = "\x1b[38;5;178m"
@@ -51,11 +51,15 @@ export function plainCard(card: Card, { color = false, short = false }: PlainOpt
       ...current.map((stop) => `  ${stop.roles.join(", ")} at ${stop.organization}`),
     ],
     card.projects.length > 0 && [
-      paint(BOLD, "Projects"),
-      ...card.projects.flatMap((project) => [
-        `  ${project.name}${project.url ? paint(DIM, `  ${project.url}`) : ""}`,
-        ...(project.summary ? [`    ${project.summary}`] : []),
-      ]),
+      paint(BOLD, "Apps and things"),
+      ...card.projects.flatMap((project) => {
+        const status = statusOf(project)
+        const about = project.summary ?? project.tagline
+        return [
+          `  ${project.name}${status ? ` (${status.title})` : ""}${project.url ? paint(DIM, `  ${project.url}`) : ""}`,
+          ...(about ? [`    ${about}`] : []),
+        ]
+      }),
     ],
     card.posts.length > 0 && [
       paint(BOLD, "Latest posts"),

@@ -37,7 +37,9 @@ export const FIXTURE: Card = {
   projects: [
     {
       name: "Widget",
-      summary: "A small widget.",
+      tagline: "A widget for small jobs.",
+      summary: "A small widget. It does one job, and it has no settings.",
+      status: "beta",
       url: "https://github.com/example/widget",
       technologies: ["TypeScript"],
     },

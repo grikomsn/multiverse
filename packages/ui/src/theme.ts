@@ -28,6 +28,8 @@ export interface Theme {
   line: string
   accent: string
   accentInk: string
+  /** The light of a project that people can get (`--color-mark-green-ink`). */
+  green: string
   /** The dots of the wave: the accent, part of the way to the ground (`--color-dither`). */
   dither: string
   /** The ground of the row under the cursor: 9% accent, as `row-link` on the site. */
@@ -57,6 +59,7 @@ export const THEMES = {
       line: "#e7e5e0",
       accent: "#eab308",
       accentInk: "#8a5a00",
+      green: "#16a34a",
       marks: ["#fde2e1", "#dcf3e4", "#dde9fb"],
     },
     0.55,
@@ -70,6 +73,7 @@ export const THEMES = {
       line: "#2b2d34",
       accent: "#facc15",
       accentInk: "#facc15",
+      green: "#4ade80",
       marks: ["#5b2422", "#1f4a33", "#1f3a63"],
     },
     0.38,

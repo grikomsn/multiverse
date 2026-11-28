@@ -47,13 +47,21 @@ describe("the sentences", () => {
     assert.equal(
       parts.join(""),
       "I lead engineering at Example Works and teach new developers at Example School. " +
-        "I also make developer tools for humans, and lately for AI agents too. " +
+        "I also make developer tools and small apps, for humans and lately for AI agents too. " +
         "I live in Lisbon, Portugal.",
     )
   })
 
   it("has an intro with no role and no city", () => {
     const parts = intro({ ...FIXTURE, experience: [], location: undefined })
+    assert.equal(
+      parts.join(""),
+      "I also make developer tools and small apps, for humans and lately for AI agents too.",
+    )
+  })
+
+  it("does not name apps when the card has no project", () => {
+    const parts = intro({ ...FIXTURE, experience: [], location: undefined, projects: [] })
     assert.equal(
       parts.join(""),
       "I also make developer tools for humans, and lately for AI agents too.",
@@ -103,6 +111,30 @@ describe("the lists", () => {
     )
   })
 
+  it("puts the lists of the home view in the order of the site's home page", () => {
+    assert.deepEqual(
+      list[0]!.sections.map((section) => section.heading),
+      [undefined, "Apps and things", "Experience", "Talks", "Latest posts"],
+    )
+    assert.deepEqual(
+      list[1]!.sections.map((section) => section.heading),
+      ["Experience", "Projects", "Talks", undefined],
+    )
+  })
+
+  it("shows a project with its short line and a light for its status", () => {
+    const [row] = list[0]!.sections[1]!.rows
+    assert.equal(row?.detail, "A widget for small jobs.")
+    assert.equal(row?.light, "on")
+    assert.match(row?.keywords ?? "", /Beta/)
+    const lights = (["waitlist", "archived", "active", undefined, "unknown"] as const).map(
+      (status) =>
+        views({ ...FIXTURE, projects: [{ ...FIXTURE.projects[0]!, status }] })[0]!.sections[1]!
+          .rows[0]!.light,
+    )
+    assert.deepEqual(lights, ["ring", "off", "on", undefined, undefined])
+  })
+
   it("gives every row an address", () => {
     for (const row of allRows(list)) assert.match(row.url, /^(https:\/\/|mailto:)/)
   })
@@ -136,6 +168,11 @@ describe("the plain card", () => {
     const text = plainCard(FIXTURE)
     assert.match(text, /^Ada Example\n/)
     assert.match(text, /Email {4}ada@example\.com/)
+    assert.match(
+      text,
+      /Apps and things\n {2}Widget \(Beta\) {2}https:\/\/github\.com\/example\/widget/,
+    )
+    assert.match(text, /\n {4}A small widget\. It does one job/)
     assert.match(text, /2026-01-02 {2}Hello, terminal/)
     assert.match(text, /https:\/\/example\.com\/llms\.txt/)
     assert.doesNotMatch(text, /\x1b/)

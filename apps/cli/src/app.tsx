@@ -25,6 +25,7 @@ import {
   views,
   WORD_MOODS,
   wrapParts,
+  type Light,
   type Row,
 } from "./content"
 import { faceRows, moveOf, SMALL_FACES, type Depth, type FaceSize } from "./face"
@@ -34,7 +35,7 @@ import { copyText, openUrl } from "./open"
 import type { Input, TerminalEvent } from "./pointer"
 import type { WaveSpec } from "./screen"
 import { MIN_SIZE, type ColorDepth } from "./terminal"
-import { THEMES, type Theme } from "./theme"
+import { mix, THEMES, type Theme } from "./theme"
 
 /** What the card asks of the screen. `screen.ts` is the real one. */
 export interface Stage {
@@ -196,6 +197,14 @@ interface ListProps {
   boxRef?: BoxRef
 }
 
+/** The color of a project's light: the site's ring, green dot and grey dot. */
+const lightColor = (theme: Theme, light: Light) =>
+  light === "ring"
+    ? mix(theme.bg, theme.accent, 0.8)
+    : light === "on"
+      ? mix(theme.bg, theme.green, 0.7)
+      : mix(theme.bg, theme.soft, 0.3)
+
 /** Rows with the cursor on one of them. */
 export function List({ card, theme, plain, shown, start, selected, width, boxRef }: ListProps) {
   return (
@@ -233,6 +242,11 @@ export function List({ card, theme, plain, shown, start, selected, width, boxRef
                 <Text color={theme.fg} bold={on}>
                   {on && plain ? bold(row.title) : row.title}
                 </Text>
+                {row.light && (
+                  <Text color={lightColor(theme, row.light)}>
+                    {row.light === "ring" ? " ◦" : " •"}
+                  </Text>
+                )}
                 {row.detail && <Text color={theme.soft}>{`  ${row.detail}`}</Text>}
               </Text>
             </Box>

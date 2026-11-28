@@ -49,4 +49,9 @@ describe("a list", () => {
     assert.match(text, /Example Works {2}Founding Engineer/)
     assert.equal(text.match(/Example Works/g)?.length, 2)
   })
+
+  it("shows a light between a project's name and its line", () => {
+    const home = views(FIXTURE)[0]!
+    assert.match(draw(home.sections, 0, 100), /Widget • {2}A widget for small jobs\./)
+  })
 })

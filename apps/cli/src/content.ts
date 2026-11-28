@@ -4,12 +4,28 @@
  */
 import type { Card } from "@multiverse/content/card"
 import { formatRange, hostname, isoDate } from "@multiverse/content/format"
-import { KEY_PAGES, REPOSITORY_URL } from "@multiverse/sanity/constants"
+import { KEY_PAGES, PROJECT_STATUSES, REPOSITORY_URL } from "@multiverse/sanity/constants"
 import type { Mood } from "@multiverse/ui/gri"
+
+/**
+ * The light after a project's name, as on the home page: a ring before people can get it, off
+ * when it is archived, on in between.
+ */
+export type Light = "ring" | "on" | "off"
+
+const LIGHTS: Record<string, Light> = { waitlist: "ring", archived: "off" }
+
+/** The name of a project's status, and its light. */
+export function statusOf(project: Card["projects"][number]) {
+  const status = PROJECT_STATUSES.find(({ value }) => value === project.status)
+  return status && { title: status.title, light: LIGHTS[status.value] ?? ("on" as const) }
+}
 
 /** One line of a list: a place to go. */
 export interface Row {
   title: string
+  /** A project's light, after the title. */
+  light?: Light
   /** More about the row, after the title. */
   detail?: string
   /** A date or a period, at the right. */
@@ -59,7 +75,10 @@ export function intro(card: Card): string[] {
     if (side) parts.push(" and teach new developers at ", side.organization)
     parts.push(". ")
   } else parts.push("")
-  parts[parts.length - 1] += "I also make developer tools for humans, and lately for AI agents too."
+  parts[parts.length - 1] +=
+    card.projects.length > 0
+      ? "I also make developer tools and small apps, for humans and lately for AI agents too."
+      : "I also make developer tools for humans, and lately for AI agents too."
   if (card.location) {
     parts[parts.length - 1] += " I live in "
     parts.push(card.location, ".")
@@ -172,6 +191,22 @@ export function views(card: Card): View[] {
 
   const full = (sections: Section[]) => sections.filter((section) => section.rows.length > 0)
 
+  /** The projects, under the name that the page gives the list. */
+  const projects = (heading: string): Section => ({
+    heading,
+    rows: card.projects.map((project) => {
+      const status = statusOf(project)
+      return {
+        title: project.name,
+        light: status?.light,
+        detail: project.tagline ?? project.summary,
+        url: project.url ?? `${card.website}/work#projects`,
+        group: "Projects",
+        keywords: [status?.title, ...project.technologies].filter(Boolean).join(" "),
+      }
+    }),
+  })
+
   const work: Section[] = [
     {
       heading: "Experience",
@@ -183,16 +218,7 @@ export function views(card: Card): View[] {
         group: "Experience",
       })),
     },
-    {
-      heading: "Projects",
-      rows: card.projects.map((project) => ({
-        title: project.name,
-        detail: project.summary,
-        url: project.url ?? `${card.website}/work#projects`,
-        group: "Projects",
-        keywords: project.technologies.join(" "),
-      })),
-    },
+    projects("Projects"),
     {
       heading: "Talks",
       rows: card.talks.map((talk) => ({
@@ -262,11 +288,17 @@ export function views(card: Card): View[] {
   ]
 
   return [
-    // The home page: the shortcuts, then a part of every list, in the order of the site.
+    // The home page: the shortcuts, then the lists of the site's home page, in its order.
     {
       key: "home",
       label: "Home",
-      sections: full([{ rows: shortcuts }, ...work.slice(0, 3), blog[0]!]),
+      sections: full([
+        { rows: shortcuts },
+        projects("Apps and things"),
+        work[0]!,
+        work[2]!,
+        blog[0]!,
+      ]),
     },
     { key: "work", label: "Work", sections: full(work) },
     { key: "blog", label: "Blog", sections: full(blog) },
