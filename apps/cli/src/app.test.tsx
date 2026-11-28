@@ -10,13 +10,14 @@ import { fitScroll, lineOfRow, toLines, windowOf } from "./list"
 import { THEMES } from "./theme"
 
 /** A list as the card draws it: the cursor on `selected`, in `height` lines. */
-function draw(sections: Section[], selected: number, height: number) {
-  const lines = toLines(sections)
+function draw(sections: Section[], selected: number, height: number, plain = false) {
+  const lines = toLines(sections, 76)
   const start = fitScroll(lines, 0, lineOfRow(lines, selected), height)
   return renderToString(
     <List
       card={FIXTURE}
       theme={THEMES.dark}
+      plain={plain}
       shown={windowOf(lines, start, height)}
       start={start}
       selected={selected}
@@ -53,5 +54,19 @@ describe("a list", () => {
   it("shows a light between a project's name and its line", () => {
     const home = views(FIXTURE)[0]!
     assert.match(draw(home.sections, 0, 100), /Widget • {2}A widget for small jobs\./)
+  })
+
+  it("puts the rest of a long line under it, and cuts nothing", () => {
+    const detail = "Nine extensions that add more models to the chat of an editor, for a test."
+    const row = {
+      title: "Bridges",
+      light: "off" as const,
+      detail,
+      url: "https://example.com",
+      group: "Rows",
+    }
+    const text = draw([{ rows: [row] }], 0, 100)
+    assert.match(text, /❯ Bridges • {2}Nine extensions .* chat of an +→\n {4}editor, for a test\./)
+    assert.doesNotMatch(text, /…/)
   })
 })

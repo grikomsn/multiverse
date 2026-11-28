@@ -29,7 +29,7 @@ import {
   type Row,
 } from "./content"
 import { faceRows, moveOf, SMALL_FACES, type Depth, type FaceSize } from "./face"
-import { fitScroll, lineOfRow, nearestRow, toLines, windowOf, type Line } from "./list"
+import { fitScroll, lineOfRow, nearestRow, REST_INDENT, toLines, windowOf, type Line } from "./list"
 import { liveCard } from "./load"
 import { copyText, openUrl } from "./open"
 import type { Input, TerminalEvent } from "./pointer"
@@ -234,6 +234,18 @@ export function List({ card, theme, plain, shown, start, selected, width, boxRef
         }
         const { row } = line
         const on = line.index === selected
+        if (line.kind === "rest")
+          return (
+            <Box key={key} backgroundColor={on ? theme.tint : undefined}>
+              <Text>{" ".repeat(2 + REST_INDENT)}</Text>
+              <Box flexGrow={1} flexShrink={1} flexBasis={0}>
+                <Text wrap="truncate-end" color={theme.soft}>
+                  {line.text}
+                </Text>
+              </Box>
+              <Text>{"  "}</Text>
+            </Box>
+          )
         return (
           <Box key={key} backgroundColor={on ? theme.tint : undefined}>
             <Text color={theme.accentInk}>{on ? "❯ " : "  "}</Text>
@@ -247,7 +259,7 @@ export function List({ card, theme, plain, shown, start, selected, width, boxRef
                     {row.light === "ring" ? " ◦" : " •"}
                   </Text>
                 )}
-                {row.detail && <Text color={theme.soft}>{`  ${row.detail}`}</Text>}
+                {line.detail && <Text color={theme.soft}>{`  ${line.detail}`}</Text>}
               </Text>
             </Box>
             <Text color={theme.soft}>{row.date ? `  ${row.date}` : ""}</Text>
@@ -365,7 +377,6 @@ export function App({
   const [cursors, setCursors] = useState<number[]>(() => list.map(() => 0))
   const [scrolls, setScrolls] = useState<number[]>(() => list.map(() => 0))
   const view = list[viewAt]!
-  const viewLines = useMemo(() => toLines(view.sections), [view])
   const viewRows = view.sections.flatMap((section) => section.rows)
 
   // The search bar: `undefined` while it is closed.
@@ -388,6 +399,7 @@ export function App({
 
   // The sizes. The column is narrow, as on the site; the wave and the band take the full width.
   const width = Math.max(20, Math.min(columns - 4, 84))
+  const viewLines = useMemo(() => toLines(view.sections, width), [view, width])
   const band = !braille ? 0 : rows >= 28 ? 2 : rows >= 22 ? 1 : 0
   const body = rows - 2 - 3 - band
   const home = view.key === "home" && query === undefined
@@ -645,7 +657,8 @@ export function App({
     const rowsBox = inside(listRef, x, y)
     if (rowsBox) {
       const line = shown[rowsBox.dy]
-      if (line?.kind === "row") return { id: `row:${line.index}`, kind: "row", index: line.index }
+      if (line?.kind === "row" || line?.kind === "rest")
+        return { id: `row:${line.index}`, kind: "row", index: line.index }
       if (line?.kind === "more") return { id: `more:${line.to}`, kind: "more", to: line.to }
       return undefined
     }

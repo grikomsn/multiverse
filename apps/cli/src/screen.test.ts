@@ -266,3 +266,75 @@ describe("a long list", () => {
     assert.equal(nearestRow(toLines([]), 0, 5, 0), undefined)
   })
 })
+
+describe("a row with a long detail", () => {
+  const detail = "Nine extensions that add more models to the chat of an editor."
+  const rows = [
+    { title: "Short", detail: "Fits.", url: "https://example.com/a", group: "Rows" },
+    { title: "Bridges", light: "on" as const, detail, url: "https://example.com/b", group: "Rows" },
+    { title: "Stop", detail, date: "2025 — now", url: "https://example.com/c", group: "Rows" },
+    { title: "Last", url: "https://example.com/d", group: "Rows" },
+  ]
+  /** A row's lines as text: the title and the detail of the first, then the others. */
+  const text = (lines: ReturnType<typeof toLines>, index: number) =>
+    lines.flatMap((line) =>
+      line.kind === "row" && line.index === index
+        ? [[line.row.title, line.detail].filter(Boolean).join("  ")]
+        : line.kind === "rest" && line.index === index
+          ? [line.text]
+          : [],
+    )
+
+  it("is one line when it fits, and with no width", () => {
+    assert.equal(toLines([{ rows }]).length, 4)
+    assert.equal(toLines([{ rows }], 84).length, 4)
+    assert.deepEqual(text(toLines([{ rows }], 84), 1), [`Bridges  ${detail}`])
+  })
+
+  it("goes on at the next lines, and cuts no word", () => {
+    for (const width of [20, 30, 44, 60, 76]) {
+      const lines = toLines([{ rows }], width)
+      for (const index of [1, 2]) {
+        const [first, ...rest] = text(lines, index)
+        assert.equal([first!.split("  ")[1], ...rest].filter(Boolean).join(" "), detail)
+        // The cursor, the arrow, the light and the date take room on the first line.
+        const taken = 4 + (index === 1 ? 2 : 0) + (index === 2 ? 12 : 0)
+        assert.ok(first!.length + taken <= width || !first!.includes("  "), `${width}: ${first}`)
+        for (const line of rest) assert.ok(line.length <= width - 6, `${width}: ${line}`)
+      }
+      assert.deepEqual(text(lines, 0), ["Short  Fits."])
+    }
+    assert.deepEqual(text(toLines([{ rows }], 44), 1), [
+      "Bridges  Nine extensions that add more",
+      "models to the chat of an editor.",
+    ])
+  })
+
+  it("leaves no word alone on the last line", () => {
+    // "… of an" and "editor." without the rule.
+    assert.deepEqual(text(toLines([{ rows }], 71), 1), [
+      "Bridges  Nine extensions that add more models to the chat of",
+      "an editor.",
+    ])
+  })
+
+  it("keeps every line of the row under the cursor on the screen", () => {
+    const lines = toLines([{ rows }], 30)
+    const height = 6
+    let start = 0
+    for (const index of [0, 1, 2, 3, 2, 1, 0]) {
+      start = fitScroll(lines, start, lineOfRow(lines, index), height)
+      const shown = windowOf(lines, start, height).filter(
+        (line) => (line.kind === "row" || line.kind === "rest") && line.index === index,
+      )
+      assert.equal(shown.length, text(lines, index).length, `row ${index}`)
+    }
+  })
+
+  it("finds the row of a later line", () => {
+    const lines = toLines([{ rows }], 44)
+    // Short, Bridges, its second line, Stop, …
+    assert.equal(lines[2]?.kind, "rest")
+    assert.equal(nearestRow(lines, 0, 20, 2), 1)
+  })
+})
