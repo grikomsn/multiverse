@@ -1,0 +1,82 @@
+---
+/**
+ * One project in the home page's list: its icon, its name, a light for its status, and one
+ * line about it. The whole row opens the project (`row-link`). The icon is drawn in the text
+ * color, and in the accent color while the pointer or the focus is on the row.
+ */
+import { PROJECT_STATUSES } from "@multiverse/sanity/constants"
+
+import { markSource } from "../lib/inline-image"
+
+interface Props {
+  project: {
+    name: string | null
+    status?: string | null
+    url?: string | null
+    repoUrl?: string | null
+    tagline?: string | null
+    summary?: string | null
+    icon?: { url: string | null; extension?: string | null } | null
+  }
+}
+
+const { project } = Astro.props
+const href = project.url ?? project.repoUrl
+const status = PROJECT_STATUSES.find(({ value }) => value === project.status)
+// The light: a ring before people can get it, grey when it is archived, green in between.
+const LIGHT: Record<string, string> = {
+  waitlist: "border border-accent/80",
+  archived: "bg-soft/30",
+}
+// The icon is a mask, so it takes the colors of the page. A mask must be part of the page.
+const mark = await markSource(project.icon)
+---
+
+<li class:list={["grid grid-cols-[auto_1fr] items-center gap-x-5 py-2.5", href && "row-link"]}>
+  <span class="app-mark" style={mark && `--mark: url("${mark}")`} aria-hidden="true" />
+  <p class="min-w-0">
+    {href ? (
+      <a class="title-link font-semibold" href={href} data-row>
+        {project.name}
+        <span aria-hidden="true" data-row-arrow>
+          {/^https?:/.test(href) ? "↗" : "→"}
+        </span>
+      </a>
+    ) : (
+      <span class="font-semibold">{project.name}</span>
+    )}
+    {status && (
+      <span
+        class:list={[
+          "relative -top-px z-1 ml-2 inline-block size-1.5 rounded-full align-middle",
+          LIGHT[status.value] ?? "bg-mark-green-ink/70",
+        ]}
+        title={status.title}
+      >
+        <span class="sr-only">{status.title}</span>
+      </span>
+    )}
+    <span class="block text-[0.9375rem] text-soft">{project.tagline ?? project.summary}</span>
+  </p>
+</li>
+
+<style>
+  /* 20 px for an icon on a grid of 12 dots. It has no plate: the dots sit on the page. */
+  .app-mark {
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: var(--color-fg);
+    mask: var(--mark) center / contain no-repeat;
+    transition: background-color 150ms var(--ease-out-quart);
+  }
+
+  li:has([data-row]:focus-visible) .app-mark {
+    background-color: var(--color-accent);
+  }
+
+  @media (hover: hover) {
+    li:hover .app-mark {
+      background-color: var(--color-accent);
+    }
+  }
+</style>

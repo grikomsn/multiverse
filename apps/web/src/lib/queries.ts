@@ -32,8 +32,8 @@ export const HOME_QUERY = defineQuery(`{
   "posts": *[_type == "post" && visibility == "listed"] | order(publishedAt desc) [0...5] {
     _id, title, "slug": slug.current, publishedAt, excerpt
   },
-  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) [0...4] {
-    ${PROJECT}, ${PROJECT_ICON}
+  "projects": *[_type == "project" && featured == true && status != "discontinued"] | order(orderRank) {
+    ${PROJECT}, tagline, ${PROJECT_ICON}
   },
   "talks": *[_type == "talk"] | order(date desc) [0...4] { ${TALK} }
 }`)
