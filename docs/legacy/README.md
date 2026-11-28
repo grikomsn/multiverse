@@ -51,7 +51,7 @@ Not yet covered (newly discovered):
 
 - The root `package.json` lists `tailwindcss` and `postcss` so Bun hoists Tailwind 4 and PostCSS 8. Without them, a toolchain's Tailwind 1 or PostCSS 7 could take the root slot.
 - The index (`src/pages/index.astro`) uses the new design and lists every `edition` with status, period, stack and screenshot.
-- Content comes from today's documents (`LIVE_SITE_QUERY` in `packages/content`) through `src/lib/live.ts` and each edition's `live.ts`. The `edition` document (`EDITION_QUERY`) gives dates and design assets. See [redesign.md](../redesign.md#how-the-archive-shows-current-content).
+- Content comes from today's documents (`LIVE_SITE_QUERY` in `src/lib/queries.ts`) through `src/lib/live.ts` and each edition's `live.ts`. The `edition` document (`EDITION_QUERY`) gives dates and design assets. See [redesign.md](../redesign.md#how-the-archive-shows-current-content).
 - `build.format: "preserve"` emits `<key>/404.html`, which the Worker's `404-page` handling serves for missing paths inside each version.
 - Old CSS carries IE hacks (`*zoom`), so Lightning CSS runs with `errorRecovery`.
 - Every archived page gets `noindex`, a canonical URL pointing at the archive URL (all versions hard-code the lapsed griko.id), and a small “archived version” banner, as the 2019 v2.griko.id copy had. The banner is one line in the lower right corner. An edition keeps the 48 px above the lower edge free for it; `apps/archive/src/shell/archive-banner.astro` says how.

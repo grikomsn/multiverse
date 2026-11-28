@@ -1,4 +1,4 @@
-import type { LiveSite } from "@multiverse/content/live"
+import type { LiveSite } from "../../lib/live"
 
 import { type Entry, type LiveSettings, aboutText, article, block } from "../../lib/live"
 

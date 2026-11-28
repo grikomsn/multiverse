@@ -86,8 +86,8 @@ The full field map is in [legacy/data-map.md](legacy/data-map.md).
 ### Design: one current-data layer, one adapter, per-edition settings
 
 ```
-packages/content  getLiveSite()      profile, home, posts, projects, talks, experience, skills, pages
-                        │                (also used by apps/web, so both sites read the same data)
+apps/archive      LIVE_SITE_QUERY    profile, home, posts, projects, talks, experience, skills, pages
+                        │                (the same fragments as apps/web, so both sites read the same data)
 apps/archive      toEdition(live, edition, settings)  →  the existing `Edition` shape
                         │
 src/editions/<key>/settings.ts       label for each platform, talk icon for each kind, intro template,
@@ -145,7 +145,7 @@ All steps done on 2026-11-16, one commit each:
 1. `packages/content`: shared client and format helpers.
 2. `packages/ui` and the new tokens; redesign of `web` (home, blog, post, work, pages, 404).
 3. `media` and the archive index on the shared shell. `resume` gets the tokens and font, and stays light because it is a printed document.
-4. `getLiveSite()` and `LIVE_SITE_QUERY` in `packages/content`. `web` keeps its own per-page queries. They fetch only what each page shows; the live query loads every post body for the archive.
+4. `getLiveSite()` and `LIVE_SITE_QUERY` in `packages/content` (moved to `apps/archive/src/lib` on 2026-11-28, the only app that reads them). `web` keeps its own per-page queries. They fetch only what each page shows; the live query loads every post body for the archive.
 5. Archive adapter (`apps/archive/src/lib/live.ts`), with a `live.ts` for all 14 editions.
 6. `src/editions/_kit`: shared asset helpers, dates and the embed component.
 

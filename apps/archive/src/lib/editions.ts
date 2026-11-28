@@ -1,7 +1,5 @@
-import { getLiveSite } from "@multiverse/content/live"
-
 import { type Edition, type LiveSettings, toEdition } from "./live"
-import { EDITION_QUERY } from "./queries"
+import { EDITION_QUERY, LIVE_SITE_QUERY } from "./queries"
 import { webLinks } from "./web"
 import { sanity } from "./sanity"
 
@@ -15,6 +13,12 @@ const SETTINGS = Object.fromEntries(
 
 const cache = new Map<string, Promise<Edition>>()
 
+let live: ReturnType<typeof readLive> | undefined
+const readLive = () => sanity.fetch(LIVE_SITE_QUERY)
+
+/** Today's content, in one read per build, shared by every edition. */
+const liveSite = () => (live ??= readLive())
+
 /** One fetch per edition per build, shared by all of its pages. */
 export function getEdition(key: string): Promise<Edition> {
   let edition = cache.get(key)
@@ -24,7 +28,7 @@ export function getEdition(key: string): Promise<Edition> {
       const settings = SETTINGS[key]
       if (!settings) throw new Error(`Edition "${key}" has no src/editions/${key}/live.ts`)
       // In dev, links into nibras.co inside today's data point at the local site (lib/web.ts).
-      return toEdition(result, webLinks(await getLiveSite(sanity)), settings)
+      return toEdition(result, webLinks(await liveSite()), settings)
     })
     cache.set(key, edition)
   }

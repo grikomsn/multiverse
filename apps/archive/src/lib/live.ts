@@ -5,11 +5,18 @@
  * labels), how it names and groups things, and its intro in its own sentence pattern. No fact
  * comes from the period: names, roles, links, projects and pages are all current.
  */
-import type { LiveSite } from "@multiverse/content/live"
 import { groupByOrganization } from "@multiverse/content/format"
-import type { EDITION_QUERY_RESULT, PartialDate, RichText } from "@multiverse/sanity/types"
+import type {
+  EDITION_QUERY_RESULT,
+  LIVE_SITE_QUERY_RESULT,
+  PartialDate,
+  RichText,
+} from "@multiverse/sanity/types"
 
 import { FALLBACK_NAME, platformLabel } from "@multiverse/sanity/constants"
+
+/** Today's content, as `LIVE_SITE_QUERY` reads it. */
+export type LiveSite = LIVE_SITE_QUERY_RESULT
 
 export type Block = RichText[number]
 type TextBlock = Extract<Block, { _type: "block" }>
